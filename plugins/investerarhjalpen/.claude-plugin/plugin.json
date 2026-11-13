@@ -1,6 +1,6 @@
 {
   "name": "investerarhjalpen",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Investerarhjälpen: faktabaserad aktieresearch på svenska för nybörjare. Bolagsanalyser med bevisnivåer, morgonkoll, månatliga djupdykningar, bolagsjakt, Skolan och en egen webbsida med portfölj.",
   "author": {"name": "Kimm"}
 }

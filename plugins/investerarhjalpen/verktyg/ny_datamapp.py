@@ -28,7 +28,7 @@ for f in mall.rglob("*"):
     except UnicodeDecodeError:
         shutil.copy2(f, mal)
     skapade.append(str(mal.relative_to(ut)))
-for f, innehall in [("radar/radar.json", "null"), ("radar/triage.json", '{"triage": []}'), ("radar/uteslutna.json", '{"uteslutna": []}')]:
+for f, innehall in [("radar/radar.json", "null"), ("radar/triage.json", '{"bolag": {}}'), ("radar/uteslutna.json", '{"bolag": []}'), ("radar/signaler.json", '{"signaler": []}')]:
     p = ut / f
     if not p.exists(): p.write_text(innehall + "\n", encoding="utf-8"); skapade.append(f)
 print("Datamapp:", ut); print("Skapade:", ", ".join(skapade) or "inget nytt")
