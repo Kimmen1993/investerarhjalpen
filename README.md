@@ -25,25 +25,16 @@ Verktyget ger **aldrig** råd om att köpa eller sälja. Besluten är alltid din
 2. Välj en mapp när appen frågar, till exempel **Dokument**. Det spelar ingen roll vilken.
 
 ### Steg 4. Installera verktyget
-Skriv (eller klistra in) exakt det här i skrivrutan och tryck **Enter**:
+Kopiera hela meningen nedan, klistra in den i skrivrutan och tryck **Enter**:
 
 ```
-/plugin marketplace add Kimmen1993/investerarhjalpen
+Installera tillägget Investerarhjälpen åt mig från GitHub-arkivet Kimmen1993/investerarhjalpen. Kör Claude Codes eget program som följer med appen (sök efter Contents/MacOS/claude under ~/Library/Application Support/Claude/claude-code/) med: plugin install investerarhjalpen@investerarhjalpen --marketplace Kimmen1993/investerarhjalpen. Slå sedan på automatiska uppdateringar genom att sätta "autoUpdate": true på investerarhjalpen under extraKnownMarketplaces i ~/.claude/settings.json.
 ```
 
-Skriv sedan det här och tryck **Enter**:
+Claude installerar och säger till när det är klart. Får du en fråga om att tillåta ett kommando: klicka **Tillåt** (eller **Allow**).
 
-```
-/plugin install investerarhjalpen@investerarhjalpen
-```
-
-Välj **Install for you** om appen frågar.
-
-> Fungerar inte det? Klicka på **+** bredvid skrivrutan → **Plugins** (eller **Add plugins**) → **Marketplaces** → lägg till `Kimmen1993/investerarhjalpen` → installera **investerarhjalpen**.
-
-### Steg 5. Slå på automatiska uppdateringar (viktigt)
-Då får du rättningar och nya funktioner av sig själv.
-- Klicka på **+** → **Plugins** → **Marketplaces** → **investerarhjalpen** → **Enable auto-update**.
+### Steg 5. Starta en ny session
+Tillägget börjar gälla i en **ny** session. Klicka på **New session** (eller **Ny session**) uppe till vänster och välj samma mapp som förut.
 
 ### Steg 6. Starta
 Skriv i skrivrutan:
@@ -91,4 +82,4 @@ Skriv vanlig svenska i Code-fliken. Till exempel:
 
 ---
 
-*För den som underhåller verktyget:* tillägget ligger i `plugins/investerarhjalpen/`. Användarens data ligger i användarens egen mapp (med `installningar.json`) och rörs aldrig av uppdateringar. Höj `version` i `plugins/investerarhjalpen/.claude-plugin/plugin.json` och skriv en rad i `ANDRINGAR.md` vid varje ändring.
+*För den som underhåller verktyget:* tillägget ligger i `plugins/investerarhjalpen/`. Användarens data ligger i användarens egen mapp (med `installningar.json`) och rörs aldrig av uppdateringar. Skriv en rad i `ANDRINGAR.md` vid varje ändring. Versionen räknas fram ur git, så varje uppladdning når användarna.

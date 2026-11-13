@@ -9,7 +9,7 @@ description: Hämtar senaste versionen av Investerarhjälpen-tillägget och bygg
 
 Användarens data (bolag, journal, strategi, portfölj) rörs aldrig av en uppdatering.
 
-1. Försök i terminalen: `claude plugin update investerarhjalpen@investerarhjalpen`. Fungerar det: säg att uppdateringen är hämtad och att den gäller från nästa session (eller efter `/reload-plugins`).
+1. Kör Claude Codes program som följer med appen (sök efter `Contents/MacOS/claude` under `~/Library/Application Support/Claude/claude-code/`; finns `claude` i terminalen går det också): `<programmet> plugin update investerarhjalpen@investerarhjalpen`. Fungerar det: säg att uppdateringen är hämtad och att den gäller från nästa session (eller efter `/reload-plugins`).
 2. Fungerar kommandot inte (till exempel för att `claude` inte finns i terminalen): be användaren klicka på **+** bredvid skrivrutan → **Plugins** → **Marketplaces** → **investerarhjalpen** → **Update marketplace**, och gärna **Enable auto-update** så att det sker av sig självt framöver.
 3. När den nya versionen är laddad: kör `cd "<datamappen>" && python3 -I "$IH/verktyg/bygg_sida.py"` och publicera `site/index.html` till `sida_url` i `installningar.json` (utelämna `capabilities`).
 4. Berätta kort vad som är nytt om `$IH/ANDRINGAR.md` finns (de senaste raderna).

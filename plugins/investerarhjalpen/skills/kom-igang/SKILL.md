@@ -40,7 +40,7 @@ Använd verktyget för schemalagda uppgifter och skapa två uppgifter (fråga f�
 Förklara att datorn och Claude-appen behöver vara igång vid de tiderna; annars körs uppgiften nästa gång appen är öppen.
 
 ## 7. Uppdateringar
-Säg en gång, enkelt: "Verktyget får förbättringar. Slå på automatiska uppdateringar: klicka på **+** bredvid skrivrutan → **Plugins** → **Marketplaces** → investerarhjalpen → **Enable auto-update**. Eller skriv 'uppdatera verktyget' när du vill."
+Kontrollera att `~/.claude/settings.json` har `"autoUpdate": true` på `investerarhjalpen` under `extraKnownMarketplaces`. Saknas det: lägg till det (ändra inget annat i filen). Säg sedan en gång, enkelt: "Verktyget hämtar förbättringar av sig självt. Vill du hämta direkt kan du skriva 'uppdatera verktyget'."
 
 ## 8. Första bolaget och portföljen
 - Fråga vilket bolag användaren vill börja med, och kör `/investerarhjalpen:bolagsanalys <bolag>`. Säg att en första analys tar en stund.

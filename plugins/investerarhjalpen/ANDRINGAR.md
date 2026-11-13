@@ -1,5 +1,9 @@
 # Ändringar
 
+## 2026-11-13 (kväll)
+- Enklare installation: en mening att klistra in. Automatiska uppdateringar slås på av Claude.
+- Versionen följer GitHub, så alla rättningar når användarna direkt.
+
 ## 1.0.1 – 2026-11-13
 - Rättat: radarn kraschade i en helt ny mapp. Listan över storbolag som radarn hoppar över följer nu med.
 
