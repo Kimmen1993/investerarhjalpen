@@ -1,0 +1,12 @@
+{
+  "name": "investerarhjalpen",
+  "description": "Investerarhjälpen – aktieresearch med Claude",
+  "owner": {"name": "Kimm"},
+  "plugins": [
+    {
+      "name": "investerarhjalpen",
+      "source": "./plugins/investerarhjalpen",
+      "description": "Bolagsanalyser, morgonkoll, djupdykningar, bolagsjakt, Skolan och en egen webbsida med portfölj."
+    }
+  ]
+}

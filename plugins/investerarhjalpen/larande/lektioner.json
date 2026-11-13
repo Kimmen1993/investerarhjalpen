@@ -1,0 +1,364 @@
+{
+ "lektioner": [
+  {
+   "id": "arsredovisning",
+   "titel": "Årsredovisningen på 5 minuter: tre tabeller som säger allt",
+   "niva": "Grund",
+   "minuter": 5,
+   "text": "En rapport (årsredovisning eller kvartalsrapport) består nästan alltid av samma tre tabeller. Lär dig dem så kan du läsa vilket bolag som helst.\n\n**1. Resultaträkningen: tjänade bolaget pengar?**\nUppifrån och ned: *nettoomsättning* (det som fakturerats) minus kostnader blir *rörelseresultat*, och efter räntor och skatt blir det *årets resultat*.\n*Ferroamp Q3 2026:* omsättning 58 MSEK, EBITDA −5 MSEK. Försäljningen är stor, men det blir fortfarande förlust.\n\n**2. Balansräkningen: vad äger och vad skyldar bolaget?**\nTillgångar (kassa, lager, kundfordringar, aktiverad utveckling) = eget kapital + skulder. Det är en ögonblicksbild på rapportdagen.\n*Ferroamp 30 sep 2026:* kassa 6 MSEK, lager 87 MSEK, räntebärande skulder 38 MSEK. Mycket pengar sitter i lagret och lite i kassan.\n\n**3. Kassaflödesanalysen: vart tog pengarna vägen?**\nTre delar: *löpande verksamhet* (själva affären), *investeringar* (till exempel utveckling) och *finansiering* (emissioner och lån).\n*Ferroamp Q3:* +6 MSEK från affären, −2 MSEK i investeringar. För första gången på länge bär affären sig själv.\n\n**Ordningen proffsen läser i:** 1) kassaflödet, 2) balansräkningen, 3) resultaträkningen, 4) vd-ordet sist. Vd-ordet är reklam; tabellerna är fakta.",
+   "prova": "Öppna Ferroamps rapport för Q3 2026 (länk i Ferroamps källor) och leta upp de tre tabellerna. Vad var 'Likvida medel vid periodens slut'?",
+   "quiz": [
+    {
+     "fraga": "Vilken tabell visar om bolaget faktiskt fick in pengar på kontot?",
+     "alternativ": [
+      "Resultaträkningen",
+      "Balansräkningen",
+      "Kassaflödesanalysen"
+     ],
+     "ratt": 2,
+     "forklaring": "Kassaflödesanalysen visar de verkliga pengarna; resultatet kan påverkas av bokföringsval."
+    },
+    {
+     "fraga": "Var hittar du hur stort lagret är?",
+     "alternativ": [
+      "Resultaträkningen",
+      "Balansräkningen",
+      "Vd-ordet"
+     ],
+     "ratt": 1,
+     "forklaring": "Lagret är en tillgång och står i balansräkningen."
+    }
+   ]
+  },
+  {
+   "id": "kassaflode",
+   "titel": "Kassaflödet avslöjar sanningen",
+   "niva": "Grund",
+   "minuter": 5,
+   "text": "Vinst och pengar är inte samma sak. Ett bolag kan visa en liten förlust men göra av med mycket mer pengar, eller tvärtom.\n\n**Varför skiljer det sig?**\n- **Aktiverad utveckling:** bolaget bokför utvecklingskostnader som en tillgång. Kostnaden syns då inte i resultatet direkt, men pengarna har ändå gått ut.\n- **Lager och kundfordringar:** säljer bolaget på kredit eller bygger lager binds pengar, utan att det syns i resultatet.\n\n**Exempel från Unibap:** senaste året var rörelseresultatet **−15 MSEK**, men kassaflödet före finansiering **−40 MSEK**. Skillnaden är främst aktiverad utveckling (ca 44 MSEK) och avskrivningar (ca 27 MSEK).\n\n**Exempel från Ferroamp:** Q1 2026 gick 33 MSEK ut ur den löpande verksamheten fast EBITDA bara var −9 MSEK. Bolaget byggde lager och förskottsbetalade komponenter inför tillväxten.\n\n**Tumregel:** titta alltid på *kassaflöde från löpande verksamhet + investeringar* (fritt kassaflöde). Det är det beloppet som avgör om bolaget behöver ta in pengar.",
+   "prova": "Jämför för Unibap: rörelseresultat senaste 12 mån och kassaflöde före finansiering (Nyckeltal-panelen i Unibaps akt). Hur stor är skillnaden?",
+   "quiz": [
+    {
+     "fraga": "Unibap redovisar −15 MSEK i resultat men −40 MSEK i kassaflöde. Vad är den troligaste förklaringen?",
+     "alternativ": [
+      "Bolaget har fuskat",
+      "Utvecklingskostnader aktiveras som tillgång",
+      "Skatten var hög"
+     ],
+     "ratt": 1,
+     "forklaring": "Aktiverad utveckling flyttar kostnaden från resultatet till balansräkningen, men pengarna går ut ändå."
+    },
+    {
+     "fraga": "Vad kallas löpande kassaflöde plus investeringar?",
+     "alternativ": [
+      "Fritt kassaflöde",
+      "Bruttomarginal",
+      "EBITDA"
+     ],
+     "ratt": 0,
+     "forklaring": "Fritt kassaflöde visar hur mycket pengar som blir över, eller saknas, efter investeringarna."
+    }
+   ]
+  },
+  {
+   "id": "marginal",
+   "titel": "Bruttomarginalen: hur mycket blir kvar av varje såld krona?",
+   "niva": "Grund",
+   "minuter": 4,
+   "text": "**Bruttomarginal** = (försäljning − vad produkten kostade att göra) / försäljning.\n\n- **Ferroamp:** ca **21 %**. Av varje såld krona blir 21 öre kvar till löner, utveckling och vinst. Det är lågt för teknik, och därför måste bolaget sälja mycket för att gå med vinst.\n- **Mjukvarubolag** har ofta 70–90 %. Därför värderas de högre per såld krona.\n- **Unibap** har målet 70–85 % på hårdvara och 95–100 % på mjukvara (2024). Det redovisas inte i siffror, men är värt att följa.\n\n**Därför spelar det roll:** med hög bruttomarginal blir varje extra såld enhet nästan ren vinst (det kallas skalbarhet). Med låg marginal kan bolaget växa kraftigt och ändå gå med förlust.\n\n**Vad du ska titta efter:** stiger marginalen kvartal för kvartal? Ferroamp säger att marginalen förbättras först med nästa produktgeneration 2027. Det är ett löfte att följa upp.",
+   "prova": "Leta upp bruttomarginalen i Ferroamps flerårsöversikt (Q3 2026). Har den ändrats det senaste året?",
+   "quiz": [
+    {
+     "fraga": "Bolag A har 20 % bruttomarginal, bolag B 80 %. Båda ökar försäljningen med 100 MSEK. Vilket får mest kvar?",
+     "alternativ": [
+      "A (20 MSEK)",
+      "B (80 MSEK)",
+      "Samma"
+     ],
+     "ratt": 1,
+     "forklaring": "Med 80 % marginal blir 80 MSEK kvar; med 20 % bara 20 MSEK."
+    },
+    {
+     "fraga": "Ferroamps bruttomarginal är ca 21 %. Vad behövs för att bolaget ska bli tydligt lönsamt?",
+     "alternativ": [
+      "Mycket större volymer eller högre marginal",
+      "Fler anställda",
+      "Högre aktiekurs"
+     ],
+     "ratt": 0,
+     "forklaring": "Låg marginal kräver stora volymer, eller att marginalen höjs."
+    }
+   ]
+  },
+  {
+   "id": "kassa",
+   "titel": "Kassa, förbrukning och risken för nyemission",
+   "niva": "Grund",
+   "minuter": 4,
+   "text": "För små bolag som går med förlust är den viktigaste frågan: **hur länge räcker pengarna?**\n\n**Räkna så här:** kassa / förbrukning per månad = antal månader kvar.\n- **Unibap:** 83 MSEK / ca 3,3 MSEK per månad ≈ **25 månader**. Gott om tid.\n- **Ferroamp:** 6 MSEK plus 10 MSEK kredit, mot skulder på 38 MSEK. De två senaste kvartalen bar affären sig själv, men marginalen för fel är mycket liten.\n\n**Varför spelar det roll?** När pengarna tar slut gör bolaget en **nyemission**, ofta med rabatt. Då blir dina aktier värda en mindre del av bolaget (se lektionen om utspädning).\n\n**Tecken på att en emission närmar sig:**\n- kassan räcker mindre än 12 månader\n- \"vi utvärderar finansieringsalternativ\"\n- nya lån och fakturabelåning, som Ferroamp gjorde 2026\n\n**Tips:** den bästa tidpunkten att köpa är ofta *direkt efter* en emission, när risken redan är tagen (som för Unibap i juni 2026).",
+   "prova": "Räkna själv: Ferroamps kassa 30 sep 2026 var 6,1 MSEK. Om bolaget förbrukade 3 MSEK per månad, hur många månader skulle det räcka?",
+   "quiz": [
+    {
+     "fraga": "Kassa 60 MSEK, förbrukning 5 MSEK/månad. Hur länge räcker pengarna?",
+     "alternativ": [
+      "6 månader",
+      "12 månader",
+      "24 månader"
+     ],
+     "ratt": 1,
+     "forklaring": "60 / 5 = 12 månader."
+    },
+    {
+     "fraga": "Vad är ofta ett bra läge att köpa i ett förlustbolag?",
+     "alternativ": [
+      "Precis före en emission",
+      "Strax efter en genomförd emission",
+      "Det spelar ingen roll"
+     ],
+     "ratt": 1,
+     "forklaring": "Efter emissionen är utspädningen redan gjord och finansieringen löst för en tid."
+    }
+   ]
+  },
+  {
+   "id": "utspadning",
+   "titel": "Utspädning: när fler aktier äter upp vinsten",
+   "niva": "Grund",
+   "minuter": 4,
+   "text": "Ett bolag som växer kan ändå bli en dålig investering om **antalet aktier** växer snabbare.\n\n**Exempel:**\n- **Ferroamp:** 30,9 miljoner aktier (2023) → 107,9 miljoner (2025). Varje gammal aktie äger nu en knapp tredjedel av vad den gjorde. Kursen föll från 53 kr (2022) till 1,30 kr i emissionen 2025.\n- **Unibap:** 9,9 miljoner (2023) → 72,3 miljoner (2026), alltså **7,3 gånger fler**.\n- **AAC Clyde Space** (historiskt case): försäljningen femdubblades, men aktieägarna fick inte del av det eftersom så många nya aktier gavs ut.\n\n**Räkna per aktie, inte på hela bolaget:** vinst per aktie och kassaflöde per aktie. Ett börsvärde som fördubblas medan antalet aktier fördubblas ger dig ingenting.\n\n**Var hittar du det?** I rapporten under \"Aktien\" eller \"Antal utestående aktier\". Kolla också teckningsoptioner och personaloptioner: de kan bli nya aktier i framtiden.",
+   "prova": "Leta upp 'Antal utestående aktier' i Unibaps senaste rapport och jämför med 2023 (Löftesrevisionen visar historiken).",
+   "quiz": [
+    {
+     "fraga": "Bolagets vinst fördubblas, men antalet aktier fördubblas också. Vad händer med vinsten per aktie?",
+     "alternativ": [
+      "Fördubblas",
+      "Oförändrad",
+      "Halveras"
+     ],
+     "ratt": 1,
+     "forklaring": "Dubbel vinst delat på dubbelt så många aktier ger samma vinst per aktie."
+    },
+    {
+     "fraga": "Var ser du risken för framtida utspädning utöver emissioner?",
+     "alternativ": [
+      "Teckningsoptioner och personaloptioner",
+      "Bruttomarginalen",
+      "Orderingången"
+     ],
+     "ratt": 0,
+     "forklaring": "Optioner kan omvandlas till nya aktier."
+    }
+   ]
+  },
+  {
+   "id": "order",
+   "titel": "Order, ramavtal, avrop och orderstock: vad är värt något?",
+   "niva": "Medel",
+   "minuter": 5,
+   "text": "Pressmeddelanden om \"avtal\" kan betyda väldigt olika saker. Lär dig skillnaden:\n\n| Typ | Betyder | Exempel |\n|---|---|---|\n| **Avsiktsförklaring (LOI)** | Vi vill göra affärer. Inte bindande | Varningsflagga om den säljs in som en order |\n| **Samarbetsavtal** | Vi ska jobba ihop. Sällan pengar direkt | Unibap och Leonardo, okt 2025 |\n| **Ramavtal** | Villkor för flera år. Pengar först vid avrop | Unibap och Loft (3 år) |\n| **Garanterad minimivolym** | Kunden har lovat att köpa minst så mycket | Leonardo: minst 10,6 MEUR på 5 år |\n| **Avrop och order** | En konkret beställning | Loft: 1,39 MEUR (2025), 1,2 MEUR (2026) |\n| **Orderstock och kontrakterat värde** | Beställt men inte levererat än | Unibap: 245 MSEK i år |\n\n**Viktigt:** en order blir omsättning först vid leverans. Fördela avtalsvärdet per år: 10,6 MEUR över 5 år ≈ 24 MSEK per år, inte 120 MSEK direkt.\n\n**Kvalitetstecken:** samma kund kommer tillbaka (avrop efter avrop). Det är mycket starkare än en enskild stor order.",
+   "prova": "Öppna Unibaps kundregister (fliken Kunder) och hitta en kund som har gått från test till ramavtal. Hur lång tid tog det?",
+   "quiz": [
+    {
+     "fraga": "Ett bolag annonserar ett 'ramavtal värt upp till 500 MSEK'. Vad vet du säkert?",
+     "alternativ": [
+      "Bolaget får 500 MSEK",
+      "Villkoren är satta; pengar kommer först vid avrop",
+      "Kunden har betalat i förskott"
+     ],
+     "ratt": 1,
+     "forklaring": "'Upp till' är ett tak. Bara garanterade minimivolymer och faktiska avrop är säkra."
+    },
+    {
+     "fraga": "Vad är det starkaste tecknet på en bra kundrelation?",
+     "alternativ": [
+      "En stor engångsorder",
+      "Återkommande avrop från samma kund",
+      "Ett samarbetsavtal"
+     ],
+     "ratt": 1,
+     "forklaring": "Kunder som kommer tillbaka visar att produkten fungerar."
+    }
+   ]
+  },
+  {
+   "id": "vardering",
+   "titel": "Värdering: börsvärde, EV och multiplar",
+   "niva": "Medel",
+   "minuter": 6,
+   "text": "**Börsvärde** = kurs × antal aktier: vad marknaden betalar för hela bolaget.\n**EV (enterprise value)** = börsvärde − kassa + skulder: vad du egentligen köper.\n**EV/S** = EV / försäljningen senaste 12 månader: hur mycket du betalar per såld krona.\n\n| | Kurs | Börsvärde | EV | EV/S |\n|---|---|---|---|---|\n| Unibap | ca 9,6 kr | ca 690 MSEK | ca 615 MSEK | ca 5,6x |\n| Ferroamp | ca 3,35 kr | ca 360 MSEK | ca 390 MSEK | ca 2,0x |\n\n**Varför är Unibap \"dyrare\"?** Högre marginal, försvarskunder och flera ramavtal. Marknaden betalar mer per krona när framtiden ser säkrare och lönsammare ut.\n\n**Det viktiga:** inte om multipeln är hög eller låg i dag, utan **vad den blir när bolaget når nästa steg**. Ett bolag som går från förlust till vinst brukar få en högre multipel. Det, plus växande försäljning, är så tenbaggers uppstår.\n\n**Omvänd värdering:** dela dagens EV med en rimlig multipel för att se vilken försäljning marknaden redan räknar med. Det gör sidan automatiskt under \"Värdering\".",
+   "prova": "Gå till Unibaps värderingspanel och läs tabellen 'Vad priset redan räknar med'. Vilken försäljning krävs vid 4x?",
+   "quiz": [
+    {
+     "fraga": "Börsvärde 500 MSEK, kassa 100 MSEK, skulder 0. Vad är EV?",
+     "alternativ": [
+      "600 MSEK",
+      "500 MSEK",
+      "400 MSEK"
+     ],
+     "ratt": 2,
+     "forklaring": "EV = 500 − 100 + 0 = 400 MSEK."
+    },
+    {
+     "fraga": "Vad brukar hända med multipeln när ett bolag går från förlust till vinst?",
+     "alternativ": [
+      "Den stiger ofta",
+      "Den sjunker alltid",
+      "Ingenting"
+     ],
+     "ratt": 0,
+     "forklaring": "Lönsamhet minskar risken; marknaden betalar då mer per krona försäljning."
+    }
+   ]
+  },
+  {
+   "id": "vdord",
+   "titel": "Läs vd-ordet kritiskt och följ upp löftena",
+   "niva": "Medel",
+   "minuter": 5,
+   "text": "Vd-ordet är bolagets egen berättelse. Läs det som en **lista med löften** som går att följa upp.\n\n**Tre sorters meningar:**\n1. **Mätbart löfte:** \"positivt kassaflöde under första halvåret\". Skriv ner det med datum.\n2. **Vagt hopp:** \"spännande tider framöver\". Ignorera det, men notera om det kommer ofta.\n3. **Förklaring:** \"försenat på grund av exportlicens\". Kommer den *före* deadline (bra) eller efter (sämre)?\n\n**Ferroamp:** lovade positivt kassaflöde under H1 2025. Det blev −50 MSEK, men bolaget varnade redan i april, så ⚠️ snarare än ❌. Positivt resultat per månad lovades till H2 2025 men kom i augusti 2026, alltså ca 8 månader sent.\n\n**Unibap:** tillväxtmålen följs upp öppet, medan tekniska mål ofta slutar nämnas.\n\n**Därför:** en ledning som brukar vara ett halvår sen med sina mål är det troligen nästa gång också. Lägg på den tiden i dina förväntningar.",
+   "prova": "Läs Ferroamps vd-ord i Q3 2026. Hitta ett nytt mätbart löfte och skriv in det i din journal.",
+   "quiz": [
+    {
+     "fraga": "'Vi ser fortsatt goda möjligheter framöver' är ett …",
+     "alternativ": [
+      "Mätbart löfte",
+      "Vagt hopp",
+      "Förklaring"
+     ],
+     "ratt": 1,
+     "forklaring": "Det går inte att följa upp; det är inget löfte."
+    },
+    {
+     "fraga": "När är en förklaring till ett missat mål mest trovärdig?",
+     "alternativ": [
+      "När den kommer före deadline",
+      "När den kommer efter",
+      "Det spelar ingen roll"
+     ],
+     "ratt": 0,
+     "forklaring": "En ledning som varnar i förväg är mer pålitlig än en som förklarar i efterhand."
+    }
+   ]
+  },
+  {
+   "id": "insyn",
+   "titel": "Insiderköp: när betyder det något?",
+   "niva": "Medel",
+   "minuter": 4,
+   "text": "Personer i ledningen och styrelsen måste anmäla sina affärer till Finansinspektionen. Det kallas insynsregistret.\n\n**Starka signaler:**\n- **Flera personer köper** samtidigt (kluster).\n- Köp **på börsen för egna pengar**, inte tilldelade optioner.\n- **Stora belopp** i förhållande till personens lön.\n- Köp **efter en rapport**, när de vet lika mycket som alla andra. Exempel: Ferroamps ordförande köpte dagen efter Q3-rapporten.\n\n**Svaga signaler:**\n- Tilldelade optioner (del av lönen).\n- Enstaka små köp.\n- Teckning i emissioner (ofta förväntat av styrelsen, men stora belopp betyder ändå något).\n\n**Försäljningar:** kan ha många skäl (skatt, husköp), men flera som säljer samtidigt är en varning.\n\nRadarn letar efter kluster av insiderköp på hela börsen, och nyhetskollen bevakar dina bolag varje morgon.",
+   "prova": "Öppna Insynsregistret (länk under Ferroamps nyheter) och se vilka som köpt och till vilket pris.",
+   "quiz": [
+    {
+     "fraga": "Vilken signal är starkast?",
+     "alternativ": [
+      "Vd får 100 000 optioner",
+      "Tre styrelseledamöter köper aktier på börsen samma vecka",
+      "En ledamot säljer 1 000 aktier"
+     ],
+     "ratt": 1,
+     "forklaring": "Flera personer som köper för egna pengar samtidigt är den starkaste signalen."
+    },
+    {
+     "fraga": "Vad räknas inte som ett starkt köp?",
+     "alternativ": [
+      "Tilldelning av optioner",
+      "Köp på börsen",
+      "Köp i kluster"
+     ],
+     "ratt": 0,
+     "forklaring": "Optioner är en del av ersättningen, inte ett eget beslut att köpa."
+    }
+   ]
+  },
+  {
+   "id": "noter",
+   "titel": "Noterna: där detaljerna gömmer sig",
+   "niva": "Fördjupning",
+   "minuter": 5,
+   "text": "Längst bak i årsredovisningen finns **noterna**: förklaringar till siffrorna. Proffs läser dem först.\n\n**Fem noter att alltid kolla:**\n1. **Immateriella tillgångar:** hur mycket utveckling som aktiveras och skrivs av. Unibap aktiverar mycket, så det fria kassaflödet är sämre än resultatet.\n2. **Varulager och nedskrivningar:** Ferroamp skrev ned lager 2024 (ca 110 MSEK). Stora lager kan bli osäljbara.\n3. **Närståendetransaktioner:** affärer med ägare eller ledning. Varningsflagga om de är stora.\n4. **Eventualförpliktelser och ställda säkerheter:** garantier och pantsättningar som kan bli skulder.\n5. **Segment och kunder:** hur stor del kommer från största kunden? Mycket koncentration ger hög risk.\n\n**Revisionsberättelsen:** står det något annat än \"ren\"? Anmärkningar eller \"fortsatt drift\"-varningar är allvarliga.\n\n**Tips:** sök efter orden *nedskrivning*, *närstående*, *fortsatt drift* och *väsentlig osäkerhet* i PDF:en.",
+   "prova": "Sök i Ferroamps årsredovisning 2025 efter ordet 'nedskrivning'. Vad hittar du?",
+   "quiz": [
+    {
+     "fraga": "Var hittar du om revisorn är orolig för att bolaget ska klara sig?",
+     "alternativ": [
+      "I vd-ordet",
+      "I revisionsberättelsen",
+      "I pressmeddelandet"
+     ],
+     "ratt": 1,
+     "forklaring": "Revisorn skriver det i revisionsberättelsen, ofta som 'väsentlig osäkerhet avseende fortsatt drift'."
+    },
+    {
+     "fraga": "Varför är det viktigt att veta hur stor del som kommer från största kunden?",
+     "alternativ": [
+      "Risken om kunden försvinner",
+      "Skatten",
+      "Bruttomarginalen"
+     ],
+     "ratt": 0,
+     "forklaring": "Hög kundkoncentration betyder att en enda kund kan fälla bolaget (jämför GomSpace)."
+    }
+   ]
+  },
+  {
+   "id": "efterfragan",
+   "titel": "Efterfrågan och politik: vill folk köpa det här?",
+   "niva": "Fördjupning",
+   "minuter": 5,
+   "text": "Ett bra bolag med en produkt som ingen vill ha blir en dålig investering. Fråga alltid:\n\n1. **Åt vilket håll går marknaden?** Ferroamp: hembatterier +34 %, villasol −39 %.\n2. **Vad driver köpet?** Kostnader, säkerhet, regler. Ferroamp: beredskap och egen användning av solel.\n3. **Lönar det sig för köparen?** Och finns abonnemang eller månadsbetalning som sänker tröskeln (Elvy, Aira)?\n4. **Vad gör politiken?** Kravet på effektavgifter slopades (mars 2026), vilket är negativt för Ferroamps argument. EU vill begränsa kinesiska växelriktare, vilket är positivt.\n5. **Hur stora är kunderna?** Aira (ca 2 mdr kr i försäljning per år) är större än hela Ferroamp. Räkna: installationer × andel med produkten × pris, och **stäm av mot en känd order**.\n\n**Gemene man-testet:** köper en vanlig villaägare det här utan stöd eller teknikintresse? Om inte: finns en kanal som gör det enkelt?\n\nPolitik kan ändras snabbt, åt båda håll. Därför bevakar djupdykningen politiska beslut som signaler.",
+   "prova": "Läs efterfrågekartan i Ferroamps tes (fliken Tes och bevis). Vilken drivkraft tror du väger tyngst?",
+   "quiz": [
+    {
+     "fraga": "Airas första order var 25 MSEK. Vi räknade att 10 % av 20 000 installationer × 12 000 kr ≈ 24 MSEK. Vad visar det?",
+     "alternativ": [
+      "Att uppskattningen stämmer med verkligheten",
+      "Att Aira ljuger",
+      "Ingenting"
+     ],
+     "ratt": 0,
+     "forklaring": "När räkneexemplet stämmer med en känd order är metoden rimligt kalibrerad."
+    },
+    {
+     "fraga": "Vad gör ett abonnemang (som Elvys) för efterfrågan?",
+     "alternativ": [
+      "Sänker tröskeln för vanliga hushåll",
+      "Höjer priset",
+      "Ingenting"
+     ],
+     "ratt": 0,
+     "forklaring": "Ingen stor kontantinsats gör att fler kan köpa."
+    }
+   ]
+  },
+  {
+   "id": "psykologi",
+   "titel": "Din egen hjärna: de vanligaste misstagen",
+   "niva": "Fördjupning",
+   "minuter": 5,
+   "text": "De flesta förlorar pengar på grund av sina egna tankefel, inte på grund av dålig information.\n\n| Tankefel | Hur det märks | Motmedel i verktyget |\n|---|---|---|\n| **Bekräftelsebias** | Du läser bara det som stöder din tes | \"Vad skulle fälla tesen?\" skrivs först |\n| **Ankring** | \"Den var 53 kr, nu är den billig på 3 kr\" | Värdera framåt, inte bakåt (Ferroamp 2022) |\n| **FOMO** | Köper när alla pratar om aktien | Signalindex och \"marknadens oro\" |\n| **Förlustaversion** | Håller kvar förlorare för länge | Bestäm i förväg vad som får dig att sälja |\n| **Överdriven säkerhet** | \"Jag vet att det går upp\" | Journalen: hur ofta stämmer dina 70 %? |\n\n**Din strategi skyddar dig:** liten startposition i fas 1, större först i fas 2, och tidig uppföljning. Då blir misstagen små.\n\n**Övning för livet:** skriv i journalen *innan* du köper: varför, vad du väntar dig, och vad som skulle få dig att sälja. Läs igen efter ett halvår.",
+   "prova": "Öppna Journalen och fyll i din egen sannolikhet för förutsägelse 2 (ny order från Loft före sommaren). Jämför med Claudes 60 %.",
+   "quiz": [
+    {
+     "fraga": "'Aktien var 53 kr, nu 3 kr, den måste vara billig.' Vilket tankefel?",
+     "alternativ": [
+      "Ankring",
+      "FOMO",
+      "Bekräftelsebias"
+     ],
+     "ratt": 0,
+     "forklaring": "Det gamla priset säger ingenting om vad bolaget är värt i dag."
+    },
+    {
+     "fraga": "Bästa skyddet mot att hålla kvar en förlorare för länge?",
+     "alternativ": [
+      "Bestämma i förväg vad som får dig att sälja",
+      "Köpa mer",
+      "Sluta titta"
+     ],
+     "ratt": 0,
+     "forklaring": "Ett förutbestämt kriterium tar bort känslan ur beslutet."
+    }
+   ]
+  }
+ ]
+}
