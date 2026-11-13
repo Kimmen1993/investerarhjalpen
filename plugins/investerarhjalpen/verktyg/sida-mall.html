@@ -920,7 +920,7 @@ function vySkolan(id){
   const l = id && LEK.find(x => x.id === id);
   if (!l){
     const pct = LEK.length ? Math.round(100 * LEK.filter(x => k.has(x.id)).length / LEK.length) : 0;
-    v.innerHTML = `<h1>Skolan</h1><p class="lede">Korta lektioner där du lär dig läsa rapporter och tänka som en investerare, med Unibaps och Ferroamps riktiga siffror. Ta dem i ordning, en i veckan räcker.</p>
+    v.innerHTML = `<h1>Skolan</h1><p class="lede">Korta lektioner där du lär dig läsa rapporter och tänka som en investerare, med riktiga siffror från två exempelbolag, Unibap och Ferroamp. Du behöver inte äga eller följa dem. Ta lektionerna i ordning, en i veckan räcker.</p>
       <div class="skola-top"><div class="lek-bar"><i style="width:${pct}%"></i></div><span class="lek-m">${LEK.filter(x => k.has(x.id)).length} av ${LEK.length} klara</span></div>
       <ol class="lek-lista">${LEK.map((x, i) => `<li class="${k.has(x.id) ? "lek-klar" : ""}"><a href="#skolan-${esc(x.id)}"><span class="lek-nr">${k.has(x.id) ? "✓" : String(i+1).padStart(2,"0")}</span><span><span class="lek-t">${esc(x.titel)}</span></span><span class="lek-m">${esc(x.niva)} · ${esc(x.minuter)} min</span></a></li>`).join("")}</ol>
       <p class="hint">Framstegen sparas bara i den här webbläsaren. Ord med prickad understrykning går att klicka på för en förklaring.</p>`;
