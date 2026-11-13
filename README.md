@@ -28,10 +28,10 @@ Verktyget ger **aldrig** råd om att köpa eller sälja. Besluten är alltid din
 Kopiera hela meningen nedan, klistra in den i skrivrutan och tryck **Enter**:
 
 ```
-Installera tillägget Investerarhjälpen åt mig från GitHub-arkivet Kimmen1993/investerarhjalpen. Kör Claude Codes eget program som följer med appen (sök efter Contents/MacOS/claude under ~/Library/Application Support/Claude/claude-code/) med: plugin install investerarhjalpen@investerarhjalpen --marketplace Kimmen1993/investerarhjalpen. Slå sedan på automatiska uppdateringar genom att sätta "autoUpdate": true på investerarhjalpen under extraKnownMarketplaces i ~/.claude/settings.json.
+Installera tillägget Investerarhjälpen åt mig från GitHub-arkivet Kimmen1993/investerarhjalpen. Kör Claude Codes eget program som följer med appen (sök efter Contents/MacOS/claude under ~/Library/Application Support/Claude/claude-code/) med: plugin install investerarhjalpen --marketplace Kimmen1993/investerarhjalpen. Slå sedan på automatiska uppdateringar genom att sätta "autoUpdate": true på investerarhjalpen under extraKnownMarketplaces i ~/.claude/settings.json.
 ```
 
-Claude installerar och säger till när det är klart. Får du en fråga om att tillåta ett kommando: klicka **Tillåt** (eller **Allow**).
+Claude installerar och säger till när det är klart. Claude frågar om lov ett par gånger (för att köra programmet och för att ändra en inställning): klicka **Tillåt** (eller **Allow**) varje gång.
 
 ### Steg 5. Starta en ny session
 Tillägget börjar gälla i en **ny** session. Klicka på **New session** (eller **Ny session**) uppe till vänster och välj samma mapp som förut.

@@ -9,7 +9,7 @@ from datetime import date
 from pathlib import Path
 
 VERKTYG = Path(__file__).resolve().parent.parent
-a = argparse.ArgumentParser(); a.add_argument("mapp"); a.add_argument("--namn", required=True); a.add_argument("--egna-ord", default="(Inte ifyllt än. Skriv gärna med egna ord hur du vill investera.)")
+a = argparse.ArgumentParser(); a.add_argument("mapp"); a.add_argument("--namn", required=True); a.add_argument("--egna-ord", default="(Inte ifyllt än. Skriv gärna med egna ord hur du vill investera.)"); a.add_argument("--linkedin", choices=["ja", "nej"], default="nej"); a.add_argument("--notiser", choices=["ja", "nej"], default="ja")
 arg = a.parse_args()
 ut = Path(arg.mapp).expanduser().resolve(); ut.mkdir(parents=True, exist_ok=True)
 for d in ["bolag", "radar", "teman", "site", "privat"]:
@@ -23,6 +23,8 @@ for f in mall.rglob("*"):
     mal.parent.mkdir(parents=True, exist_ok=True)
     try:
         t = f.read_text(encoding="utf-8")
+        if f.name == "installningar.json":
+            t = t.replace('"linkedin": false', f'"linkedin": {"true" if arg.linkedin == "ja" else "false"}').replace('"notiser": true', f'"notiser": {"true" if arg.notiser == "ja" else "false"}')
         t = t.replace("{NAMN}", arg.namn).replace("{DATUM}", date.today().isoformat()).replace("{EGNA_ORD}", arg.egna_ord)
         mal.write_text(t, encoding="utf-8")
     except UnicodeDecodeError:

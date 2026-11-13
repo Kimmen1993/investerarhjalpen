@@ -1,5 +1,9 @@
 # Ändringar
 
+## 2026-11-14
+- Kom igång: svaren om LinkedIn och notiser sparas direkt, och Claude frågar innan automatiska uppdateringar slås på.
+- Guiden: installationskommandot utan @-tecken, och tydligare om att klicka Tillåt.
+
 ## 2026-11-13 (kväll)
 - Enklare installation: en mening att klistra in. Automatiska uppdateringar slås på av Claude.
 - Versionen följer GitHub, så alla rättningar når användarna direkt.

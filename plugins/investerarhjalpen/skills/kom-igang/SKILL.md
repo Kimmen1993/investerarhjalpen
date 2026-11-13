@@ -24,8 +24,7 @@ Leta efter `installningar.json` i den öppna mappen och i `~/Documents/Investera
 
 ## 4. Skapa datamappen
 - Plats: `~/Documents/Investerarhjalpen` (fråga bara om användaren vill ha en annan plats).
-- Kör `python3 -I "$IH/verktyg/ny_datamapp.py" "<mappen>" --namn "<namn>" --egna-ord "<svaret på fråga 2>"`.
-- Skriv svaren på fråga 3 och 4 i `installningar.json` (`linkedin`, `notiser`).
+- Kör `python3 -I "$IH/verktyg/ny_datamapp.py" "<mappen>" --namn "<namn>" --egna-ord "<svaret på fråga 2>" --linkedin ja|nej --notiser ja|nej` (svaren på fråga 3 och 4).
 - Passar standardstrategin inte svaret på fråga 2: justera `min-strategi.md` med användarens ord, men behåll strukturen (fas 1, fas 2, redo-poäng).
 
 ## 5. Bygg och publicera användarens egen sida
@@ -40,7 +39,7 @@ Använd verktyget för schemalagda uppgifter och skapa två uppgifter (fråga f�
 Förklara att datorn och Claude-appen behöver vara igång vid de tiderna; annars körs uppgiften nästa gång appen är öppen.
 
 ## 7. Uppdateringar
-Kontrollera att `~/.claude/settings.json` har `"autoUpdate": true` på `investerarhjalpen` under `extraKnownMarketplaces`. Saknas det: lägg till det (ändra inget annat i filen). Säg sedan en gång, enkelt: "Verktyget hämtar förbättringar av sig självt. Vill du hämta direkt kan du skriva 'uppdatera verktyget'."
+Kontrollera att `~/.claude/settings.json` har `"autoUpdate": true` på `investerarhjalpen` under `extraKnownMarketplaces`. Saknas det: fråga användaren först ("Får jag slå på automatiska uppdateringar av verktyget? Det ändrar en inställning i Claude."), och lägg till det bara om svaret är ja (ändra inget annat i filen). Säg sedan en gång, enkelt: "Verktyget hämtar förbättringar av sig självt. Vill du hämta direkt kan du skriva 'uppdatera verktyget'."
 
 ## 8. Första bolaget och portföljen
 - Fråga vilket bolag användaren vill börja med, och kör `/investerarhjalpen:bolagsanalys <bolag>`. Säg att en första analys tar en stund.
