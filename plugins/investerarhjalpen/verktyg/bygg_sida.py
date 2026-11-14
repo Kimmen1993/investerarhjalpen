@@ -63,9 +63,9 @@ def main():
     bolag.sort(key=lambda b: (ordning.get(b["status"].get("beslut"), 3), -(b["status"].get("poang") or 0)))
 
     teman = [{"titel": titel_ur_md(las(p), p.stem), "md": las(p)} for p in sorted(ROT.glob("teman/*.md"), reverse=True)]
-    metod = [{"titel": titel_ur_md(las(p), p.stem), "md": las(p)} for p in sorted(VERKTYG.glob("metod/*.md"))]
+    metod = [{"titel": titel_ur_md(las(p), p.stem), "md": las(p), "id": p.stem.split("-")[0]} for p in sorted(VERKTYG.glob("metod/*.md"))]
     if (ROT / "min-strategi.md").exists():  # användarens egen strategi ligger i datamappen
-        metod.append({"titel": titel_ur_md(las(ROT / "min-strategi.md"), "Min strategi"), "md": las(ROT / "min-strategi.md")})
+        metod.append({"titel": titel_ur_md(las(ROT / "min-strategi.md"), "Min strategi"), "md": las(ROT / "min-strategi.md"), "id": "strategi"})
 
     ordlista = []
     for rad in las(VERKTYG / "metod" / "ordlista.md").splitlines():

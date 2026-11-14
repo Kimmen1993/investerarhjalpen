@@ -767,7 +767,7 @@ function varderingPanel(b){
 const TYP = {genombrott:"Genombrott", partnerskap:"Partnerskap", ramavtal_order:"Order/avtal", ny_agare:"Ny ägare", ny_ledning:"Ny ledning", insiderkop:"Insiderköp", insidersalj:"Insidersälj", negativ:"Negativ", fondkop:"Fondköp", fondflykt:"Fonder lämnar"};
 function vyRadar(){
   const r = DATA.radar, v = $("#vy");
-  v.innerHTML = `<h1>Radar</h1><p class="lede">Bolag med tidiga signaler på hela den svenska börsen: första order, partnerskap, ramavtal, nya ägare, insiderköp och fondköp. Uppdateras automatiskt varje morgon (gratis). Varje söndag gör Claude en kort triage av de mest intressanta: följ, analysera eller ta bort (metod 15).</p>`;
+  v.innerHTML = `<h1>Radar</h1><p class="lede">Bolag med tidiga signaler på hela den svenska börsen: första order, partnerskap, ramavtal, nya ägare, insiderköp och fondköp. Uppdateras automatiskt varje morgon (gratis). Varje söndag gör Claude en kort triage av de mest intressanta: följ, analysera eller ta bort. Alla poäng står i <a href="#metod-15">metod 15</a>.</p>`;
   if (!r || !r.bolag || !r.bolag.length){ v.innerHTML += `<div class="empty">Radarn har inte körts än.</div>`; return; }
   v.innerHTML += `<p class="hint">Uppdaterad ${esc(r.uppdaterad)} · ${r.bolag.length} bolag med minst 3 poäng (senaste 90 dagarna, nyare väger tyngre; flera olika typer av signaler ger bonus).</p>
   <div class="tw2"><table class="matris"><tr><th style="text-align:left">Bolag</th><th>Poäng</th><th>Signaler</th><th style="text-align:left">Senaste signalerna</th><th>Triage</th></tr>
@@ -784,7 +784,7 @@ function fondsignalerBorsenHtml(){
   const rad = r => `<tr><td style="text-align:left"><b>${esc(r.namn)}</b>${r.nynoterat ? ` <span class="steps-lbl">nynoterat</span>` : ""}</td><td>${r.agare_fore} → ${r.agare}</td><td class="${r.netto > 0 ? "over" : r.netto < 0 ? "under" : ""}">${r.netto > 0 ? "+" : ""}${r.netto}</td><td>${fmt(r.varde_mkr, r.varde_mkr < 10 ? 1 : 0)} mkr</td><td style="text-align:left;font-size:12.5px">${esc((r.typ === "fondkop" ? r.nya : r.salt).slice(0, 4).join(", "))}${(r.typ === "fondkop" ? r.nya : r.salt).length > 4 ? ` +${(r.typ === "fondkop" ? r.nya : r.salt).length - 4}` : ""}</td></tr>`;
   const tabell = (rubrik, rader, kol) => rader.length ? `<h3>${rubrik}</h3><div class="tw2"><table class="matris"><tr><th style="text-align:left">Bolag</th><th>Aktiva fonder som äger</th><th>Köpare minus säljare</th><th>Fondernas innehav</th><th style="text-align:left">${kol}</th></tr>${rader.map(rad).join("")}</table></div>` : "";
   return `<section class="nt" style="margin-top:22px"><h2>Fondsignaler på hela börsen</h2>
-    <p class="hint" style="margin-top:0">Hur alla aktivt förvaltade svenska fonder ändrade sina innehav i mindre svenska bolag mellan ${esc(f.jamfort_med||"")} och ${esc(f.kvartal)} (publicerat av Finansinspektionen ${esc(f.publicerad||"")}). Indexfonder räknas inte, eftersom de köper när ett bolag kommer in i ett index, inte för att någon tror på bolaget. Pengar som flutit in och ut ur fonderna är borträknade. Stora och redan välägda bolag (fler än 30 aktiva fondägare) är bortsorterade. Fondköp ger 2–4 poäng i radarn (nynoterade bolag 2), och fonder som lämnar ger −2. Generations-, pensions- och blandfonder räknas inte, eftersom de köper efter en plan. Det är en pusselbit, inte ett bevis: fonderna kan ha fel, och datan är några månader gammal.</p>
+    <p class="hint" style="margin-top:0">Hur alla aktivt förvaltade svenska fonder ändrade sina innehav i mindre svenska bolag mellan ${esc(f.jamfort_med||"")} och ${esc(f.kvartal)} (publicerat av Finansinspektionen ${esc(f.publicerad||"")}). Indexfonder räknas inte, eftersom de köper när ett bolag kommer in i ett index, inte för att någon tror på bolaget. Pengar som flutit in och ut ur fonderna är borträknade. Stora och redan välägda bolag (fler än 30 aktiva fondägare) är bortsorterade. Fondköp ger 2–4 poäng i radarn (nynoterade bolag 2), och fonder som lämnar ger −2. Generations-, pensions- och blandfonder räknas inte, eftersom de köper efter en plan. Det är en pusselbit, inte ett bevis: fonderna kan ha fel, och datan är några månader gammal. Alla regler: <a href="#metod-19">metod 19, avsnitt 7</a>.</p>
     ${tabell("Fonderna köper", kop.slice(0, 25), "Nya fondägare")}
     ${kop.length > 25 ? `<p class="steps-lbl">och ${kop.length - 25} bolag till med fondköp.</p>` : ""}
     ${tabell("Fonderna lämnar", flykt.slice(0, 12), "Har sålt allt")}
@@ -795,7 +795,7 @@ function redoKort(s){
   const p = r.punkter.reduce((a, x) => a + x.poang, 0), max = r.punkter.length * 2;
   const lage = p >= 15 ? ["Fas 2: vändningsläge enligt din strategi","l-gron"] : p >= 10 ? ["Fas 1: tidigt läge enligt din strategi","l-gul"] : ["För tidigt","l-rod"];
   return `<section class="nt" aria-label="Redo-poäng"><h2>Redo-poäng: i vilket läge är bolaget?</h2>
-    <p class="hint" style="margin-top:0">Enligt din strategi (Min strategi under Metod): <b>fas 1</b> (10–14) betyder att en liten startposition kan vara aktuell om tesen håller, och <b>fas 2</b> (15–20) att vändningen är bekräftad och en större position kan övervägas. Bedömt ${esc(r.datum)}. Inget köpråd; beslutet är ditt.</p>
+    <p class="hint" style="margin-top:0">Enligt din strategi (<a href="#metod-strategi">Min strategi</a>; alla tio punkter i <a href="#metod-15">metod 15</a>): <b>fas 1</b> (10–14) betyder att en liten startposition kan vara aktuell om tesen håller, och <b>fas 2</b> (15–20) att vändningen är bekräftad och en större position kan övervägas. Bedömt ${esc(r.datum)}. Inget köpråd; beslutet är ditt.</p>
     <div class="lk-top" style="margin:10px 0"><span class="v num" style="font:700 26px var(--f-display)">${p} / ${max}</span><span class="ljus ${lage[1]}"><i></i>${lage[0]}</span></div>
     <div class="tw2"><table class="matris"><tr><th style="text-align:left">Punkt</th><th>Poäng</th><th style="text-align:left">Varför</th></tr>
     ${r.punkter.map(x => `<tr><td style="text-align:left">${esc(x.namn)}</td><td>${"●".repeat(x.poang)}${"○".repeat(2-x.poang)}</td><td style="text-align:left">${esc(x.skal)}</td></tr>`).join("")}</table></div></section>`;
@@ -900,7 +900,7 @@ function panelHtml(b){
   return `<section class="nt sek" id="sek-panel" aria-label="Investerarpanelen"><h2>Investerarpanelen</h2>${intro}
     <div class="panel-knappar" role="group" aria-label="Välj investerare">${knappar}</div>
     <div id="panel-kort"></div>
-    <p class="steps-lbl" style="margin-top:8px">Panelen togs fram ${esc(pn.datum||"")}. Prickarna visar hur väl bolaget passar filosofin. För Blankaren visar de hur stora riskerna för ägarna är. Checklistorna finns i metoden <a href="#metod">Spår och investerarpanelen</a>.</p></section>`;
+    <p class="steps-lbl" style="margin-top:8px">Panelen togs fram ${esc(pn.datum||"")}. Prickarna visar hur väl bolaget passar filosofin. För Blankaren visar de hur stora riskerna för ägarna är. Checklistorna finns i <a href="#metod-18">metod 18, Spår och investerarpanelen</a>.</p></section>`;
 }
 function panelKort(b, id){
   const x = PANEL.find(p => p.id === id), r = (b.panel.roster||[]).find(p => p.id === id); if (!x || !r) return "";
@@ -957,7 +957,7 @@ function vyFonder(){
         <li><b>Vad äger fonden egentligen?</b> Titta på de tio största innehaven, länderna och branscherna. Två fonder med olika namn kan äga nästan samma sak.</li>
         <li><b>Hur mycket svänger den?</b> Risken visar hur mycket värdet har svängt de senaste två åren. Välj en nivå du klarar av att se utan att sälja i panik.</li>
         <li><b>Överlapp.</b> Äger du flera fonder, kolla att de inte äger samma sak. Då sprider du inte risken, du betalar bara flera avgifter.</li>
-      </ol><p class="hint">Läs mer i Skolan: <a href="#skolan-fonder">Fonder på 5 minuter</a>.</p></details>
+      </ol><p class="hint">Läs mer i Skolan: <a href="#skolan-fonder">Fonder på 5 minuter</a>. Exakt hur allt räknas: <a href="#metod-19">metod 19, Fonder</a>.</p></details>
     ${typeof fondkollHtml === "function" && typeof PF !== "undefined" && PF.data ? fondkollHtml(beraknaPortfolj(PF.data).aktiva) : ""}
     <div class="list" id="fondlista"></div>
     ${DATA.fondsignaler ? fondSignalerHtml() : ""}`;
@@ -1017,7 +1017,7 @@ function vyFond(slug){
         <div class="kol k-emot"><h3>Sålda och minskade</h3><ul>${[...fc.salda.map(i => `<li><b>Sålt allt:</b> ${nm(i)} (var ${fmt(i.andel,2)} %)</li>`), ...fc.minskat.map(i => `<li>${nm(i)}: ${fmt(i.andel_fore,2)} → ${fmt(i.andel,2)} % (${i.antal_pct} % aktier)</li>`)].slice(0, 10).join("") || "<li>Inga större försäljningar.</li>"}</ul></div>
       </div></section>` : ""}
     ${ov.length ? `<section class="nt"><h2>Överlapp med dina andra fonder</h2><p class="hint" style="margin-top:0">Hur stor del av fonderna som äger samma sak. Över ca 50 % betyder att de i stort sett gör samma jobb.</p>${stapelLista(Object.fromEntries(ov.filter(o => o[1] >= 0.5)), fondNamn, 12, true)}${ov.some(o => o[1] < 0.5) ? `<p class="steps-lbl">Nästan inget gemensamt med: ${esc(ov.filter(o => o[1] < 0.5).map(o => fondNamn(o[0])).join(", "))}.</p>` : ""}</section>` : ""}
-    <p class="steps-lbl">Källa: ${(f.kalla_typ||"FI") === "FI" ? "Finansinspektionen, fondinnehav per kvartal" : f.kalla_typ === "ersattning" ? `uppskattning via ${esc(f.ersattning ? f.ersattning.namn : "")} (Finansinspektionen)` : "fondbolaget"}. Uppgifterna är ögonblicksbilder; fonden kan ha ändrat sina innehav sedan dess.</p>`;
+    <p class="steps-lbl">Så räknas siffrorna: <a href="#metod-19">metod 19, Fonder</a>. Källa: ${(f.kalla_typ||"FI") === "FI" ? "Finansinspektionen, fondinnehav per kvartal" : f.kalla_typ === "ersattning" ? `uppskattning via ${esc(f.ersattning ? f.ersattning.namn : "")} (Finansinspektionen)` : "fondbolaget"}. Uppgifterna är ögonblicksbilder; fonden kan ha ändrat sina innehav sedan dess.</p>`;
   gloss(v);
 }
 function fondagarePanel(b){
@@ -1124,11 +1124,15 @@ function nyheter(el, poster){
   rita("alla");
 }
 
-function vyDocs(titel, lede, docs){
+function vyDocs(titel, lede, docs, oppna){
   const v = $("#vy"); v.innerHTML = `<h1>${esc(titel)}</h1><p class="lede">${esc(lede)}</p><div id="docs"></div>`;
   const box = $("#docs");
   if (!docs.length){ box.innerHTML = `<div class="empty">Inget här än.</div>`; return; }
-  docs.forEach((d, i) => { const det = document.createElement("details"); det.className = "doc"; if (i===0) det.open = true; det.innerHTML = `<summary>${esc(d.titel)}</summary>`; const inner = md(d.md); if (!/ordlista/i.test(d.titel)) gloss(inner); det.appendChild(inner); box.appendChild(det); });
+  let mal = null;
+  docs.forEach((d, i) => { const det = document.createElement("details"); det.className = "doc"; if (d.id) det.id = "doc-" + d.id;
+    const oppen = oppna ? d.id === oppna : i === 0; if (oppen){ det.open = true; mal = det; }
+    det.innerHTML = `<summary>${d.id && /^\d+$/.test(d.id) && d.id !== "00" ? `<span class="steps-lbl" style="margin-right:8px">Metod ${esc(d.id)}</span>` : ""}${esc(d.titel)}</summary>`; const inner = md(d.md); if (!/ordlista/i.test(d.titel)) gloss(inner); det.appendChild(inner); box.appendChild(det); });
+  if (oppna && mal) setTimeout(() => mal.scrollIntoView({block: "start"}), 0);
 }
 
 // --- skolan ---
@@ -1396,7 +1400,7 @@ async function skickaChatt(){
 function vyHjalp(){
   const v = $("#vy"); const g = (DATA && DATA.guide) || "";
   const [snabb, detalj] = g.split("<!-- DETALJERAD -->");
-  v.innerHTML = `<h1>Hjälp</h1><p class="lede">Så fungerar verktyget. Börja med snabbguiden; resten kan du läsa när du vill.</p><div class="lektion" id="snabbguide"></div><h2>Mer detaljerat</h2><p class="hint" style="margin-top:0">Klicka på en rubrik för att läsa.</p><div id="detaljguide"></div>`;
+  v.innerHTML = `<h1>Hjälp</h1><p class="lede">Så fungerar verktyget. Börja med snabbguiden; resten kan du läsa när du vill.</p><div class="callout"><div class="label">Hur räknar verktyget?</div><p style="margin:6px 0 0">Alla regler och poäng står under <a href="#metod-00">Metod → Så fungerar verktyget</a>: morgonkollen och trafikljusen, radarns poäng, spåren och redo-poängen, investerarpanelen, fonderna och portföljen. Där står också hur du själv kan kontrollera att det stämmer.</p></div><div class="lektion" id="snabbguide"></div><h2>Mer detaljerat</h2><p class="hint" style="margin-top:0">Klicka på en rubrik för att läsa.</p><div id="detaljguide"></div>`;
   const s = md(snabb || ""); gloss(s); $("#snabbguide").appendChild(s);
   const delar = (detalj || "").split(/\n(?=## )/).map(x => x.trim()).filter(Boolean);
   for (const d of delar){
@@ -1415,7 +1419,7 @@ document.addEventListener("click", e => { if (e.target.id === "valkommen-stang")
 /*__PORTFOLJ__*/
 function route(){
   const h = (location.hash || "#lage").slice(1);
-  document.querySelectorAll("nav.main a").forEach(a => a.classList.toggle("on", h===a.dataset.v || (h.startsWith("bolag-") && a.dataset.v==="bevakning") || (h.startsWith("fond-") && a.dataset.v==="fonder") || (h.startsWith("skolan") && a.dataset.v==="skolan")));
+  document.querySelectorAll("nav.main a").forEach(a => a.classList.toggle("on", h===a.dataset.v || (h.startsWith("bolag-") && a.dataset.v==="bevakning") || (h.startsWith("fond-") && a.dataset.v==="fonder") || (h.startsWith("metod-") && a.dataset.v==="metod") || (h.startsWith("skolan") && a.dataset.v==="skolan")));
   if (h.startsWith("bolag-")) vyBolag(h.slice(6));
   else if (h === "lage") vyLage();
   else if (h === "hjalp") vyHjalp();
@@ -1430,7 +1434,7 @@ function route(){
   else if (h === "journal") { const v = $("#vy"); v.innerHTML = `<h1>Journal</h1><p class="lede">Förutsägelser med sannolikhet som följs upp, och dina egna beslut. Det är så man tränar sitt omdöme.</p>`; const j = md(DATA.journal || "Ingen journal än."); gloss(j); v.appendChild(j); }
   else if (h === "teman") vyDocs("Teman", "Temaanalyser och temaskanningar: drivkrafter, fas, värdekedja och bolag att undersöka.", DATA.teman);
   else if (h === "kastade") { const v = $("#vy"); v.innerHTML = `<h1>Kastade bolag</h1><p class="lede">Analyserade och bortvalda bolag, med skäl. Sparas för att lära av besluten.</p>`; v.appendChild(md(DATA.kastade)); }
-  else if (h === "metod") vyDocs("Metod", "Arbetssättet som varje analys följer.", DATA.metod);
+  else if (h === "metod" || h.startsWith("metod-")) { vyDocs("Metod", "Hur verktyget fungerar och vilka regler det följer. Börja med översikten högst upp. Den förklarar varje del kort och visar hur du själv kan kontrollera att det fungerar.", DATA.metod, h.slice(6) || null); if (h !== "metod") return; }
   else vyLage();
   window.scrollTo(0, 0);
 }

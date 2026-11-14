@@ -18,6 +18,9 @@ Investerarhjälpen är ett research-verktyg för aktier. Varje användare har en
 - Varje bolag har också en **Lynchkategori** (`"lynch"` och `"lynch_skal"`): `langsam`, `stabil`, `snabb`, `cyklisk`, `tillgang` eller `turnaround`.
 - **Investerarpanelen** (`bolag/<namn>/panel.json`) visar bolaget med Buffetts, Lynchs, Fishers, Grahams, Smiths och Blankarens glasögon. Det är **tolkningar av publicerad filosofi**, aldrig citat, och de ändrar aldrig spårets bedömning. Följ checklistorna i metod 18 och använd bolagets egna siffror med bevisnivå.
 
+## Metoderna är användarnas manual
+`metod/00-sa-fungerar-verktyget.md` är översikten som användarna läser för att förstå och kontrollera verktyget, och `metod/19-fonder.md` beskriver fondräkningen i detalj. **När du ändrar en regel, en gräns eller en poäng i ett skript eller en skill: uppdatera samma siffra i metoden och i översikten**, så att det som står där alltid stämmer med hur verktyget faktiskt fungerar.
+
 ## Fonder (skillen `fond`)
 - Fliken **Fonder** på sidan visar följda fonder: avgift, vad avgiften kostar på 10 år, typ (index eller aktiv), risk, aktiv risk, innehav, branscher, länder, köpt och sålt sedan förra kvartalet och överlapp. Data: Finansinspektionens kvartalsfiler (bara svenskregistrerade fonder, några månaders fördröjning). Skriptet `verktyg/fonder.py` är gratis.
 - Varje bevakat bolag får **Fonder som äger bolaget** (`fondagare.json`), och fliken Fonder visar **fondsignaler**: hur alla svenska fonder ändrat sina innehav i de bevakade bolagen. In- och utflöden är borträknade.

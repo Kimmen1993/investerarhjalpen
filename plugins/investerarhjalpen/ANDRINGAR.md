@@ -1,5 +1,10 @@
 # Ändringar
 
+## 2026-11-14 (så fungerar verktyget)
+- **Ny översikt under Metod: Så fungerar verktyget.** Morgonkollen och trafikljusen, radarns poäng, spåren och redo-poängen, investerarpanelen, djupdykningen, fonderna och portföljen, med regler, gränser och "Kontrollera själv" för varje del.
+- **Ny metod 19, Fonder:** exakt hur fondsidorna, fondkollen och fondsignalerna räknas.
+- Varje metod har en egen länk, och sidan länkar dit från Hjälp, Radar, Fonder, Redo-poäng och panelen.
+
 ## 2026-11-14 (fondsignaler i radarn)
 - **Radarn läser fondernas köp på hela börsen:** mindre svenska bolag där flera aktivt förvaltade fonder köper in sig får 2–4 poäng, och bolag som fonderna lämnar får −2. Indexfonder, generationsfonder och pensionsfonder räknas inte, och in- och utflöden räknas bort.
 - Under Radar finns en ny tabell, *Fondsignaler på hela börsen*, med vilka fonder som köpt och sålt.

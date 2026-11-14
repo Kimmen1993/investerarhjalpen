@@ -38,6 +38,8 @@ Ett bolag bedöms aldrig efter fel spårs regler. Står det *(förslag)* har ver
 - läsa in dina affärer under **Min portfölj** (det ser bara du)
 - ta en lektion i **Skolan**, ungefär 5 minuter i veckan
 
+**Vill du veta exakt hur verktyget räknar?** Under *Metod* finns översikten *Så fungerar verktyget*, med alla regler och poäng och hur du kan kontrollera att de stämmer. Ser du något som inte stämmer: skriv `jag har ett förslag`.
+
 **Tre saker att tänka på**
 1. Börja med 2–3 bolag och lär känna sidan innan du lägger till fler.
 2. Läs "Det som talar emot" lika noga som "Det som talar för".
