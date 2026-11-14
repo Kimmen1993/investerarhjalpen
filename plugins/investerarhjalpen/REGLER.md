@@ -5,7 +5,7 @@ Investerarhjälpen är ett research-verktyg för aktier. Varje användare har en
 ## Var saker ligger
 - **Den här mappen** (datamappen) är användarens egen: `bolag/`, `radar/`, `teman/`, `journal.md`, `min-strategi.md`, `installningar.json` och `site/`. Den rörs aldrig av uppdateringar av verktyget.
 - **Verktyget** (metoden i `metod/`, lektionerna i `larande/`, skripten i `verktyg/` och webbsidans mall) ligger i tilläggets mapp och uppdateras från GitHub. Skillsen anger hur man hittar den (`$IH`). Kör skript från den här mappen: `python3 -I "$IH/verktyg/<skript>.py"`.
-- `installningar.json`: namn, sidans adress (`sida_url`), om LinkedIn får läsas automatiskt (`linkedin`) och om notiser önskas (`notiser`).
+- `installningar.json`: namn, sidans adress (`sida_url`), om LinkedIn får läsas automatiskt (`linkedin`), om notiser önskas (`notiser`) och söndagarnas djupdykningar (`djupdykning`: `per_sondag`, `intervall_dagar`, `extra_nasta_sondag`, `onskade`). Användaren ändrar dem med vanlig svenska ("ta 3 extra på söndag", "djupdyk i X på söndag"); urvalet görs av `verktyg/djupdykning_tur.py`.
 
 ## Användarens strategi (`min-strategi.md`) och efterfrågan (metod 16)
 - **Läs `min-strategi.md` före varje bedömning.** Redo-poängen och strategikollen visar läget **enligt den strategin**. Alltid "inget köpråd".

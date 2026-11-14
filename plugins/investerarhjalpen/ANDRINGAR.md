@@ -1,6 +1,7 @@
 # Ändringar
 
 ## 2026-11-14
+- Djupdykningar går att styra: antal per söndag, hur ofta, extra bolag en söndag och önskade bolag ("djupdyk i X på söndag"). Extra genomgång direkt med "djupdyk i X".
 - Gemensamma regler ligger nu i tillägget (REGLER.md) och uppdateras för alla. Den egna mappen har bara det personliga.
 - Sidan byggs om automatiskt vid morgonkollen när verktyget har uppdaterats.
 - Nytt: skriv "jag har ett förslag" för att skicka förbättringsidéer.

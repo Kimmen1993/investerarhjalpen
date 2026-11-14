@@ -12,9 +12,14 @@ description: Grundlig genomgång av ett bevakat bolag ungefär en gång i månad
 Läs `CLAUDE.md` (även Klarspråk) och `metod/01-pusselmetoden.md`.
 
 ## Vilka bolag?
-- **Söndagsuppgiften:** ta alla bolag som inte är kastade och där `senaste_djupdykning` i `status.json` är **27 dagar gammal eller äldre**. Börja med det äldsta. Högst 5 bolag per söndag; resten tas nästa söndag. Bolagen är utspridda över fyra söndagar (startdatum i `forsta_djupdykning`), så att varje söndag får 4–5 bolag. Behåll spridningen: sätt `senaste_djupdykning` till dagens datum efter genomgången.
+- **Söndagsuppgiften:** kör `python3 -I "$IH/verktyg/djupdykning_tur.py"` i datamappen. Den läser användarens inställningar under `djupdykning` i `installningar.json` (antal per söndag, hur ofta, extra bolag och önskade bolag) och skriver ut vilka bolag som står på tur, det äldsta först. Ta exakt de bolagen. Är inget bolag på tur: avsluta direkt med "Ingen djupdykning i dag", utan notis. När alla är klara: kör `python3 -I "$IH/verktyg/djupdykning_tur.py" --nollstall` (tömmer extra och önskade) och sätt `senaste_djupdykning` till dagens datum i varje genomgånget bolag.
 - **Första djupdykningen efter en startanalys** (finns `forsta_djupdykning` men ingen rapport i `djupdykningar/`): gör också punkterna under "Att göra vid första djupdykningen" i `tes.md`, och det startanalysen hoppade över ur `/bolagsanalys` (löftesrevision, kundregister, nätverk, möjligheter och värdering) i den mån budgeten räcker. Skriv vad som återstår. Är inget bolag på tur: avsluta direkt med "Ingen djupdykning i dag", utan notis.
-- **Med bolagsnamn:** djupdyk i just det bolaget, oavsett datum.
+- **Med bolagsnamn** ("djupdyk i Kambi"): djupdyk i just det bolaget direkt, oavsett datum. Sätt sedan `senaste_djupdykning` till i dag, så att bolaget får en ny månad innan det är på tur igen.
+- **"Djupdyk i X på söndag"** eller "det händer något i X": lägg bolagets mappnamn i `djupdykning.onskade` i `installningar.json` (rör inget annat) och bekräfta att det tas med nästa söndag.
+- **"Kör söndagsgenomgången nu"**, eller med fler bolag ("ta 3 extra"): kör urvalet direkt med `djupdykning_tur.py --extra N` och gör sedan djupdykningarna som vanligt.
+- **"Ta N extra på söndag"**: sätt `djupdykning.extra_nasta_sondag` till N.
+- **"Ändra till N bolag per söndag"** eller "varannan vecka": ändra `djupdykning.per_sondag` respektive `djupdykning.intervall_dagar` (varannan vecka = 13, en gång i månaden = 27). Förklara kort vad det betyder för tokenförbrukningen: fler bolag och tätare genomgångar använder mer av abonnemanget.
+
 
 ## Budget per bolag
 Cirka 20–40 sökningar och hämtningar. Steg 0–2b och 7–9 görs alltid. Steg 2c–6b kortas om budgeten tar slut; skriv i så fall vad som hoppades över.

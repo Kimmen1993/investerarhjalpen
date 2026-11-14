@@ -57,6 +57,10 @@ Skriv vanlig svenska i Code-fliken. Till exempel:
 | `uppdatera mig om Kambi` | Senaste nytt om bolaget, på enkel svenska |
 | `leta nya bolag` | Claude letar efter intressanta bolag på hela börsen |
 | `vad betyder EV/S?` | En enkel förklaring |
+| `djupdyk i Kambi` | En grundlig genomgång av bolaget direkt, när du vill |
+| `djupdyk i Kambi på söndag` | Bolaget tas med i söndagens genomgång, oavsett när det senast gicks igenom |
+| `kör söndagsgenomgången nu, ta 3 extra` | Söndagens genomgång direkt, med fler bolag än vanligt |
+| `ändra till 3 bolag per söndag` | Ändrar hur många bolag som gås igenom varje söndag (eller `varannan vecka` för tätare genomgångar) |
 | `uppdatera verktyget` | Hämtar senaste versionen |
 | `jag har ett förslag` | Claude skriver ett tydligt förbättringsförslag som du kan skicka vidare |
 
@@ -68,7 +72,7 @@ Skriv vanlig svenska i Code-fliken. Till exempel:
 
 **Automatiken:**
 - Varje vardag kl. 08.30 kollar Claude nyheter om dina bolag.
-- Varje söndag kl. 17 görs en grundligare genomgång.
+- Varje söndag kl. 17 görs en grundligare genomgång av några bolag (standard: högst 5, varje bolag ungefär en gång i månaden). Det går att ändra, se tabellen ovan.
 - Datorn och Claude-appen behöver vara igång då. Annars körs det nästa gång appen är öppen.
 
 ---

@@ -3,5 +3,6 @@
  "sida_url": null,
  "linkedin": false,
  "notiser": true,
+ "djupdykning": {"per_sondag": 5, "intervall_dagar": 27, "extra_nasta_sondag": 0, "onskade": []},
  "skapad": "{DATUM}"
 }

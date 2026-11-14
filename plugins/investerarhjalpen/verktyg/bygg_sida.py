@@ -78,6 +78,7 @@ def main():
     data = {"byggd": datetime.now().strftime("%Y-%m-%d %H:%M"), "bolag": bolag, "teman": teman, "radar": radar,
             "metod": metod, "kastade": las(ROT / "kastade.md"), "ordlista": ordlista,
             "journal": las(ROT / "journal.md"),
+            "djupdykning": {"per_sondag": 5, "intervall_dagar": 27, **((json.loads(las(ROT / "installningar.json") or "{}").get("djupdykning")) or {})},
             "larande": json.loads(las(VERKTYG / "larande" / "lektioner.json") or '{"lektioner": []}')["lektioner"]}
     js = json.dumps(data, ensure_ascii=False).replace("</", "<\\/")
     mall = las(VERKTYG / "verktyg" / "sida-mall.html")

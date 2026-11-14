@@ -474,7 +474,7 @@ function nyckeltalPanel(b, utanKpi){
 
 // Första söndagen minst 27 dagar efter senaste djupdykningen (ca en gång i månaden per bolag).
 function nastaSondag(datum){
-  const d = new Date(datum + "T12:00:00"); d.setDate(d.getDate() + 27);
+  const d = new Date(datum + "T12:00:00"); d.setDate(d.getDate() + ((DATA && DATA.djupdykning && DATA.djupdykning.intervall_dagar) || 27));
   d.setDate(d.getDate() + (7 - d.getDay()) % 7);
   return d.toISOString().slice(0, 10);
 }
