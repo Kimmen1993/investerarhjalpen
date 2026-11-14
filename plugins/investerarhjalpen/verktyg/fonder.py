@@ -456,7 +456,111 @@ def ladda(antal=2):
     filer = fi_filer()
     if not filer:
         raise RuntimeError("Hittade inga kvartalsfiler på FI:s sida. Sidan kan ha ändrats.")
+    global PUBLICERAD
+    m = re.search(r"_(\d{4}-\d{2}-\d{2})", filer[0][1])
+    PUBLICERAD = m.group(1) if m else datetime.now().strftime("%Y-%m-%d")
     return [(k, las_kvartal(zip_for(k, n))) for k, n in filer[:antal]]
+
+
+PUBLICERAD = None
+# Blandfonder som fördelar pengar efter en plan (ålder, risknivå) köper brett och räknas inte som övertygelse.
+ALLOKERING = r"generation|pension|stratega|strategi|\bmix\b|selection|transfer|spar(mål|fond)|avtalspension|multi ?asset|portfölj|balanserad|försiktig|offensiv|aktiv 50|aktiv 75"
+HANDELSE = r"interim|\bbta\b|\bbtu\b|teckningsr|uniträtt|\btr\b|subscription|\bright|\bfrn\b|\d{1,2}/\d{1,2}/\d{2,4}|\d+(\.\d+)?\s*%|obligation|\bbond"
+
+
+def rent_bolagsnamn(n):
+    n = re.sub(r"\s*[-–]?\s*\bSDR\b", "", n, flags=re.I)
+    n = re.sub(r"\s+(ser\.?|series|class|cl)\s*[AB]\b|\s+[AB]$|\s*\(publ\)|\s+publ\b", "", n, flags=re.I)
+    return re.sub(r"\s+", " ", n).strip()
+
+
+def borsens_signaler(nu, fore):
+    """Fondsignaler för hela börsen: aktivt förvaltade fonder som köper in sig i eller lämnar svenska bolag.
+    Bara mindre och mindre ägda bolag räknas, och händelser som nya aktieslag eller emissionsrätter sorteras bort.
+    Indexfonder räknas inte: de köper när ett bolag kommer in i ett index, inte för att förvaltaren tror på det."""
+    aktie = lambda i: i["typ"] == "ÖverlåtbartVärdepapper" and not i.get("nominellt") and i["isin"].startswith("SE")
+    per = {}
+    for fi, f in nu.items():
+        g = fore.get(fi)
+        if not g or fondtyp(f) != "Aktivt förvaltad" or re.search(ALLOKERING, f["namn"], re.I):
+            continue
+        fl = flode(f, g)
+        a = {x["isin"]: x for x in g["innehav"] if aktie(x)}
+        b = {x["isin"]: x for x in f["innehav"] if aktie(x)}
+        for isin in set(a) | set(b):
+            x = b.get(isin) or a.get(isin)
+            p = per.setdefault(isin, {"isin": isin, "namn": rent_bolagsnamn(x["namn"]), "namnen": set(), "nya": [], "okat": [], "minskat": [], "salt": [],
+                                      "agare": 0, "agare_fore": 0, "varde": 0.0})
+            p["namnen"].add(x["namn"])
+            if isin in b:
+                p["agare"] += 1
+                p["varde"] += b[isin]["varde"]
+            if isin in a:
+                p["agare_fore"] += 1
+            if isin in b and isin not in a:
+                p["nya"].append(f["namn"])
+            elif isin in a and isin not in b:
+                p["salt"].append(f["namn"])
+            elif a[isin].get("antal") and b[isin].get("antal"):
+                r = b[isin]["antal"] / a[isin]["antal"] / fl
+                if r > 1.1:
+                    p["okat"].append(f["namn"])
+                elif r < 0.9:
+                    p["minskat"].append(f["namn"])
+    fanns_fore = {i["isin"] for g in fore.values() for i in g["innehav"]}
+    # Byte av ISIN (t.ex. sammanläggning av aktier): samma namn försvinner från fonderna och dyker upp med nytt ISIN
+    grupper = {}
+    for p in per.values():
+        grupper.setdefault(namn_nyckel(p["namn"]), []).append(p)
+    bytt = set()
+    for g in grupper.values():
+        if any(x["agare"] == 0 and len(x["salt"]) >= 3 for x in g) and any(x["agare_fore"] == 0 and len(x["nya"]) >= 3 for x in g):
+            bytt |= {x["isin"] for x in g}
+    signaler, tabell = [], []
+    for p in per.values():
+        if p["isin"] in bytt:
+            continue
+        # Snyggaste namnet: helst med små bokstäver, utan valuta och aktieslag
+        kand = sorted(p["namnen"], key=lambda n: (n.isupper(), bool(re.search(r"\b(SEK|Ord|Shs)\b", n)), len(n)))
+        p["namn"] = rent_bolagsnamn(re.sub(r"\b(SEK|Ord|Shs|Sh)\b", "", kand[0]))
+        if any(re.search(HANDELSE, n, re.I) for n in p["namnen"]) or (p["agare_fore"] == 0 and len(p["nya"]) >= 8):
+            continue  # nytt aktieslag, emission eller nynotering: alla fonder får aktien samtidigt
+        if p["agare_fore"] > 30 or p["varde"] > 3e9:
+            continue  # välkända och stora bolag; radarn letar efter de oupptäckta
+        nya, salt = len(p["nya"]), len(p["salt"])
+        netto = nya + len(p["okat"]) - salt - len(p["minskat"])
+        poang, typ = 0, None
+        if nya >= 3 or netto >= 5:
+            poang, typ = 3, "fondkop"
+        elif nya >= 2 or netto >= 3:
+            poang, typ = 2, "fondkop"
+        elif salt >= 4 or netto <= -5:
+            poang, typ = -2, "fondflykt"
+        if typ == "fondkop" and p["varde"] < 5e6:
+            continue  # för små positioner för att betyda något
+        nynoterat = p["isin"] not in fanns_fore
+        if typ == "fondkop" and nynoterat:
+            poang = 2  # nynoterat bolag: fonderna fick aktier i noteringen, en svagare signal
+        elif typ == "fondkop" and p["agare_fore"] <= 5 and nya >= 2:
+            poang += 1  # tidigt: få fonder ägde bolaget innan
+        if not typ:
+            continue
+        delar = []
+        if nya:
+            delar.append(f"{nya} nya fondägare ({', '.join(p['nya'][:3])}{'…' if nya > 3 else ''})")
+        if p["okat"]:
+            delar.append(f"{len(p['okat'])} har ökat")
+        if salt:
+            delar.append(f"{salt} har sålt allt")
+        if p["minskat"]:
+            delar.append(f"{len(p['minskat'])} har minskat")
+        titel = ("Nynoterat, fonder köpte: " if typ == "fondkop" and nynoterat else "Fondköp: " if typ == "fondkop" else "Fonder lämnar: ") + ", ".join(delar) + f". Aktiva fonder som äger: {p['agare_fore']} → {p['agare']}."
+        signaler.append({"bolag": p["namn"], "isin": p["isin"], "datum": PUBLICERAD, "typ": typ, "poang": poang, "titel": titel,
+                         "lank": "https://fi.se/sv/vara-register/fondinnehav/fondinnehav-per-kvartal/", "kalla": "FI fondinnehav"})
+        tabell.append({**{k: p[k] for k in ("isin", "namn", "agare", "agare_fore")}, "netto": netto, "poang": poang, "typ": typ, "nynoterat": nynoterat,
+                       "nya": p["nya"], "salt": p["salt"], "okat": len(p["okat"]), "minskat": len(p["minskat"]), "varde_mkr": round(p["varde"] / 1e6, 1)})
+    tabell.sort(key=lambda r: (-r["poang"], -r["netto"]))
+    return signaler, tabell
 
 
 def rensa_fondnamn(n):
@@ -605,10 +709,15 @@ def main(argv):
     (MAPP / "fondsignaler.json").write_text(json.dumps({"kvartal": kv_nu, "jamfort_med": kv_fore, "bolag": sorted(signaler, key=lambda s: -s["netto_kopare"])}, ensure_ascii=False, indent=1), encoding="utf-8")
     register = sorted(([f["isin"], f["namn"], (vanlig_avgift(f["avgift_klasser"]) or {}).get("fast")] for f in list(nu.values()) + [f for f in foljda if f.get("kalla_typ", "FI") != "FI"]), key=lambda x: x[1])
     (MAPP / "fondregister.json").write_text(json.dumps({"kvartal": kv_nu, "fonder": register}, ensure_ascii=False), encoding="utf-8")
+    sig, tab = borsens_signaler(nu, fore) if fore else ([], [])
+    (ROT / "radar").mkdir(exist_ok=True)
+    (ROT / "radar" / "fondsignaler-borsen.json").write_text(json.dumps({"kvartal": kv_nu, "jamfort_med": kv_fore, "publicerad": PUBLICERAD,
+        "signaler": sig, "tabell": tab}, ensure_ascii=False, indent=1), encoding="utf-8")
     senast = MAPP / "senaste-kvartal.txt"
     ny = not senast.exists() or senast.read_text().strip() != kv_nu
     senast.write_text(kv_nu)
-    print(f"{'NYTT KVARTAL ' if ny else ''}{kv_nu} (jämfört med {kv_fore}): {len(foljda)} fonder följs, fondägare för {len(bolag)} bevakade bolag.")
+    print(f"{'NYTT KVARTAL ' if ny else ''}{kv_nu} (jämfört med {kv_fore}): {len(foljda)} fonder följs, fondägare för {len(bolag)} bevakade bolag, "
+          f"{sum(1 for s in sig if s['typ'] == 'fondkop')} bolag med fondköp och {sum(1 for s in sig if s['typ'] == 'fondflykt')} med fondflykt på hela börsen.")
     for f in foljda:
         if f.get("kalla_typ") == "saknas":
             print(f"Saknar innehav för {f['namn']}: ange --kalla, --ersattning eller skriv innehav-manuellt.json.")

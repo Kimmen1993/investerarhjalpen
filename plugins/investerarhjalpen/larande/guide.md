@@ -89,6 +89,7 @@ Var försiktig med långa kedjor av C. Flera gissningar efter varandra blir snab
 - **Avgiften** är densamma hos Avanza som hos fondbolaget, men den kan skilja mellan fondens andelsklasser (A, B, C …). Andelsklassen syns på ISIN-numret där du köper.
 - **Köpt och sålt** räknas på antalet aktier. Pengar som flutit in eller ut ur fonden räknas bort, så att det som syns är förvaltarens egna val.
 - **Fondkoll:** om du har läst in fonder under Min portfölj lyser verktyget igenom dem. Du får en varning om två fonder äger nästan samma sak, eller om du äger samma bolag både direkt och via fonder. Det ser bara du. Skriv `kolla mina fonder` för att få en genomgång.
+- **Fondsignaler på hela börsen:** under Radar ser du vilka mindre svenska bolag som aktivt förvaltade fonder har börjat köpa eller lämna. Fondköp ger poäng i radarn, särskilt tillsammans med andra signaler som insiderköp.
 - **Fondsignaler:** längst ner under Fonder ser du hur fonderna har ändrat sina innehav i dina bevakade bolag. Fler fonder som köper ett småbolag kan vara en tidig signal, men det är bara en pusselbit.
 - Skriv `följ fonden <namn>`, `sluta följa <fond>` eller `jämför <fond> och <fond>`.
 

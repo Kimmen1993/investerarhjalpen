@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """Signalradar – gratis, ingen AI. Letar tidiga signaler på hela den svenska börsen.
 
-Källor: MFN (alla nordiska pressmeddelanden) och FI:s insynsregister (alla bolag).
+Källor: MFN (alla nordiska pressmeddelanden), FI:s insynsregister (alla bolag) och fondsignaler
+ur FI:s kvartalsdata om fondinnehav (radar/fondsignaler-borsen.json, skrivs av fonder.py).
 Signaler poängsätts enligt metod 15 och sparas i radar/signaler.json (rullande 90 dagar).
 Topplistan skrivs till radar/radar.json; bolag som redan bevakas, kastats eller
 står på uteslutningslistan hoppas över.
@@ -116,6 +117,11 @@ def insyn_signaler(dagar=14):
     return ut
 
 
+def fond_signaler():
+    """Läser fondsignalerna som fonder.py räknat fram för hela börsen (gratis, ingen nedladdning här)."""
+    return las_json(RADAR / "fondsignaler-borsen.json", {"signaler": []})["signaler"]
+
+
 def normalisera(namn):
     n = namn.lower()
     n = re.sub(r"\b(ab|asa|oyj|a/s|publ|group|holding|\(publ\))\b", "", n)
@@ -129,7 +135,7 @@ def main():
     sedda = {(s["bolag"], s["titel"], s["datum"]) for s in alla}
     fel = []
     nya = []
-    for kalla in (mfn_signaler, insyn_signaler):
+    for kalla in (mfn_signaler, insyn_signaler, fond_signaler):
         try:
             for s in kalla():
                 s["nyckel"] = normalisera(s["bolag"])
@@ -143,10 +149,12 @@ def main():
 
     # Uteslut bevakade, kastade och storbolag
     utesl = las_json(RADAR / "uteslutna.json", {"bolag": []})["bolag"]
-    bevakade = []
+    bevakade, bevakade_isin = [], set()
     for st in ROT.glob("bolag/*/status.json"):
         s = json.loads(st.read_text(encoding="utf-8"))
         bevakade += [normalisera(s.get("namn", "")), st.parent.name, (s.get("kallor_bevakning") or {}).get("mfn_slug", "")]
+        if s.get("isin"):
+            bevakade_isin.add(s["isin"])
     utesl_n = {normalisera(x) for x in utesl + bevakade if x}
 
     idag = datetime.now().date()
@@ -157,7 +165,7 @@ def main():
         if (s["nyckel"], s["datum"], s["typ"]) in unika:
             continue
         unika.add((s["nyckel"], s["datum"], s["typ"]))
-        if s["nyckel"] in utesl_n or s["bolag"] in utesl_n:
+        if s["nyckel"] in utesl_n or s["bolag"] in utesl_n or s.get("isin") in bevakade_isin:
             continue
         alder = (idag - datetime.fromisoformat(s["datum"]).date()).days
         vikt = 1.0 if alder <= 30 else 0.6 if alder <= 60 else 0.3
@@ -167,7 +175,7 @@ def main():
         p["typer"].add(s["typ"])
     # Bonus för flera olika typer av positiva signaler (oberoende källor)
     for p in per.values():
-        positiva = {t for t in p["typer"] if t not in ("negativ", "insidersalj")}
+        positiva = {t for t in p["typer"] if t not in ("negativ", "insidersalj", "fondflykt")}
         if len(positiva) >= 2:
             p["poang"] += 2
     triage = las_json(RADAR / "triage.json", {"bolag": {}})["bolag"]

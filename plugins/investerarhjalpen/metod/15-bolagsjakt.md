@@ -23,9 +23,13 @@ Målet är **3–5 riktigt bra case per år**, hittade tidigt och följda tills 
 | Insiderköp i kluster | 2 eller fler personer köper, eller köp för minst 0,5 MSEK på 14 dagar | +3 |
 | Ny kunnig ägare | Riktad emission till en namngiven strategisk investerare eller industriell partner | +2 |
 | Ny vd eller ny styrelseordförande | | +1 |
+| **Fondköp** (en gång per kvartal) | Aktivt förvaltade svenska fonder köper in sig: 3 nya fondägare eller 5 fler köpare än säljare ger +3, 2 nya eller 3 fler köpare +2. +1 extra om högst 5 aktiva fonder ägde bolaget innan. Nynoterade bolag +2 | +2 till +4 |
+| **Fonder lämnar** | 4 fonder säljer allt, eller 5 fler säljare än köpare | −2 |
 | **Negativa signaler** | Vinstvarning, företrädesemission med stor rabatt, rekonstruktion, insiders säljer | −3 |
 
-Signalerna summeras över 90 dagar, och nyare väger tyngre. De största bolagen (som Saab och Ericsson) sorteras bort med en lista som byggs ut vid triagen.
+Signalerna summeras över 90 dagar, och nyare väger tyngre.
+
+**Om fondsignalerna:** de räknas av `verktyg/fonder.py` ur Finansinspektionens kvartalsdata och läses in av radarn. Bara aktivt förvaltade fonder räknas. Indexfonder köper när ett bolag kommer in i ett index, och generations-, pensions- och blandfonder köper efter en plan, så ingen av dem visar övertygelse. In- och utflöden i fonderna räknas bort. Bolag som redan ägs av fler än 30 aktiva fonder sorteras bort, liksom byten av ISIN, emissionsrätter och obligationer. Datan är några månader gammal när den kommer, så fondsignalen är en bekräftelse på att proffsen har hittat bolaget, inte ett tidigt tips i sig. Störst värde har den tillsammans med andra signaler, som insiderköp eller en första order. De största bolagen (som Saab och Ericsson) sorteras bort med en lista som byggs ut vid triagen.
 
 **Steg 2, triagen (snävare):**
 - **Storlek:** börsvärde ca 50 MSEK – 5 mdr. Större bolag bara om vändningen är tydlig (metod 02).

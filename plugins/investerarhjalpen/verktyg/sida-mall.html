@@ -764,17 +764,31 @@ function varderingPanel(b){
     ${v.kommentar ? `<p class="hint">${esc(v.kommentar)}</p>` : ""}
   </section>`;
 }
-const TYP = {genombrott:"Genombrott", partnerskap:"Partnerskap", ramavtal_order:"Order/avtal", ny_agare:"Ny ägare", ny_ledning:"Ny ledning", insiderkop:"Insiderköp", insidersalj:"Insidersälj", negativ:"Negativ"};
+const TYP = {genombrott:"Genombrott", partnerskap:"Partnerskap", ramavtal_order:"Order/avtal", ny_agare:"Ny ägare", ny_ledning:"Ny ledning", insiderkop:"Insiderköp", insidersalj:"Insidersälj", negativ:"Negativ", fondkop:"Fondköp", fondflykt:"Fonder lämnar"};
 function vyRadar(){
   const r = DATA.radar, v = $("#vy");
-  v.innerHTML = `<h1>Radar</h1><p class="lede">Bolag med tidiga signaler på hela den svenska börsen: första order, partnerskap, ramavtal, nya ägare och insiderköp. Uppdateras automatiskt varje morgon (gratis). Varje söndag gör Claude en kort triage av de mest intressanta: följ, analysera eller ta bort (metod 15).</p>`;
+  v.innerHTML = `<h1>Radar</h1><p class="lede">Bolag med tidiga signaler på hela den svenska börsen: första order, partnerskap, ramavtal, nya ägare, insiderköp och fondköp. Uppdateras automatiskt varje morgon (gratis). Varje söndag gör Claude en kort triage av de mest intressanta: följ, analysera eller ta bort (metod 15).</p>`;
   if (!r || !r.bolag || !r.bolag.length){ v.innerHTML += `<div class="empty">Radarn har inte körts än.</div>`; return; }
   v.innerHTML += `<p class="hint">Uppdaterad ${esc(r.uppdaterad)} · ${r.bolag.length} bolag med minst 3 poäng (senaste 90 dagarna, nyare väger tyngre; flera olika typer av signaler ger bonus).</p>
   <div class="tw2"><table class="matris"><tr><th style="text-align:left">Bolag</th><th>Poäng</th><th>Signaler</th><th style="text-align:left">Senaste signalerna</th><th>Triage</th></tr>
   ${r.bolag.map(b => `<tr><td style="text-align:left"><b>${esc(b.bolag)}</b></td><td><b>${fmt(b.poang,1)}</b></td>
-    <td>${b.typer.map(t => `<span class="pav ${t==="negativ"||t==="insidersalj" ? "pav-forsvagar" : t==="genombrott"||t==="partnerskap" ? "pav-starker" : "pav-neutral"}" style="margin:2px">${esc(TYP[t]||t)}</span>`).join("")}</td>
+    <td>${b.typer.map(t => `<span class="pav ${t==="negativ"||t==="insidersalj"||t==="fondflykt" ? "pav-forsvagar" : t==="genombrott"||t==="partnerskap"||t==="fondkop" ? "pav-starker" : "pav-neutral"}" style="margin:2px">${esc(TYP[t]||t)}</span>`).join("")}</td>
     <td style="text-align:left;font-size:12.5px">${b.signaler.slice(0,3).map(s => `<div>${esc(s.datum)} <a href="${esc(s.lank)}" target="_blank" rel="noopener">${esc(s.titel.slice(0,90))}</a></div>`).join("")}</td>
-    <td>${b.triage ? `<b>${esc(b.triage.beslut)}</b><br><span class="steps-lbl">${esc(b.triage.kommentar||"")}</span>` : `<span class="steps-lbl">Ej triagerad</span>`}</td></tr>`).join("")}</table></div>`;
+    <td>${b.triage ? `<b>${esc(b.triage.beslut)}</b><br><span class="steps-lbl">${esc(b.triage.kommentar||"")}</span>` : `<span class="steps-lbl">Ej triagerad</span>`}</td></tr>`).join("")}</table></div>
+  ${fondsignalerBorsenHtml()}`;
+  gloss(v);
+}
+function fondsignalerBorsenHtml(){
+  const f = DATA.fondsignaler_borsen; if (!f || !(f.tabell||[]).length) return "";
+  const kop = f.tabell.filter(r => r.typ === "fondkop"), flykt = f.tabell.filter(r => r.typ === "fondflykt");
+  const rad = r => `<tr><td style="text-align:left"><b>${esc(r.namn)}</b>${r.nynoterat ? ` <span class="steps-lbl">nynoterat</span>` : ""}</td><td>${r.agare_fore} → ${r.agare}</td><td class="${r.netto > 0 ? "over" : r.netto < 0 ? "under" : ""}">${r.netto > 0 ? "+" : ""}${r.netto}</td><td>${fmt(r.varde_mkr, r.varde_mkr < 10 ? 1 : 0)} mkr</td><td style="text-align:left;font-size:12.5px">${esc((r.typ === "fondkop" ? r.nya : r.salt).slice(0, 4).join(", "))}${(r.typ === "fondkop" ? r.nya : r.salt).length > 4 ? ` +${(r.typ === "fondkop" ? r.nya : r.salt).length - 4}` : ""}</td></tr>`;
+  const tabell = (rubrik, rader, kol) => rader.length ? `<h3>${rubrik}</h3><div class="tw2"><table class="matris"><tr><th style="text-align:left">Bolag</th><th>Aktiva fonder som äger</th><th>Köpare minus säljare</th><th>Fondernas innehav</th><th style="text-align:left">${kol}</th></tr>${rader.map(rad).join("")}</table></div>` : "";
+  return `<section class="nt" style="margin-top:22px"><h2>Fondsignaler på hela börsen</h2>
+    <p class="hint" style="margin-top:0">Hur alla aktivt förvaltade svenska fonder ändrade sina innehav i mindre svenska bolag mellan ${esc(f.jamfort_med||"")} och ${esc(f.kvartal)} (publicerat av Finansinspektionen ${esc(f.publicerad||"")}). Indexfonder räknas inte, eftersom de köper när ett bolag kommer in i ett index, inte för att någon tror på bolaget. Pengar som flutit in och ut ur fonderna är borträknade. Stora och redan välägda bolag (fler än 30 aktiva fondägare) är bortsorterade. Fondköp ger 2–4 poäng i radarn (nynoterade bolag 2), och fonder som lämnar ger −2. Generations-, pensions- och blandfonder räknas inte, eftersom de köper efter en plan. Det är en pusselbit, inte ett bevis: fonderna kan ha fel, och datan är några månader gammal.</p>
+    ${tabell("Fonderna köper", kop.slice(0, 25), "Nya fondägare")}
+    ${kop.length > 25 ? `<p class="steps-lbl">och ${kop.length - 25} bolag till med fondköp.</p>` : ""}
+    ${tabell("Fonderna lämnar", flykt.slice(0, 12), "Har sålt allt")}
+  </section>`;
 }
 function redoKort(s){
   const r = s.redo; if (!r) return "";

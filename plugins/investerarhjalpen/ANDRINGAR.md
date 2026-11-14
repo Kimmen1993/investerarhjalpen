@@ -1,5 +1,9 @@
 # Ändringar
 
+## 2026-11-14 (fondsignaler i radarn)
+- **Radarn läser fondernas köp på hela börsen:** mindre svenska bolag där flera aktivt förvaltade fonder köper in sig får 2–4 poäng, och bolag som fonderna lämnar får −2. Indexfonder, generationsfonder och pensionsfonder räknas inte, och in- och utflöden räknas bort.
+- Under Radar finns en ny tabell, *Fondsignaler på hela börsen*, med vilka fonder som köpt och sålt.
+
 ## 2026-11-14 (fonder)
 - **Ny flik Fonder:** avgift, vad avgiften kostar på 10 år, index eller aktiv, risk, vad fonden äger (innehav, branscher, länder), vad förvaltaren har köpt och sålt sedan förra kvartalet och överlapp mellan fonder. Data från Finansinspektionen, gratis.
 - **Fonder som äger bolaget** på varje bolagssida, och **fondsignaler** för de bevakade bolagen.

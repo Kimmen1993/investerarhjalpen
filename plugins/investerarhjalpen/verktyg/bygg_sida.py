@@ -85,7 +85,11 @@ def main():
     fonder.sort(key=lambda f: -(f.get("formogenhet_mdr") or 0))
     fondsignaler = json.loads(las(ROT / "fonder" / "fondsignaler.json") or "null")
     fondregister = (json.loads(las(ROT / "fonder" / "fondregister.json") or "null") or {}).get("fonder", [])
-    data = {"byggd": datetime.now().strftime("%Y-%m-%d %H:%M"), "bolag": bolag, "teman": teman, "radar": radar, "fonder": fonder, "fondsignaler": fondsignaler, "fondregister": fondregister,
+    fondsignaler_borsen = json.loads(las(ROT / "radar" / "fondsignaler-borsen.json") or "null")
+    if fondsignaler_borsen:
+        fondsignaler_borsen.pop("signaler", None)
+        fondsignaler_borsen["tabell"] = [r for r in fondsignaler_borsen.get("tabell", []) if r["typ"] == "fondkop"][:60] + [r for r in fondsignaler_borsen.get("tabell", []) if r["typ"] == "fondflykt"][:20]
+    data = {"byggd": datetime.now().strftime("%Y-%m-%d %H:%M"), "bolag": bolag, "teman": teman, "radar": radar, "fonder": fonder, "fondsignaler": fondsignaler, "fondregister": fondregister, "fondsignaler_borsen": fondsignaler_borsen,
             "metod": metod, "kastade": las(ROT / "kastade.md"), "ordlista": ordlista,
             "journal": las(ROT / "journal.md"),
             "guide": las(VERKTYG / "larande" / "guide.md"),
