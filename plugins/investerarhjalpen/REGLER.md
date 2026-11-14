@@ -12,6 +12,17 @@ Investerarhjälpen är ett research-verktyg för aktier. Varje användare har en
 - Verktyget ska inte vara så strikt att chanser missas. Röda flaggor sänker poängen och skrivs ut, men stänger inte ute ett bolag. Kasta bara vid allvarliga problem.
 - **Efterfrågan väger lika tungt som bolagets siffror**: marknadens riktning, köparens ekonomi, politiken land för land, partnernas volymer (kalibrerade mot kända ordrar) och gemene man-testet.
 
+## Spår och investerarpanelen (metod 18)
+- **Varje bolag har exakt ett spår** i `status.json`: `"spar": "vandning"` (bolag som ska bevisa en vändning) eller `"karna"` (lönsamma bolag). Bedömningen räknas bara inom spåret: turnaround-steg och redo-poäng gäller bara Vändning. Blanda aldrig ihop spårens mått, och skriv alltid vilket spår en bedömning gäller.
+- **Verktyget föreslår, användaren bestämmer.** Nya spår sparas med `"spar_bekraftad": false`. När användaren säger ja (till exempel "ja till spåret för X") sätts `true`. Byte av spår föreslås, väntar på ja och skrivs in i `journal.md` och `logg.md`. Byt aldrig tyst.
+- Varje bolag har också en **Lynchkategori** (`"lynch"` och `"lynch_skal"`): `langsam`, `stabil`, `snabb`, `cyklisk`, `tillgang` eller `turnaround`.
+- **Investerarpanelen** (`bolag/<namn>/panel.json`) visar bolaget med Buffetts, Lynchs, Fishers, Grahams, Smiths och Blankarens glasögon. Det är **tolkningar av publicerad filosofi**, aldrig citat, och de ändrar aldrig spårets bedömning. Följ checklistorna i metod 18 och använd bolagets egna siffror med bevisnivå.
+
+## Fonder (skillen `fond`)
+- Fliken **Fonder** på sidan visar följda fonder: avgift, vad avgiften kostar på 10 år, typ (index eller aktiv), risk, aktiv risk, innehav, branscher, länder, köpt och sålt sedan förra kvartalet och överlapp. Data: Finansinspektionens kvartalsfiler (bara svenskregistrerade fonder, några månaders fördröjning). Skriptet `verktyg/fonder.py` är gratis.
+- Varje bevakat bolag får **Fonder som äger bolaget** (`fondagare.json`), och fliken Fonder visar **fondsignaler**: hur alla svenska fonder ändrat sina innehav i de bevakade bolagen. In- och utflöden är borträknade.
+- Rekommendera aldrig en fond. Visa fakta och förklara för en nybörjare.
+
 ## Bolagsjakt (metod 15)
 Tratten: signalradarn (`verktyg/signalradar.py`, hela börsen, varje morgon, gratis) → triage på söndagen (`/screening`, högst 5 bolag, `radar/triage.json`) → radar (passiv följning) → `/bolagsanalys` (ca 10–15 per år) → bevakning → **redo-poäng** (`redo` i `status.json`, 10 punkter, max 20). Målet är 3–5 riktigt bra case per år. **Att vara tidig betyder att följa tidigt, inte att köpa tidigt.**
 
@@ -69,7 +80,8 @@ Information är bara ett av fem övertag. Varje analys ska också använda **ana
 3. Pussel från många källor: bolaget, kunder/partners, LinkedIn, forum (forum = bara tips).
 4. Omvärld och tema: i vilken fas är temat?
 5. Därefter caset: motbevis först, sedan bevisnivåer.
-6. Turnaround-steg och jämförelse med 3–5 liknande bolag.
+6. Spår och Lynchkategori (metod 18). För Vändning: turnaround-steg. För Kärna: kvalitet och värdering mot bolagets egen historik. Jämförelse med 3–5 liknande bolag.
+6b. Investerarpanelen (`panel.json`, metod 18).
 7. **Beslut: Bevaka, Avvakta eller Kasta** (kriterier i `metod/07-beslut-turnaround-jamforelse.md`). Skriv `status.json` och bygg och publicera webbsidan.
 
 ## Webbsidan och automatiken
@@ -112,6 +124,8 @@ Information är bara ett av fem övertag. Varje analys ska också använda **ana
 - `/investerarhjalpen:screening` – leta nya turnaround-/tenbaggerkandidater enligt checklistan.
 - `/investerarhjalpen:loftesrevision <bolag>` – följ upp 2–3 års löften från bolaget.
 - `/investerarhjalpen:tema [tema]` – analysera ett tema, eller leta efter nästa stora fokusområde.
+- `/investerarhjalpen:fond` (eller "följ fonden X", "sök fonder", "vilka fonder äger X?") – fondverktyget.
+- `/investerarhjalpen:panel <bolag>` (eller "investerarpanelen för X", "hur skulle Buffett se på X?") – ta fram eller uppdatera investerarpanelen.
 
 När användaren klistrar in text (forum, X, LinkedIn, Copilot-svar): behandla den som **påståenden att kontrollera**, inte som fakta.
 

@@ -48,6 +48,49 @@ Orden här blir automatiskt klickbara förklaringar på webbsidan. Formatet ska 
 - **Basfrekvens:** hur ofta något brukar hända i liknande fall. Till exempel: hur många små rymdbolag når lönsamhet utan nya emissioner?
 - **Katalysator:** en händelse som kan få marknaden att ändra uppfattning om bolaget, till exempel en rapport eller en stor order.
 
+## Fonder
+- **Fond / fonden / fonder / fonderna:** en korg med många aktier eller räntepapper som en förvaltare köper åt alla som sparar i fonden. Du äger en liten del av hela korgen.
+- **Indexfond / indexfonder:** en fond som köper alla bolag i ett index, till exempel de 30 största i Sverige, i stället för att välja själv. Den är oftast billig och gör som marknaden.
+- **Aktivt förvaltad / aktivt förvaltade / aktiv fond / aktiva fonder:** en fond där en förvaltare väljer bolag och försöker slå sitt index. Den är oftast dyrare än en indexfond.
+- **Förvaltare / förvaltaren:** personen eller teamet som bestämmer vad fonden köper och säljer.
+- **Fondbolag / fondbolaget:** företaget som driver fonden, till exempel Avanza Fonder eller Swedbank Robur.
+- **Förvaltningsavgift / avgift per år / avgiften:** det fonden tar betalt varje år, i procent av dina pengar. Den dras automatiskt från fondens värde, så du ser den aldrig som en räkning.
+- **Andelsklass / andelsklassen / andelsklasser / andelsklasserna:** samma fond kan säljas i flera varianter (A, B, C …) med olika avgift eller utdelning. Innehaven är desamma. Vilken klass du köper syns på ISIN-numret.
+- **ISIN / ISIN-nummer / ISIN-numret:** en internationell kod på 12 tecken som pekar ut exakt ett värdepapper, till exempel en viss andelsklass av en fond.
+- **Prestationsbaserad avgift / prestationsavgift:** en extra avgift som fonden tar ut när den har gått bättre än en viss nivå, ofta 20 % av överavkastningen.
+- **Faktablad / faktabladet / KID:** ett kort dokument som alla fonder måste ha, med avgifter, risk och mål. Det är samma oavsett var du köper fonden.
+- **Jämförelseindex / jämförelseindexet / sitt index:** det index fonden mäter sig mot. Om fonden går bättre än sitt index har förvaltaren lyckats.
+- **Aktiv risk:** hur mycket fondens avkastning har avvikit från jämförelseindexet de senaste två åren. Under ca 1 % följer fonden sitt index nästan exakt, över ca 5 % gör förvaltaren något helt eget.
+- **Standardavvikelse / svängt:** hur mycket fondens värde har gått upp och ner per år de senaste två åren. 15 % betyder att ett år på -15 % eller +15 % inte är konstigt.
+- **Fondförmögenhet:** hur mycket pengar som finns i fonden totalt.
+- **Innehav / innehaven:** det fonden (eller du) äger, till exempel aktier i ett visst bolag.
+- **Överlapp / överlappet:** hur stor del av två fonder som äger samma sak. Över ca 50 % betyder att fonderna gör ungefär samma jobb.
+- **Genomlysning / genomlysningen:** att lysa igenom dina fonder och se vilka bolag du egentligen äger, tillsammans med aktierna du äger direkt.
+- **Fond i fonder:** en fond som köper andra fonder i stället för aktier direkt. Då betalar du ibland avgift i två led.
+- **Räntefond / räntefonder:** en fond som lånar ut pengar till stater och företag (obligationer) i stället för att köpa aktier. Den svänger oftast mycket mindre.
+- **Blandfond / blandfonder:** en fond med både aktier och räntepapper.
+- **Inflöden / utflöden / in- och utflöden:** pengar som sparare sätter in i eller tar ut ur fonden. Då måste fonden köpa eller sälja av allt, och det är inget aktivt val av förvaltaren.
+- **Fondsignal / fondsignaler:** när flera fonder börjar köpa eller sälja samma bolag. Det kan vara en tidig ledtråd, men det är bara en pusselbit.
+- **Fondägare / fondägarna:** fonder som äger aktier i ett visst bolag.
+- **Likvida medel:** pengar som fonden har på kontot och inte har investerat än.
+- **Flaggning / flaggningar / flaggningsmeddelande:** när någon passerar 5, 10, 15 % … av aktierna i ett bolag måste det offentliggöras. Det är den snabbaste signalen om att en stor ägare köper eller säljer.
+- **Aktiesplit / split:** bolaget delar varje aktie i flera, till exempel en blir fyra. Värdet ändras inte, men antalet aktier ökar.
+
+## Investerarpanelen
+- **Vallgrav:** något som skyddar ett bolags vinster mot konkurrenter, till exempel ett starkt varumärke, patent eller kunder som har svårt att byta.
+- **ROIC / avkastning på kapitalet / avkastning på kapital:** hur mycket vinst bolaget får för varje krona som är investerad i verksamheten. Över ca 15 % år efter år brukar betyda ett mycket bra bolag.
+- **ROCE / avkastning på sysselsatt kapital:** nästan samma sak som ROIC: vinsten i förhållande till pengarna som arbetar i bolaget.
+- **PEG-tal / PEG:** P/E-talet delat med vinsttillväxten i procent. Under 1 räknas som billigt i förhållande till tillväxten, över 2 som dyrt.
+- **P/B:** aktiekursen delat med det egna kapitalet per aktie, alltså vad börsen betalar för det bolaget äger.
+- **Säkerhetsmarginal / säkerhetsmarginalen:** skillnaden mellan vad ett bolag bedöms vara värt och priset. En stor marginal skyddar om bedömningen är fel.
+- **Fritt kassaflöde / FCF:** pengarna som blir kvar när bolaget har betalat för driften och sina investeringar. Det är det som kan gå till utdelning, återköp eller amortering.
+- **FCF-avkastning:** det fria kassaflödet i procent av börsvärdet. Ungefär hur mycket pengar bolaget genererar per hundralapp du betalar för aktien.
+- **Kassaflödeskonvertering:** hur stor del av vinsten som blir riktiga pengar på kontot. Nära 100 % är ett gott tecken.
+- **Blankare / blankning / Blankaren:** någon som tjänar pengar när en aktie faller, genom att låna aktier, sälja dem och köpa tillbaka billigare senare. I panelen är Blankaren en påhittad roll som letar risker.
+- **Scuttlebutt:** Philip Fishers ord för att fråga runt hos kunder, leverantörer och konkurrenter för att förstå ett bolag bättre än siffrorna visar.
+- **Nettoskuld / nettoskulden:** skulderna minus kassan. Negativ nettoskuld betyder att bolaget har mer pengar än skulder.
+- **Återköp / återköper:** när bolaget köper tillbaka sina egna aktier. De som är kvar äger då en större del av bolaget.
+
 ## Vår metod
 - **Turnaround:** när ett bolag som gått dåligt vänder och börjar gå bra.
 - **Tenbagger:** en aktie som stiger till tio gånger sitt värde.

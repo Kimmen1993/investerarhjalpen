@@ -260,7 +260,7 @@ function beraknaPortfolj(d, bank){
 function strategiKoll(h){
   const ut = []; const b = h.bolag;
   if (!b){ ut.push(["gra", "Ingen tes i verktyget. Be Claude analysera bolaget om du vill följa det här."]); return ut; }
-  const s = b.status, p = s.redo ? s.redo.punkter.reduce((a, x) => a + x.poang, 0) : null;
+  const s = b.status, p = s.redo && arVandning(s) ? s.redo.punkter.reduce((a, x) => a + x.poang, 0) : null;
   const fas = p == null ? null : p >= 15 ? 2 : p >= 10 ? 1 : 0;
   if (s.trafikljus === "rod") ut.push(["rod", "Tesen är skadad (rött). Enligt din strategi är det läge att ompröva innehavet."]);
   else if (s.trafikljus === "gul") ut.push(["gul", "Gult: något att bevaka noga. Läs senaste nytt."]);
@@ -268,6 +268,7 @@ function strategiKoll(h){
   if (fas === 0) ut.push(["gul", `Redo-poäng ${p}/20: för tidigt enligt din strategi.`]);
   if (fas === 1) ut.push([h.andel > 10 ? "gul" : "gron", `Fas 1 (redo-poäng ${p}/20): din strategi säger en liten startposition.${h.andel > 10 ? ` Innehavet är ${fmt(h.andel,0)} % av portföljen, alltså mer än en startposition.` : ""}`]);
   if (fas === 2) ut.push(["gron", `Fas 2 (redo-poäng ${p}/20): läge att ta ställning till en större position enligt din strategi.`]);
+  if (!arVandning(s)) ut.push(["gra", `Mäts som Kärna${s.lynch ? ` (${LYNCH[s.lynch] || s.lynch})` : ""}: följ lönsamheten och priset, inte en vändning.`]);
   if (s.nasta_handelse) ut.push(["gra", `Nästa händelse: ${s.nasta_handelse}`]);
   return ut;
 }
@@ -292,10 +293,62 @@ async function pfStart(){
       if (!snap.metadata.fromCache) clearTimeout(timer);
       PF.data = snap.exists ? {...PF_TOM(), ...JSON.parse(JSON.stringify(snap.data()))} : PF_TOM();
       PF.laddad = true; PF.fel = null;
-      const hh = location.hash || "#lage"; if (/^#(lage|bevakning|nyheter)$/.test(hh) || hh.startsWith("#bolag-")) route();
+      const hh = location.hash || "#lage"; if (/^#(lage|bevakning|nyheter|fonder)$/.test(hh) || hh.startsWith("#bolag-")) route();
       if (location.hash === "#portfolj" && !PF.forhand && !document.activeElement?.closest?.("#vy form")) vyPortfolj();
     }, e => { clearTimeout(timer); PF.laddad = true; PF.fel = "Portföljen kunde inte läsas (" + (e && e.code) + ")."; if (location.hash === "#portfolj") vyPortfolj(); });
   } catch(e){ PF.laddad = true; }
+}
+// --- fondkoll: överlapp och genomlysning av det användaren äger (bara i webbläsaren, privat) ---
+function rensaFondnamn(n){ return String(n||"").toLowerCase().normalize("NFKD").replace(/[̀-ͯ]/g, "").replace(/\b(sek|eur|nok|usd|acc|dis|klass|class|a|b|c|d)\d*\b/g, " ").replace(/[^a-z0-9]+/g, " ").trim(); }
+function fondFor(h){
+  const reg = DATA.fondregister || [];
+  const r = reg.find(x => x[0] === h.isin) || reg.find(x => { const a = rensaFondnamn(x[1]); return a.length > 6 && a === rensaFondnamn(h.namn); });
+  if (r) return {isin: r[0], namn: r[1], avgift: r[2], foljd: (DATA.fonder||[]).find(f => f.isin === r[0])};
+  if (!h.bolag && /fond|fund|ucits|etf|index/i.test(h.namn)) return {namn: h.namn, utanfor: true};
+  return null;
+}
+function fondkoll(aktiva){
+  const fonder = aktiva.map(h => ({h, f: fondFor(h)})).filter(x => x.f);
+  if (!fonder.length) return null;
+  const varde = h => h.varde ?? h.kostnad ?? 0;
+  const tot = aktiva.reduce((a, h) => a + varde(h), 0) || 1;
+  const varningar = [];
+  const foljda = fonder.filter(x => x.f.foljd);
+  for (let i = 0; i < foljda.length; i++) for (let j = i + 1; j < foljda.length; j++){
+    const a = foljda[i].f, b = foljda[j].f, o = (a.foljd.overlapp || {})[b.isin];
+    if (o != null && o >= 50) varningar.push(["gul", `<b>${esc(a.namn)}</b> och <b>${esc(b.namn)}</b> äger till ${fmt(o, 0)} % samma sak. Du sprider alltså inte risken så mycket som det ser ut, men betalar två avgifter (${fmt(a.avgift, 2)} % och ${fmt(b.avgift, 2)} %).`]);
+  }
+  const exp = {};
+  for (const {h, f} of foljda){
+    for (const i of f.foljd.innehav){ if (i.typ === "Övrigt") continue; const k = i.isin || i.namn; const e = exp[k] || (exp[k] = {namn: snyggt(i.namn), v: 0, via: [], direkt: false}); e.v += varde(h) * i.andel / 100; e.via.push(f.namn); }
+  }
+  for (const h of aktiva){ if (fonder.some(x => x.h === h)) continue; const k = h.isin || h.nyckel; const e = exp[k] || (exp[k] = {namn: h.namn, v: 0, via: [], direkt: false}); e.v += varde(h); e.direkt = true; }
+  const topp = Object.values(exp).map(e => ({...e, pct: e.v / tot * 100})).sort((a, b) => b.v - a.v);
+  for (const e of topp){
+    const kallor = e.via.length + (e.direkt ? 1 : 0);
+    if (e.pct >= 10 && kallor >= 2) varningar.push(["gul", `Du äger <b>${esc(e.namn)}</b> ${e.direkt ? "både direkt och " : ""}via ${e.via.length} ${e.via.length === 1 ? "fond" : "fonder"}. Tillsammans är det ca ${fmt(e.pct, 0)} % av portföljen, mer än det kan se ut som.`]);
+    else if (e.direkt && e.via.length && e.pct >= 3) varningar.push(["gra", `Du äger <b>${esc(e.namn)}</b> både direkt och via ${esc(e.via.join(", "))}. Tillsammans ca ${fmt(e.pct, 1)} % av portföljen.`]);
+  }
+  const ejFoljda = fonder.filter(x => !x.f.foljd && !x.f.utanfor), utanfor = fonder.filter(x => x.f.utanfor);
+  if (ejFoljda.length) varningar.push(["gra", `${ejFoljda.map(x => `<b>${esc(x.f.namn)}</b>`).join(", ")} ${ejFoljda.length === 1 ? "följs" : "följs"} inte i verktyget än, så ${ejFoljda.length === 1 ? "den" : "de"} kan inte kontrolleras. Skriv <i>följ fonden ${esc(ejFoljda[0].f.namn)}</i> i Claude-appen.`]);
+  if (utanfor.length) varningar.push(["gra", `${utanfor.map(x => `<b>${esc(x.f.namn)}</b>`).join(", ")} finns inte i Finansinspektionens data. Den är troligen registrerad utomlands, så innehaven kan inte kontrolleras automatiskt.`]);
+  return {fonder, varningar, topp: topp.slice(0, 10), fondandel: fonder.reduce((a, x) => a + varde(x.h), 0) / tot * 100, saknarKurs: fonder.some(x => x.h.varde == null)};
+}
+function fondkollHtml(aktiva, rubrik = true){
+  const k = fondkoll(aktiva); if (!k) return "";
+  const ikon = {gul: "⚠️", gra: "ℹ️"};
+  return `<section class="nt fondkoll">${rubrik ? `<h2>Fondkoll: vad du äger via dina fonder</h2>` : ""}<p class="hint" style="margin-top:0">Verktyget lyser igenom dina fonder och lägger ihop det med aktierna du äger direkt. Det här ser bara du. ${k.saknarKurs ? "Fonder utan aktuell kurs räknas på vad du betalade. " : ""}Fonderna är ca ${fmt(k.fondandel, 0)} % av portföljen.</p>
+    ${k.varningar.length ? k.varningar.map(([n, txt]) => `<div class="callout${n === "gul" ? " flag" : ""}"><p style="margin:0">${ikon[n]} ${txt}</p></div>`).join("") : `<div class="callout"><p style="margin:0">✅ Inga stora överlapp hittades mellan dina fonder och aktier.</p></div>`}
+    ${k.topp.length ? `<div class="label" style="margin-top:12px">Dina största bolag efter genomlysningen</div><div class="tw2"><table class="matris"><tr><th style="text-align:left">Bolag</th><th style="text-align:left">Hur du äger det</th><th>Andel av portföljen</th></tr>${k.topp.map(e => `<tr><td style="text-align:left">${esc(e.namn)}</td><td style="text-align:left;font-size:12.5px">${[e.direkt ? "direkt" : "", ...e.via.map(esc)].filter(Boolean).join(", ")}</td><td>${fmt(e.pct, 1)} %</td></tr>`).join("")}</table></div>` : ""}
+  </section>`;
+}
+function fordelningHtml(aktiva){
+  const tot = aktiva.reduce((a, h) => a + (h.andel || 0), 0); if (!tot) return "";
+  const grupp = (nyckel, namn) => { const g = {}; aktiva.forEach(h => { const k = h.bolag ? nyckel(h.bolag.status) : "ej"; g[k] = (g[k] || 0) + (h.andel || 0); }); return Object.entries(g).sort((a, b) => b[1] - a[1]).map(([k, v]) => [namn(k), v / tot * 100]); };
+  const spar = grupp(s => s.spar === "karna" ? "karna" : s.spar ? "vandning" : "ingen", k => k === "ej" ? "Följs inte" : k === "ingen" ? "Spår ej satt" : SPAR[k][0]);
+  const lynch = grupp(s => s.lynch || "ingen", k => k === "ej" ? "Följs inte" : LYNCH[k] || "Ej satt");
+  const rad = (rubrik, del) => `<div style="margin:8px 0"><div class="label">${rubrik}</div><div class="bar" style="display:flex;height:10px;margin:6px 0 4px">${del.map(([n, v], i) => `<b title="${esc(n)} ${fmt(v,0)} %" style="width:${v}%;opacity:${1 - i * 0.14};border-right:2px solid var(--surface)"></b>`).join("")}</div><div class="lek-m">${del.map(([n, v]) => `${esc(n)} ${fmt(v,0)} %`).join(" · ")}</div></div>`;
+  return `<details class="fold"><summary><span class="ft">Fördelning</span><span class="fs">${spar.map(([n, v]) => `${esc(n)} ${fmt(v,0)} %`).join(" · ")}</span></summary>${rad("Spår (andel av värdet)", spar)}${rad("Peter Lynchs kategorier", lynch)}<p class="hint">Vändning är bolag som ska bevisa en vändning, Kärna är lönsamma bolag. Om du vill ha en målfördelning kan du skriva den i Min strategi. Fördelningen är bara en bild av läget och inget råd.</p></details>`;
 }
 function vyPortfolj(){
   const v = $("#vy");
@@ -322,6 +375,8 @@ function vyPortfolj(){
   v.innerHTML = head + bankval + (PF.fel ? `<div class="callout flag"><p style="margin:0">${esc(PF.fel)}</p></div>` : "") + (r.aktiva.length || r.stangda.length ? `
     <div class="snabb">${kort.map(([l, val, sub]) => `<div class="sf"><div class="label">${l}</div><div class="v num">${val}</div><div class="s">${sub}</div></div>`).join("")}</div>
     <p class="hint" style="margin:0 0 14px">${r.aktiva.length} innehav · ${r.aktiva.filter(h => h.bolag).length} följs i verktyget · ${fasN[0]} i fas 1 och ${fasN[1]} i fas 2 · största innehavet är ${fmt(r.aktiva[0]?.andel || 0, 0)} % av portföljen. Din strategi: 2–3 vinnare ska bära portföljen, så många små tidiga positioner och färre stora.</p>
+    ${fondkollHtml(r.aktiva)}
+    ${fordelningHtml(r.aktiva)}
     <div class="pf-lista">${r.aktiva.map(h => pfKort(h, d)).join("")}</div>
     ${r.dolda.length ? `<p class="lek-m">Dolda innehav: ${r.dolda.map(h => `${esc(h.namn)} <button type="button" class="lank-knapp" data-visa="${esc(h.nyckel)}">visa igen</button>`).join(" · ")}</p>` : ""}
     ${r.saltBevakas.length ? `<h2>Sålt, bevakas</h2><p class="hint" style="margin-top:0">Bolag du har sålt helt men fortsätter följa, ifall läget vänder. Flytta till arkivet när du inte vill följa dem längre.</p><div class="pf-lista">${r.saltBevakas.map(h => { const not = (d.anteckningar||{})[h.nyckel] || {}; return `<article class="pf-kort"><div class="lk-top"><h2>${h.bolag ? `<a href="#bolag-${esc(h.bolag.slug)}">${esc(h.namn)}</a>` : esc(h.namn)}</h2>${h.bolag ? ljus(h.bolag.status) : `<span class="pill" style="background:var(--sunk);color:var(--muted)">Följs inte i verktyget</span>`}<span class="lek-m">Sålt ${esc(h.saltDatum)}</span></div>
@@ -562,7 +617,7 @@ function mittInnehavHtml(slug){
 function portfoljForClaude(){
   if (!PF.data) throw new Error("Portföljen är inte laddad, eller så är användaren inte inloggad.");
   const r = beraknaPortfolj(PF.data); const pl = platser(PF.data);
-  return {totalt_kr: r.tot, innehav: r.aktiva.map(h => ({namn: h.namn, antal: h.antal, gav_kr: h.gav && +h.gav.toFixed(2), kurs_kr: h.kurs, investerat_kr: Math.round(h.kostnad), varde_kr: h.varde && Math.round(h.varde), upp_ner_pct: h.orealiseratPct && Math.round(h.orealiseratPct), andel_pct: Math.round(h.andel), finns_hos: Object.fromEntries(Object.entries(pl[h.isin || h.nyckel] || {}).filter(([, a]) => a > 1e-6)), foljs_i_verktyget: h.bolag ? h.bolag.status.namn : null, strategikoll: strategiKoll(h).map(x => x[1]), anteckning: (PF.data.anteckningar||{})[h.nyckel] || null})),
+  return {totalt_kr: r.tot, innehav: r.aktiva.map(h => ({namn: h.namn, antal: h.antal, gav_kr: h.gav && +h.gav.toFixed(2), kurs_kr: h.kurs, investerat_kr: Math.round(h.kostnad), varde_kr: h.varde && Math.round(h.varde), upp_ner_pct: h.orealiseratPct && Math.round(h.orealiseratPct), andel_pct: Math.round(h.andel), finns_hos: Object.fromEntries(Object.entries(pl[h.isin || h.nyckel] || {}).filter(([, a]) => a > 1e-6)), foljs_i_verktyget: h.bolag ? h.bolag.status.namn : null, spar: h.bolag ? h.bolag.status.spar || null : null, lynch: h.bolag ? h.bolag.status.lynch || null : null, strategikoll: strategiKoll(h).map(x => x[1]), anteckning: (PF.data.anteckningar||{})[h.nyckel] || null})),
     salda: r.stangda.map(h => ({namn: h.namn, realiserat_kr: Math.round(h.realiserat), utdelning_kr: Math.round(h.utdelning)}))};
 }
 pfStart();

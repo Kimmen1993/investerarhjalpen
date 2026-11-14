@@ -37,6 +37,8 @@ def main():
         vardering = json.loads(las(mapp / "vardering.json") or "null")
         kurs = json.loads(las(mapp / "kurs.json") or "null")
         rapporter = json.loads(las(mapp / "rapporter.json") or '{"rapporter": []}')["rapporter"]
+        panel = json.loads(las(mapp / "panel.json") or "null")
+        fondagare = json.loads(las(mapp / "fondagare.json") or "null")
         mojl_fil = mapp / "mojligheter.json"
         mojligheter = None
         if mojl_fil.exists():
@@ -56,7 +58,7 @@ def main():
                       "docs": {k: v for k, v in docs.items() if v}, "nyheter": nyheter,
                       "handelser": sorted(handelser, key=lambda h: h["datum"], reverse=True), "nyckeltal": nyckeltal,
                       "vardering": vardering, "kurs": kurs, "rapporter": rapporter, "mojligheter": mojligheter,
-                      "marknadsmodell": marknadsmodell})
+                      "marknadsmodell": marknadsmodell, "panel": panel, "fondagare": fondagare})
     ordning = {"Bevaka": 0, "Avvakta": 1, "Kasta": 2}
     bolag.sort(key=lambda b: (ordning.get(b["status"].get("beslut"), 3), -(b["status"].get("poang") or 0)))
 
@@ -75,7 +77,15 @@ def main():
         ordlista.append({"ord": alias, "def": forklaring, "rubrik": alias[0]})
 
     radar = json.loads(las(ROT / "radar" / "radar.json") or "null")
-    data = {"byggd": datetime.now().strftime("%Y-%m-%d %H:%M"), "bolag": bolag, "teman": teman, "radar": radar,
+    fonder = []
+    for f in sorted(ROT.glob("fonder/*/fond.json")):
+        fd = json.loads(las(f))
+        fd["slug"] = f.parent.name
+        fonder.append(fd)
+    fonder.sort(key=lambda f: -(f.get("formogenhet_mdr") or 0))
+    fondsignaler = json.loads(las(ROT / "fonder" / "fondsignaler.json") or "null")
+    fondregister = (json.loads(las(ROT / "fonder" / "fondregister.json") or "null") or {}).get("fonder", [])
+    data = {"byggd": datetime.now().strftime("%Y-%m-%d %H:%M"), "bolag": bolag, "teman": teman, "radar": radar, "fonder": fonder, "fondsignaler": fondsignaler, "fondregister": fondregister,
             "metod": metod, "kastade": las(ROT / "kastade.md"), "ordlista": ordlista,
             "journal": las(ROT / "journal.md"),
             "guide": las(VERKTYG / "larande" / "guide.md"),

@@ -7,6 +7,16 @@
 - 🟡 **Bevaka noga**: något behöver följas, läs senaste nytt.
 - 🔴 **Tesen skadad**: något viktigt har gått fel. Läs varför.
 
+**Två spår.** Varje bolag har en etikett som visar vad det mäts mot:
+- **Vändning:** bolag som ska bevisa att de kan vända. De mäts med turnaround-steg och redo-poäng.
+- **Kärna:** lönsamma bolag. De mäts på kvalitet och pris.
+
+Ett bolag bedöms aldrig efter fel spårs regler. Står det *(förslag)* har verktyget gissat spåret. Skriv `ja till spåret för <bolag>` om du håller med.
+
+**Investerarpanelen.** Under *Kort och enkelt* finns knappar för Buffett, Lynch, Fisher, Graham, Terry Smith och Blankaren. Klicka för att se bolaget med deras glasögon. Det är tolkningar av deras filosofi och inget de har sagt.
+
+**Fonder.** Fliken *Fonder* visar fonderna du följer: vad de kostar, vad de äger, hur mycket de svänger och vad förvaltaren har köpt och sålt. Varje bolag visar också vilka svenska fonder som äger det.
+
 **Så pratar du med verktyget** (i Claude-appen, fliken Code, i din mapp):
 
 | Skriv | Det händer |
@@ -15,6 +25,9 @@
 | `uppdatera mig om <bolag>` | Det senaste om bolaget, kort och enkelt |
 | `djupdyk i <bolag>` | En grundlig genomgång direkt |
 | `leta nya bolag` | Claude letar efter intressanta bolag på hela börsen |
+| `investerarpanelen för <bolag>` | Bolaget med Buffetts, Lynchs och de andras glasögon |
+| `följ fonden <namn>` | Fonden läggs till under fliken Fonder |
+| `vilka fonder äger <bolag>?` | Svenska fonder som äger bolaget, och om de köper eller säljer |
 | `vad betyder <ord>?` | En enkel förklaring |
 | `jag har ett förslag` | Skicka en idé om hur verktyget kan bli bättre |
 
@@ -54,10 +67,12 @@ Var försiktig med långa kedjor av C. Flera gissningar efter varandra blir snab
 - **Snabbfakta:** börsvärde, kassa, försäljning, resultat och nästa händelse.
 - **Rapportknapparna:** senaste rapporten och årsredovisningen som PDF, direkt från bolaget.
 - **Kort och enkelt:** vad bolaget gör, vad som talar för och emot, och vad vi väntar på. Börja alltid här.
+- **Spåretiketten** överst (*Mäts som Vändning* eller *Mäts som Kärna*): visar vilka mått som gäller för bolaget.
+- **Investerarpanelen:** sex knappar med olika investerares sätt att tänka. En blå prick betyder att rösten väger tyngst för bolagets spår. De andra är ett andra perspektiv. Med *Fråga … vidare* kan du ställa egna frågor till Claude utifrån den investerarens checklista.
 - **Senaste nytt:** händelser på klarspråk, ofta med en **lärdom**: en mening om vad händelsen lär ut.
 - **Siffror per kvartal:** staplar med den streckade trendlinjen. Titta på trenden, inte på enskilda kvartal.
 - **Framtiden och värdering:** räkneexempel i flera scenarier. Det är inga riktkurser.
-- **Redo-poäng:** tio punkter som visar läget enligt din strategi (fas 1 = tidigt läge, fas 2 = vändningen bekräftad).
+- **Redo-poäng** (bara spåret Vändning): tio punkter som visar läget enligt din strategi (fas 1 = tidigt läge, fas 2 = vändningen bekräftad). Kärnbolag visar i stället Peter Lynchs kategori.
 - **Hela akten:** allt underlag, med källor och bevisnivåer.
 
 ## Automatiken
@@ -66,6 +81,16 @@ Var försiktig med långa kedjor av C. Flera gissningar efter varandra blir snab
 - **Söndagsgenomgången kl. 17:** bolagsjakt på hela börsen och en djupdykning i några bolag (standard: högst 5 per söndag, varje bolag ungefär en gång i månaden).
 - **Styr själv:** skriv till exempel `ta 2 extra på söndag`, `djupdyk i <bolag> på söndag` eller `ändra till 3 bolag per söndag`.
 - Datorn och Claude-appen behöver vara igång vid de tiderna. Annars körs det nästa gång appen är öppen.
+
+## Fonder
+
+- **Var kommer siffrorna ifrån?** Finansinspektionen publicerar alla svenska fonders innehav en gång i kvartalet, med några månaders fördröjning. Verktyget hämtar dem automatiskt och gratis vid morgonkollen.
+- **Utländska fonder.** Många fonder hos Avanza är registrerade i Luxemburg eller Irland och finns inte i Finansinspektionens data. Då hämtar verktyget innehaven från fondbolagets egen lista. Finns ingen sådan lista och fonden är en indexfond, lånas innehaven från en svensk indexfond med liknande index. Det står alltid på fondsidan var siffrorna kommer ifrån. Skriv `följ fonden <namn>` som vanligt.
+- **Avgiften** är densamma hos Avanza som hos fondbolaget, men den kan skilja mellan fondens andelsklasser (A, B, C …). Andelsklassen syns på ISIN-numret där du köper.
+- **Köpt och sålt** räknas på antalet aktier. Pengar som flutit in eller ut ur fonden räknas bort, så att det som syns är förvaltarens egna val.
+- **Fondkoll:** om du har läst in fonder under Min portfölj lyser verktyget igenom dem. Du får en varning om två fonder äger nästan samma sak, eller om du äger samma bolag både direkt och via fonder. Det ser bara du. Skriv `kolla mina fonder` för att få en genomgång.
+- **Fondsignaler:** längst ner under Fonder ser du hur fonderna har ändrat sina innehav i dina bevakade bolag. Fler fonder som köper ett småbolag kan vara en tidig signal, men det är bara en pusselbit.
+- Skriv `följ fonden <namn>`, `sluta följa <fond>` eller `jämför <fond> och <fond>`.
 
 ## Min portfölj
 
@@ -77,6 +102,7 @@ Var försiktig med långa kedjor av C. Flera gissningar efter varandra blir snab
 - **Konkurser och avnoteringar** känns igen och skrivs av automatiskt.
 - **Sålt allt?** Bolaget hamnar under *Sålt, bevakas*, så att du ser om läget vänder. Skriv gärna varför du sålde.
 - **Mina anteckningar:** skriv *innan* du köper varför du köper och vad som skulle få dig att sälja. Det är ett av de bästa skydden mot dåliga beslut.
+- **Fördelning:** hur mycket av portföljen som ligger i Vändning och i Kärna, och i Peter Lynchs sex kategorier. Det är bara en bild av läget. Om du vill ha ett mål skriver du in det i din strategi.
 - **Ingen annan ser din portfölj**, även om du delar sidan.
 
 ## Tips och trix

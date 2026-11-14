@@ -254,6 +254,46 @@ details.fold>summary .fs{font-size:13px;color:var(--muted)}
 details.fold>.nt{border:0;padding:0;margin:0 0 16px;background:none}
 details.fold>.nt>h2:first-child{display:none}
 .sek{scroll-margin-top:56px}
+/* fonder */
+.fond-row{grid-template-columns:minmax(0,2.2fr) minmax(0,1fr) minmax(0,1fr) minmax(0,1.2fr)}
+@media (max-width:760px){.fond-row{grid-template-columns:1fr 1fr}}
+.fond-tva{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px}
+.fond-staplar{display:grid;gap:6px;margin-top:8px}
+.fs-rad{display:grid;grid-template-columns:minmax(0,9em) minmax(0,1fr) 4.5em;gap:8px;align-items:center;font-size:13.5px}
+.fs-rad span:first-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.fs-rad .bar{margin:0}
+.fond-staplar.bred .fs-rad{grid-template-columns:minmax(0,18em) minmax(0,1fr) 4.5em}
+@media (max-width:560px){.fond-staplar.bred .fs-rad{grid-template-columns:minmax(0,10em) minmax(0,1fr) 4.5em}}
+.fs-rad .num{text-align:right}
+.fond-tank{margin:4px 0 8px;padding-left:20px;display:grid;gap:8px;font-size:14.5px;line-height:1.5}
+/* spår och investerarpanelen */
+.spar{display:inline-flex;align-items:center;gap:6px;font:600 12px/1 var(--f-body);padding:5px 9px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--fg);white-space:nowrap}
+.spar b{font:700 10px/1 var(--f-mono);letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+.spar.s-vandning{border-color:var(--warn);color:var(--warn)}
+.spar.s-karna{border-color:var(--accent);color:var(--accent)}
+.spar.forslag{border-style:dashed}
+.panel-knappar{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 6px}
+.panel-knappar button{appearance:none;display:inline-flex;align-items:center;gap:7px;font:600 13.5px var(--f-body);padding:8px 12px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--fg);cursor:pointer}
+.panel-knappar button:hover{border-color:var(--accent)}
+.panel-knappar button.on{background:var(--accent);border-color:var(--accent);color:var(--bg)}
+.panel-knappar button .tyngd{width:7px;height:7px;border-radius:50%;background:var(--accent)}
+.panel-knappar button.on .tyngd{background:var(--bg)}
+.panel-knappar button .pp{font:600 11px/1 var(--f-body);opacity:.75}
+.panel-kort{border:1px solid var(--line);border-radius:12px;padding:16px 18px;background:var(--sunk);margin-top:8px}
+.panel-kort h3{margin:0 0 4px;font:700 17px var(--f-display);display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.panel-kort .fraga{font-size:13px;color:var(--muted);margin:0 0 10px;font-style:italic}
+.panel-kort .dom{font-size:15.5px;margin:8px 0 12px;line-height:1.5}
+.panel-kort .tre{margin-top:6px}
+.panel-kort .siffror{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:8px;margin:12px 0 4px}
+.panel-kort .siffror div{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:8px 10px;font-size:13px;min-width:0}
+.panel-kort .siffror b{display:block;font:700 15px var(--f-display);margin-top:2px}
+.passar{font:600 12px/1 var(--f-body);padding:5px 9px;border-radius:999px}
+.passar.p-mycket{background:var(--ok-bg);color:var(--ok)}
+.passar.p-delvis{background:var(--warn-bg);color:var(--warn)}
+.passar.p-lite{background:var(--bad-bg);color:var(--bad)}
+.panel-kort .fot{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;justify-content:space-between;margin-top:12px;font-size:12px;color:var(--muted)}
+.lynch-box{display:flex;flex-direction:column;gap:4px}
+.lynch-box .k{font:700 15px var(--f-display)}
 /* chatt */
 #chat-knapp{position:fixed;right:max(16px,env(safe-area-inset-right,0px));bottom:max(16px,env(safe-area-inset-bottom,0px));z-index:20;appearance:none;border:0;border-radius:999px;background:var(--accent);color:var(--bg);font:600 14px var(--f-body);padding:12px 18px;box-shadow:0 6px 20px rgba(0,0,0,.2);cursor:pointer}
 #chat{position:fixed;right:max(16px,env(safe-area-inset-right,0px));bottom:max(16px,env(safe-area-inset-bottom,0px));z-index:21;width:min(420px,calc(100vw - 32px));height:min(620px,calc(100vh - 32px));background:var(--surface);border:1px solid var(--line);border-radius:14px;box-shadow:0 12px 40px rgba(0,0,0,.25);display:flex;flex-direction:column;overflow:hidden}
@@ -321,6 +361,7 @@ textarea,.pf-form input,.pf-form select,.pf-karta select{font:14px var(--f-body)
     <nav class="main" aria-label="Huvudmeny">
       <a href="#lage" data-v="lage">Läget nu</a>
       <a href="#bevakning" data-v="bevakning">Bolag</a>
+      <a href="#fonder" data-v="fonder">Fonder</a>
       <a href="#portfolj" data-v="portfolj">Min portfölj</a>
       <a href="#nyheter" data-v="nyheter">Nyheter</a>
       <a href="#radar" data-v="radar">Radar</a>
@@ -399,6 +440,24 @@ window.addEventListener("scroll", () => { $("#tip").hidden = true; }, {passive:t
 // --- läget nu, händelser, nyckeltal ---
 const LJUS = {gron:["l-gron","Tesen håller"], gul:["l-gul","Bevaka noga"], rod:["l-rod","Tesen skadad"]};
 function ljus(s){ const l = LJUS[s.trafikljus] || ["l-gul","Ej bedömd"]; return `<span class="ljus ${l[0]}"><i></i>${l[1]}</span>`; }
+const SPAR = {vandning:["Vändning","Mäts på vändningen: turnaround-steg, redo-poäng och fas"], karna:["Kärna","Mäts på kvalitet och pris: lönsamhet, vallgrav och värdering"]};
+const LYNCH = {langsam:"Långsamväxare", stabil:"Stabil jätte", snabb:"Snabbväxare", cyklisk:"Cykliskt bolag", tillgang:"Tillgångsbolag", turnaround:"Turnaround"};
+const PANEL = [
+  {id:"buffett", namn:"Buffett", hel:"Warren Buffett och Charlie Munger", ikon:"🎩", fraga:"Är det ett utmärkt bolag till ett rimligt pris, som jag vill äga i tio år?", tung:["karna"]},
+  {id:"lynch", namn:"Lynch", hel:"Peter Lynch", ikon:"🔍", fraga:"Vilken sorts bolag är det, och stämmer berättelsen med siffrorna?", tung:["karna","vandning"]},
+  {id:"fisher", namn:"Fisher", hel:"Philip Fisher", ikon:"🗣️", fraga:"Kan försäljningen växa i många år, och vad säger kunder och konkurrenter?", tung:["vandning"]},
+  {id:"graham", namn:"Graham", hel:"Benjamin Graham", ikon:"🛡️", fraga:"Om jag har fel, hur illa kan det gå? Finns det en säkerhetsmarginal?", tung:["karna"]},
+  {id:"smith", namn:"Smith", hel:"Terry Smith", ikon:"💎", fraga:"Är det ett kvalitetsbolag som gör vinsten till riktiga pengar?", tung:["karna"]},
+  {id:"blankaren", namn:"Blankaren", hel:"Blankaren (påhittad roll)", ikon:"🐻", fraga:"Om aktien halveras om ett år, vad var den troligaste orsaken?", tung:["karna","vandning"]}
+];
+const PASSAR = {mycket:"Passar filosofin mycket", delvis:"Passar filosofin delvis", lite:"Passar filosofin lite"};
+const PASSAR_BLANK = {mycket:"Ser stora risker för ägarna", delvis:"Ser en del risker för ägarna", lite:"Ser små risker för ägarna"};
+function sparEtikett(s, kort){
+  const sp = SPAR[s.spar]; if (!sp) return "";
+  const titel = `${sp[1]}${s.spar_bekraftad ? "" : ". Föreslaget av verktyget, inte bekräftat än"}`;
+  return `<span class="spar s-${esc(s.spar)}${s.spar_bekraftad ? "" : " forslag"}" title="${esc(titel)}">${kort ? "" : "<b>Mäts som</b>"}${esc(sp[0])}${s.spar_bekraftad ? "" : " (förslag)"}</span>`;
+}
+function arVandning(s){ return s.spar !== "karna"; }
 const PAV = {starker:"Stärker tesen", forsvagar:"Försvagar tesen", neutral:"Neutral", blandat:"Blandat"};
 function pav(p){ return `<span class="pav pav-${esc(p)}">${esc(PAV[p]||p||"")}</span>`; }
 const fmt = (v, d=1) => v == null || isNaN(v) ? "–" : v.toLocaleString("sv-SE", {minimumFractionDigits:d, maximumFractionDigits:d});
@@ -740,12 +799,12 @@ function vyLage(){
     const vantar = (b.nyheter||[]).filter(p => p.ny && !(b.handelser||[]).some(h => h.lank === p.lank));
     const el = document.createElement("article"); el.className = "lage-kort";
     el.innerHTML = `
-      <div class="lk-top"><h2><a href="#bolag-${esc(b.slug)}">${esc(s.namn)}</a></h2>${ljus(s)}<span class="num" style="color:var(--muted);font-size:12px">${esc(s.ticker||"")}</span></div>
+      <div class="lk-top"><h2><a href="#bolag-${esc(b.slug)}">${esc(s.namn)}</a></h2>${ljus(s)}${sparEtikett(s, true)}<span class="num" style="color:var(--muted);font-size:12px">${esc(s.ticker||"")}</span></div>
       ${kursRad(b)}
       <p class="lk-mening">${esc(s.lage_mening || (s.enkelt && s.enkelt.i_en_mening) || s.tes || "")}</p>
       <div><div class="label" style="margin-bottom:8px">Senaste nytt</div><ul class="handelser">${urval(b.handelser||[], vecka).slice(0, 2).map(h => handelseHtml(h)).join("") || `<li class="steps-lbl">Inget nytt än.</li>`}</ul></div>
       ${vantar.length ? `<div class="ny-rad">${vantar.length} nya pressmeddelanden väntar på sammanfattning i nästa dagskoll.</div>` : ""}
-      ${s.redo ? (() => { const p = s.redo.punkter.reduce((a,x)=>a+x.poang,0); return `<div class="steps-lbl"><b>Redo-poäng ${p}/${s.redo.punkter.length*2}</b>: ${p >= 15 ? "fas 2, vändningsläge enligt din strategi" : p >= 10 ? "fas 1, tidigt läge enligt din strategi" : "för tidigt"}</div>`; })() : ""}
+      ${s.redo && arVandning(s) ? (() => { const p = s.redo.punkter.reduce((a,x)=>a+x.poang,0); return `<div class="steps-lbl"><b>Redo-poäng ${p}/${s.redo.punkter.length*2}</b>: ${p >= 15 ? "fas 2, vändningsläge enligt din strategi" : p >= 10 ? "fas 1, tidigt läge enligt din strategi" : "för tidigt"}</div>`; })() : ""}
       <div><a class="oppna" href="#bolag-${esc(b.slug)}">Öppna ${esc(s.namn)} →</a> <span class="steps-lbl" style="margin-left:8px">Nästa händelse: ${esc(s.nasta_handelse||"–")}</span></div>`;
     box.appendChild(el);
   }
@@ -775,8 +834,9 @@ function vyBevakning(){
     a.innerHTML = `
       <div class="c-name"><div class="name">${esc(s.namn)}<span>${esc(s.ticker||"")} · ${esc(s.lista||"")}</span></div><div class="tes">${esc((s.enkelt && s.enkelt.i_en_mening) || s.tes || "")}</div></div>
       <div><div class="label">Beslut</div><div style="margin-top:6px">${pill(s.beslut)}</div></div>
-      <div><div class="label">Turnaround</div>${steps(s.steg||0)}</div>
-      <div><div class="label">Checklista</div><div class="num" style="margin-top:4px">${s.poang ?? "–"} / ${s.poang_max ?? 24}</div><div class="bar"><b style="width:${Math.round(100*(s.poang||0)/(s.poang_max||24))}%"></b></div>
+      ${arVandning(s) ? `<div><div class="label">Turnaround ${sparEtikett(s, true)}</div>${steps(s.steg||0)}</div>
+      <div><div class="label">Checklista</div><div class="num" style="margin-top:4px">${s.poang ?? "–"} / ${s.poang_max ?? 24}</div><div class="bar"><b style="width:${Math.round(100*(s.poang||0)/(s.poang_max||24))}%"></b></div>` : `<div><div class="label">Lynchkategori ${sparEtikett(s, true)}</div><div style="margin-top:6px;font-weight:600">${esc(LYNCH[s.lynch]||"–")}</div></div>
+      <div><div class="label">Panelen</div><div class="steps-lbl" style="margin-top:6px">${b.panel ? (b.panel.roster||[]).filter(r => r.id !== "blankaren" && r.passar === "mycket").map(r => esc((PANEL.find(x => x.id === r.id)||{}).namn||r.id)).join(", ") || "Ingen i panelen är helt övertygad" : "Inte framtagen än"}</div>`}
         <div class="steps-lbl">Nästa: ${esc(s.nasta_handelse||"–")}${nya?` · <b>${nya} nya</b>`:""}</div></div>`;
     lista.appendChild(a);
   }
@@ -815,6 +875,146 @@ function dokHtml(b){
   if (kb.fi_utgivare) delar.push(`<a href="https://marknadssok.fi.se/publiceringsklient/sv-SE/Search/Search?SearchFunctionType=Insyn&Utgivare=${encodeURIComponent(kb.fi_utgivare)}" target="_blank" rel="noopener">Insiderköp (FI)</a>`);
   return delar.length ? `<div class="dok" aria-label="Dokument">${delar.join("")}</div>` : "";
 }
+function panelHtml(b){
+  const s = b.status, pn = b.panel;
+  const sp = SPAR[s.spar] ? s.spar : "vandning";
+  const intro = `<p class="hint" style="margin-top:0">Hur ser ${esc(s.namn)} ut med kända investerares glasögon? Korten är en <b>tolkning av deras publicerade filosofi</b>, inte något de har sagt. Den blå pricken visar vilka som väger tyngst för spåret <b>${esc((SPAR[sp]||[""])[0])}</b>. De andra är ett andra perspektiv och ändrar inte bedömningen.</p>`;
+  if (!pn || !(pn.roster||[]).length) return `<section class="nt sek" id="sek-panel" aria-label="Investerarpanelen"><h2>Investerarpanelen</h2>${intro}<div class="empty">Panelen är inte framtagen för ${esc(s.namn)} än. Den tas fram vid nästa djupdykning, eller direkt om du skriver <b>investerarpanelen för ${esc(s.namn)}</b> i Claude-appen.</div></section>`;
+  const knappar = PANEL.filter(x => pn.roster.some(r => r.id === x.id)).map(x => {
+    const r = pn.roster.find(r => r.id === x.id);
+    return `<button type="button" data-p="${x.id}" aria-pressed="false">${x.tung.includes(sp) ? `<i class="tyngd" title="Väger tyngst för spåret"></i>` : ""}<span aria-hidden="true">${x.ikon}</span>${esc(x.namn)} <span class="pp">${esc(r.passar === "mycket" ? "●●●" : r.passar === "delvis" ? "●●○" : "●○○")}</span></button>`; }).join("");
+  return `<section class="nt sek" id="sek-panel" aria-label="Investerarpanelen"><h2>Investerarpanelen</h2>${intro}
+    <div class="panel-knappar" role="group" aria-label="Välj investerare">${knappar}</div>
+    <div id="panel-kort"></div>
+    <p class="steps-lbl" style="margin-top:8px">Panelen togs fram ${esc(pn.datum||"")}. Prickarna visar hur väl bolaget passar filosofin. För Blankaren visar de hur stora riskerna för ägarna är. Checklistorna finns i metoden <a href="#metod">Spår och investerarpanelen</a>.</p></section>`;
+}
+function panelKort(b, id){
+  const x = PANEL.find(p => p.id === id), r = (b.panel.roster||[]).find(p => p.id === id); if (!x || !r) return "";
+  const sp = SPAR[b.status.spar] ? b.status.spar : "vandning";
+  const passar = (id === "blankaren" ? PASSAR_BLANK : PASSAR)[r.passar] || r.passar;
+  const lista = (rubrik, cls, arr, under) => arr && arr.length ? `<div class="kol ${cls}"><h3>${rubrik}</h3>${under ? `<p class="steps-lbl" style="margin:-4px 0 8px">${under}</p>` : ""}<ul>${arr.map(y => `<li>${esc(y)}</li>`).join("")}</ul></div>` : "";
+  const bl = id === "blankaren";
+  return `<article class="panel-kort" aria-live="polite">
+    <h3><span aria-hidden="true">${x.ikon}</span>Med ${esc(x.namn === "Blankaren" ? "Blankarens" : x.namn + "s")} glasögon <span class="passar p-${esc(r.passar)}">${esc(passar)}</span></h3>
+    <p class="fraga">${esc(x.fraga)}</p>
+    <p class="dom">${esc(r.dom||"")}</p>
+    ${(r.siffror||[]).length ? `<div class="siffror">${r.siffror.map(f => `<div>${esc(f.namn)}<b>${esc(f.varde)}</b>${f.niva ? `<span class="chip chip-${f.niva === "?" ? "Q" : esc(f.niva)}">${esc(f.niva)}</span> ` : ""}${esc(f.kommentar||"")}</div>`).join("")}</div>` : ""}
+    ${bl ? `<p class="hint" style="margin:0 0 8px">Blankaren tjänar pengar när aktien faller. Det Blankaren gillar är alltså en risk för dig som äger aktien.</p>` : ""}
+    <div class="tre">${bl
+      ? lista("Risker för dig som ägare", "k-emot", r.gilla, "Det Blankaren skulle satsa på.") + lista("Det som skyddar dig", "k-for", r.ogilla, "Det som talar emot Blankaren.") + (r.andra_sig ? lista("Risken minskar om", "k-vantar", [r.andra_sig], "Då skulle Blankaren ge upp.") : "")
+      : lista(`${esc(x.namn)} skulle gilla`, "k-for", r.gilla, `Talar för bolaget enligt ${esc(x.namn)}s filosofi.`) + lista(`${esc(x.namn)} skulle ogilla`, "k-emot", r.ogilla, `Talar emot bolaget enligt ${esc(x.namn)}s filosofi.`) + (r.andra_sig ? lista(`${esc(x.namn)} skulle ändra sig om`, "k-vantar", [r.andra_sig], `Då skulle bolaget passa ${esc(x.namn)}s filosofi bättre.`) : "")}</div>
+    <div class="fot"><span>${x.tung.includes(sp) ? `Väger tyngst för spåret ${esc(SPAR[sp][0])}.` : `Andra perspektiv: ${esc(b.status.namn)} mäts som ${esc(SPAR[sp][0])}, så det här kortet ändrar inte bedömningen.`} ${bl ? "Blankaren är en påhittad roll som letar efter det som kan gå fel." : `Tolkning av ${esc(x.hel)}s filosofi.`}</span>${CHAT.sample ? `<button type="button" class="knapp" data-fraga="${x.id}">Fråga ${esc(x.namn)} vidare</button>` : ""}</div>
+  </article>`;
+}
+function lynchHtml(s){
+  if (!s.lynch) return "";
+  return `<div class="lynch-box"><span class="label">Lynchkategori</span><span class="k">${esc(LYNCH[s.lynch]||s.lynch)}</span><span class="steps-lbl">${esc(s.lynch_skal||"")}</span></div>`;
+}
+// --- fonder ---
+const LAND = {US:"USA",SE:"Sverige",JP:"Japan",GB:"Storbritannien",CA:"Kanada",CH:"Schweiz",NL:"Nederländerna",DE:"Tyskland",FR:"Frankrike",IE:"Irland",AU:"Australien",ES:"Spanien",DK:"Danmark",FI:"Finland",NO:"Norge",TW:"Taiwan",KR:"Sydkorea",CN:"Kina",IT:"Italien",LU:"Luxemburg",KY:"Caymanöarna",BM:"Bermuda",IN:"Indien",HK:"Hongkong",BE:"Belgien",IL:"Israel",SG:"Singapore"};
+function snyggt(n){ n = String(n||""); if (n !== n.toUpperCase() || !/[A-ZÅÄÖ]{3}/.test(n)) return n; return n.toLowerCase().replace(/(^|[\s\-\/(.&])([a-zåäö])/g, (m, a, b) => a + b.toUpperCase()).replace(/\b(Ab|Inc|Plc|Asa|Nv|Sa|Se|Ag|Ltd|Corp|Co|Shs|Adr)\b/g, w => ({Ab:"AB",Plc:"PLC",Asa:"ASA",Nv:"NV",Sa:"SA",Se:"SE",Ag:"AG",Shs:"",Adr:"ADR"})[w] ?? w).replace(/\s+/g, " ").trim(); }
+function fondTypEtikett(t){ const k = t === "Indexfond" ? "s-karna" : t === "Aktivt förvaltad" ? "s-vandning" : ""; return `<span class="spar ${k}">${esc(t||"Fond")}</span>`; }
+function riskOrd(std){ if (std == null) return ["–",""]; return std < 5 ? ["Låg","svänger lite"] : std < 12 ? ["Medel","svänger som en blandad aktiefond"] : std < 18 ? ["Medelhög","svänger som en bred aktiefond"] : ["Hög","svänger mycket"]; }
+function aktivOrd(ar, typ){ if (ar == null) return typ === "Indexfond" ? "Följer ett index" : "–"; return ar < 1 ? "Följer sitt index nästan exakt" : ar < 3 ? "Ligger ganska nära sitt index" : ar < 6 ? "Avviker tydligt från sitt index" : "Avviker mycket från sitt index"; }
+function kallaHtml(f){
+  const k = f.kalla_typ || "FI";
+  if (k === "FI") return "";
+  const utl = "Fonden är registrerad utomlands, så Finansinspektionen har ingen data om den.";
+  if (k === "fondbolaget") return `<div class="callout"><div class="label">Källa: fondbolagets egen lista</div><p style="margin:6px 0 0">${utl} Innehaven kommer från fondbolagets egen innehavsfil, hämtad ${esc(f.kvartal||"")}${f.kalla_url ? ` (<a href="${esc(f.kalla_url)}" target="_blank" rel="noopener">filen</a>)` : ""}. Den hämtas igen ungefär en gång i månaden. Avgiften är angiven för hand från faktabladet.</p></div>`;
+  if (k === "manuell") return `<div class="callout"><div class="label">Källa: fondbolagets rapport</div><p style="margin:6px 0 0">${utl} Innehaven är inlästa av Claude från fondbolagets rapport${f.kvartal ? ` (${esc(f.kvartal)})` : ""}${f.kalla_url ? `, <a href="${esc(f.kalla_url)}" target="_blank" rel="noopener">källa</a>` : ""}. Ofta finns bara de största innehaven med.</p></div>`;
+  if (k === "ersattning" && f.ersattning) return `<div class="callout flag"><div class="label">Uppskattning</div><p style="margin:6px 0 0">${utl} Vi hittade ingen innehavsfil att läsa, så innehaven är <b>lånade från ${esc(f.ersattning.namn)}</b>, en svensk indexfond med liknande index (${esc((f.ersattning.index||[]).join("; "))}). Det räcker för att se ungefär vad fonden äger och för överlappskollen, men vikterna är inte exakta.</p></div>`;
+  return `<div class="callout flag"><div class="label">Innehav saknas</div><p style="margin:6px 0 0">${utl} Skriv <i>hämta innehaven för ${esc(f.namn)}</i> i Claude-appen så letar Claude upp fondbolagets lista.</p></div>`;
+}
+function dyrIndex(f){ return f.typ === "Aktivt förvaltad" && f.aktiv_risk != null && f.aktiv_risk < 3 && (f.avgift || 0) >= 1; }
+function avgiftKostar(avg, belopp = 100000, ar = 10, avk = 7){ const brutto = belopp * Math.pow(1 + avk/100, ar), netto = belopp * Math.pow(1 + (avk - (avg||0))/100, ar); return brutto - netto; }
+function fondNamn(isin){ const f = (DATA.fonder||[]).find(x => x.isin === isin); return f ? f.namn : isin; }
+function stapelLista(obj, namnFn = k => k, max = 8, bred){
+  const rader = Object.entries(obj||{}).slice(0, max); if (!rader.length) return `<p class="steps-lbl">Uppgift saknas.</p>`;
+  const top = Math.max(...rader.map(r => r[1]), 1);
+  return `<div class="fond-staplar${bred ? " bred" : ""}">${rader.map(([k, v]) => `<div class="fs-rad"><span>${esc(namnFn(k))}</span><div class="bar"><b style="width:${Math.min(100, v / top * 100)}%"></b></div><span class="num">${fmt(v, 1)} %</span></div>`).join("")}</div>`;
+}
+function vyFonder(){
+  const v = $("#vy"); const fonder = DATA.fonder || [];
+  v.innerHTML = `<h1>Fonder</h1><p class="lede">Fonder du följer: vad de äger, vad de kostar och vad förvaltarna har köpt och sålt. Uppgifterna kommer från Finansinspektionen, som publicerar svenska fonders hela innehav en gång i kvartalet.${fonder[0] ? ` Senaste data gäller <b>${esc(fonder[0].kvartal)}</b>.` : ""} Inget här är köp- eller säljråd.</p>
+    <details class="fold"><summary><span class="ft">Så tänker du om fonder</span><span class="fs">Fem saker att titta på, 2 minuter</span></summary>
+      <ol class="fond-tank">
+        <li><b>Avgiften är den enda säkra siffran.</b> Den dras varje år, oavsett hur det går. 1 % mer i avgift kostar ungefär 18 000 kr på 100 000 kr över 10 år.</li>
+        <li><b>Indexfond eller aktiv fond?</b> En indexfond köper hela marknaden billigt. En aktiv fond försöker slå marknaden, men de flesta lyckas inte över lång tid, efter avgift.</li>
+        <li><b>Vad äger fonden egentligen?</b> Titta på de tio största innehaven, länderna och branscherna. Två fonder med olika namn kan äga nästan samma sak.</li>
+        <li><b>Hur mycket svänger den?</b> Risken visar hur mycket värdet har svängt de senaste två åren. Välj en nivå du klarar av att se utan att sälja i panik.</li>
+        <li><b>Överlapp.</b> Äger du flera fonder, kolla att de inte äger samma sak. Då sprider du inte risken, du betalar bara flera avgifter.</li>
+      </ol><p class="hint">Läs mer i Skolan: <a href="#skolan-fonder">Fonder på 5 minuter</a>.</p></details>
+    ${typeof fondkollHtml === "function" && typeof PF !== "undefined" && PF.data ? fondkollHtml(beraknaPortfolj(PF.data).aktiva) : ""}
+    <div class="list" id="fondlista"></div>
+    ${DATA.fondsignaler ? fondSignalerHtml() : ""}`;
+  const box = $("#fondlista");
+  if (!fonder.length){ box.innerHTML = `<div class="empty">Inga fonder följs än. Skriv <b>följ fonden &lt;namn&gt;</b> i Claude-appen.</div>`; return; }
+  for (const f of fonder){
+    const r = riskOrd(f.std24);
+    const a = document.createElement("a"); a.className = "row fond-row"; a.href = "#fond-" + f.slug;
+    a.innerHTML = `<div class="c-name"><div class="name">${esc(f.namn)}<span>${esc(f.fondbolag||"")}${f.formogenhet_mdr ? ` · ${fmt(f.formogenhet_mdr, 0)} mdr kr` : ""}${(f.kalla_typ||"FI") !== "FI" ? ` · utländsk fond${f.kalla_typ === "ersattning" ? ", uppskattade innehav" : ""}` : ""}</span></div><div class="tes">${f.innehav.slice(0,3).map(i => esc(snyggt(i.namn))).join(", ")}${f.antal_innehav > 3 ? ` och ${f.antal_innehav - 3} till` : ""}</div></div>
+      <div><div class="label">Typ</div><div style="margin-top:6px">${fondTypEtikett(f.typ)}</div></div>
+      <div><div class="label">Avgift per år</div><div class="num" style="margin-top:4px;font-weight:700">${f.avgift != null ? fmt(f.avgift, 2) + " %" : "–"}</div>${dyrIndex(f) ? `<div class="steps-lbl" style="color:var(--warn)">Nära sitt index, men aktiv avgift</div>` : ""}</div>
+      <div><div class="label">Risk</div><div style="margin-top:4px;font-weight:600">${r[0]}</div><div class="steps-lbl">${f.std24 != null ? `Svängt ${fmt(f.std24, 0)} % per år` : ""}</div></div>`;
+    box.appendChild(a);
+  }
+  gloss(v);
+}
+function fondSignalerHtml(){
+  const s = DATA.fondsignaler, rader = (s.bolag||[]).filter(b => b.netto_kopare || (b.nya||[]).length || (b.salt||[]).length);
+  if (!rader.length) return "";
+  return `<h2>Fondsignaler för dina bevakade bolag</h2><p class="hint" style="margin-top:0">Hur alla svenska fonder har ändrat sina innehav i dina bevakade bolag mellan ${esc(s.jamfort_med||"")} och ${esc(s.kvartal)}. In- och utflöden i fonderna är borträknade, så det som syns är förvaltarnas egna val.</p>
+    <div class="tw2"><table class="matris"><tr><th style="text-align:left">Bolag</th><th>Fonder som äger</th><th>Köpare minus säljare</th><th style="text-align:left">Nya ägare</th><th style="text-align:left">Har sålt allt</th></tr>
+    ${rader.map(b => `<tr><td style="text-align:left"><a href="#bolag-${esc(b.slug)}">${esc(b.namn)}</a></td><td>${b.antal_fonder_fore} → ${b.antal_fonder}</td><td class="${b.netto_kopare > 0 ? "over" : b.netto_kopare < 0 ? "under" : ""}">${b.netto_kopare > 0 ? "+" : ""}${b.netto_kopare}</td><td style="text-align:left;font-size:12.5px">${esc((b.nya||[]).slice(0,4).join(", "))}${(b.nya||[]).length > 4 ? ` +${b.nya.length-4}` : ""}</td><td style="text-align:left;font-size:12.5px">${esc((b.salt||[]).slice(0,4).join(", "))}${(b.salt||[]).length > 4 ? ` +${b.salt.length-4}` : ""}</td></tr>`).join("")}</table></div>`;
+}
+function vyFond(slug){
+  const f = (DATA.fonder||[]).find(x => x.slug === slug); const v = $("#vy");
+  if (!f){ v.innerHTML = `<p>Fonden finns inte. <a href="#fonder">Till fonderna</a></p>`; return; }
+  const r = riskOrd(f.std24), kost = avgiftKostar(f.avgift), fc = f.forandring;
+  const kort = [
+    ["Avgift per år", f.avgift != null ? `${fmt(f.avgift, 2)} %` : "–", `${f.avgift_klass ? `Andelsklass ${esc(f.avgift_klass)}. ` : ""}${f.prestationsavgift ? "Har även en prestationsbaserad avgift i någon klass." : ""}`],
+    ["Kostar på 10 år", `${fmt(kost, 0)} kr`, "Avgiften på 100 000 kr om fonden går upp 7 % per år"],
+    ["Storlek", f.formogenhet_mdr ? `${fmt(f.formogenhet_mdr, 1)} mdr kr` : "–", `${f.antal_innehav} innehav${f.kalla_typ === "ersattning" ? " (lånade)" : ""}`],
+    ["De 10 största", `${fmt(f.topp10_pct, 0)} %`, "av fonden. Ju högre, desto mer beror fonden på få bolag"],
+    ["Risk", r[0], f.std24 != null ? `Har svängt ${fmt(f.std24, 1)} % per år (2 år). ${r[1]}` : ""],
+    ["Mot sitt index", f.aktiv_risk != null ? `${fmt(f.aktiv_risk, 1)} %` : "–", aktivOrd(f.aktiv_risk, f.typ)],
+  ];
+  const ov = Object.entries(f.overlapp||{}).sort((a, b) => b[1] - a[1]);
+  const nm = i => esc(snyggt(i.namn));
+  v.innerHTML = `<a class="back" href="#fonder">← Fonder</a>
+    <div class="akt-head"><h1>${esc(f.namn)}</h1>${fondTypEtikett(f.typ)}<span class="num" style="color:var(--muted);font-size:13px">${esc(f.fondbolag||"")}${f.kvartal ? ` · data per ${esc(f.kvartal)}` : ""}</span></div>
+    ${f.enkelt && f.enkelt.i_en_mening ? `<p class="lk-mening">${esc(f.enkelt.i_en_mening)}</p>` : ""}
+    <div class="snabb">${kort.map(([l, val, sub]) => `<div class="sf"><div class="label">${l}</div><div class="v num">${val}</div>${sub ? `<div class="s">${sub}</div>` : ""}</div>`).join("")}</div>
+    ${kallaHtml(f)}
+    ${dyrIndex(f) ? `<div class="callout flag"><div class="label">Värt att veta</div><p style="margin:6px 0 0">Fonden ligger ganska nära sitt jämförelseindex (aktiv risk ${fmt(f.aktiv_risk,1)} %) men tar ut ${fmt(f.avgift,2)} % per år. En indexfond som följer samma marknad kostar ofta under 0,3 %. Det betyder inte att fonden är dålig, men förvaltaren behöver slå index med skillnaden för att det ska löna sig.</p></div>` : ""}
+    <p class="hint">${f.index && f.index.length ? `Jämförelseindex: ${esc(f.index.join("; "))}. ` : ""}${(f.kalla_typ||"FI") === "FI" ? "Avgiften är förvaltningsavgiften enligt Finansinspektionen." : "Avgiften är den årliga avgiften enligt fondens faktablad."} Den är densamma oavsett om du köper hos Avanza eller någon annan, men den kan skilja mellan fondens andelsklasser. Andelsklassen syns på ISIN-numret där du köper. Fondens egna affärer kostar också lite extra, och det står i faktabladet.</p>
+    ${f.avgift_klasser && f.avgift_klasser.length > 1 ? `<details class="mer"><summary>Alla andelsklasser (${f.avgift_klasser.length})</summary><div class="tw2"><table class="matris"><tr><th style="text-align:left">Andelsklass</th><th>Avgift</th></tr>${f.avgift_klasser.map(k => `<tr><td style="text-align:left">${esc(k.namn)}</td><td>${k.fast != null ? fmt(k.fast, 2) + " %" : "–"}${k.prestation ? " + prestation" : ""}</td></tr>`).join("")}</table></div></details>` : ""}
+    ${(f.bevakade_bolag||[]).length ? `<section class="nt"><h2>Dina bevakade bolag i fonden</h2><p>${f.bevakade_bolag.map(b => `<a href="#bolag-${esc(b.slug)}">${esc(b.namn)}</a> ${fmt(b.andel, 2)} %`).join(" · ")}</p></section>` : ""}
+    <section class="nt"><h2>Vad fonden äger</h2>
+      <div class="fond-tva"><div><div class="label">Branscher</div>${stapelLista(f.sektorer)}</div><div><div class="label">Länder</div>${stapelLista(f.lander, k => LAND[k] || k)}</div></div>
+      <div class="label" style="margin-top:14px">Största innehaven</div>
+      <div class="tw2"><table class="matris"><tr><th>#</th><th style="text-align:left">Innehav</th><th>Andel</th><th style="text-align:left">Bransch</th><th style="text-align:left">Land</th></tr>
+      ${f.innehav.slice(0, 15).map((i, n) => `<tr><td>${n+1}</td><td style="text-align:left">${nm(i)}</td><td>${fmt(i.andel, 2)} %</td><td style="text-align:left">${esc(i.sektor)}</td><td style="text-align:left">${esc(LAND[i.land] || i.land)}</td></tr>`).join("")}</table></div>
+      ${f.innehav.length > 15 ? `<details class="mer"><summary>Visa fler innehav</summary><div class="tw2"><table class="matris">${f.innehav.slice(15).map((i, n) => `<tr><td>${n+16}</td><td style="text-align:left">${nm(i)}</td><td>${fmt(i.andel, 2)} %</td><td style="text-align:left">${esc(i.sektor)}</td><td style="text-align:left">${esc(LAND[i.land] || i.land)}</td></tr>`).join("")}</table></div></details>` : ""}
+    </section>
+    ${fc ? `<section class="nt"><h2>Vad förvaltaren har gjort</h2><p class="hint" style="margin-top:0">Förändringen mellan ${esc(fc.fran)} och ${esc(f.kvartal)}, räknat på antalet aktier. Pengar som flutit in eller ut ur fonden${fc.flode_pct ? ` (${fc.flode_pct > 0 ? "+" : ""}${fc.flode_pct} %)` : ""} är borträknade, så det här är förvaltarens egna val. En mycket stor ändring av antalet kan också bero på en aktiesplit.${f.typ === "Indexfond" ? " För en indexfond beror ändringarna oftast på att indexet har ändrats." : ""}</p>
+      <div class="tre">
+        <div class="kol k-for"><h3>Nya och ökade</h3><ul>${[...fc.nya.map(i => `<li><b>Ny:</b> ${nm(i)} (${fmt(i.andel,2)} %)</li>`), ...fc.okat.map(i => `<li>${nm(i)}: ${fmt(i.andel_fore,2)} → ${fmt(i.andel,2)} % (+${i.antal_pct} % fler aktier)</li>`)].slice(0, 10).join("") || "<li>Inga större köp.</li>"}</ul></div>
+        <div class="kol k-emot"><h3>Sålda och minskade</h3><ul>${[...fc.salda.map(i => `<li><b>Sålt allt:</b> ${nm(i)} (var ${fmt(i.andel,2)} %)</li>`), ...fc.minskat.map(i => `<li>${nm(i)}: ${fmt(i.andel_fore,2)} → ${fmt(i.andel,2)} % (${i.antal_pct} % aktier)</li>`)].slice(0, 10).join("") || "<li>Inga större försäljningar.</li>"}</ul></div>
+      </div></section>` : ""}
+    ${ov.length ? `<section class="nt"><h2>Överlapp med dina andra fonder</h2><p class="hint" style="margin-top:0">Hur stor del av fonderna som äger samma sak. Över ca 50 % betyder att de i stort sett gör samma jobb.</p>${stapelLista(Object.fromEntries(ov.filter(o => o[1] >= 0.5)), fondNamn, 12, true)}${ov.some(o => o[1] < 0.5) ? `<p class="steps-lbl">Nästan inget gemensamt med: ${esc(ov.filter(o => o[1] < 0.5).map(o => fondNamn(o[0])).join(", "))}.</p>` : ""}</section>` : ""}
+    <p class="steps-lbl">Källa: ${(f.kalla_typ||"FI") === "FI" ? "Finansinspektionen, fondinnehav per kvartal" : f.kalla_typ === "ersattning" ? `uppskattning via ${esc(f.ersattning ? f.ersattning.namn : "")} (Finansinspektionen)` : "fondbolaget"}. Uppgifterna är ögonblicksbilder; fonden kan ha ändrat sina innehav sedan dess.</p>`;
+  gloss(v);
+}
+function fondagarePanel(b){
+  const fa = b.fondagare; if (!fa || !fa.agare || !fa.agare.length) return "";
+  const lbl = {ny:"Ny ägare", okat:"Har ökat", minskat:"Har minskat", salt:"Har sålt allt", oforandrat:"Oförändrat"};
+  const cls = {ny:"over", okat:"over", minskat:"under", salt:"under", oforandrat:""};
+  return `<section class="nt"><h2>Fonder som äger bolaget</h2><p class="hint" style="margin-top:0">${fa.antal_fonder} svenska fonder ägde aktier i ${esc(b.status.namn)} per ${esc(fa.kvartal)} (${fa.antal_fonder_fore} kvartalet innan), värda ca ${fmt(fa.varde_mkr, fa.varde_mkr < 10 ? 1 : 0)} mkr. In- och utflöden i fonderna är borträknade. Utländska fonder syns inte här.</p>
+    <div class="tw2"><table class="matris"><tr><th style="text-align:left">Fond</th><th>Andel av fonden</th><th>Värde</th><th>Förändring</th></tr>${fa.agare.slice(0, 12).map(a => `<tr><td style="text-align:left">${esc(a.fond)}<br><span class="steps-lbl">${esc(a.fondbolag||"")}</span></td><td>${fmt(a.andel_av_fonden, 2)} %</td><td>${fmt(a.varde_mkr, a.varde_mkr < 10 ? 1 : 0)} mkr</td><td class="${cls[a.status]}">${lbl[a.status]}</td></tr>`).join("")}</table></div>
+    ${fa.agare.length > 12 ? `<p class="steps-lbl">och ${fa.agare.length - 12} fonder till.</p>` : ""}</section>`;
+}
+
 function fold(id, titel, sub, inner){
   return inner ? `<details class="fold sek" id="sek-${id}"><summary><span class="ft">${titel}</span><span class="fs">${sub}</span></summary>${inner}</details>` : "";
 }
@@ -826,13 +1026,13 @@ function vyBolag(arg){
   const redoP = s.redo ? s.redo.punkter.reduce((a,x)=>a+x.poang,0) : null;
   v.innerHTML = `
     <a class="back" href="#lage">← Läget nu</a>
-    <div class="akt-head"><h1>${esc(s.namn)}</h1>${ljus(s)}${pill(s.beslut)}<span class="num" style="color:var(--muted);font-size:13px">${esc(s.ticker||"")} · uppdaterad ${esc(s.senast_uppdaterad||"")}</span></div>
+    <div class="akt-head"><h1>${esc(s.namn)}</h1>${ljus(s)}${sparEtikett(s)}${pill(s.beslut)}<span class="num" style="color:var(--muted);font-size:13px">${esc(s.ticker||"")} · uppdaterad ${esc(s.senast_uppdaterad||"")}</span></div>
     <div style="margin:2px 0 8px">${kursRad(b)}</div>
     <p class="lk-mening" style="margin:4px 0 6px">${esc(s.lage_mening||"")}</p>
     ${typeof mittInnehavHtml === "function" ? mittInnehavHtml(b.slug) : ""}
     ${sfHtml(b)}
     ${dokHtml(b)}
-    <nav class="seknav" aria-label="Hoppa till">${[["enkelt","Kort och enkelt"],["nytt","Senaste nytt"],["siffror","Siffror"],["framtid","Framtiden"],["vardering","Värdering"],["redo","Redo-poäng"],["akt","Hela akten"]].map(([k,n]) => `<button type="button" data-s="${k}">${n}</button>`).join("")}</nav>
+    <nav class="seknav" aria-label="Hoppa till">${[["enkelt","Kort och enkelt"],["panel","Panelen"],["nytt","Senaste nytt"],["siffror","Siffror"],["framtid","Framtiden"],["vardering","Värdering"],["redo","Redo-poäng"],["akt","Hela akten"]].map(([k,n]) => `<button type="button" data-s="${k}">${n}</button>`).join("")}</nav>
     ${s.enkelt ? `
     <section class="enkelt sek" id="sek-enkelt" aria-label="Kort och enkelt">
       <h2>Kort och enkelt</h2>
@@ -842,26 +1042,28 @@ function vyBolag(arg){
         <div class="kol k-emot"><h3>Det som talar emot</h3><ul>${(s.enkelt.talar_emot||[]).map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div>
         <div class="kol k-vantar"><h3>Det vi väntar på</h3><ul>${(s.enkelt.vantar_pa||[]).map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div>
       </div>
-      <div class="lage">${steps(s.steg||0)}<p>${esc(s.enkelt.lage||"")}</p></div>
+      <div class="lage">${arVandning(s) ? steps(s.steg||0) : lynchHtml(s)}<p>${esc(s.enkelt.lage||"")}</p></div>
     </section>` : `<p class="lede">${esc(s.tes||"")}</p>`}
+    ${panelHtml(b)}
     <section class="nt sek" id="sek-nytt" aria-label="Senaste nytt"><h2>Senaste nytt</h2>
       <ul class="handelser" style="margin-top:10px">${(b.handelser||[]).slice(0,4).map(h => handelseHtml(h)).join("") || `<li class="steps-lbl">Inget nytt än.</li>`}</ul>
       ${(b.handelser||[]).length > 4 ? `<p class="hint"><a href="#nyheter">Alla nyheter →</a></p>` : ""}
     </section>
     ${fold("siffror", "Siffror per kvartal", "Försäljning, resultat och beställningar", nyckeltalPanel(b, true))}
     ${fold("framtid", "Framtiden", "Marknaden uppifrån och möjliga affärer, 3–5 år", (marknadPanel(b) + pipelinePanel(b)) || "")}
+    ${fold("fondagare", "Fonder som äger bolaget", b.fondagare ? `${b.fondagare.antal_fonder} svenska fonder per ${b.fondagare.kvartal}` : "", fondagarePanel(b))}
     ${fold("vardering", "Värdering", "Vad priset räknar med och scenarier", varderingPanel(b))}
-    ${fold("redo", "Redo-poäng", redoP != null ? `${redoP}/${s.redo.punkter.length*2} · tio punkter med motivering` : "", redoKort(s))}
+    ${arVandning(s) ? fold("redo", "Redo-poäng", redoP != null ? `${redoP}/${s.redo.punkter.length*2} · tio punkter med motivering` : "", redoKort(s)) : ""}
     <details class="mer" id="mer"><summary>Visa beslut, poäng, insyn och flaggor</summary>
     <div class="callout"><div class="label">Varför ${esc((s.beslut||"").toLowerCase())} (${esc(s.beslut_datum||"")})</div><p style="margin:6px 0 0">${esc(s.beslut_motivering||"")}</p></div>
     <div class="facts">
-      <div class="fact"><div class="label">Turnaround-steg</div>${steps(s.steg||0)}<p style="font-size:13px">${esc(s.steg_belagg||"")}</p></div>
-      <div class="fact"><div class="label">Milstolpar till nästa steg</div><ul>${(s.milstolpar_kvar||[]).map(m=>`<li>${esc(m)}</li>`).join("")}</ul><p style="font-size:13px;color:var(--muted)">${esc(s.bedomd_tid_nasta_steg||"")}</p></div>
+      ${arVandning(s) ? `<div class="fact"><div class="label">Turnaround-steg</div>${steps(s.steg||0)}<p style="font-size:13px">${esc(s.steg_belagg||"")}</p></div>` : `<div class="fact">${lynchHtml(s)}<p style="font-size:13px">${esc(s.steg_belagg||"")}</p></div>`}
+      <div class="fact"><div class="label">${arVandning(s) ? "Milstolpar till nästa steg" : "Milstolpar att följa"}</div><ul>${(s.milstolpar_kvar||[]).map(m=>`<li>${esc(m)}</li>`).join("")}</ul><p style="font-size:13px;color:var(--muted)">${esc(s.bedomd_tid_nasta_steg||"")}</p></div>
       <div class="fact"><div class="label">Checklista · löftesrevision</div><p class="num">${s.poang ?? "–"} / ${s.poang_max ?? 24} poäng</p><p>${esc(s.leveransgrad||"–")}</p></div>
       <div class="fact"><div class="label">Insyn</div><p style="font-size:13.5px">${esc(s.insyn||"–")}</p></div>
     </div>
     ${(s.roda_flaggor||[]).map(f=>`<div class="callout flag"><div class="label">Flagga</div><p style="margin:6px 0 0">${esc(f)}</p></div>`).join("")}
-    <div class="facts"><div class="fact"><div class="label">Jämförelse med liknande bolag</div><p>${esc(s.jamforelse||"–")}</p></div><div class="fact"><div class="label">Nästa händelse</div><p>${esc(s.nasta_handelse||"–")}</p></div><div class="fact"><div class="label">Teman</div><p>${esc((s.tema||[]).join(", ")||"–")}</p></div></div>
+    <div class="facts"><div class="fact"><div class="label">Spår</div><p>${sparEtikett(s)}</p><p style="font-size:13px">${esc((SPAR[s.spar]||["",""])[1])}${s.spar && !s.spar_bekraftad ? ". Förslaget bekräftas genom att du skriver <i>ja till spåret för " + esc(s.namn) + "</i> i Claude-appen." : ""}</p></div><div class="fact"><div class="label">Jämförelse med liknande bolag</div><p>${esc(s.jamforelse||"–")}</p></div><div class="fact"><div class="label">Nästa händelse</div><p>${esc(s.nasta_handelse||"–")}</p></div><div class="fact"><div class="label">Teman</div><p>${esc((s.tema||[]).join(", ")||"–")}</p></div></div>
     </details>
     <h2 class="akt sek" id="sek-akt">Hela akten</h2>
     <p class="hint" style="margin-top:0">För fördjupning: alla påståenden med bevisnivå, löftesrevision, nyheter och källor.</p>
@@ -881,6 +1083,17 @@ function vyBolag(arg){
   for (const [k, n] of flikar){ const btn = document.createElement("button"); btn.dataset.k = k; btn.textContent = n; btn.role = "tab"; btn.onclick = () => visa(k); tabs.appendChild(btn); }
   v.querySelectorAll(".seknav button").forEach(btn => btn.onclick = () => { const el = $("#sek-" + btn.dataset.s); if (!el) return; if (el.tagName === "DETAILS") el.open = true; el.scrollIntoView({behavior:"smooth", block:"start"}); });
   v.querySelectorAll(".seknav button").forEach(btn => { if (!$("#sek-" + btn.dataset.s)) btn.remove(); });
+  const pk = v.querySelector(".panel-knappar");
+  if (pk){
+    const valj = id => { pk.querySelectorAll("button").forEach(x => { const on = x.dataset.p === id; x.classList.toggle("on", on); x.setAttribute("aria-pressed", on); }); $("#panel-kort").innerHTML = panelKort(b, id); gloss($("#panel-kort")); try { localStorage.setItem("ih-panel", id); } catch(e){} };
+    pk.querySelectorAll("button").forEach(x => x.onclick = () => valj(x.dataset.p));
+    let forst = null; try { forst = localStorage.getItem("ih-panel"); } catch(e){}
+    const sp = SPAR[s.spar] ? s.spar : "vandning";
+    if (!pk.querySelector(`[data-p="${forst}"]`)) forst = (PANEL.find(x => x.tung.includes(sp) && pk.querySelector(`[data-p="${x.id}"]`)) || {}).id;
+    if (forst) valj(forst);
+    $("#panel-kort").addEventListener("click", e => { const f = e.target.closest("[data-fraga]"); if (f) fragaPanel(b, f.dataset.fraga); });
+  }
+  ["#sek-fondagare", "#sek-panel"].forEach(id => { const el = $(id); if (el) gloss(el); });
   visa(flikar.some(([k]) => k === startFlik) ? startFlik : (b.docs.djup ? "djup" : "tes"));
   if (startFlik) setTimeout(() => $("#sek-akt")?.scrollIntoView({block:"start"}), 0);
 }
@@ -1025,7 +1238,24 @@ $("#sok").addEventListener("keydown", e => { if (e.key === "Enter"){ clearTimeou
 document.addEventListener("keydown", e => { if (e.key === "/" && !/INPUT|TEXTAREA/.test(document.activeElement?.tagName)){ e.preventDefault(); $("#sok").focus(); } });
 
 // --- fråga Claude (sample-förmågan; syns bara där den finns) ---
-const CHAT = {turer: [], ctl: null, sample: null, verktyg: false};
+const CHAT = {turer: [], ctl: null, sample: null, verktyg: false, persona: null};
+function panelChecklista(id){
+  const x = PANEL.find(p => p.id === id); const d = (DATA.metod||[]).find(m => /investerarpanelen/i.test(m.titel)); if (!x || !d) return "";
+  const del = d.md.split(/\n(?=### )/).find(s => s.startsWith("### ") && s.split("\n")[0].includes(x.namn));
+  return del || "";
+}
+function fragaPanel(b, id){
+  const x = PANEL.find(p => p.id === id); if (!x || !CHAT.sample) return;
+  CHAT.ctl?.abort(); CHAT.turer = []; CHAT.persona = {id, slug: b.slug};
+  $("#chat").hidden = false; $("#chat-knapp").hidden = true;
+  const box = $("#chat-msgs"); box.innerHTML = "";
+  const intro = chattBubbla("a", `Nu tittar vi på **${b.status.namn}** med **${x.namn === "Blankaren" ? "Blankarens" : x.namn + "s"} glasögon**. Svaren är en tolkning av ${x.hel}s filosofi, inte något ${x.id === "blankaren" ? "någon" : "personen"} har sagt. Skriv *Ny chatt* för att gå tillbaka till vanliga frågor.`);
+  const forslag = x.id === "blankaren" ? ["Vilken risk är störst för mig som ägare?", "Vad i redovisningen ska jag titta extra på?", "Vad skulle få Blankaren att ge upp?", "Vilka siffror borde jag följa varje kvartal?"]
+    : [`Vilken punkt i checklistan är svagast?`, `Vad skulle ${x.namn} vilja veta mer om?`, `Hur skulle ${x.namn} se på priset just nu?`, `Förklara ${x.namn}s sätt att tänka enkelt`];
+  const f = document.createElement("div"); f.className = "chat-forslag";
+  forslag.forEach(t => { const btn = document.createElement("button"); btn.type = "button"; btn.textContent = t; btn.onclick = () => { $("#chat-txt").value = t; skickaChatt(); }; f.appendChild(btn); });
+  intro.appendChild(f); $("#chat-txt").focus();
+}
 function aktuelltBolag(){ const h = location.hash.slice(1); return h.startsWith("bolag-") ? DATA.bolag.find(b => b.slug === h.slice(6).split("~")[0]) : null; }
 function bolagKort(b){
   const s = b.status, k = nyckel(b);
@@ -1044,12 +1274,24 @@ Regler:
 - Dagens datum: ${new Date().toISOString().slice(0,10)}. Sidan byggdes ${DATA.byggd}.
 Bolag som bevakas: ${JSON.stringify(DATA.bolag.map(bolagKort))}
 ${b ? `användaren tittar just nu på ${b.status.namn}. Kort och enkelt om bolaget: ${JSON.stringify(b.status.enkelt||{})}` : `användaren tittar just nu på sidan ${location.hash || "#lage"}.`}
-Lektioner i Skolan (id: titel): ${LEK.map(l => l.id + ": " + l.titel).join("; ")}`;
+Lektioner i Skolan (id: titel): ${LEK.map(l => l.id + ": " + l.titel).join("; ")}${(() => {
+  const p = CHAT.persona; if (!p) return "";
+  const x = PANEL.find(y => y.id === p.id), pb = DATA.bolag.find(y => y.slug === p.slug); if (!x || !pb) return "";
+  const kort = pb.panel && (pb.panel.roster||[]).find(r => r.id === p.id);
+  return `
+
+INVESTERARPANELEN: Användaren vill resonera om ${pb.status.namn} med ${x.hel}s glasögon. Svara som en tolkning av filosofin, i tredje person ("enligt ${x.namn}s filosofi skulle …"). Låtsas aldrig vara personen och hitta aldrig på citat. ${x.id === "blankaren" ? "Blankaren är en påhittad roll som letar efter allt som kan gå fel. " : ""}Använd checklistan nedan och bolagets data (verktygen sok och las). Bolaget mäts som ${(SPAR[pb.status.spar]||SPAR.vandning)[0]}; ${x.tung.includes(pb.status.spar || "vandning") ? "den här rösten väger tyngst för spåret" : "den här rösten är ett andra perspektiv och ändrar inte spårets bedömning, säg det om användaren verkar dra för stora slutsatser"}. Inga köp- eller säljråd.
+Checklista:
+${panelChecklista(p.id)}
+Panelkortet som redan finns: ${JSON.stringify(kort || "inget kort än")}`;
+})()}`;
 }
-const LASBARA = ["tes","kallor","logg","loften","kundregister","djup","status","handelser","nyckeltal","vardering","rapporter","pipeline","marknad","nyheter"];
+const LASBARA = ["panel","tes","kallor","logg","loften","kundregister","djup","status","handelser","nyckeltal","vardering","rapporter","pipeline","marknad","nyheter"];
 function las(bolag, dok){
   dok = String(dok||"").toLowerCase();
   if (dok === "journal") return (DATA.journal||"").slice(0, 14000);
+  if (dok === "fonder") return JSON.stringify((DATA.fonder||[]).map(f => ({namn: f.namn, typ: f.typ, avgift_pct: f.avgift, storlek_mdr: f.formogenhet_mdr, risk_std24: f.std24, aktiv_risk: f.aktiv_risk, topp10_pct: f.topp10_pct, kvartal: f.kvartal}))).slice(0, 14000);
+  if (dok.startsWith("fond:")){ const q = dok.slice(5); const f = (DATA.fonder||[]).find(x => x.slug === q || x.namn.toLowerCase().includes(q)); if (!f) throw new Error("Okänd fond. Följda: " + (DATA.fonder||[]).map(x => x.namn).join(", ")); return JSON.stringify({...f, innehav: f.innehav.slice(0, 40)}).slice(0, 14000); }
   if (dok === "guide" || dok === "hjalp") return (DATA.guide||"").replace("<!-- DETALJERAD -->", "").slice(0, 14000);
   if (dok.startsWith("lektion:")){ const l = LEK.find(x => x.id === dok.slice(8)); if (!l) throw new Error("Okänd lektion"); return l.text; }
   if (dok.startsWith("metod:")){ const d = (DATA.metod||[]).find(x => x.titel.toLowerCase().includes(dok.slice(6))); if (!d) throw new Error("Hittar inget metoddokument med det namnet"); return d.md.slice(0, 14000); }
@@ -1059,6 +1301,7 @@ function las(bolag, dok){
   const j = o => JSON.stringify(o).slice(0, 14000);
   if (b.docs[dok]) return b.docs[dok].slice(0, 14000);
   if (dok === "status") return j(b.status);
+  if (dok === "panel") return j(b.panel || "Panelen är inte framtagen än");
   if (dok === "handelser") return j(b.handelser);
   if (dok === "nyckeltal") return j(b.nyckeltal);
   if (dok === "vardering") return j(b.vardering);
@@ -1074,7 +1317,7 @@ const VERKTYG = [
   {name: "sok", description: "Fritextsökning i hela sidan: bolag, händelser, rapporter, pressmeddelanden, akterna (tes, källor, logg, löften, kunder, djupdykningar), lektioner, ordlista, metod, teman och journal. Returnerar upp till 12 träffar med typ, titel och utdrag.",
    inputSchema: {type:"object", properties:{fraga:{type:"string", description:"Sökord, gärna 1–3 ord"}}, required:["fraga"]},
    execute: ({fraga}) => sok(String(fraga||""), 12).map(r => ({typ:r.typ, titel:r.titel, utdrag:r.ut, lank: r.extern ? r.href : undefined}))},
-  {name: "las", description: "Läser ett helt dokument för ett bevakat bolag: tes, kallor, logg, loften, kundregister, djup, status, handelser, nyckeltal, vardering, rapporter, pipeline, marknad, nyheter. Utan bolag: journal, guide (hur verktyget fungerar, tips och trix), lektion:<id> eller metod:<namn>. Returnerar text (max ca 14 000 tecken).",
+  {name: "las", description: "Läser ett helt dokument för ett bevakat bolag: panel (investerarpanelens kort), tes, kallor, logg, loften, kundregister, djup, status, handelser, nyckeltal, vardering, rapporter, pipeline, marknad, nyheter. Utan bolag: fonder (alla följda fonder i korthet), fond:<namn> (en fond i detalj), journal, guide (hur verktyget fungerar, tips och trix), lektion:<id> eller metod:<namn>. Returnerar text (max ca 14 000 tecken).",
    inputSchema: {type:"object", properties:{bolag:{type:"string", description:"Bolagets namn, ticker eller slug (tomt för journal/lektion/metod)"}, dokument:{type:"string"}}, required:["dokument"]},
    execute: ({bolag, dokument}) => las(bolag, dokument)}
 ];
@@ -1129,7 +1372,7 @@ async function skickaChatt(){
     const knapp = $("#chat-knapp"); knapp.hidden = false;
     knapp.onclick = () => { $("#chat").hidden = false; knapp.hidden = true; if (!$("#chat-msgs").children.length) chattStart(); $("#chat-txt").focus(); };
     $("#chat-stang").onclick = () => { $("#chat").hidden = true; knapp.hidden = false; };
-    $("#chat-ny").onclick = () => { CHAT.ctl?.abort(); CHAT.turer = []; chattStart(); };
+    $("#chat-ny").onclick = () => { CHAT.ctl?.abort(); CHAT.turer = []; CHAT.persona = null; chattStart(); };
     $("#chat-form").onsubmit = e => { e.preventDefault(); if (CHAT.ctl) CHAT.ctl.abort(); else skickaChatt(); };
     $("#chat-txt").addEventListener("keydown", e => { if (e.key === "Enter" && !e.shiftKey){ e.preventDefault(); if (!CHAT.ctl) skickaChatt(); } });
   } catch(e){ /* utan Claude fungerar sidan som vanligt */ }
@@ -1158,7 +1401,7 @@ document.addEventListener("click", e => { if (e.target.id === "valkommen-stang")
 /*__PORTFOLJ__*/
 function route(){
   const h = (location.hash || "#lage").slice(1);
-  document.querySelectorAll("nav.main a").forEach(a => a.classList.toggle("on", h===a.dataset.v || (h.startsWith("bolag-") && a.dataset.v==="bevakning") || (h.startsWith("skolan") && a.dataset.v==="skolan")));
+  document.querySelectorAll("nav.main a").forEach(a => a.classList.toggle("on", h===a.dataset.v || (h.startsWith("bolag-") && a.dataset.v==="bevakning") || (h.startsWith("fond-") && a.dataset.v==="fonder") || (h.startsWith("skolan") && a.dataset.v==="skolan")));
   if (h.startsWith("bolag-")) vyBolag(h.slice(6));
   else if (h === "lage") vyLage();
   else if (h === "hjalp") vyHjalp();
@@ -1168,6 +1411,8 @@ function route(){
   else if (h === "nyheter") vyNyheter();
   else if (h === "bevakning") vyBevakning();
   else if (h === "radar") vyRadar();
+  else if (h === "fonder") vyFonder();
+  else if (h.startsWith("fond-")) vyFond(h.slice(5));
   else if (h === "journal") { const v = $("#vy"); v.innerHTML = `<h1>Journal</h1><p class="lede">Förutsägelser med sannolikhet som följs upp, och dina egna beslut. Det är så man tränar sitt omdöme.</p>`; const j = md(DATA.journal || "Ingen journal än."); gloss(j); v.appendChild(j); }
   else if (h === "teman") vyDocs("Teman", "Temaanalyser och temaskanningar: drivkrafter, fas, värdekedja och bolag att undersöka.", DATA.teman);
   else if (h === "kastade") { const v = $("#vy"); v.innerHTML = `<h1>Kastade bolag</h1><p class="lede">Analyserade och bortvalda bolag, med skäl. Sparas för att lära av besluten.</p>`; v.appendChild(md(DATA.kastade)); }

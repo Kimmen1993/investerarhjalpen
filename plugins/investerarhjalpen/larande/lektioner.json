@@ -359,6 +359,86 @@
      "forklaring": "Ett förutbestämt kriterium tar bort känslan ur beslutet."
     }
    ]
+  },
+  {
+   "id": "panelen",
+   "titel": "Sex sätt att se på ett bolag: spåren och investerarpanelen",
+   "niva": "Grund",
+   "minuter": 5,
+   "text": "Ett och samma bolag kan vara ett bra case för en investerare och ett dåligt för en annan. Det beror på vad man letar efter.\n\n**Två spår.** Verktyget mäter varje bolag mot ett av två spår:\n- **Vändning:** bolag som ännu inte bär sig själva. Frågan är om vändningen lyckas, och den mäts med turnaround-steg och redo-poäng.\n- **Kärna:** lönsamma bolag. Frågan är hur bra bolaget är och vad det kostar.\n\nOm ett vändningsbolag mäts med kärnans mått blir det alltid underkänt. Det säger bara att det är fel mått.\n\n**Peter Lynchs sex kategorier** hjälper dig att veta vad du kan vänta dig:\n\n| Kategori | Vad du kan vänta dig |\n|---|---|\n| Långsamväxare | Utdelning, lite kursrörelse |\n| Stabil jätte | Lugn tillväxt, tål kriser |\n| Snabbväxare | Kan bli många gånger pengarna, men faller hårt när tillväxten stannar |\n| Cykliskt bolag | Följer konjunkturen; tajmingen är allt |\n| Tillgångsbolag | Äger något som är mer värt än börsen tror |\n| Turnaround | Stor uppsida om vändningen lyckas, stor risk om den inte gör det |\n\n**Investerarpanelen** visar bolaget med sex par glasögon:\n- **Buffett:** finns det en vallgrav, alltså ett skydd mot konkurrenter?\n- **Lynch:** vilken sorts bolag är det, och är tillväxten billig?\n- **Fisher:** vad säger kunderna, och kan försäljningen växa i många år?\n- **Graham:** finns det en säkerhetsmarginal om jag har fel?\n- **Terry Smith:** blir vinsten riktiga pengar?\n- **Blankaren:** vad är det troligaste skälet om aktien halveras?\n\n**Så använder du panelen:** titta mest på de röster som har en blå prick, eftersom de passar bolagets spår. Läs sedan de andra för nyanser. Där alla är överens är bilden robust. Där de spretar finns det något att fundera på.",
+   "prova": "Öppna Unibap och klicka på Lynch och sedan på Buffett. Varför tycker de så olika? Gör samma sak på Novo Nordisk och se hur bilden vänder.",
+   "quiz": [
+    {
+     "fraga": "Buffetts glasögon ger ett förlustbolag i en vändning betyget 'passar lite'. Vad betyder det?",
+     "alternativ": [
+      "Att bolaget är dåligt",
+      "Att bolaget mäts med fel mått för sitt spår, så betyget säger lite om vändningen",
+      "Att man ska sälja"
+     ],
+     "ratt": 1,
+     "forklaring": "Buffett letar efter bolag som redan är lönsamma. Ett vändningsbolag ska mätas på vändningen."
+    },
+    {
+     "fraga": "Vilken av Lynchs kategorier faller oftast hårdast när tillväxten stannar?",
+     "alternativ": [
+      "Långsamväxare",
+      "Snabbväxare",
+      "Tillgångsbolag"
+     ],
+     "ratt": 1,
+     "forklaring": "Priset på en snabbväxare räknar med fortsatt tillväxt. Uteblir den sjunker både vinsten och multipeln."
+    },
+    {
+     "fraga": "Vad gör Blankaren i panelen?",
+     "alternativ": [
+      "Ger köpråd",
+      "Letar efter allt som kan gå fel",
+      "Räknar ut en riktkurs"
+     ],
+     "ratt": 1,
+     "forklaring": "Blankaren är en påhittad roll som söker motbevis. Det är ett skydd mot att bara läsa det som stöder tesen."
+    }
+   ]
+  },
+  {
+   "id": "fonder",
+   "titel": "Fonder på 5 minuter: avgift, index och vad du egentligen äger",
+   "niva": "Grund",
+   "minuter": 5,
+   "text": "En fond är en korg med aktier (eller räntepapper) som någon annan köper åt dig. Du äger en liten bit av hela korgen.\n\n**1. Avgiften är den enda säkra siffran.** Ingen vet hur fonden går, men avgiften dras varje år.\n\n| Avgift per år | Kostar på 100 000 kr över 10 år (om fonden går upp 7 % per år) |\n|---|---|\n| 0,1 % | ca 2 000 kr |\n| 0,5 % | ca 9 000 kr |\n| 1,25 % | ca 22 000 kr |\n| 1,6 % | ca 27 000 kr |\n\n**2. Indexfond eller aktivt förvaltad fond?**\n- En **indexfond** köper alla bolag i ett index, till exempel de 30 största i Sverige. Den är billig och gör som marknaden.\n- En **aktivt förvaltad fond** har en förvaltare som väljer bolag och försöker slå index. Den är dyrare, och över 10–15 år brukar de flesta inte slå sitt index efter avgift. Några gör det, men det är svårt att veta i förväg vilka.\n- **Aktiv risk** visar hur mycket fonden avviker från sitt index. Under ca 1 % betyder att den följer index nästan exakt. En fond med låg aktiv risk men hög avgift kan i praktiken vara en dyr indexfond.\n\n**3. Vad äger du egentligen?** Titta på de tio största innehaven och länderna. En global indexfond har ofta ca 70 % i USA och mycket i några få teknikjättar.\n\n**4. Hur mycket svänger den?** Standardavvikelsen visar hur mycket fonden har svängt per år. 15 % betyder att ett år på -15 % eller +15 % inte är konstigt, och ibland blir det mer.\n\n**5. Överlapp.** Två fonder med olika namn kan äga nästan samma bolag. Då sprider du inte risken, du betalar bara två avgifter.\n\n**Var kommer siffrorna ifrån?** Finansinspektionen publicerar alla svenska fonders innehav varje kvartal. Verktyget hämtar dem gratis.",
+   "prova": "Öppna fliken Fonder och jämför Avanza Global med Länsförsäkringar Global Index. Hur stort är överlappet, och vad skiljer i avgift? Öppna sedan Swedbank Robur Technology och se vad förvaltaren köpte förra kvartalet.",
+   "quiz": [
+    {
+     "fraga": "Vilken siffra vet du säkert i förväg om en fond?",
+     "alternativ": [
+      "Avkastningen",
+      "Avgiften",
+      "Vilka bolag den äger om ett år"
+     ],
+     "ratt": 1,
+     "forklaring": "Avgiften dras varje år oavsett hur det går. Allt annat är osäkert."
+    },
+    {
+     "fraga": "En aktivt förvaltad fond har aktiv risk 1,5 % och avgift 1,4 %. Vad betyder det?",
+     "alternativ": [
+      "Den är mycket riskfylld",
+      "Den liknar sitt index mycket men tar ut en hög avgift",
+      "Den är en räntefond"
+     ],
+     "ratt": 1,
+     "forklaring": "Låg aktiv risk betyder att fonden gör nästan som index. Då måste förvaltaren slå index med hela avgiftsskillnaden för att det ska löna sig."
+    },
+    {
+     "fraga": "Två globala indexfonder har 75 % överlapp. Vad betyder det?",
+     "alternativ": [
+      "Du sprider risken mycket genom att äga båda",
+      "De äger i stort sett samma sak",
+      "Den ena är dubbelt så bra"
+     ],
+     "ratt": 1,
+     "forklaring": "Över ca 50 % överlapp betyder att fonderna gör ungefär samma jobb."
+    }
+   ]
   }
  ]
 }

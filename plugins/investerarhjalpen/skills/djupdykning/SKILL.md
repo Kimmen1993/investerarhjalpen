@@ -116,7 +116,13 @@ Se över `okand_framtid` mot signalindexets trend. **Det viktigaste i rapporten 
 
 **8. Motbevis.** Sök aktivt efter varje punkt i "Vad skulle fälla tesen?". Skriv vad som hittades, även om det var inget.
 
-**8b. Redo-poäng.** Uppdatera `redo` i `status.json`: de 10 punkterna i metod 15, med 0–2 poäng och en mening per punkt. Har bolaget passerat 15 poäng, eller fallit under 10: skriv det i notisen.
+**8b. Redo-poäng (bara spåret Vändning).** Uppdatera `redo` i `status.json`: de 10 punkterna i metod 15, med 0–2 poäng och en mening per punkt. Har bolaget passerat 15 poäng, eller fallit under 10: skriv det i notisen.
+
+**8c. Spår och investerarpanelen (metod 18).**
+- Saknar bolaget `spar` eller `lynch`: föreslå dem (`"spar_bekraftad": false`) och skriv förslaget i notisen.
+- Stämmer spåret fortfarande? Har ett vändningsbolag nått stabil lönsamhet, eller har ett kärnbolag hamnat i kris: föreslå ett byte i rapporten och notisen, men byt inte förrän användaren sagt ja.
+- Uppdatera `panel.json` med dagens siffror enligt skillen `panel`. Ändras `passar` för någon investerare: skriv det under "Ändrade bevisnivåer" i rapporten.
+- För spåret Kärna ersätter panelens Buffett, Smith och Graham redo-poängen som kvalitetskontroll.
 
 **9. Uppdatera och rapportera.**
 - `tes.md`: påståenden, nivåer, motbevis och jämförelse

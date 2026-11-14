@@ -89,6 +89,8 @@ Det är räkneexempel, inte riktkurser.
   - **Kasta:** lägg en rad i `kastade.md`, skapa en kort `status.json` med `"beslut": "Kasta"` och en kort `tes.md`. Ingen full akt behövs.
   - **Bevaka eller Avvakta:** fyll i `status.json` med alla fält (mall: `bolag/unibap/status.json`), **inklusive `enkelt`-blocket på klarspråk** (se CLAUDE.md, avsnittet Klarspråk), samt lägg till nya facktermer i `metod/ordlista.md`, inklusive `kallor_bevakning` (MFN-slug från mfn.se/all/a/<slug> och utgivarnamn i FI:s insynsregister), och `ir_sida` (bolagets sida för investerare, länkad från hemsidan). Kör sedan `python3 -I "$IH/verktyg/rapportlankar.py"` så att rapporternas PDF:er syns på sidan.
   - Sätt även `trafikljus`, `lage_mening` och `senaste_djupdykning` (dagens datum).
+  - **Spår och Lynchkategori** (metod 18): föreslå `spar` (`vandning` eller `karna`), `lynch` och `lynch_skal`, och sätt `"spar_bekraftad": false`. Säg i svaret vilket spår som föreslås och varför, och be användaren bekräfta. För Kärna: hoppa över turnaround-steget och redo-poängen, och lägg i stället vikt vid kvalitet (avkastning på kapitalet, marginaler, kassaflöde) och värdering mot bolagets egen historik.
+  - **Investerarpanelen:** skriv `panel.json` enligt skillen `panel` (metod 18).
   - Skapa `nyckeltal.json` med minst de senaste 8 kvartalen ur rapporterna (mall: `bolag/unibap/nyckeltal.json`).
   - Skapa `kundregister.md`: alla kända kunder som en tidslinje genom bolagets säljmodell, plus konverteringsgraden (mall: `bolag/unibap/kundregister.md`, metod 09).
   - Skapa `natverk.md` med upp till 10 yrkesroller hos bolaget och kunderna (mall: `bolag/unibap/natverk.md`).
