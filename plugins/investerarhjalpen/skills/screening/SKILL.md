@@ -7,6 +7,8 @@ description: Bolagsjakt: kör signalradarn för hela börsen och gör en kort tr
 
 > **Var saker ligger.** Verktygsmappen (kallas `$IH` nedan) är två nivåer upp från den här skillens mapp: mappen som innehåller `verktyg/`, `metod/`, `larande/` och `mall/`. Datamappen är användarens egen mapp med `installningar.json` (oftast mappen sessionen är öppnad i; annars den mapp som `installningar.json` pekar ut). Metodfiler (`metod/…`), lektioner (`larande/…`) och skript (`verktyg/…`) läses i verktygsmappen; allt annat (`bolag/`, `radar/`, `teman/`, `journal.md`, `min-strategi.md`, `site/` …) i datamappen. Kör skript från datamappen och ersätt `$IH` med den riktiga sökvägen, till exempel `cd "<datamappen>" && python3 -I "$IH/verktyg/nyhetskoll.py"`. Sidans adress står i `installningar.json` (`sida_url`). Saknas `installningar.json`: be användaren köra `/investerarhjalpen:kom-igang` först.
 
+**Läs först `$IH/REGLER.md`** (gemensamma regler: klarspråk, bevisnivåer, inga köp- eller säljråd, integritet) och `min-strategi.md` i datamappen.
+
 1. Läs `metod/15-bolagsjakt.md`, `metod/02-turnaround-och-tenbagger.md` och `metod/04-varningsflaggor.md`.
 2. Kör `python3 -I "$IH/verktyg/signalradar.py"` och läs `radar/radar.json`.
 3. Välj **högst 5** bolag som inte är triagerade, med högst poäng. Prioritera bolag som har **flera olika typer** av positiva signaler, till exempel både order och insiderköp. Har användaren angett ett tema: välj bolag som passar temat.

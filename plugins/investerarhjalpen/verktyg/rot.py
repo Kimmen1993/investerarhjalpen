@@ -23,3 +23,13 @@ def _data():
 
 
 DATA = _data()
+
+
+def verktygsversion():
+    """Fingeravtryck av allt i tillägget som påverkar sidan (mall, lektioner, metod, skript)."""
+    import hashlib
+    h = hashlib.sha256()
+    for p in sorted(list((VERKTYG / "verktyg").rglob("*")) + list((VERKTYG / "larande").rglob("*")) + list((VERKTYG / "metod").rglob("*"))):
+        if p.is_file() and "__pycache__" not in p.parts:
+            h.update(p.name.encode()); h.update(p.read_bytes())
+    return h.hexdigest()[:12]

@@ -58,6 +58,7 @@ Skriv vanlig svenska i Code-fliken. Till exempel:
 | `leta nya bolag` | Claude letar efter intressanta bolag på hela börsen |
 | `vad betyder EV/S?` | En enkel förklaring |
 | `uppdatera verktyget` | Hämtar senaste versionen |
+| `jag har ett förslag` | Claude skriver ett tydligt förbättringsförslag som du kan skicka vidare |
 
 **Din webbsida** har adressen som Claude gav dig i början. Den är privat tills du själv delar den (knappen **Share** på sidan). Där finns:
 - **Läget nu**: hur dina bolag mår, med trafikljus
@@ -78,7 +79,9 @@ Skriv vanlig svenska i Code-fliken. Till exempel:
 
 **Kan någon se mina bolag eller min portfölj?** Nej. Din mapp ligger på din dator, och din sida är privat tills du delar den. Portföljen syns bara för dig, även om du delar sidan.
 
-**Något fungerar inte.** Skriv `uppdatera verktyget`. Hjälper inte det: beskriv problemet för Claude med egna ord, eller hör av dig till den som skickade länken.
+**Något fungerar inte, eller du har en idé.** Skriv `uppdatera verktyget` först. Hjälper inte det: skriv `jag har ett förslag` och beskriv det med egna ord. Claude skriver ihop ett tydligt förslag som du skickar till den som skickade länken. När det är fixat får alla rättningen automatiskt.
+
+**Vad är gemensamt och vad är privat?** Gemensamt för alla är hur verktyget fungerar: analyserna, sidans utseende, Skolan och metoden. Privat för var och en är vilka bolag du följer, dina analyser av dem, din strategi och din portfölj.
 
 ---
 

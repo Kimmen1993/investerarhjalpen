@@ -11,7 +11,7 @@ from datetime import datetime
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from rot import VERKTYG, DATA as ROT  # noqa: E402  (ROT = användarens datamapp)
+from rot import VERKTYG, DATA as ROT, verktygsversion  # noqa: E402  (ROT = användarens datamapp)
 import pipeline  # noqa: E402  (räknar prognosen ur mojligheter.json)
 import marknad  # noqa: E402  (marknadsmodell uppifrån + tratt, vägs ihop med pipelinen)
 
@@ -85,6 +85,7 @@ def main():
     ut.parent.mkdir(exist_ok=True)
     mall = mall.replace("/*__PORTFOLJ__*/", las(VERKTYG / "verktyg" / "delar" / "portfolj.js"))
     ut.write_text(mall.replace("/*__DATA__*/null", js), encoding="utf-8")
+    (ut.parent / ".verktyg-version").write_text(verktygsversion(), encoding="utf-8")
     print(f"Byggd: {ut} ({ut.stat().st_size // 1024} kB, {len(bolag)} bolag, {len(teman)} teman)")
 
 

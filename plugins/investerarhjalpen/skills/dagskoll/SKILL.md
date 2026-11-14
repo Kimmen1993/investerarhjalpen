@@ -7,12 +7,15 @@ description: Morgonkollen av alla bevakade bolag inför börsdagen. Kör den gra
 
 > **Var saker ligger.** Verktygsmappen (kallas `$IH` nedan) är två nivåer upp från den här skillens mapp: mappen som innehåller `verktyg/`, `metod/`, `larande/` och `mall/`. Datamappen är användarens egen mapp med `installningar.json` (oftast mappen sessionen är öppnad i; annars den mapp som `installningar.json` pekar ut). Metodfiler (`metod/…`), lektioner (`larande/…`) och skript (`verktyg/…`) läses i verktygsmappen; allt annat (`bolag/`, `radar/`, `teman/`, `journal.md`, `min-strategi.md`, `site/` …) i datamappen. Kör skript från datamappen och ersätt `$IH` med den riktiga sökvägen, till exempel `cd "<datamappen>" && python3 -I "$IH/verktyg/nyhetskoll.py"`. Sidans adress står i `installningar.json` (`sida_url`). Saknas `installningar.json`: be användaren köra `/investerarhjalpen:kom-igang` först.
 
+**Läs först `$IH/REGLER.md`** (gemensamma regler: klarspråk, bevisnivåer, inga köp- eller säljråd, integritet) och `min-strategi.md` i datamappen.
+
 Läs `CLAUDE.md` först, framför allt avsnittet Klarspråk. **Var sparsam:** finns inget nytt ska du stanna så tidigt som möjligt.
 
 ## 1. Hämta nytt (gratis)
 Kör `python3 -I "$IH/verktyg/nyhetskoll.py"` och `python3 -I "$IH/verktyg/signalradar.py"` (radarn för hela börsen; inget mer görs med den här, triagen sker på söndagen). Läs `nyhetskoll-senaste.json`. Har ett bolag som inte triagerats fått **7 poäng eller mer** på radarn: nämn det på en rad i notisen.
 - Kontrollera också `nasta_handelse` i varje `status.json`: står det dagens datum (till exempel en rapport i dag)?
-- Har inget bolag `nya > 0` och inget har en händelse i dag: **avsluta här** utan notis och utan publicering. Svara bara "Inget nytt i dag."
+- **Har verktyget uppdaterats?** Kör `python3 -I "$IH/verktyg/behover_ombyggnad.py"`. Svarar den `ja`: bygg sidan (`python3 -I "$IH/verktyg/bygg_sida.py"`) och publicera den till `sida_url` (utelämna `capabilities`), även om inget annat är nytt, så att nya funktioner och rättningar syns. Ingen notis behövs för det.
+- Har inget bolag `nya > 0` och inget har en händelse i dag: **avsluta här** utan notis (och utan publicering, om inte verktyget uppdaterades). Svara bara "Inget nytt i dag."
 - Har inget bolag `nya > 0` men något har en händelse i dag: skicka bara en påminnelse, till exempel `I dag: Unibap släpper kvartalsrapport. Dagskollen i morgon sammanfattar den.`, och avsluta.
 
 Rapporter publiceras ofta kl. 07–08. Har en rapport väntats i dag men inte kommit än: nämn det i notisen.

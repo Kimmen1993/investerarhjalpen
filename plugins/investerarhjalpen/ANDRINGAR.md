@@ -1,6 +1,9 @@
 # Ändringar
 
 ## 2026-11-14
+- Gemensamma regler ligger nu i tillägget (REGLER.md) och uppdateras för alla. Den egna mappen har bara det personliga.
+- Sidan byggs om automatiskt vid morgonkollen när verktyget har uppdaterats.
+- Nytt: skriv "jag har ett förslag" för att skicka förbättringsidéer.
 - Kom igång: svaren om LinkedIn och notiser sparas direkt, och Claude frågar innan automatiska uppdateringar slås på.
 - Guiden: installationskommandot utan @-tecken, och tydligare om att klicka Tillåt.
 
