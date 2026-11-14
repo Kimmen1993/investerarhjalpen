@@ -69,6 +69,7 @@ Skriv vanlig svenska i Code-fliken. Till exempel:
 - **Min portfölj**: läs in dina affärer från banken (Avanza eller Handelsbanken). Bara du ser dem.
 - **Skolan**: korta lektioner om hur man läser rapporter
 - **Fråga Claude**: knappen nere till höger
+- **Hjälp**: en snabbguide på 2 minuter och mer om tips och fallgropar. Börja där!
 
 **Automatiken:**
 - Varje vardag kl. 08.30 kollar Claude nyheter om dina bolag.

@@ -276,6 +276,9 @@ details.fold>.nt>h2:first-child{display:none}
 @media (max-width:520px){#chat{right:0;bottom:0;width:100vw;height:100dvh;border-radius:0}}
 .nasta{margin:0 0 12px;font-size:14px;max-width:80ch}.nasta .label{margin-right:6px}
 
+/* hjälp */
+.valkommen{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;justify-content:space-between;background:var(--accent-weak);border-radius:12px;padding:14px 18px;margin:0 0 18px}
+.valkommen a.knapp{text-decoration:none;display:inline-block}
 /* min portfölj */
 .mitt-innehav{background:var(--accent-weak);border-radius:12px;padding:12px 16px;margin:10px 0;display:grid;gap:8px}
 .urval{margin-top:4px}
@@ -326,6 +329,7 @@ textarea,.pf-form input,.pf-form select,.pf-karta select{font:14px var(--f-body)
       <a href="#teman" data-v="teman">Teman</a>
       <a href="#metod" data-v="metod">Metod</a>
       <a href="#kastade" data-v="kastade">Kastade</a>
+      <a href="#hjalp" data-v="hjalp">Hjälp</a>
     </nav>
   </header>
   <main id="vy"></main>
@@ -728,9 +732,9 @@ function vyLage(){
   const vecka = new Date(Date.now() - 7*864e5).toISOString().slice(0,10);
   const nyaVecka = bolag.reduce((a, b) => a + (b.handelser||[]).filter(h => h.datum >= vecka).length, 0);
   const v = $("#vy");
-  v.innerHTML = `<h1>Läget nu</h1>${urvalHtml()}<p class="lede">${bolag.length} bolag · ${nyaVecka} ${nyaVecka === 1 ? "händelse" : "händelser"} de senaste 7 dagarna · uppdaterad ${esc(DATA.byggd)}</p>${veckansHtml()}<div class="list" id="lk"></div>`;
+  v.innerHTML = `${valkomstHtml()}<h1>Läget nu</h1>${urvalHtml()}<p class="lede">${bolag.length} bolag · ${nyaVecka} ${nyaVecka === 1 ? "händelse" : "händelser"} de senaste 7 dagarna · uppdaterad ${esc(DATA.byggd)}</p>${veckansHtml()}<div class="list" id="lk"></div>`;
   const box = $("#lk");
-  if (!bolag.length){ box.innerHTML = `<div class="empty">Inga bevakade bolag än.</div>`; return; }
+  if (!bolag.length){ box.innerHTML = `<div class="empty">Inga bevakade bolag än. Skriv <b>analysera &lt;bolag&gt;</b> i Claude-appen för att lägga till ditt första. <a href="#hjalp">Så fungerar verktyget →</a></div>`; return; }
   for (const b of bolag){
     const s = b.status; const k = nyckel(b);
     const vantar = (b.nyheter||[]).filter(p => p.ny && !(b.handelser||[]).some(h => h.lank === p.lank));
@@ -977,6 +981,7 @@ function byggIndex(){
   (DATA.metod||[]).forEach(d => block(d.md).forEach(t => add("Metod", d.titel, t, "#metod")));
   (DATA.teman||[]).forEach(d => block(d.md).forEach(t => add("Tema", d.titel, t, "#teman")));
   block(DATA.journal).forEach(t => add("Journal", "Journalen", t, "#journal"));
+  block((DATA.guide || "").replace("<!-- DETALJERAD -->", "")).forEach(t => add("Hjälp", "Så fungerar verktyget", t, "#hjalp"));
   return ix;
 }
 function sok(q, max = 40){
@@ -1045,6 +1050,7 @@ const LASBARA = ["tes","kallor","logg","loften","kundregister","djup","status","
 function las(bolag, dok){
   dok = String(dok||"").toLowerCase();
   if (dok === "journal") return (DATA.journal||"").slice(0, 14000);
+  if (dok === "guide" || dok === "hjalp") return (DATA.guide||"").replace("<!-- DETALJERAD -->", "").slice(0, 14000);
   if (dok.startsWith("lektion:")){ const l = LEK.find(x => x.id === dok.slice(8)); if (!l) throw new Error("Okänd lektion"); return l.text; }
   if (dok.startsWith("metod:")){ const d = (DATA.metod||[]).find(x => x.titel.toLowerCase().includes(dok.slice(6))); if (!d) throw new Error("Hittar inget metoddokument med det namnet"); return d.md.slice(0, 14000); }
   const q = String(bolag||"").toLowerCase();
@@ -1068,7 +1074,7 @@ const VERKTYG = [
   {name: "sok", description: "Fritextsökning i hela sidan: bolag, händelser, rapporter, pressmeddelanden, akterna (tes, källor, logg, löften, kunder, djupdykningar), lektioner, ordlista, metod, teman och journal. Returnerar upp till 12 träffar med typ, titel och utdrag.",
    inputSchema: {type:"object", properties:{fraga:{type:"string", description:"Sökord, gärna 1–3 ord"}}, required:["fraga"]},
    execute: ({fraga}) => sok(String(fraga||""), 12).map(r => ({typ:r.typ, titel:r.titel, utdrag:r.ut, lank: r.extern ? r.href : undefined}))},
-  {name: "las", description: "Läser ett helt dokument för ett bevakat bolag: tes, kallor, logg, loften, kundregister, djup, status, handelser, nyckeltal, vardering, rapporter, pipeline, marknad, nyheter. Utan bolag: journal, lektion:<id> eller metod:<namn>. Returnerar text (max ca 14 000 tecken).",
+  {name: "las", description: "Läser ett helt dokument för ett bevakat bolag: tes, kallor, logg, loften, kundregister, djup, status, handelser, nyckeltal, vardering, rapporter, pipeline, marknad, nyheter. Utan bolag: journal, guide (hur verktyget fungerar, tips och trix), lektion:<id> eller metod:<namn>. Returnerar text (max ca 14 000 tecken).",
    inputSchema: {type:"object", properties:{bolag:{type:"string", description:"Bolagets namn, ticker eller slug (tomt för journal/lektion/metod)"}, dokument:{type:"string"}}, required:["dokument"]},
    execute: ({bolag, dokument}) => las(bolag, dokument)}
 ];
@@ -1129,12 +1135,33 @@ async function skickaChatt(){
   } catch(e){ /* utan Claude fungerar sidan som vanligt */ }
 })();
 
+// --- hjälp: snabbguide och detaljerad guide ---
+function vyHjalp(){
+  const v = $("#vy"); const g = (DATA && DATA.guide) || "";
+  const [snabb, detalj] = g.split("<!-- DETALJERAD -->");
+  v.innerHTML = `<h1>Hjälp</h1><p class="lede">Så fungerar verktyget. Börja med snabbguiden; resten kan du läsa när du vill.</p><div class="lektion" id="snabbguide"></div><h2>Mer detaljerat</h2><p class="hint" style="margin-top:0">Klicka på en rubrik för att läsa.</p><div id="detaljguide"></div>`;
+  const s = md(snabb || ""); gloss(s); $("#snabbguide").appendChild(s);
+  const delar = (detalj || "").split(/\n(?=## )/).map(x => x.trim()).filter(Boolean);
+  for (const d of delar){
+    const rubrik = d.split("\n")[0].replace(/^##\s*/, ""); const kropp = d.split("\n").slice(1).join("\n");
+    const det = document.createElement("details"); det.className = "doc"; det.innerHTML = `<summary>${esc(rubrik)}</summary>`;
+    const inner = md(kropp); gloss(inner); det.appendChild(inner); $("#detaljguide").appendChild(det);
+  }
+  try { localStorage.setItem("ih-guide-sedd", "1"); } catch(e){}
+}
+function valkomstHtml(){
+  let sedd = false; try { sedd = !!localStorage.getItem("ih-guide-sedd"); } catch(e){ sedd = true; }
+  if (sedd) return "";
+  return `<div class="valkommen"><div><b>Ny här?</b> Läs snabbguiden på 2 minuter: vad trafikljusen betyder, vad du kan skriva till Claude och hur portföljen fungerar.</div><span><a class="knapp" href="#hjalp">Läs snabbguiden</a> <button type="button" class="lank-knapp" id="valkommen-stang">Inte nu</button></span></div>`;
+}
+document.addEventListener("click", e => { if (e.target.id === "valkommen-stang"){ try { localStorage.setItem("ih-guide-sedd", "1"); } catch(err){} e.target.closest(".valkommen")?.remove(); } });
 /*__PORTFOLJ__*/
 function route(){
   const h = (location.hash || "#lage").slice(1);
   document.querySelectorAll("nav.main a").forEach(a => a.classList.toggle("on", h===a.dataset.v || (h.startsWith("bolag-") && a.dataset.v==="bevakning") || (h.startsWith("skolan") && a.dataset.v==="skolan")));
   if (h.startsWith("bolag-")) vyBolag(h.slice(6));
   else if (h === "lage") vyLage();
+  else if (h === "hjalp") vyHjalp();
   else if (h === "sok") { vySok(); return; }
   else if (h === "portfolj") vyPortfolj();
   else if (h === "skolan" || h.startsWith("skolan-")) vySkolan(h.slice(7));

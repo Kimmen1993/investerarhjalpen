@@ -45,6 +45,7 @@ Information är bara ett av fem övertag. Varje analys ska också använda **ana
 - Nya innehav (när användaren köper ett bolag som inte följs): gör en startanalys med `verktyg/underlag.py`, `verktyg/rapporttext.py`, `verktyg/pmtext.py` och `verktyg/startanalys.py` (spec i JSON), och ge bolaget en söndag för första djupdykningen.
 
 ## Webbsidans hjälpmedel
+- **Hjälp** (fliken): snabbguide och detaljerad guide i `larande/guide.md`. Uppdatera guiden när verktyget får nya funktioner eller nya kommandon. När användaren frågar hur verktyget fungerar: svara utifrån guiden.
 - **Sök** (överst, eller tangenten /): söker i bolag, händelser, rapporter, pressmeddelanden, akterna, lektioner, begrepp, metod och journal.
 - **Min portfölj** (fliken): Användarens innehav, sparade **privat per inloggad person** i sidans databas (`data/users/<id>/portfolj`), aldrig i projektfilerna eller i den byggda sidan, eftersom sidan delas med länk. Inläsning av CSV/Excel från Avanza och Handelsbanken (kolumnerna gissas och kan rättas i förhandsvisningen), handinmatning, snittpris (GAV), avkastning, egna anteckningar (varför köpt, när sälja) och en strategikoll mot `min-strategi.md`. Koden ligger i `verktyg/delar/portfolj.js` och byggs in av `bygg_sida.py`. Claude Code kan läsa portföljen med ArtifactData (collection `data/users/me`, dokument `portfolj`). Ge aldrig köp- eller säljråd om innehaven.
 - Sidan publiceras med `capabilities: {sample: {}, db: {}, user: {}}`. Vid vanliga ompubliceringar utelämnas `capabilities`, så behålls de.

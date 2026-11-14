@@ -48,4 +48,4 @@ Kontrollera att `~/.claude/settings.json` har `"autoUpdate": true` på `invester
 - Berätta att egna innehav läses in under fliken **Min portfölj** på sidan (exportfil från banken), och att de bara syns för användaren.
 
 ## 9. Avsluta
-Sammanfatta på 4–5 rader: var mappen ligger, sidans adress, när automatiken körs, och tre saker man kan skriva: "analysera <bolag>", "uppdatera mig om <bolag>", "leta nya bolag". Påminn om att verktyget aldrig ger köp- eller säljråd.
+Sammanfatta på 4–5 rader: var mappen ligger, sidans adress, när automatiken körs, och tre saker man kan skriva: "analysera <bolag>", "uppdatera mig om <bolag>", "leta nya bolag". Tipsa om fliken **Hjälp** på sidan (snabbguide på 2 minuter och tips och trix). Påminn om att verktyget aldrig ger köp- eller säljråd.
