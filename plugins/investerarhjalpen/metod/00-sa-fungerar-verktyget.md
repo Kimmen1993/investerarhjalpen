@@ -76,6 +76,22 @@ Läs mer: [Metod 15](#metod-15) (redo-poängen) och [Metod 18, Spår och investe
 
 ---
 
+## 3b. Tesens pelare och jämförelsen
+**Vad:** varje bolag får 3–5 **pelare**, det som måste stämma för att tesen ska hålla. Varje pelare visar vad vi väntade oss, läget nu och en pil: ↑ stärks, → oförändrat, ↓ försvagas. Pilarna syns också i korten på Läget nu. **Jämförelsen** ställer bolaget bredvid 3–5 liknande bolag (börsvärde, EV/S, tillväxt och marginal) och svarar på vad marknaden betalar för bolag som redan har kommit längre. Båda ses över vid varje djupdykning.
+
+**Kontrollera själv:** läget för varje pelare ska ha en bevisnivå och stämma med Senaste nytt och Siffror per kvartal.
+
+Läs mer: [Metod 20](#metod-20)
+
+---
+
+## 3c. Kalendern
+**Vad:** fliken Kalender samlar allt som händer framöver: rapporter, stämmor, emissioner, mässor och studier, och Riksbankens räntebesked. Datum som inte är klara visas per månad och fylls i vid djupdykningen. **Dagen före en rapport** skriver morgonkollen *Vad ska jag titta efter?*. Söndagens notis har en rad om **veckans viktigaste datum**, och Läget nu visar *Snart*: de närmaste 14 dagarna.
+
+**Kontrollera själv:** jämför rapportdatumen med bolagets finansiella kalender på IR-sidan.
+
+---
+
 ## 4. Investerarpanelen
 **Vad:** sex knappar på varje bolagssida visar bolaget med Buffetts, Lynchs, Fishers, Grahams, Terry Smiths och Blankarens glasögon. Varje investerare har en fast checklista, så att korten går att jämföra. Det är tolkningar av deras publicerade filosofi, inga citat. En blå prick betyder att rösten väger tyngst för bolagets spår. Panelen ändrar aldrig bedömningen.
 
@@ -133,5 +149,6 @@ Läs mer: [Metod 19, Fonder: så räknar verktyget](#metod-19)
 | [16](#metod-16) | Efterfrågan |
 | [18](#metod-18) | Spår och investerarpanelen |
 | [19](#metod-19) | Fonder: så räknar verktyget |
+| [20](#metod-20) | Tesens pelare och jämförelsen med liknande bolag |
 | [Ordlista](#metod-ordlista) | Alla förklarade ord |
 | [Min strategi](#metod-strategi) | Din egen strategi (personlig) |

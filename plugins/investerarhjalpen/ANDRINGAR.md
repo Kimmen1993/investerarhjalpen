@@ -1,5 +1,11 @@
 # Ändringar
 
+## 2026-11-16 (kalender, pelare och jämförelse)
+- **Ny flik Kalender:** rapporter, stämmor, emissioner, mässor, studier och Riksbankens räntebesked, de närmaste 7 dagarna först. Dagen före en rapport skriver morgonkollen *Vad ska jag titta efter?*. Läget nu visar *Snart* (14 dagar), och söndagens notis har veckans viktigaste datum.
+- **Tesens pelare** på bolagssidan: 3–5 saker som måste stämma, med en pil för hur det går (↑ → ↓). Pilarna syns också på Läget nu.
+- **Jämförelse med liknande bolag** som en egen ruta: börsvärde, EV/S, tillväxt och marginal, och vad marknaden betalar för bolag som har kommit längre.
+- Ny metod 20 och uppdaterad översikt. Kalendern fylls i när du skriver "uppdatera verktyget", och pelare och jämförelse vid nästa djupdykning.
+
 ## 2026-11-16 (nytt sedan sist)
 - **Ny ruta överst på Läget nu: Nytt sedan sist.** Allt som har hänt sedan ditt förra besök, samlat per bolag: nyheter, ändrade trafikljus och beslut, nya rapporter, djupdykningar och panelkort. Där finns också nya bolag på radarn och triagebeslut. Dina egna innehav visas först, men bara för dig. Du kan välja de senaste 7 dagarna i stället.
 - Rutan visar när sidan senast uppdaterades och varnar om morgonkollen inte har hunnit uppdatera sidan.

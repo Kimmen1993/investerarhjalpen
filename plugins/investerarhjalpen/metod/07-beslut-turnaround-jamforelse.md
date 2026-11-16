@@ -44,4 +44,4 @@ Välj 3–5 bolag som liknar det vi analyserar: samma bransch eller affärsmodel
 
 Frågan att besvara: **om bolaget når nästa steg, vad betalar marknaden då för liknande bolag?** Det ger ett grovt spann för hur mycket värderingen kan förändras. Det är aldrig en riktkurs eller ett råd.
 
-Utan Börsdata hämtas siffrorna ur bolagens rapporter, vilket tar längre tid. Med Börsdata Pro går det snabbt.
+Utan Börsdata hämtas siffrorna ur bolagens rapporter, vilket tar längre tid. Med Börsdata Pro går det snabbt. Jämförelsen sparas i `status.json` och visas på bolagssidan (format i metod 20).

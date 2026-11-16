@@ -12,7 +12,7 @@ description: Grundlig genomgång av ett bevakat bolag ungefär en gång i månad
 Läs `CLAUDE.md` (även Klarspråk) och `metod/01-pusselmetoden.md`.
 
 ## Vilka bolag?
-- **Söndagsuppgiften:** kör `python3 -I "$IH/verktyg/djupdykning_tur.py"` i datamappen. Den läser användarens inställningar under `djupdykning` i `installningar.json` (antal per söndag, hur ofta, extra bolag och önskade bolag) och skriver ut vilka bolag som står på tur, det äldsta först. Ta exakt de bolagen. Är inget bolag på tur: avsluta direkt med "Ingen djupdykning i dag", utan notis. När alla är klara: kör `python3 -I "$IH/verktyg/djupdykning_tur.py" --nollstall` (tömmer extra och önskade) och sätt `senaste_djupdykning` till dagens datum i varje genomgånget bolag.
+- **Söndagsuppgiften:** kör `python3 -I "$IH/verktyg/djupdykning_tur.py"` i datamappen. Den läser användarens inställningar under `djupdykning` i `installningar.json` (antal per söndag, hur ofta, extra bolag och önskade bolag) och skriver ut vilka bolag som står på tur, det äldsta först. Ta exakt de bolagen. Är inget bolag på tur: hoppa över djupdykningen och gå direkt till veckoöversikten (sist i den här skillen). När alla är klara: kör `python3 -I "$IH/verktyg/djupdykning_tur.py" --nollstall` (tömmer extra och önskade) och sätt `senaste_djupdykning` till dagens datum i varje genomgånget bolag.
 - **Första djupdykningen efter en startanalys** (finns `forsta_djupdykning` men ingen rapport i `djupdykningar/`): gör också punkterna under "Att göra vid första djupdykningen" i `tes.md`, och det startanalysen hoppade över ur `/bolagsanalys` (löftesrevision, kundregister, nätverk, möjligheter och värdering) i den mån budgeten räcker. Skriv vad som återstår. Är inget bolag på tur: avsluta direkt med "Ingen djupdykning i dag", utan notis.
 - **Med bolagsnamn** ("djupdyk i Kambi"): djupdyk i just det bolaget direkt, oavsett datum. Sätt sedan `senaste_djupdykning` till i dag, så att bolaget får en ny månad innan det är på tur igen.
 - **"Djupdyk i X på söndag"** eller "det händer något i X": lägg bolagets mappnamn i `djupdykning.onskade` i `installningar.json` (rör inget annat) och bekräfta att det tas med nästa söndag.
@@ -63,7 +63,7 @@ Räkna om konverteringsgraden. Se `metod/09-spar-och-signaler.md`.
 
 **3. Konkurrenter, liknande bolag och värdering.** Ta 3–5 bolag. Har de vunnit kunder som borde gått till vårt bolag? Har de nya produkter? Hur värderas de?
 - **Kursen** uppdateras automatiskt av nyhetskollen (Yahoo Finance) i `kurs.json` och `vardering.json`. Kör `python3 -I "$IH/verktyg/nyhetskoll.py"` först. Uppdatera själv kassa, skuld och försäljning de senaste 12 månaderna i `vardering.json` om en rapport har kommit.
-- Uppdatera jämförelsen med nya multiplar.
+- Uppdatera **`jamforelse` i `status.json`** enligt metod 20: 3–5 liknande bolag med börsvärde, EV/S, tillväxt, rörelsemarginal och läge, gärna ett som redan har nått nästa steg, och en `slutsats` på klarspråk. Kurser kan hämtas gratis med Yahoos chart-API (`https://query2.finance.yahoo.com/v8/finance/chart/<SYMBOL>?range=5d&interval=1d`). Antalet aktier står i senaste rapporten. Skriv `null` och `niva: "?"` för det som inte gick att kontrollera.
 - Var tredje gång, eller när något stort har hänt: se över scenarierna och sannolikheterna (`metod/11-vardering-scenarier.md`), och leta efter 1–2 bolag som har **gjort en liknande resa**, alltså gått från förlust till vinst. Vilken multipel hade de före och efter?
 
 **4. Bransch och tema.** Läs temafilen i `teman/` om den finns. Leta efter nya budgetbeslut, upphandlingar och regler som påverkar marknaden.
@@ -116,6 +116,8 @@ Se över `okand_framtid` mot signalindexets trend. **Det viktigaste i rapporten 
 
 **8. Motbevis.** Sök aktivt efter varje punkt i "Vad skulle fälla tesen?". Skriv vad som hittades, även om det var inget.
 
+**8a. Tesens pelare (metod 20).** Se över `pelare` i `status.json`: 3–5 falsifierbara pelare, med `forvantan`, `lage` (med siffror), `trend` (upp, still eller ner) och `niva`. Sätt `pelare_datum` och `overtygelse`. Saknas pelare: skriv dem nu utifrån tesen och "Vad skulle fälla tesen?". Har en pelare gått `ner` två gånger i rad: se över trafikljuset och skriv det i notisen.
+
 **8b. Redo-poäng (bara spåret Vändning).** Uppdatera `redo` i `status.json`: de 10 punkterna i metod 15, med 0–2 poäng och en mening per punkt. Har bolaget passerat 15 poäng, eller fallit under 10: skriv det i notisen.
 
 **8c. Spår och investerarpanelen (metod 18).**
@@ -123,6 +125,8 @@ Se över `okand_framtid` mot signalindexets trend. **Det viktigaste i rapporten 
 - Stämmer spåret fortfarande? Har ett vändningsbolag nått stabil lönsamhet, eller har ett kärnbolag hamnat i kris: föreslå ett byte i rapporten och notisen, men byt inte förrän användaren sagt ja.
 - Uppdatera `panel.json` med dagens siffror enligt skillen `panel`. Ändras `passar` för någon investerare: skriv det under "Ändrade bevisnivåer" i rapporten.
 - För spåret Kärna ersätter panelens Buffett, Smith och Graham redo-poängen som kvalitetskontroll.
+
+**8d. Kalendern.** Kontrollera bolagets finansiella kalender på IR-sidan. Fyll i exakta datum för rapporter och stämmor i `kalender` i `status.json` (format i skillen `dagskoll`, avsnitt 4c) och ta bort de ungefärliga posterna som ersatts. Lägg till andra kända datum som är viktiga för tesen: mässor, studieresultat, teckningstider och avtal som löper ut. `python3 -I "$IH/verktyg/kalender.py" --ungefar` visar vilka datum som fortfarande bara har en månad.
 
 **9. Uppdatera och rapportera.**
 - `tes.md`: påståenden, nivåer, motbevis och jämförelse
@@ -157,3 +161,6 @@ Se över `okand_framtid` mot signalindexets trend. **Det viktigaste i rapporten 
 - Kör `python3 -I "$IH/verktyg/bygg_sida.py"` och publicera `site/index.html` till `sida_url` i `installningar.json`.
 - Skicka **en** PushNotification under 200 tecken, till exempel: `Djupdykning klar: Unibap grönt, ny kundsignal från Leonardo. Mildef gult, svagare orderingång. Läs på sidan.`
 - Ge inga köp- eller säljråd.
+
+## Veckoöversikten (varje söndag, sist)
+Kör `python3 -I "$IH/verktyg/kalender.py" --vecka`. Finns det händelser den kommande veckan: lägg till en kort rad i söndagens notis, till exempel `Veckan: tis Lime bokslut, ons Riksbanken, fre Gapwaves emission`. Har söndagen inget annat att rapportera, men veckan har händelser: skicka bara veckoraden som notis. Står det `[förhandsvisning saknas]` vid en rapport på måndag: skriv förhandsvisningen nu (skillen `dagskoll`, avsnitt 4c), så att den finns på morgonen.

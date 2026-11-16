@@ -13,7 +13,7 @@ Läs `CLAUDE.md` först, framför allt avsnittet Klarspråk. **Var sparsam:** fi
 
 ## 1. Hämta nytt (gratis)
 Kör `python3 -I "$IH/verktyg/nyhetskoll.py"` och `python3 -I "$IH/verktyg/signalradar.py"` (radarn för hela börsen; inget mer görs med den här, triagen sker på söndagen). Kör också `python3 -I "$IH/verktyg/fonder.py"` (gratis; den hämtar bara något när Finansinspektionen har publicerat ett nytt kvartal). Börjar utskriften med **NYTT KVARTAL**: bygg om sidan och nämn i notisen vilka bevakade bolag som fått flest nya fondägare eller tappat flest (`fonder/fondsignaler.json`). Radarn läser fondsignalerna för hela börsen automatiskt, så kör `signalradar.py` igen efter `fonder.py` den dagen. Gör också **fondkollen** (se skillen `fond`, avsnittet Fondkoll) och skriv varningarna i notisen. Läs `nyhetskoll-senaste.json`. Har ett bolag som inte triagerats fått **7 poäng eller mer** på radarn: nämn det på en rad i notisen.
-- Kontrollera också `nasta_handelse` i varje `status.json`: står det dagens datum (till exempel en rapport i dag)?
+- **Kalendern:** kör `python3 -I "$IH/verktyg/kalender.py" --imorgon`. Den visar händelser i dag och i morgon. Står det `[förhandsvisning saknas]` vid en rapport: skriv en **förhandsvisning** i bolagets `status.json` (se avsnitt 4c) och nämn den i notisen, till exempel `I morgon: Lime bokslut. Titta efter ARR-tillväxten (se Kalendern).` Det räknas som något nytt, så att sidan byggs och publiceras.
 - **Har verktyget uppdaterats?** Kör `python3 -I "$IH/verktyg/behover_ombyggnad.py"`. Svarar den `ja`: bygg sidan (`python3 -I "$IH/verktyg/bygg_sida.py"`) och publicera den till `sida_url` (utelämna `capabilities`), även om inget annat är nytt, så att nya funktioner och rättningar syns. Ingen notis behövs för det.
 - Har inget bolag `nya > 0` och inget har en händelse i dag: **avsluta här** utan notis (och utan publicering, om inte verktyget uppdaterades). Svara bara "Inget nytt i dag."
 - Har inget bolag `nya > 0` men något har en händelse i dag: skicka bara en påminnelse, till exempel `I dag: Unibap släpper kvartalsrapport. Dagskollen i morgon sammanfattar den.`, och avsluta.
@@ -57,8 +57,15 @@ För varje bolag som hade något nytt, uppdatera i `status.json`:
   - `gul`: något viktigt försvagar eller är oklart, till exempel en missad milstolpe, en svag rapport eller en mindre insiderförsäljning
   - `rod`: en punkt på "Vad skulle fälla tesen?" har inträffat, till exempel en emission med stor rabatt, en förlorad nyckelkund, en vinstvarning eller en stor insiderförsäljning
 - `enkelt`-blocket om något har ändrats
+- `pelare`: ändrar nyheten läget för en pelare, till exempel en ny order för "Kunderna beställer igen": uppdatera `lage` och `trend` (metod 20)
 - `nasta_handelse` och `senast_uppdaterad`
 - `beslut`: om trafikljuset blir rött, föreslå i notisen att användaren tar ställning. Ändra inte beslutet själv.
+
+## 4c. Kalendern och förhandsvisningen
+- **Nya datum:** meddelar ett pressmeddelande ett datum, till exempel en kallelse till stämma, en finansiell kalender, ett nytt rapportdatum, en teckningstid eller ett studieresultat som väntas: lägg till eller rätta det i `kalender` i `status.json`. Format: `{"datum": "ÅÅÅÅ-MM-DD", "ungefar": false, "typ": "rapport|stamma|finansiering|massa|studie|ovrigt", "text": "kort, på klarspråk", "viktig": true}`. Är bara månaden känd: `"datum": "ÅÅÅÅ-MM"` och `"ungefar": true`. Ta bort ungefärliga poster när det exakta datumet finns.
+- **Förhandsvisning inför en rapport** (dagen före, eller samma morgon om den saknas): skriv `forhandsvisning` i `status.json`:
+  `{"datum": "<rapportdagen>", "rapport": "Bokslutskommuniké 2026", "titta_efter": ["2–4 saker, till exempel försäljningstillväxt mot målet, kassan, orderingången"], "lovat": ["vad ledningen har lovat som rapporten kan visa, ur loften.md"], "starker_om": "en mening", "forsvagar_om": "en mening", "skriven": "<i dag>"}`
+  Utgå från tesen, milstolparna, `loften.md`, "Vad skulle fälla tesen?" och förra rapporten i `nyckeltal.json`. Kort och på klarspråk. Inga prognoser för kursen och inga köp- eller säljråd. Den visas i Kalendern och på bolagssidan.
 
 ## 4b. Journalen
 Avgör en ny händelse en förutsägelse i `journal.md`, till exempel en ny order eller en emission? Fyll i utfallet och nämn det i notisen.

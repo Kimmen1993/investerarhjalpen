@@ -254,6 +254,31 @@ details.fold>summary .fs{font-size:13px;color:var(--muted)}
 details.fold>.nt{border:0;padding:0;margin:0 0 16px;background:none}
 details.fold>.nt>h2:first-child{display:none}
 .sek{scroll-margin-top:56px}
+/* pelare och jämförelse */
+.trend{font:700 15px var(--f-body)}
+.trend.upp{color:var(--ok)}.trend.still{color:var(--muted)}.trend.ner{color:var(--bad)}
+.pelare-mini{font:700 14px var(--f-mono);letter-spacing:2px}
+.matris tr.var td{background:var(--accent-weak);font-weight:600}
+/* kalender */
+.kal-grupp{margin:18px 0 6px}
+.kal-grupp h2{font:700 17px var(--f-display);margin:0 0 8px}
+.kal-lista{list-style:none;margin:0;padding:0;background:var(--surface);border:1px solid var(--line);border-radius:12px}
+.kal-lista>li{display:grid;grid-template-columns:7.5em minmax(0,1fr);gap:4px 14px;padding:10px 14px;border-top:1px solid var(--line);align-items:baseline}
+.kal-lista>li:first-child{border-top:0}
+.kal-lista .dat{font:600 13px var(--f-mono);color:var(--muted)}
+.kal-lista .dat b{display:block;color:var(--fg);font-size:14px}
+.kal-lista .vad{display:flex;flex-wrap:wrap;gap:4px 8px;align-items:center}
+.kal-lista .vad a.bn{font-weight:700}
+.kal-typ{font:600 11px/1 var(--f-body);padding:4px 7px;border-radius:999px;background:var(--sunk);color:var(--muted)}
+.kal-typ.t-rapport{background:var(--accent-weak);color:var(--accent)}
+.kal-typ.t-finansiering,.kal-typ.t-stamma{background:var(--warn-bg);color:var(--warn)}
+.kal-fhv{grid-column:2;margin-top:6px}
+.kal-fhv summary{cursor:pointer;font-weight:600;font-size:13.5px;color:var(--accent)}
+.kal-fhv .fhv{margin-top:6px}
+.fhv{background:var(--sunk);border-radius:10px;padding:12px 14px;font-size:14px;line-height:1.5}
+.fhv h3{margin:0 0 6px;font:700 15px var(--f-display)}
+.fhv ul{margin:4px 0 8px;padding-left:18px}
+@media (max-width:560px){.kal-lista>li{grid-template-columns:1fr}.kal-fhv{grid-column:1}}
 /* nytt sedan sist */
 .nytt{background:var(--surface);border:1px solid var(--accent);border-radius:12px;padding:14px 18px;margin:12px 0 18px}
 .nytt-top{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:baseline;justify-content:space-between}
@@ -380,6 +405,7 @@ textarea,.pf-form input,.pf-form select,.pf-karta select{font:14px var(--f-body)
       <a href="#fonder" data-v="fonder">Fonder</a>
       <a href="#portfolj" data-v="portfolj">Min portfölj</a>
       <a href="#nyheter" data-v="nyheter">Nyheter</a>
+      <a href="#kalender" data-v="kalender">Kalender</a>
       <a href="#radar" data-v="radar">Radar</a>
       <a href="#skolan" data-v="skolan">Skolan</a>
       <a href="#journal" data-v="journal">Journal</a>
@@ -843,7 +869,7 @@ function nyttHtml(){
   const status = `<p class="steps-lbl" style="margin:4px 0 0">Sidan uppdaterades ${esc(tidKort(DATA.byggd))}${kord && !isNaN(kord) ? ` · nyhetskollen hämtade senast ${esc(tidKort(kord.toLocaleString("sv-SE").slice(0, 16)))}` : ""}${forra && NYTT_LAGE === "sist" ? ` · ditt förra besök: ${esc(tidKort(forra))}` : ""}</p>`;
   const varning = gammal ? `<div class="nytt-varning">Sidan har inte uppdaterats sedan ${esc(tidKort(DATA.byggd))}. Morgonkollen kan ha stoppats. Öppna körningen i Claude-appen för att se vad som hände, eller skriv <i>kör morgonkollen</i>.</div>` : "";
   const val = `<div class="nytt-val" role="group" aria-label="Visa">${[["sist", forra ? "Sedan förra besöket" : "Senaste 3 dagarna"], ["vecka", "Senaste 7 dagarna"]].map(([k, n]) => `<button type="button" data-nytt="${k}" class="${NYTT_LAGE === k ? "on" : ""}">${n}</button>`).join("")}</div>`;
-  if (!poster.length) return `<section class="nytt" id="nytt"><div class="nytt-top"><h2>Nytt sedan sist</h2>${val}</div><p style="margin:8px 0 0">Inget nytt${forra && NYTT_LAGE === "sist" ? " sedan ditt förra besök" : ""}.</p>${status}${varning}</section>`;
+  if (!poster.length) return `<section class="nytt" id="nytt"><div class="nytt-top"><h2>Nytt sedan sist</h2>${val}</div><p style="margin:8px 0 0">Inget nytt${forra && NYTT_LAGE === "sist" ? " sedan ditt förra besök" : ""}.</p>${snartHtml()}${status}${varning}</section>`;
   const perBolag = new Map(), radar = [], ovrigt = [];
   for (const x of poster){ if (x.slug && DATA.bolag.some(b => b.slug === x.slug)) { if (!perBolag.has(x.slug)) perBolag.set(x.slug, []); perBolag.get(x.slug).push(x); } else if (x.typ === "radar" || x.typ === "triage") radar.push(x); else ovrigt.push(x); }
   const vikt = arr => arr.some(x => x.typ === "trafikljus" || x.typ === "beslut") ? 3 : arr.some(x => x.paverkan && x.paverkan !== "neutral") ? 2 : 1;
@@ -854,7 +880,7 @@ function nyttHtml(){
   const radarHtml = radar.length ? `<div class="nytt-grupp"><div class="nytt-bolag"><a href="#radar">Radarn</a><span class="steps-lbl">bolag att kanske följa</span></div><ul class="nytt-lista">${radar.slice(0, 10).map(x => `<li><span class="t">${esc(tidKort(x.tid))}</span><span>${NYTT_TYP[x.typ]}<b>${esc(x.namn)}</b>: ${esc(x.text)}${x.paverkan && PAV[x.paverkan] ? " " + pav(x.paverkan) : ""}</span></li>`).join("")}</ul>${radar.length > 10 ? `<p class="steps-lbl"><a href="#radar">och ${radar.length - 10} till på radarn →</a></p>` : ""}</div>` : "";
   const ovrigtHtml = ovrigt.length ? `<div class="nytt-grupp"><div class="nytt-bolag"><b>Övrigt</b></div><ul class="nytt-lista">${ovrigt.map(x => `<li><span class="t">${esc(tidKort(x.tid))}</span><span>${NYTT_TYP[x.typ] || ""}${x.namn ? `<b>${esc(x.namn)}</b>: ` : ""}${esc(x.text)}</span></li>`).join("")}</ul></div>` : "";
   const sammanfatt = [perBolag.size ? `${perBolag.size} bevakade ${perBolag.size === 1 ? "bolag" : "bolag"} med nytt` : "", radar.length ? `${radar.length} på radarn` : ""].filter(Boolean).join(" · ");
-  return `<section class="nytt" id="nytt"><div class="nytt-top"><h2>Nytt sedan sist</h2>${val}</div><p class="steps-lbl" style="margin:4px 0 0">${sammanfatt}${mina && mina.agda && mina.agda.size ? ". Dina innehav visas först." : ""}</p>${bolagHtml}${radarHtml}${ovrigtHtml}${status}${varning}</section>`;
+  return `<section class="nytt" id="nytt"><div class="nytt-top"><h2>Nytt sedan sist</h2>${val}</div><p class="steps-lbl" style="margin:4px 0 0">${sammanfatt}${mina && mina.agda && mina.agda.size ? ". Dina innehav visas först." : ""}</p>${bolagHtml}${radarHtml}${ovrigtHtml}${snartHtml()}${status}${varning}</section>`;
 }
 document.addEventListener("click", e => { const k = e.target.closest("[data-nytt]"); if (k){ NYTT_LAGE = k.dataset.nytt; const el = $("#nytt"); if (el){ el.outerHTML = nyttHtml(); gloss($("#nytt")); } } });
 function vyLage(){
@@ -870,7 +896,7 @@ function vyLage(){
     const vantar = (b.nyheter||[]).filter(p => p.ny && !(b.handelser||[]).some(h => h.lank === p.lank));
     const el = document.createElement("article"); el.className = "lage-kort";
     el.innerHTML = `
-      <div class="lk-top"><h2><a href="#bolag-${esc(b.slug)}">${esc(s.namn)}</a></h2>${ljus(s)}${sparEtikett(s, true)}<span class="num" style="color:var(--muted);font-size:12px">${esc(s.ticker||"")}</span></div>
+      <div class="lk-top"><h2><a href="#bolag-${esc(b.slug)}">${esc(s.namn)}</a></h2>${ljus(s)}${sparEtikett(s, true)}${pelareMini(s)}<span class="num" style="color:var(--muted);font-size:12px">${esc(s.ticker||"")}</span></div>
       ${kursRad(b)}
       <p class="lk-mening">${esc(s.lage_mening || (s.enkelt && s.enkelt.i_en_mening) || s.tes || "")}</p>
       <div><div class="label" style="margin-bottom:8px">Senaste nytt</div><ul class="handelser">${urval(b.handelser||[], vecka).slice(0, 2).map(h => handelseHtml(h)).join("") || `<li class="steps-lbl">Inget nytt än.</li>`}</ul></div>
@@ -879,6 +905,60 @@ function vyLage(){
       <div><a class="oppna" href="#bolag-${esc(b.slug)}">Öppna ${esc(s.namn)} →</a> <span class="steps-lbl" style="margin-left:8px">Nästa händelse: ${esc(s.nasta_handelse||"–")}</span></div>`;
     box.appendChild(el);
   }
+}
+// --- kalender ---
+const KALTYP = {rapport:["📊","Rapport"], stamma:["🗳️","Stämma"], finansiering:["💰","Finansiering"], massa:["🎪","Mässa"], studie:["🧪","Studie"], makro:["🏦","Makro"], ovrigt:["📌","Övrigt"]};
+const MAN = ["januari","februari","mars","april","maj","juni","juli","augusti","september","oktober","november","december"];
+function kalHandelser(bolagLista){
+  const ut = [];
+  for (const b of bolagLista) for (const k of (b.status.kalender || [])) ut.push({...k, b});
+  for (const k of (DATA.kalender_makro || [])) ut.push({...k});
+  return ut.filter(k => k.datum).sort((a, b) => a.datum.localeCompare(b.datum));
+}
+function idagStr(){ return new Date().toISOString().slice(0, 10); }
+function dagarTill(d){ return Math.round((new Date(d + "T12:00") - new Date(idagStr() + "T12:00")) / 864e5); }
+function kalDatum(k){
+  if (k.ungefar || k.datum.length === 7){ const [y, m] = k.datum.split("-"); return `<b>${MAN[+m - 1]}</b>${y} · datum ej klart`; }
+  const d = new Date(k.datum + "T12:00"), n = dagarTill(k.datum);
+  return `<b>${d.toLocaleDateString("sv-SE", {weekday: "short", day: "numeric", month: "short"})}</b>${n === 0 ? "i dag" : n === 1 ? "i morgon" : n > 0 ? `om ${n} dagar` : `${-n} dagar sedan`}`;
+}
+function forhandsHtml(b){
+  const f = b.status.forhandsvisning; if (!f) return "";
+  const lista = (r, a) => a && a.length ? `<b>${r}</b><ul>${a.map(x => `<li>${esc(x)}</li>`).join("")}</ul>` : "";
+  return `<div class="fhv"><h3>Inför ${esc(f.rapport || "rapporten")}${f.datum ? ` (${esc(f.datum)})` : ""}</h3>
+    ${lista("Titta efter", f.titta_efter)}${lista("Det bolaget har lovat", f.lovat)}
+    ${f.starker_om ? `<p style="margin:4px 0"><b>Stärker tesen om:</b> ${esc(f.starker_om)}</p>` : ""}${f.forsvagar_om ? `<p style="margin:4px 0"><b>Försvagar tesen om:</b> ${esc(f.forsvagar_om)}</p>` : ""}
+    <p class="steps-lbl" style="margin:6px 0 0">Skrivet ${esc(f.skriven || "")} inför rapporten. Inget köp- eller säljråd.</p></div>`;
+}
+function kalRad(k, mina){
+  const [ikon, typ] = KALTYP[k.typ] || KALTYP.ovrigt;
+  const agd = k.b && mina && mina.agda && mina.agda.has(k.b.slug);
+  const fhv = k.b && k.typ === "rapport" && k.b.status.forhandsvisning && (!k.b.status.forhandsvisning.datum || k.b.status.forhandsvisning.datum === k.datum) ? forhandsHtml(k.b) : "";
+  return `<li><span class="dat">${kalDatum(k)}</span><span class="vad">${k.b ? `<a class="bn" href="#bolag-${esc(k.b.slug)}">${esc(k.b.status.namn)}</a>${ljus(k.b.status)}` : ""}${agd ? `<span class="agd">Ditt innehav</span>` : ""}<span class="kal-typ t-${esc(k.typ || "ovrigt")}">${ikon} ${typ}</span><span>${k.kalla ? `<a href="${esc(k.kalla)}" target="_blank" rel="noopener">${esc(k.text)}</a>` : esc(k.text)}</span></span>${fhv ? `<details class="kal-fhv" open><summary>Vad ska jag titta efter?</summary>${fhv}</details>` : ""}</li>`;
+}
+function vyKalender(){
+  const bolag = filtreraBolag(DATA.bolag.filter(b => b.status.beslut !== "Kasta"));
+  const alla = kalHandelser(bolag), idag = idagStr(), mina = typeof minaBolag === "function" ? minaBolag() : null;
+  const om = n => new Date(Date.now() + n * 864e5).toISOString().slice(0, 10);
+  const exakta = alla.filter(k => !(k.ungefar || k.datum.length === 7));
+  const veckan = exakta.filter(k => k.datum >= idag && k.datum <= om(7));
+  const manad = exakta.filter(k => k.datum > om(7) && k.datum <= om(31));
+  const senare = alla.filter(k => (k.ungefar || k.datum.length === 7) ? k.datum >= idag.slice(0, 7) : k.datum > om(31));
+  const perManad = {}; senare.forEach(k => (perManad[k.datum.slice(0, 7)] = perManad[k.datum.slice(0, 7)] || []).push(k));
+  const grupp = (rubrik, arr, tom) => `<section class="kal-grupp"><h2>${rubrik}</h2>${arr.length ? `<ul class="kal-lista">${arr.map(k => kalRad(k, mina)).join("")}</ul>` : `<p class="steps-lbl">${tom}</p>`}</section>`;
+  const v = $("#vy");
+  v.innerHTML = `<h1>Kalender</h1>${urvalHtml()}<p class="lede">Det som händer framöver i dina bolag: rapporter, stämmor, emissioner, mässor och studier, och viktiga datum som Riksbankens räntebesked. Dagen före en rapport skriver morgonkollen vad du ska titta efter. Datum som inte är klara än visas per månad och fylls i när bolagen meddelar dem.</p>
+    ${grupp("De närmaste 7 dagarna", veckan, "Inget de närmaste 7 dagarna.")}
+    ${grupp("Senare under månaden", manad, "Inget mer den här månaden.")}
+    ${Object.keys(perManad).sort().map(m => { const [y, mm] = m.split("-"); return grupp(`${MAN[+mm - 1][0].toUpperCase() + MAN[+mm - 1].slice(1)} ${y}`, perManad[m].sort((a, b) => ((a.ungefar ? 1 : 0) - (b.ungefar ? 1 : 0)) || a.datum.localeCompare(b.datum)), ""); }).join("")}
+    <p class="steps-lbl">Ser du ett datum som är fel eller saknas? Skriv det till Claude, till exempel <i>Unibaps bokslut är 9 februari</i>.</p>`;
+  gloss(v);
+}
+function snartHtml(){
+  const idag = idagStr(), om14 = new Date(Date.now() + 14 * 864e5).toISOString().slice(0, 10);
+  const snart = kalHandelser(DATA.bolag.filter(b => b.status.beslut !== "Kasta")).filter(k => !(k.ungefar || k.datum.length === 7) && k.datum >= idag && k.datum <= om14).slice(0, 5);
+  if (!snart.length) return "";
+  return `<div class="nytt-grupp"><div class="nytt-bolag"><a href="#kalender">Snart</a><span class="steps-lbl">de närmaste 14 dagarna</span></div><ul class="nytt-lista">${snart.map(k => `<li><span class="t">${esc(new Date(k.datum + "T12:00").toLocaleDateString("sv-SE", {weekday: "short", day: "numeric", month: "short"}))}</span><span>${(KALTYP[k.typ] || KALTYP.ovrigt)[0]} ${k.b ? `<a href="#bolag-${esc(k.b.slug)}"><b>${esc(k.b.status.namn)}</b></a>: ` : ""}${esc(k.text)}${k.b && k.typ === "rapport" && k.b.status.forhandsvisning ? ` · <a href="#kalender">vad ska jag titta efter?</a>` : ""}</span></li>`).join("")}</ul></div>`;
 }
 function vyNyheter(){
   const alla = [];
@@ -931,7 +1011,7 @@ function sfHtml(b){
   if (v && v.ltm_oms && kurs){ const ev = kurs.kurs * v.aktier_milj - v.kassa + (v.skuld||0); kort.push(["EV/S", `${fmt(ev / v.ltm_oms,1)}x`, "Pris per såld krona"]); }
   if (s.redo){ const p = s.redo.punkter.reduce((a,x)=>a+x.poang,0); kort.push(["Redo-poäng", `${p}/${s.redo.punkter.length*2}`, p >= 15 ? "Fas 2: vändningsläge" : p >= 10 ? "Fas 1: tidigt läge" : "För tidigt"]); }
   return `<div class="snabb">${kort.map(([l, val, sub]) => `<div class="sf"><div class="label">${l}</div><div class="v num">${val}</div>${sub ? `<div class="s">${sub}</div>` : ""}</div>`).join("")}</div>
-    <p class="nasta"><span class="label">Nästa händelse</span> ${esc(s.nasta_handelse||"–")}</p>`;
+    <p class="nasta"><span class="label">Nästa händelse</span> ${(() => { const k = (s.kalender || []).filter(x => (x.ungefar || x.datum.length === 7) ? x.datum >= idagStr().slice(0, 7) : x.datum >= idagStr()).sort((a, c) => a.datum.localeCompare(c.datum)); return k.length ? k.slice(0, 3).map(x => `${(KALTYP[x.typ] || KALTYP.ovrigt)[0]} ${esc(x.text)} <span class="steps-lbl">(${(x.ungefar || x.datum.length === 7) ? `${MAN[+x.datum.slice(5, 7) - 1]} ${x.datum.slice(0, 4)}` : esc(x.datum)})</span>`).join(" · ") + ` <a href="#kalender" class="steps-lbl">kalender →</a>` : esc(s.nasta_handelse||"–"); })()}</p>`;
 }
 function dokHtml(b){
   const s = b.status, r = b.rapporter || [], kb = s.kallor_bevakning || {};
@@ -1086,6 +1166,34 @@ function fondagarePanel(b){
     ${fa.agare.length > 12 ? `<p class="steps-lbl">och ${fa.agare.length - 12} fonder till.</p>` : ""}</section>`;
 }
 
+const TREND = {upp:["↑","Stärks"], still:["→","Oförändrat"], ner:["↓","Försvagas"]};
+const OVERT = {hog:"hög", medel:"medel", lag:"låg"};
+function pelareMini(s){ const p = s.pelare || []; return p.length ? `<span class="pelare-mini" title="Tesens pelare: ${esc(p.map(x => x.pelare + ": " + (TREND[x.trend]||TREND.still)[1]).join(", "))}">${p.map(x => `<span class="trend ${esc(x.trend||"still")}">${(TREND[x.trend]||TREND.still)[0]}</span>`).join("")}</span>` : ""; }
+function pelareHtml(s){
+  const p = s.pelare || []; if (!p.length) return "";
+  const chip = n => n ? `<span class="chip chip-${n === "?" ? "Q" : esc(n)}">${esc(n)}</span>` : "";
+  const upp = p.filter(x => x.trend === "upp").length, ner = p.filter(x => x.trend === "ner").length;
+  return `<section class="nt sek" id="sek-pelare" aria-label="Tesens pelare"><h2>Tesens pelare</h2>
+    <p class="hint" style="margin-top:0">Det som måste stämma för att tesen ska hålla, och hur det går. ${upp} ${upp === 1 ? "stärks" : "stärks"}, ${ner} ${ner === 1 ? "försvagas" : "försvagas"}${s.overtygelse ? `. Hur säkra vi är på tesen som helhet: <b>${esc(OVERT[s.overtygelse] || s.overtygelse)}</b>` : ""}.${s.pelare_datum ? ` Sedd över ${esc(s.pelare_datum)}.` : ""}</p>
+    <div class="tw2"><table class="matris"><tr><th style="text-align:left">Pelare</th><th style="text-align:left">Vi väntade oss</th><th style="text-align:left">Läget nu</th><th>Trend</th></tr>
+    ${p.map(x => `<tr><td style="text-align:left"><b>${esc(x.pelare)}</b></td><td style="text-align:left">${esc(x.forvantan||"")}</td><td style="text-align:left">${esc(x.lage||"")} ${chip(x.niva)}</td><td><span class="trend ${esc(x.trend||"still")}">${(TREND[x.trend]||TREND.still)[0]}</span><br><span class="steps-lbl">${(TREND[x.trend]||TREND.still)[1]}</span></td></tr>`).join("")}</table></div>
+    <p class="steps-lbl">Så fungerar pelarna: <a href="#metod-20">metod 20</a>.</p></section>`;
+}
+function jamforelseHtml(b){
+  const j = b.status.jamforelse; if (!j || typeof j !== "object" || !(j.bolag||[]).length) return "";
+  const s = b.status, k = nyckel(b), v = b.vardering, kurs = b.kurs;
+  const egen = {namn: s.namn, land: "", varfor: "Det här bolaget", lage: s.spar === "karna" ? (LYNCH[s.lynch]||"") : (s.steg ? `Steg ${s.steg}` : ""), egen: true};
+  if (kurs && v && v.aktier_milj){ egen.borsvarde_mkr = kurs.kurs * v.aktier_milj; if (v.ltm_oms) egen.ev_s = (egen.borsvarde_mkr - (v.kassa||0) + (v.skuld||0)) / v.ltm_oms; }
+  if (k){ if (k.tillvaxt != null) egen.tillvaxt_pct = k.tillvaxt; if (k.rorelse != null && k.oms) egen.rorelsemarginal_pct = k.rorelse / k.oms * 100; }
+  const rader = [egen, ...j.bolag];
+  const tal = (x, d = 0, suf = "") => x == null ? "–" : fmt(x, d) + suf;
+  const chip = n => n ? ` <span class="chip chip-${n === "?" ? "Q" : esc(n)}">${esc(n)}</span>` : "";
+  return `<section class="nt" aria-label="Jämförelse"><h2>Jämförelse med liknande bolag</h2>
+    ${j.slutsats ? `<p style="margin:0 0 10px"><b>Slutsats:</b> ${esc(j.slutsats)}</p>` : ""}
+    <div class="tw2"><table class="matris"><tr><th style="text-align:left">Bolag</th><th>Börsvärde</th><th>EV/S</th><th>Tillväxt</th><th>Rörelsemarginal</th><th style="text-align:left">Läge</th></tr>
+    ${rader.map(r => `<tr class="${r.egen ? "var" : ""}"><td style="text-align:left">${esc(r.namn)}${r.land ? ` <span class="steps-lbl">${esc(r.land)}</span>` : ""}${r.varfor && !r.egen ? `<br><span class="steps-lbl">${esc(r.varfor)}</span>` : ""}</td><td>${tal(r.borsvarde_mkr, 0, " mkr")}</td><td>${tal(r.ev_s, 1, "x")}</td><td>${tal(r.tillvaxt_pct, 0, " %")}</td><td>${tal(r.rorelsemarginal_pct, 0, " %")}</td><td style="text-align:left">${esc(r.lage||"")}${r.egen ? "" : chip(r.niva)}</td></tr>`).join("")}</table></div>
+    <p class="steps-lbl">Siffrorna gäller ${esc(j.datum||"")}. EV/S är företagsvärdet delat med försäljningen de senaste 12 månaderna. Det är en pusselbit och ingen riktkurs. <a href="#metod-20">Så görs jämförelsen</a>.</p></section>`;
+}
 function fold(id, titel, sub, inner){
   return inner ? `<details class="fold sek" id="sek-${id}"><summary><span class="ft">${titel}</span><span class="fs">${sub}</span></summary>${inner}</details>` : "";
 }
@@ -1101,9 +1209,10 @@ function vyBolag(arg){
     <div style="margin:2px 0 8px">${kursRad(b)}</div>
     <p class="lk-mening" style="margin:4px 0 6px">${esc(s.lage_mening||"")}</p>
     ${typeof mittInnehavHtml === "function" ? mittInnehavHtml(b.slug) : ""}
+    ${(() => { const f = s.forhandsvisning; if (!f || !f.datum) return ""; const n = dagarTill(f.datum); return n >= -1 && n <= 7 ? `<div style="margin:10px 0">${forhandsHtml(b)}</div>` : ""; })()}
     ${sfHtml(b)}
     ${dokHtml(b)}
-    <nav class="seknav" aria-label="Hoppa till">${[["enkelt","Kort och enkelt"],["panel","Panelen"],["nytt","Senaste nytt"],["siffror","Siffror"],["framtid","Framtiden"],["vardering","Värdering"],["redo","Redo-poäng"],["akt","Hela akten"]].map(([k,n]) => `<button type="button" data-s="${k}">${n}</button>`).join("")}</nav>
+    <nav class="seknav" aria-label="Hoppa till">${[["enkelt","Kort och enkelt"],["pelare","Pelare"],["panel","Panelen"],["nytt","Senaste nytt"],["siffror","Siffror"],["framtid","Framtiden"],["jamfor","Jämförelse"],["vardering","Värdering"],["redo","Redo-poäng"],["akt","Hela akten"]].map(([k,n]) => `<button type="button" data-s="${k}">${n}</button>`).join("")}</nav>
     ${s.enkelt ? `
     <section class="enkelt sek" id="sek-enkelt" aria-label="Kort och enkelt">
       <h2>Kort och enkelt</h2>
@@ -1115,6 +1224,7 @@ function vyBolag(arg){
       </div>
       <div class="lage">${arVandning(s) ? steps(s.steg||0) : lynchHtml(s)}<p>${esc(s.enkelt.lage||"")}</p></div>
     </section>` : `<p class="lede">${esc(s.tes||"")}</p>`}
+    ${pelareHtml(s)}
     ${panelHtml(b)}
     <section class="nt sek" id="sek-nytt" aria-label="Senaste nytt"><h2>Senaste nytt</h2>
       <ul class="handelser" style="margin-top:10px">${(b.handelser||[]).slice(0,4).map(h => handelseHtml(h)).join("") || `<li class="steps-lbl">Inget nytt än.</li>`}</ul>
@@ -1123,6 +1233,7 @@ function vyBolag(arg){
     ${fold("siffror", "Siffror per kvartal", "Försäljning, resultat och beställningar", nyckeltalPanel(b, true))}
     ${fold("framtid", "Framtiden", "Marknaden uppifrån och möjliga affärer, 3–5 år", (marknadPanel(b) + pipelinePanel(b)) || "")}
     ${fold("fondagare", "Fonder som äger bolaget", b.fondagare ? `${b.fondagare.antal_fonder} svenska fonder per ${b.fondagare.kvartal}` : "", fondagarePanel(b))}
+    ${fold("jamfor", "Jämförelse med liknande bolag", s.jamforelse && typeof s.jamforelse === "object" ? `${(s.jamforelse.bolag||[]).length} bolag · vad marknaden betalar` : "", jamforelseHtml(b))}
     ${fold("vardering", "Värdering", "Vad priset räknar med och scenarier", varderingPanel(b))}
     ${arVandning(s) ? fold("redo", "Redo-poäng", redoP != null ? `${redoP}/${s.redo.punkter.length*2} · tio punkter med motivering` : "", redoKort(s)) : ""}
     <details class="mer" id="mer"><summary>Visa beslut, poäng, insyn och flaggor</summary>
@@ -1134,7 +1245,7 @@ function vyBolag(arg){
       <div class="fact"><div class="label">Insyn</div><p style="font-size:13.5px">${esc(s.insyn||"–")}</p></div>
     </div>
     ${(s.roda_flaggor||[]).map(f=>`<div class="callout flag"><div class="label">Flagga</div><p style="margin:6px 0 0">${esc(f)}</p></div>`).join("")}
-    <div class="facts"><div class="fact"><div class="label">Spår</div><p>${sparEtikett(s)}</p><p style="font-size:13px">${esc((SPAR[s.spar]||["",""])[1])}${s.spar && !s.spar_bekraftad ? ". Förslaget bekräftas genom att du skriver <i>ja till spåret för " + esc(s.namn) + "</i> i Claude-appen." : ""}</p></div><div class="fact"><div class="label">Jämförelse med liknande bolag</div><p>${esc(s.jamforelse||"–")}</p></div><div class="fact"><div class="label">Nästa händelse</div><p>${esc(s.nasta_handelse||"–")}</p></div><div class="fact"><div class="label">Teman</div><p>${esc((s.tema||[]).join(", ")||"–")}</p></div></div>
+    <div class="facts"><div class="fact"><div class="label">Spår</div><p>${sparEtikett(s)}</p><p style="font-size:13px">${esc((SPAR[s.spar]||["",""])[1])}${s.spar && !s.spar_bekraftad ? ". Förslaget bekräftas genom att du skriver <i>ja till spåret för " + esc(s.namn) + "</i> i Claude-appen." : ""}</p></div><div class="fact"><div class="label">Jämförelse med liknande bolag</div><p>${s.jamforelse && typeof s.jamforelse === "object" ? `Se rutan Jämförelse (${esc(s.jamforelse.datum||"")}).` : esc(s.jamforelse || "Görs vid nästa djupdykning.")}</p></div><div class="fact"><div class="label">Nästa händelse</div><p>${esc(s.nasta_handelse||"–")}</p></div><div class="fact"><div class="label">Teman</div><p>${esc((s.tema||[]).join(", ")||"–")}</p></div></div>
     </details>
     <h2 class="akt sek" id="sek-akt">Hela akten</h2>
     <p class="hint" style="margin-top:0">För fördjupning: alla påståenden med bevisnivå, löftesrevision, nyheter och källor.</p>
@@ -1484,6 +1595,7 @@ function route(){
   else if (h === "portfolj") vyPortfolj();
   else if (h === "skolan" || h.startsWith("skolan-")) vySkolan(h.slice(7));
   else if (h === "nyheter") vyNyheter();
+  else if (h === "kalender") vyKalender();
   else if (h === "bevakning") vyBevakning();
   else if (h === "radar") vyRadar();
   else if (h === "fonder") vyFonder();

@@ -54,7 +54,7 @@ Skapa sedan `bolag/<namn>/tes.md`, `kallor.md`, `logg.md` och `loften.md` med sa
 
 ## 7. Turnaround-steg och jämförelse
 - Bestäm steg 1–5 med belägg, milstolpar kvar och bedömd tid. Justera tiden med löftesrevisionens precision. Se `metod/07-beslut-turnaround-jamforelse.md`.
-- Jämför med 3–5 liknande bolag i en tabell i `tes.md`, avsnittet "Jämförelse". Besvara frågan: vad betalar marknaden för liknande bolag som redan nått nästa steg?
+- Jämför med 3–5 liknande bolag och skriv dem i `jamforelse` i `status.json` (metod 20). Besvara frågan: vad betalar marknaden för liknande bolag som redan nått nästa steg?
 
 ## 6b2. Efterfrågan (metod 16)
 Besvara de sju frågorna: marknadens riktning, vad som driver köpet, om det lönar sig för köparen, politiken land för land, partnernas volymer (räkneexempel kalibrerat mot kända ordrar), antal länder och kundgrupper, och vad som talar emot. Fyll i efterfrågekartan i `tes.md` och gör gemene man-testet. Partnervolymerna förs in i `mojligheter.json`.
@@ -91,6 +91,8 @@ Det är räkneexempel, inte riktkurser.
   - Sätt även `trafikljus`, `lage_mening` och `senaste_djupdykning` (dagens datum).
   - **Spår och Lynchkategori** (metod 18): föreslå `spar` (`vandning` eller `karna`), `lynch` och `lynch_skal`, och sätt `"spar_bekraftad": false`. Säg i svaret vilket spår som föreslås och varför, och be användaren bekräfta. För Kärna: hoppa över turnaround-steget och redo-poängen, och lägg i stället vikt vid kvalitet (avkastning på kapitalet, marginaler, kassaflöde) och värdering mot bolagets egen historik.
   - **Investerarpanelen:** skriv `panel.json` enligt skillen `panel` (metod 18).
+  - **Kalendern:** fyll i `kalender` i `status.json` med kommande rapporter, stämmor och andra viktiga datum (format i skillen `dagskoll`, avsnitt 4c).
+  - **Tesens pelare och jämförelsen:** fyll i `pelare` och `jamforelse` i `status.json` enligt metod 20.
   - Skapa `nyckeltal.json` med minst de senaste 8 kvartalen ur rapporterna (mall: `bolag/unibap/nyckeltal.json`).
   - Skapa `kundregister.md`: alla kända kunder som en tidslinje genom bolagets säljmodell, plus konverteringsgraden (mall: `bolag/unibap/kundregister.md`, metod 09).
   - Skapa `natverk.md` med upp till 10 yrkesroller hos bolaget och kunderna (mall: `bolag/unibap/natverk.md`).

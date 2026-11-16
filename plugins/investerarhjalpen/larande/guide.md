@@ -15,6 +15,8 @@ Ett bolag bedöms aldrig efter fel spårs regler. Står det *(förslag)* har ver
 
 **Investerarpanelen.** Under *Kort och enkelt* finns knappar för Buffett, Lynch, Fisher, Graham, Terry Smith och Blankaren. Klicka för att se bolaget med deras glasögon. Det är tolkningar av deras filosofi och inget de har sagt.
 
+**Kalender.** Fliken *Kalender* visar vad som händer framöver: rapporter, stämmor, emissioner och Riksbanken. Dagen före en rapport står där vad du ska titta efter.
+
 **Fonder.** Fliken *Fonder* visar fonderna du följer: vad de kostar, vad de äger, hur mycket de svänger och vad förvaltaren har köpt och sålt. Varje bolag visar också vilka svenska fonder som äger det.
 
 **Så pratar du med verktyget** (i Claude-appen, fliken Code, i din mapp):
@@ -69,6 +71,8 @@ Var försiktig med långa kedjor av C. Flera gissningar efter varandra blir snab
 - **Snabbfakta:** börsvärde, kassa, försäljning, resultat och nästa händelse.
 - **Rapportknapparna:** senaste rapporten och årsredovisningen som PDF, direkt från bolaget.
 - **Kort och enkelt:** vad bolaget gör, vad som talar för och emot, och vad vi väntar på. Börja alltid här.
+- **Tesens pelare:** det som måste stämma för att tesen ska hålla, med en pil för varje: ↑ stärks, → oförändrat, ↓ försvagas.
+- **Jämförelse med liknande bolag:** vad marknaden betalar för bolag som liknar det här, och för dem som redan har kommit längre.
 - **Spåretiketten** överst (*Mäts som Vändning* eller *Mäts som Kärna*): visar vilka mått som gäller för bolaget.
 - **Investerarpanelen:** sex knappar med olika investerares sätt att tänka. En blå prick betyder att rösten väger tyngst för bolagets spår. De andra är ett andra perspektiv. Med *Fråga … vidare* kan du ställa egna frågor till Claude utifrån den investerarens checklista.
 - **Senaste nytt:** händelser på klarspråk, ofta med en **lärdom**: en mening om vad händelsen lär ut.
