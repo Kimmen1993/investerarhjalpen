@@ -1,6 +1,6 @@
 ---
 name: fond
-description: Fondverktyget. Följ, sluta följa, sök och jämför svenska fonder med Finansinspektionens kvartalsdata (innehav, avgift, risk, aktiv risk, köpt och sålt, överlapp), och se vilka fonder som äger ett bevakat bolag. Används när användaren skriver "följ fonden X", "sök fonder", "jämför fonderna X och Y", "vilka fonder äger X?", "/fond" eller frågar om en fond.
+description: Fondverktyget. Följ, sluta följa, sök och jämför fonder med Finansinspektionens kvartalsdata (innehav, avgift, risk, aktiv risk, köpt och sålt, överlapp), även utländska fonder och ETF:er via fondbolagets egen innehavsfil, och se vilka fonder som äger ett bevakat bolag. Används när användaren skriver "följ fonden X", "sök fonder", "jämför fonderna X och Y", "vilka fonder äger X?", "kolla mina fonder", "hämta innehaven för X", "/fond" eller frågar om en fond.
 ---
 
 # Fonder
@@ -19,7 +19,7 @@ description: Fondverktyget. Följ, sluta följa, sök och jämför svenska fonde
 - **Följ:** `python3 -I "$IH/verktyg/fonder.py" --lagg-till <ISIN> [<ISIN> …]`. Skriv sedan en mening på klarspråk i `fond.json` under `"enkelt": {"i_en_mening": "…"}` utifrån innehaven (vad fonden köper, hur många bolag, land, index eller aktiv). Bygg och publicera sidan.
 - **Sluta följa:** `--ta-bort <ISIN>`. Ta sedan bort mappen `fonder/<fond>/` först efter att ha sagt vilken mapp det är.
 - **Vilka fonder äger X?** Läs `bolag/<namn>/fondagare.json`. Finns bolaget inte bland de bevakade: sök i senaste kvartalsfilen med ett kort Python-skript (läs zipfilen i `fonder/_fi/` direkt) på bolagets ISIN.
-- **Kolla mina fonder:** se Fondkoll ovan.
+- **Kolla mina fonder:** se avsnittet Fondkoll nedan.
 - **Jämför fonder:** ställ dem bredvid varandra: avgift, vad avgiften kostar på 10 år, typ, risk, aktiv risk, de 10 största innehaven, länder, branscher och överlapp (`overlapp` i `fond.json`).
 
 ## Utländska fonder (finns inte i FI:s data)

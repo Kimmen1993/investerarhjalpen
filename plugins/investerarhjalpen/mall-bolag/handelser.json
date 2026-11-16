@@ -1,0 +1,13 @@
+{
+ "handelser": [
+  {
+   "datum": "ÅÅÅÅ-MM-DD",
+   "rubrik": "…",
+   "enkelt": "…",
+   "paverkan": "starker|forsvagar|neutral|blandat",
+   "viktig": true,
+   "lank": "…",
+   "lardom": "…"
+  }
+ ]
+}

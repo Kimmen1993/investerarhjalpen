@@ -1,5 +1,11 @@
 # Ändringar
 
+## 2026-11-16 (granskning av instruktionerna)
+- **Bolagsanalysen fungerar nu för alla.** Den hänvisade till Kimms egen Unibap-mapp som mall. Nu finns tomma mallar i tillägget (`mall-bolag/`), och stegen står i rätt ordning, med spår, panel, pelare, jämförelse och kalender på plats. Hinner Claude inte allt blir det en startanalys, och söndagens djupdykning tar resten.
+- Morgonkollen kör fondskriptet före radarn, så att fondsignalerna kommer med samma dag.
+- Söndagens veckorad kommer med i samma notis som djupdykningen.
+- Rättade hänvisningar till filer som bara finns hos Kimm, och tydligare beskrivningar så att Claude väljer rätt kommando, till exempel "kolla mina fonder" och "analysera X".
+
 ## 2026-11-16 (kalender, pelare och jämförelse)
 - **Ny flik Kalender:** rapporter, stämmor, emissioner, mässor, studier och Riksbankens räntebesked, de närmaste 7 dagarna först. Dagen före en rapport skriver morgonkollen *Vad ska jag titta efter?*. Läget nu visar *Snart* (14 dagar), och söndagens notis har veckans viktigaste datum.
 - **Tesens pelare** på bolagssidan: 3–5 saker som måste stämma, med en pil för hur det går (↑ → ↓). Pilarna syns också på Läget nu.

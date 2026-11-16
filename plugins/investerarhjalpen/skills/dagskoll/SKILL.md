@@ -9,10 +9,16 @@ description: Morgonkollen av alla bevakade bolag inför börsdagen. Kör den gra
 
 **Läs först `$IH/REGLER.md`** (gemensamma regler: klarspråk, bevisnivåer, inga köp- eller säljråd, integritet) och `min-strategi.md` i datamappen.
 
-Läs `CLAUDE.md` först, framför allt avsnittet Klarspråk. **Var sparsam:** finns inget nytt ska du stanna så tidigt som möjligt.
+Avsnittet Klarspråk i REGLER.md gäller allt du skriver. **Var sparsam:** finns inget nytt ska du stanna så tidigt som möjligt.
 
 ## 1. Hämta nytt (gratis)
-Kör `python3 -I "$IH/verktyg/nyhetskoll.py"` och `python3 -I "$IH/verktyg/signalradar.py"` (radarn för hela börsen; inget mer görs med den här, triagen sker på söndagen). Kör också `python3 -I "$IH/verktyg/fonder.py"` (gratis; den hämtar bara något när Finansinspektionen har publicerat ett nytt kvartal). Börjar utskriften med **NYTT KVARTAL**: bygg om sidan och nämn i notisen vilka bevakade bolag som fått flest nya fondägare eller tappat flest (`fonder/fondsignaler.json`). Radarn läser fondsignalerna för hela börsen automatiskt, så kör `signalradar.py` igen efter `fonder.py` den dagen. Gör också **fondkollen** (se skillen `fond`, avsnittet Fondkoll) och skriv varningarna i notisen. Läs `nyhetskoll-senaste.json`. Har ett bolag som inte triagerats fått **7 poäng eller mer** på radarn: nämn det på en rad i notisen.
+Kör de här skripten från datamappen. Alla är gratis och använder ingen AI.
+- `python3 -I "$IH/verktyg/nyhetskoll.py"`: pressmeddelanden, insynsaffärer och kurser. Läs sedan `nyhetskoll-senaste.json`.
+- `python3 -I "$IH/verktyg/fonder.py"`: hämtar bara något när Finansinspektionen har publicerat ett nytt kvartal. Börjar utskriften med **NYTT KVARTAL**:
+  - nämn i notisen vilka bevakade bolag som har fått flest nya fondägare eller tappat flest (`fonder/fondsignaler.json`)
+  - gör **fondkollen** (skillen `fond`, avsnittet Fondkoll) och skriv varningarna i notisen
+  - det räknas som något nytt, så att sidan byggs och publiceras
+- `python3 -I "$IH/verktyg/signalradar.py"`: radarn för hela börsen. Kör den efter `fonder.py`, eftersom den läser fondsignalerna. Inget mer görs med radarn här; triagen sker på söndagen. Har ett bolag som inte är triagerat fått **7 poäng eller mer**: nämn det på en rad i notisen.
 - **Kalendern:** kör `python3 -I "$IH/verktyg/kalender.py" --imorgon`. Den visar händelser i dag och i morgon. Står det `[förhandsvisning saknas]` vid en rapport: skriv en **förhandsvisning** i bolagets `status.json` (se avsnitt 4c) och nämn den i notisen, till exempel `I morgon: Lime bokslut. Titta efter ARR-tillväxten (se Kalendern).` Det räknas som något nytt, så att sidan byggs och publiceras.
 - **Har verktyget uppdaterats?** Kör `python3 -I "$IH/verktyg/behover_ombyggnad.py"`. Svarar den `ja`: bygg sidan (`python3 -I "$IH/verktyg/bygg_sida.py"`) och publicera den till `sida_url` (utelämna `capabilities`), även om inget annat är nytt, så att nya funktioner och rättningar syns. Ingen notis behövs för det.
 - Har inget bolag `nya > 0` och inget har en händelse i dag: **avsluta här** utan notis (och utan publicering, om inte verktyget uppdaterades). Svara bara "Inget nytt i dag."
@@ -61,23 +67,23 @@ För varje bolag som hade något nytt, uppdatera i `status.json`:
 - `nasta_handelse` och `senast_uppdaterad`
 - `beslut`: om trafikljuset blir rött, föreslå i notisen att användaren tar ställning. Ändra inte beslutet själv.
 
+## 4b. Journalen
+Avgör en ny händelse en förutsägelse i `journal.md`, till exempel en ny order eller en emission? Fyll i utfallet och nämn det i notisen.
+
 ## 4c. Kalendern och förhandsvisningen
 - **Nya datum:** meddelar ett pressmeddelande ett datum, till exempel en kallelse till stämma, en finansiell kalender, ett nytt rapportdatum, en teckningstid eller ett studieresultat som väntas: lägg till eller rätta det i `kalender` i `status.json`. Format: `{"datum": "ÅÅÅÅ-MM-DD", "ungefar": false, "typ": "rapport|stamma|finansiering|massa|studie|ovrigt", "text": "kort, på klarspråk", "viktig": true}`. Är bara månaden känd: `"datum": "ÅÅÅÅ-MM"` och `"ungefar": true`. Ta bort ungefärliga poster när det exakta datumet finns.
 - **Förhandsvisning inför en rapport** (dagen före, eller samma morgon om den saknas): skriv `forhandsvisning` i `status.json`:
   `{"datum": "<rapportdagen>", "rapport": "Bokslutskommuniké 2026", "titta_efter": ["2–4 saker, till exempel försäljningstillväxt mot målet, kassan, orderingången"], "lovat": ["vad ledningen har lovat som rapporten kan visa, ur loften.md"], "starker_om": "en mening", "forsvagar_om": "en mening", "skriven": "<i dag>"}`
   Utgå från tesen, milstolparna, `loften.md`, "Vad skulle fälla tesen?" och förra rapporten i `nyckeltal.json`. Kort och på klarspråk. Inga prognoser för kursen och inga köp- eller säljråd. Den visas i Kalendern och på bolagssidan.
 
-## 4b. Journalen
-Avgör en ny händelse en förutsägelse i `journal.md`, till exempel en ny order eller en emission? Fyll i utfallet och nämn det i notisen.
+## 4d. Kursen
+Nyhetskollen hämtar kursen automatiskt (`kurs` i `nyhetskoll-senaste.json`). Har ett bolag rört sig **mer än 5 % sedan föregående dag** utan något nytt pressmeddelande: nämn det i notisen och leta snabbt efter en förklaring, till exempel en nyhetsartikel, en sektorrörelse eller blankning. Kursrörelser utan nyheter kan vara en tidig signal.
 
 ## 5. Djupdykning ingår inte här
-Djupdykningar görs av söndagsuppgiften (`.claude/skills/djupdykning/SKILL.md`). Dagskollen ska vara snabb.
+Djupdykningar görs av söndagsuppgiften (skillen `djupdykning`). Dagskollen ska vara snabb.
 
 ## 6. Publicera
 Kör `python3 -I "$IH/verktyg/bygg_sida.py"` och publicera `site/index.html` med Artifact-verktyget med `url` = `sida_url` i `installningar.json`. Läs artifacten först om verktyget kräver det.
-
-## 6b. Kursen
-Nyhetskollen hämtar kursen automatiskt (`kurs` i `nyhetskoll-senaste.json`). Har ett bolag rört sig **mer än 5 % sedan föregående dag** utan något nytt pressmeddelande: nämn det i notisen och leta snabbt efter en förklaring, till exempel en nyhetsartikel, en sektorrörelse eller blankning. Kursrörelser utan nyheter kan vara en tidig signal.
 
 ## 7. Notis (användaren vill ha notis om allt nytt)
 Skicka **en** PushNotification per körning, under 200 tecken och utan markdown. Exempel:

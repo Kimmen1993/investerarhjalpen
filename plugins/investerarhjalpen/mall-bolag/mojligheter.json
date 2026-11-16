@@ -1,0 +1,61 @@
+{
+ "uppdaterad": "ÅÅÅÅ-MM-DD",
+ "enhet": "…",
+ "prognos_ar": [
+  0
+ ],
+ "okand_framtid": {
+  "fran_ar": 0,
+  "okning_msek_per_ar": {
+   "svag": 0,
+   "forvantad": 0,
+   "stark": 0,
+   "drom": 0
+  },
+  "kommentar": "…"
+ },
+ "lopande_affar": {
+  "msek_per_ar": 0,
+  "tillvaxt": {
+   "svag": 0,
+   "forvantad": 0,
+   "stark": 0,
+   "drom": 0
+  },
+  "kommentar": "…"
+ },
+ "signerat": [
+  {
+   "namn": "…",
+   "intakt_msek": 0,
+   "ar": [
+    0
+   ],
+   "kalla": "…"
+  }
+ ],
+ "mojligheter": [
+  {
+   "namn": "…",
+   "kund": "…",
+   "status": "…",
+   "intakt_msek": [
+    0
+   ],
+   "ar": [
+    0
+   ],
+   "sannolikhet": 0,
+   "inprisat": "…",
+   "berakning": "…",
+   "signaler": [
+    {
+     "datum": "…",
+     "signal": "…",
+     "kalla": "…",
+     "niva": "A|B|C|?"
+    }
+   ]
+  }
+ ]
+}

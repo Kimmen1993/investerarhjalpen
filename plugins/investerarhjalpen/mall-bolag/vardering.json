@@ -1,0 +1,71 @@
+{
+ "uppdaterad": "ÅÅÅÅ-MM-DD",
+ "kurs": 0,
+ "kurs_datum": "ÅÅÅÅ-MM-DD",
+ "kurs_kalla": "…",
+ "aktier_milj": 0,
+ "kassa": 0,
+ "skuld": 0,
+ "ltm_oms": 0,
+ "ar_fram": 0,
+ "pipeline_scenarier": [
+  {
+   "bana": "…",
+   "namn": "…",
+   "sannolikhet": 0,
+   "multipel": 0,
+   "aktier": {
+    "2029": 0,
+    "2031": 0
+   },
+   "nettokassa": {
+    "2029": 0,
+    "2031": 0
+   },
+   "motivering": "…"
+  }
+ ],
+ "pipeline_ar": [
+  "…"
+ ],
+ "matris_multiplar": [
+  0
+ ],
+ "scenarier": [
+  {
+   "namn": "…",
+   "tillvaxt": 0,
+   "multipel": 0,
+   "nettokassa": 0,
+   "aktier_milj": 0,
+   "sannolikhet": 0,
+   "motivering": "…"
+  }
+ ],
+ "scenarier_5ar": [
+  {
+   "namn": "…",
+   "tillvaxt": 0,
+   "multipel": 0,
+   "nettokassa": 0,
+   "aktier_milj": 0,
+   "sannolikhet": 0,
+   "motivering": "…"
+  }
+ ],
+ "avkastningskrav": 0,
+ "avkastningskrav_kommentar": "…",
+ "styckpris_msek": [
+  0
+ ],
+ "styckpris_kommentar": "…",
+ "jamforelse": [
+  {
+   "bolag": "…",
+   "evs": "…",
+   "typ": "rapport|stamma|finansiering|massa|studie|ovrigt",
+   "kalla": "…"
+  }
+ ],
+ "kommentar": "…"
+}

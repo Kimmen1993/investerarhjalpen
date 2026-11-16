@@ -1,0 +1,18 @@
+{
+ "kalla": "…",
+ "enhet": "…",
+ "uppdaterad": "ÅÅÅÅ-MM-DD",
+ "kvartal": [
+  {
+   "period": "…",
+   "omsattning": 0,
+   "rorelseresultat": 0,
+   "orderingang": 0,
+   "kassa": 0,
+   "kf_lopande": 0,
+   "kf_invest": 0,
+   "aktier_milj": 0
+  }
+ ],
+ "kommentar": "…"
+}

@@ -55,4 +55,4 @@ Ett värde om 5 år är inte jämförbart med dagens kurs. Dela med (1 + avkastn
 - **Falsk precision:** svaret är ett spann, inte en siffra.
 
 ## Fil per bolag: `bolag/<namn>/vardering.json`
-Innehåller kurs, aktier, kassa, skuld, försäljning de senaste 12 månaderna, scenarierna (tillväxt, år, multipel, nettokassa, aktier, sannolikhet, motivering), matrisens multiplar och jämförelsen. Webbsidan räknar fram resten. Mall: `bolag/unibap/vardering.json`.
+Innehåller kurs, aktier, kassa, skuld, försäljning de senaste 12 månaderna, scenarierna (tillväxt, år, multipel, nettokassa, aktier, sannolikhet, motivering), matrisens multiplar och jämförelsen. Webbsidan räknar fram resten. Mall: `$IH/mall-bolag/vardering.json`.

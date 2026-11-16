@@ -7,7 +7,7 @@ description: Första uppsättningen av Investerarhjälpen för en ny användare.
 
 > **Var saker ligger.** Verktygsmappen (kallas `$IH` nedan) är två nivåer upp från den här skillens mapp: mappen som innehåller `verktyg/`, `metod/`, `larande/` och `mall/`.
 
-**Läs först `$IH/REGLER.md`** (gemensamma regler: klarspråk, bevisnivåer, inga köp- eller säljråd, integritet) och `min-strategi.md` i datamappen.
+**Läs först `$IH/REGLER.md`** (gemensamma regler: klarspråk, bevisnivåer, inga köp- eller säljråd, integritet). Datamappen och `min-strategi.md` skapas i steg 4.
 
 Användaren är ofta **helt ny** både på aktieanalys och på Claude. Skriv kort, vänligt och på enkel svenska. En sak i taget. Förklara varje steg med en mening. Använd frågeverktyget (AskUserQuestion) med färdiga svarsalternativ i stället för öppna frågor när det går.
 

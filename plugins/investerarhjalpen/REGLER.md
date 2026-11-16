@@ -99,7 +99,7 @@ Information är bara ett av fem övertag. Varje analys ska också använda **ana
 - **PDF:er:** `swift "$IH/verktyg/pdftext.swift" fil.pdf`, eller `swift "$IH/verktyg/ocr.swift" fil.pdf` om PDF:en är inskannad.
 
 ## Mappstruktur
-- `bolag/<namn>/status.json` – maskinläsbar sammanfattning som webbsidan visar: beslut, steg, poäng, tes, milstolpar, nästa händelse och källor för nyhetskollen. Se `bolag/unibap/status.json` som mall.
+- `bolag/<namn>/status.json` – maskinläsbar sammanfattning som webbsidan visar: beslut, steg, poäng, tes, milstolpar, nästa händelse och källor för nyhetskollen. Tomma mallar för alla filer per bolag finns i `$IH/mall-bolag/`.
 - `kastade.md` – bortvalda bolag med skäl.
 - `metod/` – arbetssättet (läs före analys): pusselmetoden, turnaround-checklista, källkarta, varningsflaggor, löftesrevision, omvärld och teman, ordlista.
 - `teman/<tema>.md` – temaanalyser: drivkrafter, fas, värdekedja, exponerade bolag. `teman/massor.md` är mässkalendern.

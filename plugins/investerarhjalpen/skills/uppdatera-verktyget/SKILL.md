@@ -7,7 +7,7 @@ description: Hämtar senaste versionen av Investerarhjälpen-tillägget och bygg
 
 > **Var saker ligger.** Verktygsmappen (kallas `$IH` nedan) är två nivåer upp från den här skillens mapp. Datamappen är användarens mapp med `installningar.json`.
 
-**Läs först `$IH/REGLER.md`** (gemensamma regler: klarspråk, bevisnivåer, inga köp- eller säljråd, integritet) och `min-strategi.md` i datamappen.
+**Läs först `$IH/REGLER.md`** (gemensamma regler: klarspråk, bevisnivåer, inga köp- eller säljråd, integritet).
 
 Användarens data (bolag, journal, strategi, portfölj) rörs aldrig av en uppdatering.
 

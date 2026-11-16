@@ -1,0 +1,105 @@
+{
+ "namn": "…",
+ "ticker": "…",
+ "lista": "…",
+ "tema": [
+  "…"
+ ],
+ "beslut": "Bevaka|Avvakta|Kasta",
+ "beslut_datum": "ÅÅÅÅ-MM-DD",
+ "beslut_motivering": "…",
+ "redo": {
+  "datum": "ÅÅÅÅ-MM-DD",
+  "punkter": [
+   {
+    "namn": "…",
+    "poang": 0,
+    "skal": "…"
+   }
+  ]
+ },
+ "trafikljus": "gron|gul|rod",
+ "lage_mening": "…",
+ "senaste_djupdykning": "ÅÅÅÅ-MM-DD",
+ "enkelt": {
+  "i_en_mening": "…",
+  "vad_gor": "…",
+  "talar_for": [
+   "…"
+  ],
+  "talar_emot": [
+   "…"
+  ],
+  "vantar_pa": [
+   "…"
+  ],
+  "lage": "…"
+ },
+ "tes": "…",
+ "steg": 0,
+ "steg_belagg": "…",
+ "milstolpar_kvar": [
+  "…"
+ ],
+ "bedomd_tid_nasta_steg": "…",
+ "poang": 0,
+ "poang_max": 0,
+ "leveransgrad": "…",
+ "roda_flaggor": [
+  "…"
+ ],
+ "insyn": "…",
+ "jamforelse": {
+  "datum": "ÅÅÅÅ-MM-DD",
+  "bolag": [
+   {
+    "namn": "…",
+    "land": "…",
+    "varfor": "…",
+    "borsvarde_mkr": null,
+    "ev_s": null,
+    "tillvaxt_pct": 0,
+    "rorelsemarginal_pct": null,
+    "lage": "…",
+    "niva": "A|B|C|?",
+    "kalla": "…",
+    "datum": "…"
+   }
+  ],
+  "slutsats": "…"
+ },
+ "nasta_handelse": "…",
+ "senast_uppdaterad": "ÅÅÅÅ-MM-DD",
+ "kallor_bevakning": {
+  "mfn_slug": "…",
+  "fi_utgivare": "…",
+  "yahoo": "…"
+ },
+ "ir_sida": "…",
+ "isin": "…",
+ "forsta_djupdykning": "ÅÅÅÅ-MM-DD",
+ "spar": "vandning|karna",
+ "spar_bekraftad": false,
+ "lynch": "langsam|stabil|snabb|cyklisk|tillgang|turnaround",
+ "lynch_skal": "…",
+ "kalender": [
+  {
+   "datum": "ÅÅÅÅ-MM-DD",
+   "ungefar": false,
+   "typ": "rapport|stamma|finansiering|massa|studie|ovrigt",
+   "text": "…",
+   "viktig": false
+  }
+ ],
+ "pelare": [
+  {
+   "pelare": "…",
+   "forvantan": "…",
+   "lage": "…",
+   "trend": "upp|still|ner",
+   "niva": "A|B|C|?"
+  }
+ ],
+ "pelare_datum": "ÅÅÅÅ-MM-DD",
+ "overtygelse": "hog|medel|lag"
+}

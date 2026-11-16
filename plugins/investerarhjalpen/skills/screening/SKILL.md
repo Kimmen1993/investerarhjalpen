@@ -1,6 +1,6 @@
 ---
 name: screening
-description: Bolagsjakt: kör signalradarn för hela börsen och gör en kort triage av de mest intressanta nya bolagen (följ, analysera eller ta bort). Används av söndagsuppgiften (högst 5 bolag), eller när användaren skriver "/screening", "hitta nya bolag" eller "vad finns på radarn". Kan få ett tema eller en bransch som argument.
+description: Bolagsjakt: kör signalradarn för hela börsen och gör en kort triage av de mest intressanta nya bolagen (Analysera, Radar eller Bort). Används av söndagsuppgiften (högst 5 bolag), eller när användaren skriver "/screening", "hitta nya bolag" eller "vad finns på radarn". Kan få ett tema eller en bransch som argument.
 ---
 
 # Screening och triage (metod 15)

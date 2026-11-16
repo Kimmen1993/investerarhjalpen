@@ -9,11 +9,11 @@ description: Grundlig genomgång av ett bevakat bolag ungefär en gång i månad
 
 **Läs först `$IH/REGLER.md`** (gemensamma regler: klarspråk, bevisnivåer, inga köp- eller säljråd, integritet) och `min-strategi.md` i datamappen.
 
-Läs `CLAUDE.md` (även Klarspråk) och `metod/01-pusselmetoden.md`.
+Läs `metod/01-pusselmetoden.md`. Avsnittet Klarspråk i REGLER.md gäller rapporten och notisen.
 
 ## Vilka bolag?
-- **Söndagsuppgiften:** kör `python3 -I "$IH/verktyg/djupdykning_tur.py"` i datamappen. Den läser användarens inställningar under `djupdykning` i `installningar.json` (antal per söndag, hur ofta, extra bolag och önskade bolag) och skriver ut vilka bolag som står på tur, det äldsta först. Ta exakt de bolagen. Är inget bolag på tur: hoppa över djupdykningen och gå direkt till veckoöversikten (sist i den här skillen). När alla är klara: kör `python3 -I "$IH/verktyg/djupdykning_tur.py" --nollstall` (tömmer extra och önskade) och sätt `senaste_djupdykning` till dagens datum i varje genomgånget bolag.
-- **Första djupdykningen efter en startanalys** (finns `forsta_djupdykning` men ingen rapport i `djupdykningar/`): gör också punkterna under "Att göra vid första djupdykningen" i `tes.md`, och det startanalysen hoppade över ur `/bolagsanalys` (löftesrevision, kundregister, nätverk, möjligheter och värdering) i den mån budgeten räcker. Skriv vad som återstår. Är inget bolag på tur: avsluta direkt med "Ingen djupdykning i dag", utan notis.
+- **Söndagsuppgiften:** kör `python3 -I "$IH/verktyg/djupdykning_tur.py"` i datamappen. Den läser användarens inställningar under `djupdykning` i `installningar.json` (antal per söndag, hur ofta, extra bolag och önskade bolag) och skriver ut vilka bolag som står på tur, det äldsta först. Ta exakt de bolagen. Är inget bolag på tur: hoppa över djupdykningen och gå direkt till avsnittet Veckoöversikten längre ner. När alla är klara: kör `python3 -I "$IH/verktyg/djupdykning_tur.py" --nollstall` (tömmer extra och önskade) och sätt `senaste_djupdykning` till dagens datum i varje genomgånget bolag.
+- **Första djupdykningen efter en startanalys** (finns `forsta_djupdykning` men ingen rapport i `djupdykningar/`): gör också punkterna under "Att göra vid första djupdykningen" i `tes.md`, och det startanalysen hoppade över ur `/bolagsanalys` (löftesrevision, kundregister, nätverk, möjligheter och värdering) i den mån budgeten räcker. Skriv vad som återstår, och ta bort `forsta_djupdykning` när allt är gjort.
 - **Med bolagsnamn** ("djupdyk i Kambi"): djupdyk i just det bolaget direkt, oavsett datum. Sätt sedan `senaste_djupdykning` till i dag, så att bolaget får en ny månad innan det är på tur igen.
 - **"Djupdyk i X på söndag"** eller "det händer något i X": lägg bolagets mappnamn i `djupdykning.onskade` i `installningar.json` (rör inget annat) och bekräfta att det tas med nästa söndag.
 - **"Kör söndagsgenomgången nu"**, eller med fler bolag ("ta 3 extra"): kör urvalet direkt med `djupdykning_tur.py --extra N` och gör sedan djupdykningarna som vanligt.
@@ -157,10 +157,10 @@ Se över `okand_framtid` mot signalindexets trend. **Det viktigaste i rapporten 
 - … (t.ex. LinkedIn om Chrome inte var anslutet)
 ```
 
+## Veckoöversikten (varje söndag, före notisen)
+Kör `python3 -I "$IH/verktyg/kalender.py" --vecka`. Finns det händelser den kommande veckan: lägg till en kort rad i söndagens notis, till exempel `Veckan: tis Lime bokslut, ons Riksbanken, fre Gapwaves emission`. Har söndagen inget annat att rapportera, men veckan har händelser: skicka bara veckoraden som notis. Står det `[förhandsvisning saknas]` vid en rapport på måndag: skriv förhandsvisningen nu (skillen `dagskoll`, avsnitt 4c), så att den finns på morgonen.
+
 ## Efteråt
 - Kör `python3 -I "$IH/verktyg/bygg_sida.py"` och publicera `site/index.html` till `sida_url` i `installningar.json`.
-- Skicka **en** PushNotification under 200 tecken, till exempel: `Djupdykning klar: Unibap grönt, ny kundsignal från Leonardo. Mildef gult, svagare orderingång. Läs på sidan.`
+- Skicka **en** PushNotification under 200 tecken, med veckoraden sist, till exempel: `Djupdykning klar: Unibap grönt, ny kundsignal från Leonardo. Mildef gult, svagare orderingång. Läs på sidan.`
 - Ge inga köp- eller säljråd.
-
-## Veckoöversikten (varje söndag, sist)
-Kör `python3 -I "$IH/verktyg/kalender.py" --vecka`. Finns det händelser den kommande veckan: lägg till en kort rad i söndagens notis, till exempel `Veckan: tis Lime bokslut, ons Riksbanken, fre Gapwaves emission`. Har söndagen inget annat att rapportera, men veckan har händelser: skicka bara veckoraden som notis. Står det `[förhandsvisning saknas]` vid en rapport på måndag: skriv förhandsvisningen nu (skillen `dagskoll`, avsnitt 4c), så att den finns på morgonen.

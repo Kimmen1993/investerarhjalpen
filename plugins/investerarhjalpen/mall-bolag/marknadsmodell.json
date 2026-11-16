@@ -1,0 +1,159 @@
+{
+ "_forklaring": "Tom mall. Nyckelnamnen kommer från första bolaget (rymd): 'satelliter' betyder fysiska enheter per år och 'unibap_tillgang' betyder bolagets tillgång i regionen. Behåll namnen, skripten läser dem. Metod 13.",
+ "uppdaterad": "ÅÅÅÅ-MM-DD",
+ "tema": "…",
+ "ar": [
+  0
+ ],
+ "marknad": {
+  "beskrivning": "…",
+  "satelliter_per_ar": {
+   "2026": 0,
+   "2027": 0,
+   "2028": 0,
+   "2029": 0,
+   "2030": 0,
+   "2031": 0
+  },
+  "satelliter_kalla": "…",
+  "andel_med_edge": {
+   "lag": {
+    "2026": 0,
+    "2031": 0
+   },
+   "mitt": {
+    "2026": 0,
+    "2031": 0
+   },
+   "hog": {
+    "2026": 0,
+    "2031": 0
+   }
+  },
+  "andel_kommentar": "…",
+  "varde_per_satellit_msek": {
+   "lag": 0,
+   "mitt": 0,
+   "hog": 0
+  },
+  "varde_kommentar": "…"
+ },
+ "regioner": [
+  {
+   "namn": "…",
+   "andel_av_marknad": 0,
+   "unibap_tillgang": "…"
+  }
+ ],
+ "andel_scenarier": {
+  "svag": {
+   "Europa": 0,
+   "Nordamerika": 0,
+   "Asien och Stillahavet": 0,
+   "Mellanöstern": 0,
+   "Övrigt": 0
+  },
+  "forvantad": {
+   "Europa": 0,
+   "Nordamerika": 0,
+   "Asien och Stillahavet": 0,
+   "Mellanöstern": 0,
+   "Övrigt": 0
+  },
+  "stark": {
+   "Europa": 0,
+   "Nordamerika": 0,
+   "Asien och Stillahavet": 0,
+   "Mellanöstern": 0,
+   "Övrigt": 0
+  },
+  "drom": {
+   "Europa": 0,
+   "Nordamerika": 0,
+   "Asien och Stillahavet": 0,
+   "Mellanöstern": 0,
+   "Övrigt": 0
+  }
+ },
+ "andel_kommentar": "…",
+ "tratt": {
+  "nya_kundrelationer_2026": 0,
+  "tillvaxt_nya_per_ar": {
+   "svag": 0,
+   "forvantad": 0,
+   "stark": 0,
+   "drom": 0
+  },
+  "konvertering": {
+   "svag": 0,
+   "forvantad": 0,
+   "stark": 0,
+   "drom": 0
+  },
+  "fordrojning_ar": 0,
+  "intakt_per_konverterad_msek_per_ar": {
+   "svag": 0,
+   "forvantad": 0,
+   "stark": 0,
+   "drom": 0
+  },
+  "livslangd_ar": 0,
+  "kommentar": "…"
+ },
+ "framatmultipel": {
+  "svag": 0,
+  "forvantad": 0,
+  "stark": 0,
+  "drom": 0
+ },
+ "framatmultipel_kommentar": "…",
+ "vardering_ar": "…",
+ "vardering_forsaljning_ar": "…",
+ "aktier_milj": {
+  "svag": 0,
+  "forvantad": 0,
+  "stark": 0,
+  "drom": 0
+ },
+ "nettokassa_msek": {
+  "svag": 0,
+  "forvantad": 0,
+  "stark": 0,
+  "drom": 0
+ },
+ "sannolikhet": {
+  "svag": 0,
+  "forvantad": 0,
+  "stark": 0,
+  "drom": 0
+ },
+ "maste_vara_sant": [
+  "…"
+ ],
+ "nuvarande": {
+  "ar": 0,
+  "forsaljning_msek": 0,
+  "kommentar": "…"
+ },
+ "marknad_per_bana": {
+  "svag": "…",
+  "forvantad": "…",
+  "stark": "…",
+  "drom": "…"
+ },
+ "metoder": [
+  {
+   "id": "…",
+   "namn": "…",
+   "vikt": 0,
+   "kvalitet": "…",
+   "motivering": "…",
+   "tillvaxt": {
+    "svag": 0,
+    "forvantad": 0,
+    "stark": 0,
+    "drom": 0
+   }
+  }
+ ]
+}
