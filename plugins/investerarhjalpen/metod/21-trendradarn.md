@@ -6,6 +6,20 @@ Ingen kan förutse framtiden säkert. Trendradarn gör inga förutsägelser. Den
 
 Metod 06 beskriver hur ett enskilt tema analyseras. Den här metoden beskriver hur trender hittas, mäts och följs över flera år.
 
+**Det mesta sker i bakgrunden.** Verktyget samlar information varje månad, sparar den och följer upp den. På sidan visas bara det som har ändrats och de trender som har tillräckligt med bevis. Allt annat finns kvar i banken tills det behövs.
+
+## 0. Informationsbanken
+All information som spaningen hittar sparas som **observationer** i `trender/bank/`, även sådant som inte hör till någon trend än. Banken raderas aldrig. Varje observation har datum, område, typ (beslut, investering, regel, tidsplan, milstolpe, försening, bakslag, siffra eller forskning), aktör, källa, bevisnivå och taggar. Skriptet `verktyg/trendbank.py` håller ordning på den.
+
+**Brett, inte bara det användaren nämner.** Spaningen sveper över 16 fasta områden varje månad: energi, transport, hälsa, livsmedel och vatten, rymd, försvar, AI och data, halvledare, material och råvaror, bygg och städer, finans, demografi och arbete, klimat, konsumenter, geopolitik och handel, samt industri och automation. Användarens frågor och exempel läggs till ovanpå, men styr aldrig vilka områden som söks.
+
+**Nya trender växer fram ur banken.** När samma ämne (tagg) dyker upp i minst 3 observationer, av minst 2 slag och från minst 2 källor, utan att höra till någon trend, föreslår skriptet en ny kandidat.
+
+## 0b. Tidsplaner, förseningar och källfacit
+Nya områden blir nästan alltid en kapplöpning, och nästan allt blir försenat. Därför sparas varje **tidsplan** (vem som har lovat vad till när) och varje uppföljning: en ny tidpunkt, en milstolpe som nås eller en plan som stryks. En försening gör inte att vi slutar följa trenden. Vi flyttar fram datumet och följer vidare.
+
+Över tid ger det ett **källfacit**: hur ofta olika slags aktörer håller sina tidsplaner, och hur mycket de brukar bli försenade. Stater, EU, storbolag, nystartade bolag, forskare och analytiker räknas var för sig. Det är samma tanke som löftesrevisionen för bolag (metod 05), men för hela branscher. Det svarar på vilken information man kan lita på. Om nystartade bolag i en bransch brukar bli 3 år sena, ska en ny tidsplan därifrån läsas med det i bakhuvudet.
+
 ## 1. En trend börjar med en fråga
 Varje trend formuleras som en fråga som går att besvara med ja eller nej om några år, till exempel:
 - Blir elflyg vanligt på sträckor under 500 km?
@@ -92,15 +106,18 @@ Verktyget visar vägarna. Det rekommenderar aldrig någon av dem.
 | **Mainstream** | Över 10 %, eller tydligt upptäckt av alla |
 | **Avfärdad** | Substansen uteblev. Trenden sparas med lärdomen |
 
-Status ändras bara med en motivering i trendens logg, och aldrig mer än ett steg per månad. Facit (metod 15) sparar när varje trend fick vilken status, så att vi om några år kan se om trendradarn såg saker tidigt.
+Status ändras bara med en motivering och ett datum i trendens logg, och aldrig mer än ett steg per månad. Loggen sparas, så att vi om några år kan se om trendradarn såg saker tidigt.
+
+**Det som visas på sidan:** trender med status Följs eller högre, och det som har ändrats sedan förra månaden. Kandidater och banken ligger i bakgrunden, men går att öppna.
 
 ## 10. Historiebiblioteket
 `trender/historia/` innehåller trender där vi vet hur det gick: vinnare, förlorare och "rätt trend, fel bolag". För varje fall: vilka signaler syntes när, vilken fas det var och vem som tjänade pengarna. Nya trender jämförs med dem: *ser det här ut som elbilar 2018 eller som vätgas 2019?*
 
 ## 11. Rytmen
-- **Varje månad** (första söndagen): spaningen söker efter nya trender och ser över de som följs. Mätaren körs.
+- **Varje vecka** (söndag): mätaren körs, gratis.
+- **Varje månad** (första söndagen): spaningen sveper över alla 16 områden, sparar observationerna i banken, följer upp tidsplaner som har passerat och ser över trenderna.
 - **Varje kvartal:** konsekvenskedjor och bolagslistor ses över.
 - **Trender rör sig långsamt.** Det är normalt att inget ändras på flera månader.
 
 ## Fil per trend: `trender/<trend>.json`
-Fälten: `namn`, `fraga`, `i_en_mening`, `status`, `fas`, `upptackt`, `drivkrafter`, `troskel`, `matare`, `serier` (skrivs av skriptet), `signal` (räknas av skriptet), `konsekvenser`, `motbevis`, `bolag`, `logg`. Historiska fall har dessutom `facit`. Mall: `$IH/mall-trend.json`.
+Fälten: `namn`, `fraga`, `taggar` (kopplar observationer i banken till trenden), `i_en_mening`, `status`, `fas`, `upptackt`, `drivkrafter`, `troskel`, `matare`, `serier` (skrivs av skriptet), `signal` (räknas av skriptet), `konsekvenser`, `motbevis`, `bolag`, `logg`. Historiska fall har dessutom `facit`. Mall: `$IH/mall-trend.json`.

@@ -96,9 +96,11 @@ Läs mer: [Metod 20](#metod-20)
 **Vad:** stora skiften i hela världen som vi följer under flera år, till exempel elflyg, drönare, robotar och fetmaläkemedel. Varje trend är en fråga som går att besvara om några år. Mätarna hämtas gratis varje vecka: adoption, kostnad, beslutade pengar, forskning och uppmärksamhet. Forskning och läsning räknas som andel av totalen. Trenden jämförs med ett **historiebibliotek** av vinnare (elbilar, upprustningen), förlorare (vätgasbilar, 3D-skrivare) och "rätt trend, fel bolag" (vind- och solkraft).
 - **Saknar hårda data** betyder att det ännu inte finns någon mätare för adoption, kostnad eller pengar. Då går trenden inte att bedöma, hur mycket det än forskas.
 - **Hypevarning** betyder att uppmärksamheten växer mycket snabbare än köpen, medan under 2 % av marknaden har tagit till sig det nya.
-- Första söndagen i månaden spanar Claude efter nya trender (högst 2 per månad) och ser över de gamla. Status ändras högst ett steg per månad.
+- **Informationsbanken:** första söndagen i månaden sveper Claude över 16 fasta områden i hela världen, oberoende av vad någon har frågat om, och sparar allt som observationer. Banken raderas aldrig. Ämnen som dyker upp gång på gång blir nya kandidater.
+- **Tidsplaner och källfacit:** varje gång någon lovar att något ska hända ett visst år sparas det, och varje försening följs upp. Över tid visar källfacit hur ofta stater, storbolag och nystartade bolag håller sina tidsplaner.
+- Status ändras högst ett steg per månad.
 
-Trenderna finns under fliken Teman.
+Under fliken Teman visas bara trender som har tillräckligt med bevis. Kandidaterna, banken och historiebiblioteket ligger hopfällda under dem.
 
 **Kontrollera själv:** öppna en mätare och jämför med källan, till exempel elbilarnas andel hos Our World in Data.
 

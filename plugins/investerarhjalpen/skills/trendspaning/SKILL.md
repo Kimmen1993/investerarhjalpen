@@ -11,33 +11,47 @@ description: Trendradarn. Spanar brett i hela världen efter stora skiften (besl
 
 Trendradarn följer stora skiften i **hela världen** under lång tid och letar sedan upp bolag, helst svenska och nordiska, som kan rida på vågen. Du samlar bevis och presenterar dem. Användaren tar ställning. Gör aldrig förutsägelser som om de vore säkra, och ge inga köp- eller säljråd.
 
+Det mesta sker **i bakgrunden**: du samlar, sparar och följer upp. Användaren ska bara behöva läsa det som har ändrats.
+
 ## Vilket läge?
 - **Månadsspaningen** (söndagsuppgiften första söndagen i månaden, eller "kör trendspaningen"): gör steg 1–6.
-- **En fråga från användaren** ("kommer elflyg att slå igenom?", "vad händer om Kina inte får fler barn?"): gör steg 2–5 för just den frågan. Finns trenden redan i `trender/`: uppdatera den.
-- **"Vilka trender följer vi?"**: läs `trender/*.json` och svara kort med status, signal och vad som har ändrats.
+- **En fråga från användaren** ("kommer elflyg att slå igenom?", "vad händer om Kina inte får fler barn?"): sök, spara det du hittar i banken (steg 2) och gör steg 3–5 för just den frågan. Finns trenden redan: uppdatera den.
+- **"Vilka trender följer vi?"**: läs `trender/*.json` och `trender/_bank-sammanfattning.json` och svara kort.
 
-## 1. Mät det som redan följs
-Kör `python3 -I "$IH/verktyg/trendmatare.py"` från datamappen. Läs utskriften: vilka trender har fått starkare eller svagare hårda data, och finns någon hypevarning?
+## 1. Mät och läs läget
+Kör från datamappen:
+- `python3 -I "$IH/verktyg/trendmatare.py"`: mätarna för alla trender.
+- `python3 -I "$IH/verktyg/trendbank.py"`: banken. Den listar områden utan observationer, **tidsplaner som har passerat** och **möjliga nya trender** (ämnen som återkommer utan att höra till någon trend).
 
-## 2. Spana brett (högst ca 15 sökningar per månad)
-Gå igenom de sju drivkrafterna i metod 21 med blicken på **hela världen**: beslutade pengar, kostnader som faller, flaskhalsar, regler med datum, geopolitik, demografi och hälsa, och tekniska genombrott. Prioritera källor på A- och B-nivå:
-- beslut om budgetar och program (EU, USA, Kina, Indien, NATO, stora länders regeringar)
-- storbolagens investeringsplaner och vad de säger är flaskhalsar i sina rapporter
-- statistik över försäljning och användning (IEA, Our World in Data, Eurostat, branschorganisationer)
-- stora studieresultat, godkännanden och certifieringar
-- återkommande ämnen i rapporter från centralbanker, IEA, WHO, FN och stora konsultbolag (B-nivå: de är prognoser)
+## 2. Svep brett över alla 16 områden och spara i banken
+Gå igenom **alla** områden i `DOMANER` i `trendbank.py`, inte bara de som användaren har nämnt eller som redan har trender. Cirka 1–2 sökningar per område, högst ca 30 totalt. Börja med områden som har få observationer. Sök på engelska och i hela världen.
 
-Leta efter **det som rör sig men inte står på förstasidorna**. Tänk också på andra och tredje ledet: om det här händer, vad behövs sedan?
+Leta efter **det som rör sig men inte står på förstasidorna**, främst:
+- **beslut och pengar:** budgetar, program, upphandlingar och storbolagens investeringsplaner (A-nivå)
+- **tidsplaner:** någon lovar att något ska hända ett visst år. Spara alltid dem, även när de känns orealistiska.
+- **milstolpar, förseningar och bakslag** för tidsplaner som redan finns i banken
+- **siffror:** försäljning, användning och kostnader
+- **regler med datum**, och **genombrott** i forskning och studier
 
-## 3. Nya kandidater (högst 2 per månad)
-Skapa `trender/<trend>.json` utifrån `$IH/mall-trend.json` för en ny trend bara om den har minst en drivkraft på A- eller B-nivå. Fyll i:
+Skriv observationerna som en JSON-lista i en fil i scratchpad och kör `python3 -I "$IH/verktyg/trendbank.py" --lagg-till <filen>`. Formatet står överst i `trendbank.py`. Viktigt:
+- **taggar** på engelska eller svenska, korta och återanvända (till exempel `mars`, `rymdmat`, `drönare`). Det är taggarna som gör att nya trender växer fram.
+- **trender**: koppla till befintliga trender (filnamnet) när det passar, annars tom lista.
+- **aktor_typ** alltid, så att källfacit kan räknas.
+- En uppföljning av en tidsplan har `galler` (tidsplanens id), och `nytt_datum` vid en försening eller `utfall` (`klar` eller `struken`). Id står i utskriften från `trendbank.py` och med `--trend` eller `--tagg`.
+- Spara hellre för mycket än för lite. Det som inte verkar viktigt i dag kan bli det om två år.
+
+## 2b. Följ upp tidsplaner som har passerat
+För varje rad "Följ upp" i utskriften: sök kort efter vad som hände och spara en uppföljning (försening med nytt datum, klar eller struken). Släpp aldrig en tidsplan bara för att den är sen.
+
+## 3. Nya trender ur banken
+Föreslår banken en möjlig ny trend, eller ser du själv ett mönster över flera områden: skapa `trender/<trend>.json` utifrån `$IH/mall-trend.json` om det finns minst en drivkraft på A- eller B-nivå. Det finns ingen gräns för antalet kandidater; de ligger i bakgrunden tills bevisen räcker. Fyll i:
 - `fraga`: en fråga som går att besvara med ja eller nej om några år
-- `i_en_mening` på klarspråk
+- `i_en_mening` på klarspråk och `taggar` (samma som i banken)
 - `drivkrafter` med typ, text, `niva`, `kalla` och `datum`
 - `troskel`: det som måste hända innan trenden kan ta fart, och läget nu
-- `matare`: minst en mätare för kunskap eller uppmärksamhet, och **så snart det går en för adoption, kostnad eller pengar** (Our World in Data, OpenAlex, ClinicalTrials.gov eller Wikipedia, se skriptets huvud). Kontrollera att grafens eller artikelns namn finns. Finns ingen tidsserie: lägg in `"kalla": "manuell"` och skriv värden per år i `serier.<id>.ar` med källa i `serier.<id>.kalla_text`.
+- `matare`: minst en mätare för kunskap eller uppmärksamhet, och **så snart det går en för adoption, kostnad eller pengar** (Our World in Data, OpenAlex, ClinicalTrials.gov eller Wikipedia, se huvudet i `trendmatare.py`). Kontrollera att grafens eller artikelns namn finns. Finns ingen tidsserie: lägg in `"kalla": "manuell"` och skriv värden per år i `serier.<id>.ar`, med källa i `serier.<id>.kalla_text`.
 - `konsekvenser`: 2–4 led "om → då", oftast på C-nivå
-- `motbevis`: vad talar emot, och vad skulle få trenden att stanna?
+- `motbevis`: vad som talar emot, och vad som skulle få trenden att stanna
 - `status: "kandidat"`, `fas`, `upptackt` och en rad i `logg`
 
 Kör sedan mätaren för trenden: `python3 -I "$IH/verktyg/trendmatare.py" <trend>`.
@@ -48,6 +62,7 @@ För varje trend (de äldst granskade först, högst ca 4 per månad):
 - **Status** enligt tabellen i metod 21, aldrig mer än ett steg per månad, alltid med motivering i `logg`. Avfärdade trender sparas med lärdomen.
 - Saknas hårda data (`signal.saknar_hard_data`)? Leta efter en tidsserie för adoption, kostnad eller pengar. Det är den viktigaste förbättringen av en trend.
 - Jämför med historiebiblioteket (`signal.liknar` och `trender/historia/`): liknar mönstret en vinnare, en förlorare eller "rätt trend, fel bolag"?
+- **Tidsplaner och kapplöpningen:** vilka aktörer tävlar, vem ligger före, och vad säger källfacit om hur ofta den sortens aktör håller sina tidsplaner? Skriv det i `logg` när det ändras.
 
 ## 5. Bolagen
 För trender med status **följs** eller högre: fyll i eller se över `bolag`, med värdekedjan och flaskhalsen först (metod 06 och 21):
@@ -62,5 +77,5 @@ För trender med status **följs** eller högre: fyll i eller se över `bolag`, 
 
 ## 6. Avsluta
 - Bygg sidan (`python3 -I "$IH/verktyg/bygg_sida.py"`) och publicera den till `sida_url` (utelämna `capabilities`).
-- I söndagens notis: en rad om trenderna, till exempel `Trender: ny kandidat Elflyg. Drönare stärks (beslutade budgetar i 3 länder).` Har inget ändrats: hoppa över raden.
-- Svara kort: nya kandidater, ändrad status med motivering, och de 1–3 viktigaste nya bevisen.
+- I söndagens notis: **bara om en trend har bytt status** eller en viktig tidsplan har ändrats, till exempel `Trender: Drönare stärks (beslutade budgetar i 3 länder).` Annars ingen rad. Antalet sparade observationer behöver inte nämnas.
+- Svara kort: ändrad status med motivering, och de 1–3 viktigaste nya bevisen. Nya kandidater och banken nämns i en mening.

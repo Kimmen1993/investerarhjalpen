@@ -97,6 +97,8 @@ def main():
 
     teman = [{"titel": titel_ur_md(las(p), p.stem), "md": las(p)} for p in sorted(ROT.glob("teman/*.md"), reverse=True)]
     trender, trendhistoria = trenddata()
+    tb = ROT / "trender" / "_bank-sammanfattning.json"
+    trendbank = json.loads(tb.read_text(encoding="utf-8")) if tb.exists() else None
     metod = [{"titel": titel_ur_md(las(p), p.stem), "md": las(p), "id": p.stem.split("-")[0]} for p in sorted(VERKTYG.glob("metod/*.md"))]
     if (ROT / "min-strategi.md").exists():  # användarens egen strategi ligger i datamappen
         metod.append({"titel": titel_ur_md(las(ROT / "min-strategi.md"), "Min strategi"), "md": las(ROT / "min-strategi.md"), "id": "strategi"})
@@ -126,7 +128,7 @@ def main():
     if fondsignaler_borsen:
         fondsignaler_borsen.pop("signaler", None)
         fondsignaler_borsen["tabell"] = [r for r in fondsignaler_borsen.get("tabell", []) if r["typ"] == "fondkop"][:60] + [r for r in fondsignaler_borsen.get("tabell", []) if r["typ"] == "fondflykt"][:20]
-    data = {"byggd": datetime.now().strftime("%Y-%m-%d %H:%M"), "bolag": bolag, "teman": teman, "trender": trender, "trendhistoria": trendhistoria, "radar": radar, "fonder": fonder, "fondsignaler": fondsignaler, "fondregister": fondregister, "kalender_makro": (json.loads(las(ROT / "kalender.json") or "null") or {}).get("handelser", []), "andringar": logg[:250], "nyhetskoll_kord": nyhetskoll, "fondsignaler_borsen": fondsignaler_borsen,
+    data = {"byggd": datetime.now().strftime("%Y-%m-%d %H:%M"), "bolag": bolag, "teman": teman, "trender": trender, "trendhistoria": trendhistoria, "trendbank": trendbank, "radar": radar, "fonder": fonder, "fondsignaler": fondsignaler, "fondregister": fondregister, "kalender_makro": (json.loads(las(ROT / "kalender.json") or "null") or {}).get("handelser", []), "andringar": logg[:250], "nyhetskoll_kord": nyhetskoll, "fondsignaler_borsen": fondsignaler_borsen,
             "metod": metod, "kastade": las(ROT / "kastade.md"), "ordlista": ordlista,
             "journal": las(ROT / "journal.md"),
             "guide": las(VERKTYG / "larande" / "guide.md"),

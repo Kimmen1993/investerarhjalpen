@@ -1332,20 +1332,34 @@ function trendKort(t){
     <div class="steps-lbl" style="margin-top:4px">${bolag ? `${bolag} bolag` : "Bolag fylls i vid spaningen"}${lik ? ` · liknar mest ${esc(lik.trend)} ${esc(lik.ar)}` : ""}${t.matt ? ` · mätt ${esc(t.matt)}` : ""}</div></a>`;
 }
 function trendSektion(){
-  const v = $("#vy"); const tr = DATA.trender || [], hi = DATA.trendhistoria || [];
+  const v = $("#vy"); const tr = DATA.trender || [], hi = DATA.trendhistoria || [], bank = DATA.trendbank;
   if (!tr.length && !hi.length) return;
-  const ordning = ["genombrott", "starks", "foljs", "kandidat", "mainstream", "avfardad"];
-  const lista = [...tr].sort((a, b) => ordning.indexOf(a.status) - ordning.indexOf(b.status));
+  const ordning = ["genombrott", "starks", "foljs", "mainstream"];
+  const synliga = tr.filter(t => ordning.includes(t.status)).sort((a, b) => ordning.indexOf(a.status) - ordning.indexOf(b.status));
+  const bakgrund = tr.filter(t => !ordning.includes(t.status));
+  const facit = (bank && bank.kallfacit) || [];
+  const fler = (bank && bank.kandidater) || [];
+  const dom = (bank && bank.domaner) || {};
   const sek = document.createElement("section");
   sek.innerHTML = `<h2 style="margin-top:8px">Trendradarn</h2>
-    <p class="lede">Stora skiften i hela världen som vi följer under flera år, mätta med samma data varje månad. Verktyget samlar bevis; du tar ställning. <a href="#metod-21">Så fungerar trendradarn</a></p>
-    ${lista.map(trendKort).join("") || `<div class="empty">Inga trender än.</div>`}
-    ${hi.length ? `<h3 style="margin-top:22px">Historiebiblioteket: så såg det ut förut</h3>
-      <p class="lede">Trender där vi vet hur det gick. Nya trender jämförs med dem.</p>
+    <p class="lede">Stora skiften i hela världen som verktyget följer i flera år. Det mesta sker i bakgrunden; här visas de trender som har tillräckligt med bevis. <a href="#metod-21">Så fungerar trendradarn</a></p>
+    ${synliga.map(trendKort).join("") || `<div class="empty">Ingen trend har tillräckligt med bevis än. Kandidaterna samlar data i bakgrunden.</div>`}
+    <details class="doc" style="margin-top:12px"><summary>I bakgrunden: ${bakgrund.length} kandidater${bank ? ` · ${bank.antal} sparade observationer i ${Object.keys(bank.per_doman || {}).length} av ${Object.keys(dom).length} områden` : ""}</summary>
+      <div style="padding:8px 0">${bakgrund.map(trendKort).join("")}
+      ${fler.length ? `<h3>Ämnen som återkommer i banken</h3><ul>${fler.slice(0, 10).map(k => `<li><b>${esc(k.tagg)}</b>: ${esc(k.antal)} observationer (${esc(k.domaner.map(d => dom[d] || d).join(", "))})</li>`).join("")}</ul>` : ""}
+      ${facit.length ? `<h3>Källfacit: håller tidsplanerna?</h3><div class="tw2"><table class="matris"><tr><th style="text-align:left">Aktör</th><th>Avslutade</th><th>I tid</th><th>Strukna</th><th>Snittförsening</th></tr>${facit.map(f => `<tr><td style="text-align:left">${esc(f.namn)}</td><td>${esc(f.avslutade)}</td><td>${esc(f.andel_i_tid)} %</td><td>${esc(f.struken)}</td><td>${f.snittforsening_ar == null ? "–" : fmt(f.snittforsening_ar, 1) + " år"}</td></tr>`).join("")}</table></div>` : `<p class="steps-lbl">Källfacit visar hur ofta stater, storbolag och nystartade bolag håller sina tidsplaner. Det fylls på när tidsplaner i banken avslutas.</p>`}
+      </div></details>
+    ${hi.length ? `<details class="doc"><summary>Historiebiblioteket: ${hi.length} trender där vi vet hur det gick</summary><div style="padding:8px 0">
       ${hi.map(h => { const f = h.facit || {}; const u = UTFALL[f.utfall] || ["?", "pav-neutral"];
-        return `<a class="trendkort" href="#trend-${esc(h.slug)}" style="display:block;text-decoration:none;color:inherit;margin-bottom:8px"><div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><b>${esc(h.namn)}</b><span class="pill ${u[1]}">${esc(u[0])}</span></div><div class="steps-lbl" style="margin-top:4px">${esc(f.lardom || "")}</div></a>`; }).join("")}` : ""}
+        return `<a class="trendkort" href="#trend-${esc(h.slug)}" style="display:block;text-decoration:none;color:inherit;margin-bottom:8px"><div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><b>${esc(h.namn)}</b><span class="pill ${u[1]}">${esc(u[0])}</span></div><div class="steps-lbl" style="margin-top:4px">${esc(f.lardom || "")}</div></a>`; }).join("")}</div></details>` : ""}
     <h2 style="margin-top:26px">Temaanalyser</h2>`;
   const lede = v.querySelector(".lede"); lede.after(sek);
+}
+function trendTidsplaner(slug){
+  const tp = ((DATA.trendbank || {}).tidsplaner || []).filter(x => (x.trender || []).includes(slug));
+  if (!tp.length) return `<p class="steps-lbl">Inga tidsplaner sparade än. Spaningen sparar vem som har lovat vad till när, och följer upp förseningar.</p>`;
+  const lage = x => x.utfall === "klar" ? (x.forsening_ar ? `Klar, ${esc(x.forsening_ar)} år sent` : "Klar i tid") : x.utfall === "struken" ? "Struken" : x.antal_forseningar ? `Försenad ${esc(x.antal_forseningar)} gång${x.antal_forseningar > 1 ? "er" : ""}` : x.forfallen ? "Passerad, följs upp" : "Väntar";
+  return `<div class="tw2"><table class="matris"><tr><th style="text-align:left">Vad</th><th style="text-align:left">Vem</th><th>Lovat</th><th>Nu</th><th>Läge</th></tr>${tp.sort((a, b) => String(a.nu).localeCompare(String(b.nu))).map(x => `<tr><td style="text-align:left">${esc(x.vad)}</td><td style="text-align:left">${esc(x.aktor || "")}</td><td>${esc(x.lovat)}</td><td>${esc(x.nu)}</td><td>${lage(x)}</td></tr>`).join("")}</table></div>`;
 }
 function trendSerie(m){
   if (!m.v || m.v.length < 2) return "";
@@ -1374,7 +1388,8 @@ function vyTrend(slug){
     <h3>Mätarna</h3><p class="steps-lbl">${trendSignalRad(t.signal)}</p>
     <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px">${(t.visning || []).map(trendSerie).join("") || `<div class="empty">Inga mätningar än.</div>`}</div>
     ${!f && t.signal && (t.signal.liknar || []).length ? `<p class="steps-lbl" style="margin-top:8px">Liknar mest: ${t.signal.liknar.map(l => `<a href="#trend-${esc(l.slug)}">${esc(l.trend)} ${esc(l.ar)}</a> (${esc((UTFALL[l.utfall] || ["?"])[0])})`).join(", ")}. En grov jämförelse av siffrorna, inte en förutsägelse.</p>` : ""}
-    ${!f ? `<h3>Det som måste hända (trösklar)</h3>${lista(t.troskel, x => `<li><b>${esc(x.vad)}</b>. ${esc(x.varfor || "")} <span class="steps-lbl">Läge: ${esc(x.lage || "?")}</span></li>`)}
+    ${!f ? `<h3>Tidsplaner och kapplöpningen</h3>${trendTidsplaner(t.slug)}
+    <h3>Det som måste hända (trösklar)</h3>${lista(t.troskel, x => `<li><b>${esc(x.vad)}</b>. ${esc(x.varfor || "")} <span class="steps-lbl">Läge: ${esc(x.lage || "?")}</span></li>`)}
     <h3>Drivkrafter</h3>${lista(t.drivkrafter, d => `<li>${esc(d.text)}${niv(d.niva)} <span class="steps-lbl">${esc(d.kalla || "")} ${esc(d.datum || "")}</span></li>`)}
     <h3>Om det här händer, vad händer sedan?</h3>${lista(t.konsekvenser, k => `<li>Om ${esc(k.om)} → ${esc(k.da)}${niv(k.niva)}</li>`)}
     <h3>Bolagen</h3>${(t.bolag || []).length ? `<div class="tw2"><table class="matris"><tr><th style="text-align:left">Bolag</th><th>Spår</th><th>Roll</th><th>Exponering</th><th style="text-align:left">Varför</th></tr>${t.bolag.map(b => `<tr><td style="text-align:left">${b.slug ? `<a href="#bolag-${esc(b.slug)}">${esc(b.namn)}</a>` : esc(b.namn)} <span class="steps-lbl">${esc(b.land || "")}</span></td><td>${b.noterat === false ? "Onoterat" : esc((SPAR[b.spar] || [b.spar || ""])[0])}</td><td>${esc(TROLL[b.roll] || b.roll || "")}</td><td>${esc(b.exponering || "")}</td><td style="text-align:left">${esc(b.varfor || "")}${b.vag_in ? `<br><span class="steps-lbl">Väg in: ${esc(b.vag_in)}</span>` : ""}${niv(b.niva)}</td></tr>`).join("")}</table></div>` : `<p class="steps-lbl">Fylls i vid spaningen när trenden följs.</p>`}
