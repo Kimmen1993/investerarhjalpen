@@ -1,6 +1,6 @@
 ---
 name: trendspaning
-description: Trendradarn. Spanar brett i hela världen efter stora skiften (beslutade pengar, fallande kostnader, flaskhalsar, regler, geopolitik, demografi och hälsa, tekniska genombrott), mäter dem över flera år med gratis data, jämför med historiska vinnare och hypefällor, och letar upp bolag i båda spåren, även onoterade och vägar in i dem. Används av söndagsuppgiften första söndagen i månaden, eller när användaren skriver "kör trendspaningen", "vad blir nästa stora trend", "/trendspaning", eller frågar om en framtidsfråga som "kommer elflyg att slå igenom?".
+description: Trendradarn. Pusslar fram djärva hypoteser om vad som kan hända innan det syns i statistiken (möjligheter och sådant som kan spricka, med tidiga tecken och vad som fäller dem), spanar brett i hela världen efter stora skiften (beslutade pengar, fallande kostnader, flaskhalsar, regler, geopolitik, demografi och hälsa, tekniska genombrott), mäter dem över flera år med gratis data, jämför med historiska vinnare och hypefällor, och letar upp bolag i båda spåren, även onoterade och vägar in i dem. Används av söndagsuppgiften första söndagen i månaden, eller när användaren skriver "kör trendspaningen", "vad blir nästa stora trend", "/trendspaning", eller frågar om en framtidsfråga som "kommer elflyg att slå igenom?".
 ---
 
 # Trendspaning
@@ -43,6 +43,20 @@ Skriv observationerna som en JSON-lista i en fil i scratchpad och kör `python3 
 ## 2b. Följ upp tidsplaner som har passerat
 För varje rad "Följ upp" i utskriften: sök kort efter vad som hände och spara en uppföljning (försening med nytt datum, klar eller struken). Släpp aldrig en tidsplan bara för att den är sen.
 
+## 2c. Pussla fram djärva hypoteser (det viktigaste steget)
+När något syns i statistiken är det ofta redan i priset. Här får du gissa och pussla, enligt avsnitt A i metod 21. Ställ frågorna för hela svepet, inte bara för befintliga trender:
+- **Vad tror alla i dag, och var kan de ha fel?**
+- **Vad är skört?** Hög belåning, priser som inte går att motivera, villkor som ändras vid ett visst datum, beroende av en enda leverantör eller ett enda land.
+- **Vad säger berättelsen, och vad säger siffrorna?** Leta efter glapp.
+- **Andra och tredje ledet:** om något i banken händer, vem behöver vad sedan?
+- **Vad tittar ingen på?** Tråkiga områden och källor som få läser.
+
+**Läs 2–3 tunga källor på riktigt varje månad**, sådant som få orkar läsa: en budgetproposition med bilagor, ett upphandlingsunderlag, en centralbanks stabilitetsrapport, fotnoterna i en stor årsredovisning, tull- och handelsstatistik eller ett register över patent, frekvenser eller kliniska prövningar. Spara fynden i banken.
+
+Skriv **1–3 nya hypoteser** i månaden som egna filer `trender/<hypotes>.json` med `"status": "hypotes"` och blocket `hypotes` enligt `$IH/mall-trend.json`. Varje hypotes måste ha mekanism, var konsensus kan ha fel, pusselbitar med källor och nivåer, **tidiga tecken**, **vad som fäller den** och **en sannolikhet i procent**. Våga gissa, men visa hur du tänkt. Både möjligheter och risker (något som kan spricka) räknas. En risk-hypotes ska också säga vem som kan gynnas och vilka bevakade bolag som kan drabbas.
+
+**Varje månad, för befintliga hypoteser:** kontrollera de tidiga tecknen (`sett`, `datum`, `kalla`) och ändra sannolikheten med motivering i `sannolikhet_historik`. När hälften av tecknen har synts: byt status till `kandidat` och lägg till mätare. När något i `faller_om` har inträffat, eller tiden har gått ut: sätt `utfall` (`ratt`, `fel` eller `delvis`), `avgjord` och status `avfardad` med lärdomen i `logg`. Radera aldrig en hypotes.
+
 ## 3. Nya trender ur banken
 Föreslår banken en möjlig ny trend, eller ser du själv ett mönster över flera områden: skapa `trender/<trend>.json` utifrån `$IH/mall-trend.json` om det finns minst en drivkraft på A- eller B-nivå. Det finns ingen gräns för antalet kandidater; de ligger i bakgrunden tills bevisen räcker. Fyll i:
 - `fraga`: en fråga som går att besvara med ja eller nej om några år
@@ -77,5 +91,5 @@ För trender med status **följs** eller högre: fyll i eller se över `bolag`, 
 
 ## 6. Avsluta
 - Bygg sidan (`python3 -I "$IH/verktyg/bygg_sida.py"`) och publicera den till `sida_url` (utelämna `capabilities`).
-- I söndagens notis: **bara om en trend har bytt status** eller en viktig tidsplan har ändrats, till exempel `Trender: Drönare stärks (beslutade budgetar i 3 länder).` Annars ingen rad. Antalet sparade observationer behöver inte nämnas.
+- I söndagens notis: en rad om nya hypoteser (`Ny hypotes: …, 25 %`), och annars bara om en trend eller hypotes har bytt status eller en viktig tidsplan har ändrats, till exempel `Trender: Drönare stärks (beslutade budgetar i 3 länder).` Annars ingen rad. Antalet sparade observationer behöver inte nämnas.
 - Svara kort: ändrad status med motivering, och de 1–3 viktigaste nya bevisen. Nya kandidater och banken nämns i en mening.

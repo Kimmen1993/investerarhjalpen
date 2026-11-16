@@ -2,7 +2,7 @@
  "namn": "…",
  "fraga": "En fråga som går att besvara med ja eller nej om några år",
  "i_en_mening": "…",
- "status": "kandidat",
+ "status": "hypotes|kandidat|foljs|starks|genombrott|mainstream|avfardad",
  "fas": 1,
  "upptackt": "ÅÅÅÅ-MM-DD",
  "drivkrafter": [
@@ -89,5 +89,47 @@
    "datum": "ÅÅÅÅ-MM-DD",
    "text": "…"
   }
- ]
+ ],
+ "hypotes": {
+  "pastaende": "Vad vi tror kommer att hända, och ungefär när",
+  "riktning": "mojlighet|risk",
+  "horisont": "ÅÅÅÅ",
+  "konsensus": "Vad de flesta tror i dag",
+  "varfor_fel": "Var konsensus kan ha fel, och varför de missar det",
+  "mekanism": "Orsak och verkan i klartext",
+  "pussel": [
+   {
+    "bit": "…",
+    "niva": "A|B|C|?",
+    "kalla": "…",
+    "datum": "ÅÅÅÅ-MM-DD"
+   }
+  ],
+  "tidiga_tecken": [
+   {
+    "tecken": "Det som borde synas först om vi har rätt",
+    "sett": false,
+    "datum": null,
+    "kalla": null
+   }
+  ],
+  "utlosare": "Datum eller händelse som tvingar fram förändringen, om det finns",
+  "asymmetri": {
+   "om_ratt": "…",
+   "om_fel": "…"
+  },
+  "faller_om": [
+   "Det som skulle visa att hypotesen är fel"
+  ],
+  "sannolikhet": 25,
+  "sannolikhet_historik": [
+   {
+    "datum": "ÅÅÅÅ-MM-DD",
+    "varde": 25,
+    "varfor": "Startbedömning"
+   }
+  ],
+  "utfall": null,
+  "avgjord": null
+ }
 }

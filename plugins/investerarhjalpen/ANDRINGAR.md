@@ -5,6 +5,7 @@
 - **Historiebiblioteket:** elbilar, vätgasbilar, vindkraft, solenergi, fetmaläkemedel, den europeiska upprustningen och 3D-skrivare, med vem som tjänade pengarna och lärdomen. Nya trender jämförs med dem.
 - Första söndagen i månaden spanar Claude efter nya trender och letar bolag i båda spåren, även onoterade bolag och vägar in i dem. Fråga också direkt: "kommer X att slå igenom?"
 - **Facit** sparar varje dag vad verktyget har sagt om bolagen, och mäter hur det gick mot börsen, utan slutdatum.
+- **Djärva hypoteser** överst under Teman: kvalificerade gissningar om vad som kan hända innan det syns i statistiken, både möjligheter och sådant som kan spricka. Varje hypotes har pusselbitar, tidiga tecken, vad som fäller den och vår sannolikhet. Spaningen skriver 1–3 nya varje månad och läser källor som få orkar läsa.
 - **Informationsbanken i bakgrunden:** spaningen sveper över 16 fasta områden i hela världen och sparar allt. Tidsplaner följs upp när de försenas, och källfacit visar vilka slags aktörer som brukar hålla vad de lovar. På sidan visas bara trender med tillräckligt bevis.
 - Ny metod 21.
 

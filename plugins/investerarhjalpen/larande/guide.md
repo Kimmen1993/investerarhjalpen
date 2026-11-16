@@ -101,7 +101,7 @@ Var försiktig med långa kedjor av C. Flera gissningar efter varandra blir snab
 - Skriv `följ fonden <namn>`, `sluta följa <fond>` eller `jämför <fond> och <fond>`.
 
 ## Trender
-Under **Teman** finns **Trendradarn**: stora skiften i världen som verktyget följer i flera år, till exempel elflyg, drönare och robotar. Varje trend är en fråga, och kurvorna visar hur forskning, köp och uppmärksamhet utvecklas. Står det **Saknar hårda data** kan trenden inte bedömas än. **Hypevarning** betyder att det pratas mer än det köps. Historiebiblioteket visar hur det gick för elbilar, vätgas, vindkraft och andra trender förut. Fråga gärna Claude: *"kommer elflyg att slå igenom?"*
+Under **Teman** finns först **Djärva hypoteser**: gissningar om vad som kan hända innan det syns i statistiken, med de tidiga tecken som verktyget håller utkik efter. Sedan kommer **Trendradarn**: stora skiften i världen som verktyget följer i flera år, till exempel elflyg, drönare och robotar. Varje trend är en fråga, och kurvorna visar hur forskning, köp och uppmärksamhet utvecklas. Står det **Saknar hårda data** kan trenden inte bedömas än. **Hypevarning** betyder att det pratas mer än det köps. Historiebiblioteket visar hur det gick för elbilar, vätgas, vindkraft och andra trender förut. Fråga gärna Claude: *"kommer elflyg att slå igenom?"*
 
 ## Min portfölj
 

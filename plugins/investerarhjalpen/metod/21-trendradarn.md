@@ -2,11 +2,53 @@
 
 Den bästa investeringen börjar ofta ta form 1–2 år innan man köper. Trendradarn följer stora skiften i **hela världen** under lång tid, mäter dem med samma data varje månad och letar sedan upp de bolag, helst svenska och nordiska, som kan rida på vågen. Det gäller både vändningsbolag och stora, stabila bolag.
 
-Ingen kan förutse framtiden säkert. Trendradarn gör inga förutsägelser. Den samlar bevis, mäter dem över tid och jämför med hur tidigare trender har sett ut. Besluten fattar användaren.
+Trendradarn arbetar i två steg:
+1. **Djärva hypoteser (före bevisen).** Här får verktyget gissa och pussla, på samma sätt som de investerare som såg något flera år före alla andra. Det är här pengarna kan tjänas.
+2. **Trender (när bevisen kommer).** Hypoteserna prövas mot data som samlas i flera år. Det som håller blir en trend som följs. Det som inte håller avfärdas, med lärdomen sparad.
+
+Ingen kan förutse framtiden säkert. En hypotes är en kvalificerad gissning med bevisnivå C, och den märks alltid så. Besluten fattar användaren.
 
 Metod 06 beskriver hur ett enskilt tema analyseras. Den här metoden beskriver hur trender hittas, mäts och följs över flera år.
 
-**Det mesta sker i bakgrunden.** Verktyget samlar information varje månad, sparar den och följer upp den. På sidan visas bara det som har ändrats och de trender som har tillräckligt med bevis. Allt annat finns kvar i banken tills det behövs.
+**Banken sköts i bakgrunden.** Verktyget samlar information varje månad, sparar den och följer upp den. På sidan visas de djärva hypoteserna överst, sedan trender med bevis. Banken finns kvar tills den behövs.
+
+## A. Djärva hypoteser: före bevisen
+**När något syns i statistiken är det ofta redan i priset.** Därför börjar trendradarn med hypoteser: kvalificerade gissningar om vad som kan hända, byggda av pusselbitar som de flesta inte orkar lägga.
+
+**Förebilden är Michael Burry**, som flera år före finanskrisen 2008 förutsåg att den amerikanska bostadsbubblan skulle spricka. Han gissade inte i blindo:
+- **Han läste det ingen läste:** prospekten för hundratals bolånepaket, sida för sida. Där syntes att lånen var mycket sämre än marknaden trodde.
+- **Han såg en mekanism med ett datum:** lågräntelånens räntor skulle räknas om 2006–2007. Då skulle många inte klara betalningarna.
+- **Han hade asymmetri:** om han hade fel var förlusten begränsad, om han hade rätt blev vinsten mångdubbel.
+- **Han var för tidig:** det tog nästan två år innan marknaden höll med, och under tiden ifrågasatte hans investerare honom. Rätt tes med fel tidpunkt är också en risk.
+
+### Så byggs en hypotes
+| Del | Fråga |
+|---|---|
+| **Påstående** | Vad tror vi kommer att hända, och ungefär när? |
+| **Riktning** | Möjlighet (något växer) eller risk (något är skört och kan spricka)? |
+| **Konsensus** | Vad tror de flesta i dag? |
+| **Var konsensus kan ha fel** | Vad ser vi som de missar, och varför missar de det? |
+| **Mekanismen** | Varför skulle det hända? Orsak och verkan i klartext |
+| **Pusselbitarna** | Bitarna som pekar dit, var och en med källa och bevisnivå. Gärna från källor som få läser |
+| **Tidiga tecken** | Vad borde synas först om vi har rätt? De följs upp varje månad |
+| **Utlösaren** | Finns det ett datum eller en händelse som tvingar fram förändringen, som räntorna 2007? |
+| **Asymmetrin** | Vad händer om vi har rätt, och vad händer om vi har fel? |
+| **Vad fäller den?** | Det som skulle visa att hypotesen är fel |
+| **Vår sannolikhet** | En siffra i procent. Den ändras när tidiga tecken syns eller uteblir |
+
+### Var de bästa hypoteserna finns
+- **Källor som få läser:** budgetpropositioner och deras bilagor, upphandlingsunderlag, myndigheters ansökningsregister (patent, frekvenser, tillstånd, kliniska prövningar), fotnoter i årsredovisningar, centralbankers stabilitetsrapporter, handels- och tullstatistik, platsannonser och bygglov. Varje månad läses några av dem på riktigt.
+- **Glappet mellan berättelse och verklighet:** när det som sägs och det som syns i siffrorna går isär.
+- **Det sköra:** hög belåning, priser långt över det som går att motivera, villkor som ändras vid ett visst datum, beroende av en enda leverantör eller ett enda land.
+- **Andra och tredje ledet:** om X händer, vem behöver vad sedan? Marknaden prissätter oftast första ledet.
+- **Tråkiga områden:** där ingen tittar, eftersom det inte är spännande.
+
+### Regler för hypoteser
+- En hypotes är alltid **C-nivå** som helhet och märks som gissning. Pusselbitarna har sina egna nivåer.
+- Varje hypotes måste ha **tidiga tecken** och **vad som fäller den**. Annars går den inte att pröva.
+- **Sannolikheten skrivs ner från början** och ändras med motivering. Facit sparar alla hypoteser med datum och utfall, så att vi lär oss hur ofta våra gissningar slår in. Även 30 % träffar kan räcka om vinsterna är mycket större än förlusterna.
+- När hälften av de tidiga tecknen har synts flyttas hypotesen till **kandidat** och mäts som en trend.
+- **Tidig betyder följa tidigt, inte köpa allt tidigt.** Användarens strategi avgör om en liten startposition är aktuell. Verktyget ger inga köp- eller säljråd.
 
 ## 0. Informationsbanken
 All information som spaningen hittar sparas som **observationer** i `trender/bank/`, även sådant som inte hör till någon trend än. Banken raderas aldrig. Varje observation har datum, område, typ (beslut, investering, regel, tidsplan, milstolpe, försening, bakslag, siffra eller forskning), aktör, källa, bevisnivå och taggar. Skriptet `verktyg/trendbank.py` håller ordning på den.
@@ -99,6 +141,7 @@ Verktyget visar vägarna. Det rekommenderar aldrig någon av dem.
 ## 9. En trends liv
 | Status | Betyder |
 |---|---|
+| **Hypotes** | En djärv gissning med pusselbitar, tidiga tecken och vad som fäller den (avsnitt A) |
 | **Kandidat** | Ny. Bevisen är tunna, och mätarna ska få samla data |
 | **Följs** | Minst en drivkraft på A-nivå och mätare som växer |
 | **Stärks** | Adoptionen eller kostnaden rör sig åt rätt håll i minst två mätningar i rad, utan hypevarning |

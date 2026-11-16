@@ -57,6 +57,11 @@ Orden här blir automatiskt klickbara förklaringar på webbsidan. Formatet ska 
 - **Hårda data:** siffror på vad folk faktiskt köper, betalar eller beslutar: adoption, kostnad och beslutade pengar. Väger tyngre än forskning och uppmärksamhet.
 - **Hypevarning / hype:** när uppmärksamheten växer mycket snabbare än köpen. Vätgasbilar och 3D-skrivare för hemmet är kända exempel.
 - **Konsekvenskedja / konsekvenskedjor:** "om det här händer, vad händer då?" i flera led. Vinsten finns ofta i andra eller tredje ledet.
+- **Hypotes / hypoteser / djärv hypotes:** en kvalificerad gissning om vad som kan hända, byggd av pusselbitar, med tidiga tecken och det som skulle fälla den. Alltid bevisnivå C.
+- **Konsensus:** det som de flesta på marknaden tror. Pengar tjänas när konsensus har fel och man själv har rätt.
+- **Asymmetri:** när det man kan vinna om man har rätt är mycket större än det man förlorar om man har fel.
+- **Utlösare / utlösaren:** en händelse eller ett datum som tvingar fram en förändring, till exempel att räntan på lån räknas om.
+- **Tidiga tecken:** det som borde synas först om en hypotes stämmer.
 - **Historiebiblioteket:** trender där vi vet hur det gick, som nya trender jämförs med.
 - **Onoterat bolag / onoterade bolag:** ett bolag som inte finns på börsen. Ibland går det att få del av det genom en noterad ägare eller partner.
 

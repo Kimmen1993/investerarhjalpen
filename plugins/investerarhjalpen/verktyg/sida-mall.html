@@ -1306,7 +1306,7 @@ function vyDocs(titel, lede, docs, oppna){
 }
 
 // --- trendradarn (metod 21) ---
-const TSTATUS = {kandidat:["Kandidat","pav-neutral"], foljs:["Följs","pav-blandat"], starks:["Stärks","pav-starker"], genombrott:["Genombrott","pav-starker"], mainstream:["Mainstream","pav-neutral"], avfardad:["Avfärdad","pav-forsvagar"], historisk:["Historia","pav-neutral"]};
+const TSTATUS = {hypotes:["Hypotes","pav-blandat"], kandidat:["Kandidat","pav-neutral"], foljs:["Följs","pav-blandat"], starks:["Stärks","pav-starker"], genombrott:["Genombrott","pav-starker"], mainstream:["Mainstream","pav-neutral"], avfardad:["Avfärdad","pav-forsvagar"], historisk:["Historia","pav-neutral"]};
 const UTFALL = {vinnare:["Vinnare","pav-starker"], forlorare:["Förlorare eller hype","pav-forsvagar"], ratt_trend_fel_bolag:["Rätt trend, fel bolag","pav-blandat"]};
 const SKURVA = {tidigt:"Tidigt (under 2 %)", genombrott:"Genombrott (2–10 %)", mainstream:"Mainstream (10–50 %)", mattnad:"Mättnad (över 50 %)"};
 const MTYP = {adoption:"Adoption", kostnad:"Kostnad", pengar:"Beslutade pengar", kunskap:"Kunskap", uppmarksamhet:"Uppmärksamhet", demografi:"Demografi"};
@@ -1331,17 +1331,32 @@ function trendKort(t){
     <div class="steps-lbl" style="line-height:1.6">${trendSignalRad(t.signal)}</div>
     <div class="steps-lbl" style="margin-top:4px">${bolag ? `${bolag} bolag` : "Bolag fylls i vid spaningen"}${lik ? ` · liknar mest ${esc(lik.trend)} ${esc(lik.ar)}` : ""}${t.matt ? ` · mätt ${esc(t.matt)}` : ""}</div></a>`;
 }
+const RIKTNING = {mojlighet:["Möjlighet","pav-starker"], risk:["Risk: kan spricka","pav-forsvagar"]};
+function hypotesKort(t){
+  const h = t.hypotes || {}; const r = RIKTNING[h.riktning] || ["?", "pav-neutral"];
+  const tt = h.tidiga_tecken || []; const sett = tt.filter(x => x.sett).length;
+  const avgjord = h.utfall ? ` <span class="pill ${h.utfall === "ratt" ? "pav-starker" : h.utfall === "fel" ? "pav-forsvagar" : "pav-blandat"}">${h.utfall === "ratt" ? "Rätt" : h.utfall === "fel" ? "Fel" : "Delvis rätt"}</span>` : "";
+  return `<a class="trendkort" href="#trend-${esc(t.slug)}" style="display:block;text-decoration:none;color:inherit;margin-bottom:10px">
+    <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><b style="font-size:17px">${esc(t.namn)}</b><span class="pill ${r[1]}">${esc(r[0])}</span><span class="pill pav-neutral">Gissning · ${esc(h.sannolikhet ?? "?")} %</span>${avgjord}</div>
+    <div style="margin:6px 0">${esc(h.pastaende || t.fraga || "")}</div>
+    ${h.varfor_fel ? `<div class="steps-lbl" style="line-height:1.5"><b>Där de flesta kan ha fel:</b> ${esc(h.varfor_fel)}</div>` : ""}
+    <div class="steps-lbl" style="margin-top:4px">Tidiga tecken: ${sett} av ${tt.length} har synts${h.utlosare ? ` · utlösare: ${esc(h.utlosare)}` : ""}${h.horisont ? ` · horisont ${esc(h.horisont)}` : ""}</div></a>`;
+}
 function trendSektion(){
   const v = $("#vy"); const tr = DATA.trender || [], hi = DATA.trendhistoria || [], bank = DATA.trendbank;
   if (!tr.length && !hi.length) return;
   const ordning = ["genombrott", "starks", "foljs", "mainstream"];
   const synliga = tr.filter(t => ordning.includes(t.status)).sort((a, b) => ordning.indexOf(a.status) - ordning.indexOf(b.status));
-  const bakgrund = tr.filter(t => !ordning.includes(t.status));
+  const hypoteser = tr.filter(t => t.status === "hypotes" || (t.hypotes && t.status === "avfardad")).sort((a, b) => (b.hypotes.sannolikhet || 0) - (a.hypotes.sannolikhet || 0));
+  const bakgrund = tr.filter(t => !ordning.includes(t.status) && !hypoteser.includes(t));
   const facit = (bank && bank.kallfacit) || [];
   const fler = (bank && bank.kandidater) || [];
   const dom = (bank && bank.domaner) || {};
   const sek = document.createElement("section");
-  sek.innerHTML = `<h2 style="margin-top:8px">Trendradarn</h2>
+  sek.innerHTML = `<h2 style="margin-top:8px">Djärva hypoteser</h2>
+    <p class="lede">Kvalificerade gissningar om vad som kan hända, innan det syns i statistiken. Varje hypotes har pusselbitar, tidiga tecken att hålla utkik efter och det som skulle fälla den. Det är gissningar, bevisnivå C, men de är skrivna så att de går att pröva. <a href="#metod-21">Så tänker vi</a></p>
+    ${hypoteser.map(hypotesKort).join("") || `<div class="empty">Inga hypoteser än. Månadsspaningen skriver 1–3 nya varje månad.</div>`}
+    <h2 style="margin-top:22px">Trendradarn</h2>
     <p class="lede">Stora skiften i hela världen som verktyget följer i flera år. Det mesta sker i bakgrunden; här visas de trender som har tillräckligt med bevis. <a href="#metod-21">Så fungerar trendradarn</a></p>
     ${synliga.map(trendKort).join("") || `<div class="empty">Ingen trend har tillräckligt med bevis än. Kandidaterna samlar data i bakgrunden.</div>`}
     <details class="doc" style="margin-top:12px"><summary>I bakgrunden: ${bakgrund.length} kandidater${bank ? ` · ${bank.antal} sparade observationer i ${Object.keys(bank.per_doman || {}).length} av ${Object.keys(dom).length} områden` : ""}</summary>
@@ -1374,6 +1389,23 @@ function trendSerie(m){
     <text class="ax-txt" x="${L}" y="${H - 4}">${esc(m.ar[0])}</text><text class="ax-txt" x="${W - R}" y="${H - 4}" text-anchor="end">${esc(m.ar[m.ar.length - 1])}</text></svg>
     <div class="steps-lbl">${esc(etikett)}${sista} · källa: ${esc(m.kalla)}</div></div>`;
 }
+function hypotesDetalj(h){
+  const niv = n => n ? ` <span class="chip chip-${n === "?" ? "Q" : esc(n)}">${esc(n)}</span>` : "";
+  const r = RIKTNING[h.riktning] || ["?", "pav-neutral"];
+  return `<div class="callout"><span class="pill ${r[1]}">${esc(r[0])}</span> <span class="pill pav-neutral">Gissning, bevisnivå C · vår sannolikhet ${esc(h.sannolikhet ?? "?")} %</span>${h.horisont ? ` <span class="steps-lbl">horisont ${esc(h.horisont)}</span>` : ""}
+    <p style="margin:8px 0 0"><b>${esc(h.pastaende || "")}</b></p></div>
+    <div class="tw2"><table class="matris">
+      <tr><td style="text-align:left;width:28%"><b>Det de flesta tror</b></td><td style="text-align:left">${esc(h.konsensus || "–")}</td></tr>
+      <tr><td style="text-align:left"><b>Där de kan ha fel</b></td><td style="text-align:left">${esc(h.varfor_fel || "–")}</td></tr>
+      <tr><td style="text-align:left"><b>Mekanismen</b></td><td style="text-align:left">${esc(h.mekanism || "–")}</td></tr>
+      <tr><td style="text-align:left"><b>Utlösaren</b></td><td style="text-align:left">${esc(h.utlosare || "Ingen tydlig")}</td></tr>
+      <tr><td style="text-align:left"><b>Om vi har rätt</b></td><td style="text-align:left">${esc((h.asymmetri || {}).om_ratt || "–")}</td></tr>
+      <tr><td style="text-align:left"><b>Om vi har fel</b></td><td style="text-align:left">${esc((h.asymmetri || {}).om_fel || "–")}</td></tr></table></div>
+    <h3>Pusselbitarna</h3><ul>${(h.pussel || []).map(b => `<li>${esc(b.bit)}${niv(b.niva)} <span class="steps-lbl">${esc(b.kalla || "")} ${esc(b.datum || "")}</span></li>`).join("") || "<li>–</li>"}</ul>
+    <h3>Tidiga tecken att hålla utkik efter</h3><ul>${(h.tidiga_tecken || []).map(x => `<li>${x.sett ? "✅" : "⬜"} ${esc(x.tecken)}${x.sett ? ` <span class="steps-lbl">${esc(x.datum || "")} ${esc(x.kalla || "")}</span>` : ""}</li>`).join("") || "<li>–</li>"}</ul>
+    <h3>Det som skulle fälla hypotesen</h3><ul>${(h.faller_om || []).map(x => `<li>${esc(x)}</li>`).join("") || "<li>–</li>"}</ul>
+    ${(h.sannolikhet_historik || []).length ? `<h3>Så har vår sannolikhet ändrats</h3><ul>${h.sannolikhet_historik.map(s => `<li><span class="steps-lbl">${esc(s.datum)}</span> ${esc(s.varde)} %: ${esc(s.varfor || "")}</li>`).join("")}</ul>` : ""}`;
+}
 function vyTrend(slug){
   const v = $("#vy"); const t = [...(DATA.trender || []), ...(DATA.trendhistoria || [])].find(x => x.slug === slug);
   if (!t){ v.innerHTML = `<div class="empty">Trenden finns inte.</div>`; return; }
@@ -1383,6 +1415,7 @@ function vyTrend(slug){
     <h1>${esc(t.namn)} ${f ? `<span class="pill ${(UTFALL[f.utfall] || [0, "pav-neutral"])[1]}">${esc((UTFALL[f.utfall] || ["?"])[0])}</span>` : trendPill(t)}</h1>
     <p class="lede">${esc(t.fraga || "")}</p>
     ${t.i_en_mening ? `<p>${esc(t.i_en_mening)}</p>` : ""}
+    ${t.hypotes ? hypotesDetalj(t.hypotes) : ""}
     ${f ? `<div class="callout"><b>Hur det gick:</b> ${esc(f.sammanfattning || "")}<br><b>Vem tjänade pengarna:</b> ${esc(f.vem_tjanade || "")}<br><b>Lärdom:</b> ${esc(f.lardom || "")}${niv(f.niva)}</div>
       <h3>Signaler som syntes tidigt</h3>${lista(f.signaler_tidigt, s => `<li>${esc(s)}</li>`)}` : ""}
     <h3>Mätarna</h3><p class="steps-lbl">${trendSignalRad(t.signal)}</p>
