@@ -24,6 +24,7 @@ Två lägen:
 7. Spara `teman/<tema>.md` och lägg till de bästa bolagen som kandidater i `bevakning.md`. Länka till befintliga bolagsmappar.
 
 ## B. Leta nästa tema (`/tema` utan argument)
+Det breda letandet görs av skillen `trendspaning` (metod 21), som sparar allt i informationsbanken och skriver djärva hypoteser. Utan argument: gör en kort version av den, läs `trender/*.json` först så att du inte skriver om befintliga hypoteser, och spara fynden i banken med `trendbank.py --lagg-till`. Stegen nedan är den korta versionen.
 1. Sök efter fas 1–2-signaler från de senaste 6–12 månaderna:
    - nya budgetbeslut och program (EU, NATO, Sverige, USA)
    - tekniktrösklar som nyligen passerats

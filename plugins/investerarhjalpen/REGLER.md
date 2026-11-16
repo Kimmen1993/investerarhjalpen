@@ -26,6 +26,10 @@ Investerarhjälpen är ett research-verktyg för aktier. Varje användare har en
 - Varje bevakat bolag får **Fonder som äger bolaget** (`fondagare.json`), och fliken Fonder visar **fondsignaler**: hur alla svenska fonder ändrat sina innehav i de bevakade bolagen. In- och utflöden är borträknade.
 - Rekommendera aldrig en fond. Visa fakta och förklara för en nybörjare.
 
+## Facit (`verktyg/facit.py`)
+- Körs i morgonkollen. Sparar när verktyget sa vad om varje bolag (radar, triage, bevakning, kastat, fas, steg, trafikljus) i `facit/handelser.json`, som aldrig raderas, och räknar utfallet mot börsen i `facit/resultat.json`. Symboler som blivit fel rättas i `facit/symboler.json`.
+- Används för att justera poäng och regler efter verkligheten, inte efter magkänsla. Se översikten, avsnitt 6b.
+
 ## Trendradarn (metod 21, skillen `trendspaning`)
 - Följer stora skiften i **hela världen** under flera år och letar sedan upp bolag, helst svenska och nordiska, i båda spåren, även onoterade bolag och vägar in i dem.
 - `verktyg/trendmatare.py` mäter varje trend gratis (forskning, kliniska prövningar, Our World in Data och Wikipedia) och jämför med historiebiblioteket (`trendhistoria/` i tillägget, mätt i `trender/historia/`). **Adoption, kostnad och beslutade pengar väger tyngst.** Forskning och uppmärksamhet räcker aldrig ensamt.
@@ -104,6 +108,7 @@ Information är bara ett av fem övertag. Varje analys ska också använda **ana
 - **Morgonkoll varje vardag kl. 08.30** (schemalagd uppgift `investerarhjalpen-dagskoll`): skillen `/investerarhjalpen:dagskoll`. Den kör nyhetskollen och stannar direkt om inget har hänt. Annars sammanfattas varje nytt PM i `handelser.json`, rapporter gås igenom (nyckeltal och löften), trafikljuset uppdateras, sidan publiceras och en notis skickas. Den påminner också om rapporter samma dag.
 - **Djupdykning söndagar kl. 17** (schemalagd uppgift `investerarhjalpen-djupdykning`): skillen `/investerarhjalpen:djupdykning`. Den tar bolag som inte har djupdykts på 27 dagar eller mer, så varje bolag granskas ungefär en gång i månaden, högst 5 per söndag (bolagen är utspridda över fyra söndagar). Fast ordning i 10 steg, cirka 20–40 sökningar per bolag, och rapporten sparas i `bolag/<namn>/djupdykningar/`.
 - **Filer per bolag för sidans snabbvy:** `handelser.json` (händelser på klarspråk med påverkan), `nyckeltal.json` (kvartalssiffror; Börsdata kan senare fylla samma fil) och fälten `trafikljus` och `lage_mening` i `status.json`.
+- **Nytt sedan sist:** `verktyg/andringar.py` körs av `bygg_sida.py` och jämför varje bygge med det förra (`site/andringar.json`, 60 dagar).
 - **PDF:er:** `swift "$IH/verktyg/pdftext.swift" fil.pdf`, eller `swift "$IH/verktyg/ocr.swift" fil.pdf` om PDF:en är inskannad.
 
 ## Mappstruktur

@@ -2,6 +2,8 @@
 
 Ingen kan säkert förutse nästa AI-boom. Men stora skiften brukar ha **förvarningssignaler** som syns år innan de når förstasidan. Vi letar efter dem på ett systematiskt sätt och kräver samma bevisnivåer som för bolag.
 
+**Hur trender hittas och följs över flera år**, med djärva hypoteser, informationsbanken, cykeln och euforimätaren, står i metod 21 (Trendradarn). Den här metoden beskriver hur ett enskilt tema analyseras.
+
 ## 1. Vad driver ett stort skifte?
 Ett tema blir stort när flera av dessa sammanfaller:
 

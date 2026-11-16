@@ -1579,6 +1579,7 @@ function byggIndex(){
   (DATA.ordlista||[]).forEach(o => add("Begrepp", o.ord.join(" / "), o.def, null));
   (DATA.metod||[]).forEach(d => block(d.md).forEach(t => add("Metod", d.titel, t, "#metod")));
   (DATA.teman||[]).forEach(d => block(d.md).forEach(t => add("Tema", d.titel, t, "#teman")));
+  [...(DATA.trender||[]), ...(DATA.trendhistoria||[])].forEach(x => { const h = x.hypotes || {}; add(x.hypotes ? "Hypotes" : "Trend", x.namn, [x.fraga, x.i_en_mening, h.pastaende, h.varfor_fel, h.mekanism, (x.facit||{}).lardom, (x.bolag||[]).map(b => b.namn).join(" ")].filter(Boolean).join(" "), "#trend-" + x.slug); });
   block(DATA.journal).forEach(t => add("Journal", "Journalen", t, "#journal"));
   block((DATA.guide || "").replace("<!-- DETALJERAD -->", "")).forEach(t => add("Hjälp", "Så fungerar verktyget", t, "#hjalp"));
   return ix;
@@ -1651,7 +1652,7 @@ function bolagKort(b){
 }
 function chattRegler(){
   const b = aktuelltBolag();
-  return `Du är Claude, inbyggd i användarens privata researchsida "Investerarhjälpen" (svenska småbolag, turnarounds). Användaren är nybörjare på aktier och vill lära sig.
+  return `Du är Claude, inbyggd i användarens privata researchsida "Investerarhjälpen" (svenska småbolag och turnarounds, stabila kärnbolag, fonder och omvärlden: djärva hypoteser och trender som kan bli nästa stora sak). Användaren är nybörjare på aktier och vill lära sig.
 Regler:
 - Svara på svenska, i klarspråk. Börja med ett kort svar (2–4 meningar), lägg detaljer efter bara om de behövs. Förklara facktermer kort.
 - Utgå från sidans data. Använd verktygen sok och las för att hitta fakta, och säg vilken del av sidan svaret kommer från. Saknas något: säg det rakt ut. Du kan inte söka på internet; föreslå i så fall att användaren frågar Claude Code eller öppnar källan.
@@ -1676,6 +1677,8 @@ const LASBARA = ["panel","tes","kallor","logg","loften","kundregister","djup","s
 function las(bolag, dok){
   dok = String(dok||"").toLowerCase();
   if (dok === "journal") return (DATA.journal||"").slice(0, 14000);
+  if (dok === "trender") return JSON.stringify((DATA.trender||[]).map(x => ({namn: x.namn, status: x.status, fraga: x.fraga, hypotes: x.hypotes && {pastaende: x.hypotes.pastaende, sannolikhet: x.hypotes.sannolikhet, riktning: x.hypotes.riktning}, cykelfas: x.cykel && x.cykel.fas, bolag: (x.bolag||[]).map(b => b.namn)}))).slice(0, 14000);
+  if (dok.startsWith("trend:")){ const q = dok.slice(6); const x = [...(DATA.trender||[]), ...(DATA.trendhistoria||[])].find(y => y.slug === q || y.namn.toLowerCase().includes(q)); if (!x) throw new Error("Okänd trend. Finns: " + (DATA.trender||[]).map(y => y.namn).join(", ")); const {visning, ...resten} = x; return JSON.stringify(resten).slice(0, 14000); }
   if (dok === "fonder") return JSON.stringify((DATA.fonder||[]).map(f => ({namn: f.namn, typ: f.typ, avgift_pct: f.avgift, storlek_mdr: f.formogenhet_mdr, risk_std24: f.std24, aktiv_risk: f.aktiv_risk, topp10_pct: f.topp10_pct, kvartal: f.kvartal}))).slice(0, 14000);
   if (dok.startsWith("fond:")){ const q = dok.slice(5); const f = (DATA.fonder||[]).find(x => x.slug === q || x.namn.toLowerCase().includes(q)); if (!f) throw new Error("Okänd fond. Följda: " + (DATA.fonder||[]).map(x => x.namn).join(", ")); return JSON.stringify({...f, innehav: f.innehav.slice(0, 40)}).slice(0, 14000); }
   if (dok === "guide" || dok === "hjalp") return (DATA.guide||"").replace("<!-- DETALJERAD -->", "").slice(0, 14000);
@@ -1703,7 +1706,7 @@ const VERKTYG = [
   {name: "sok", description: "Fritextsökning i hela sidan: bolag, händelser, rapporter, pressmeddelanden, akterna (tes, källor, logg, löften, kunder, djupdykningar), lektioner, ordlista, metod, teman och journal. Returnerar upp till 12 träffar med typ, titel och utdrag.",
    inputSchema: {type:"object", properties:{fraga:{type:"string", description:"Sökord, gärna 1–3 ord"}}, required:["fraga"]},
    execute: ({fraga}) => sok(String(fraga||""), 12).map(r => ({typ:r.typ, titel:r.titel, utdrag:r.ut, lank: r.extern ? r.href : undefined}))},
-  {name: "las", description: "Läser ett helt dokument för ett bevakat bolag: panel (investerarpanelens kort), tes, kallor, logg, loften, kundregister, djup, status, handelser, nyckeltal, vardering, rapporter, pipeline, marknad, nyheter. Utan bolag: fonder (alla följda fonder i korthet), fond:<namn> (en fond i detalj), journal, guide (hur verktyget fungerar, tips och trix), lektion:<id> eller metod:<namn>. Returnerar text (max ca 14 000 tecken).",
+  {name: "las", description: "Läser ett helt dokument för ett bevakat bolag: panel (investerarpanelens kort), tes, kallor, logg, loften, kundregister, djup, status, handelser, nyckeltal, vardering, rapporter, pipeline, marknad, nyheter. Utan bolag: trender (alla djärva hypoteser och trender i korthet), trend:<namn> (en hypotes eller trend i detalj), fonder (alla följda fonder i korthet), fond:<namn> (en fond i detalj), journal, guide (hur verktyget fungerar, tips och trix), lektion:<id> eller metod:<namn>. Returnerar text (max ca 14 000 tecken).",
    inputSchema: {type:"object", properties:{bolag:{type:"string", description:"Bolagets namn, ticker eller slug (tomt för journal/lektion/metod)"}, dokument:{type:"string"}}, required:["dokument"]},
    execute: ({bolag, dokument}) => las(bolag, dokument)}
 ];

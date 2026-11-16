@@ -141,6 +141,15 @@ Läs mer: [Metod 19, Fonder: så räknar verktyget](#metod-19)
 
 ---
 
+## 6b. Facit: håller verktygets signaler?
+**Vad:** varje morgon sparar verktyget vad det har sagt om bolagen och när: kom in på radarn, fick minst 7 poäng, triagebeslut, började bevakas, kastades, nådde fas 1 eller fas 2, nytt turnaround-steg, rött eller grönt ljus. Kursen hämtas i efterhand från Yahoo, och varje händelse jämförs med Stockholmsbörsen (OMX Stockholm PI) under samma tid: efter 6 månader, 1, 2, 3 och 5 år, och hittills. Loggen raderas aldrig, så en vändning kan följas i många år. Noteringsdatumet sparas också, så att vi ser hur tidigt efter börsnoteringen bolagen hittades. En händelse räknas i sammanfattningen först när den är minst 3 månader gammal, och siffrorna blir pålitliga efter 1–2 år.
+
+Facit svarar på frågor som: lönar det sig att vänta på fas 2? Gick bolagen vi sorterade bort sämre än de vi behöll? Vilka radarsignaler ledde till något? Facit visas på sidan när det finns tillräckligt med data.
+
+**Kontrollera själv:** filen `facit/resultat.json` i din mapp visar varje händelse med kurs vid händelsen, kursen nu och jämförelsen med börsen.
+
+---
+
 ## 7. Min portfölj
 **Vad:** dina affärer från Avanza eller Handelsbanken (CSV- eller Excel-fil) räknas om till innehav, snittpris (GAV) och avkastning. Portföljen sparas privat per person och syns aldrig för andra, även om sidan delas. Varje innehav får en strategikoll: trafikljus, fas för vändningsbolag och spår för kärnbolag. Fördelningen visar hur stor del som ligger i Vändning och Kärna, och i Lynchs kategorier.
 

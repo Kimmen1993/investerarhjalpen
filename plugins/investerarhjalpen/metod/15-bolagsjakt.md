@@ -42,6 +42,10 @@ Signalerna summeras över 90 dagar, och nyare väger tyngre.
 
 **Steg 4, bolagsanalysen:** hela metoden med beslutet Bevaka, Avvakta eller Kasta (metod 07).
 
+**Märkningar på radarn:** bolag som har varit noterade i mindre än tre år märks **Nynoterat** (datum från Yahoo via Facit), eftersom strategin är att hitta bolag tidigt efter börsnoteringen. Bolag som finns i en hypotes eller trend i trendradarn (metod 21) får +2 och visar vilket tema de hör till. Under radarn finns också **Stora bolag i rörelse**: större, lönsamma bolag där en hypotes eller trend kan flytta hela bolaget. De bedöms med Kärna-linsen (metod 18), inte med redo-poängen.
+
+**Facit:** allt radarn och triagen säger sparas med datum och följs upp mot börsen i många år (översikten, avsnitt 6b). Poängen ska justeras när facit visar vilka signaler som faktiskt ledde till något.
+
 ## Redo-poäng: när är det läge att ta ställning?
 Att vara tidig betyder **att börja följa tidigt**, inte att köpa tidigt. Redo-poängen visar när riskerna har minskat medan uppsidan finns kvar. Varje punkt ger 0, 1 eller 2 poäng (max 20):
 1. **Turnaround-steg:** steg 3 och på väg mot 4. Milstolparna börjar uppfyllas.

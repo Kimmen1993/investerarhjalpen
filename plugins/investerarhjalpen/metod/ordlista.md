@@ -67,6 +67,7 @@ Orden här blir automatiskt klickbara förklaringar på webbsidan. Formatet ska 
 - **Spelplan / spelplanen:** en plan som skrivs innan man köper: när man kliver på, ökar och börjar kliva av.
 - **Prioritet:** summan av genomslag, tvång, tillväxtutrymme och tidighet (4–20). Visar vilka hypoteser som kan bli störst.
 - **Nynoterat / nynoterade:** ett bolag som har funnits på börsen i mindre än tre år.
+- **Facit:** verktygets egen uppföljning av vad det har sagt om bolagen och hur kursen har gått sedan dess, jämfört med börsen.
 - **Historiebiblioteket:** trender där vi vet hur det gick, som nya trender jämförs med.
 - **Onoterat bolag / onoterade bolag:** ett bolag som inte finns på börsen. Ibland går det att få del av det genom en noterad ägare eller partner.
 

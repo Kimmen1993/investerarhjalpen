@@ -1,6 +1,7 @@
 # Ändringar
 
 ## 2026-11-16 (enklare sida)
+- Metoderna, reglerna, guiden och skills är genomgångna efter de senaste ändringarna: Facit har fått ett eget avsnitt i översikten, radarns märkningar står i metod 15, och sökningen och "Fråga Claude" på sidan hittar hypoteser och trender.
 - **Färre flikar:** Läget nu, Omvärlden, Radar, Bolag, Fonder och Min portfölj. Resten finns under **Mer**.
 - **Läget nu** är en rad per bolag, med de som behöver din uppmärksamhet först (rött eller gult ljus, rapport inom en vecka eller en försvagande nyhet). Sidan är hälften så lång.
 - **Bolagssidan** är ordnad i tre nivåer: översikt, bevisen och fördjupning. Överst finns ett svar på **vad aktien kan vara värd**, sammanvägt, med uträkningarna som underlag längre ner.
