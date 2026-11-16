@@ -1,0 +1,38 @@
+{
+ "slug": "vatgasbilar",
+ "namn": "Vätgasbilar",
+ "fraga": "Blir vätgas det stora drivmedlet för personbilar?",
+ "jamfor_ar": [
+  2016,
+  2019,
+  2021
+ ],
+ "matare": [
+  {
+   "id": "forskning",
+   "typ": "kunskap",
+   "kalla": "openalex",
+   "fraga": "hydrogen fuel cell vehicle"
+  },
+  {
+   "id": "lasning",
+   "typ": "uppmarksamhet",
+   "kalla": "wikipedia",
+   "fraga": "Fuel_cell_vehicle"
+  }
+ ],
+ "facit": {
+  "utfall": "forlorare",
+  "sammanfattning": "Forskningen och uppmärksamheten växte, men försäljningen av vätgasbilar blev aldrig mer än en bråkdel av en procent.",
+  "signaler_tidigt": [
+   "Forskningen växte lika snabbt som för elbilar",
+   "Ingen adoption: nästan inga bilar såldes",
+   "Tankstationer saknades, och ingen ville bygga dem utan bilar"
+  ],
+  "vem_tjanade": "Få. Vätgasaktier steg kraftigt 2020–2021 och föll sedan med 80–95 %.",
+  "lardom": "Forskning och uppmärksamhet utan adoption är ett varningstecken. Kräv att folk faktiskt köper, eller att kostnaden faller mot en tydlig tröskel.",
+  "niva": "B",
+  "kalla": "Allmänt känt, källa läggs till vid första spaningen"
+ },
+ "status": "historisk"
+}

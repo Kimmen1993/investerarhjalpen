@@ -1,0 +1,48 @@
+{
+ "slug": "solenergi",
+ "namn": "Solenergi",
+ "fraga": "Blir solel billigast och vanlig i hela världen?",
+ "jamfor_ar": [
+  2012,
+  2016,
+  2020
+ ],
+ "matare": [
+  {
+   "id": "andel",
+   "typ": "adoption",
+   "kalla": "owid",
+   "fraga": "share-electricity-solar",
+   "entitet": "World",
+   "enhet": "% av elen"
+  },
+  {
+   "id": "kostnad",
+   "typ": "kostnad",
+   "kalla": "owid",
+   "fraga": "solar-pv-prices",
+   "entitet": "World",
+   "enhet": "USD per watt"
+  },
+  {
+   "id": "lasning",
+   "typ": "uppmarksamhet",
+   "kalla": "wikipedia",
+   "fraga": "Solar_power"
+  }
+ ],
+ "facit": {
+  "utfall": "ratt_trend_fel_bolag",
+  "sammanfattning": "Solpanelerna blev nästan tusen gånger billigare sedan 1975 och solel växer snabbast av alla elslag. Men panelpriserna föll så fort att många tillverkare gick i konkurs.",
+  "signaler_tidigt": [
+   "Kostnadskurvan föll år efter år",
+   "Kina byggde enorm kapacitet",
+   "Stöd i Tyskland och sedan i hela världen"
+  ],
+  "vem_tjanade": "Kunderna och de som installerar och äger anläggningarna, mer än panelfabrikerna.",
+  "lardom": "När kostnaden faller extremt snabbt vinner kunderna. Leta efter de som gynnas av billig solel, inte bara de som gör panelerna.",
+  "niva": "B",
+  "kalla": "Allmänt känt, källa läggs till vid första spaningen"
+ },
+ "status": "historisk"
+}

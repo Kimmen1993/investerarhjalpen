@@ -92,6 +92,20 @@ Läs mer: [Metod 20](#metod-20)
 
 ---
 
+## 3d. Trendradarn
+**Vad:** stora skiften i hela världen som vi följer under flera år, till exempel elflyg, drönare, robotar och fetmaläkemedel. Varje trend är en fråga som går att besvara om några år. Mätarna hämtas gratis varje vecka: adoption, kostnad, beslutade pengar, forskning och uppmärksamhet. Forskning och läsning räknas som andel av totalen. Trenden jämförs med ett **historiebibliotek** av vinnare (elbilar, upprustningen), förlorare (vätgasbilar, 3D-skrivare) och "rätt trend, fel bolag" (vind- och solkraft).
+- **Saknar hårda data** betyder att det ännu inte finns någon mätare för adoption, kostnad eller pengar. Då går trenden inte att bedöma, hur mycket det än forskas.
+- **Hypevarning** betyder att uppmärksamheten växer mycket snabbare än köpen, medan under 2 % av marknaden har tagit till sig det nya.
+- Första söndagen i månaden spanar Claude efter nya trender (högst 2 per månad) och ser över de gamla. Status ändras högst ett steg per månad.
+
+Trenderna finns under fliken Teman.
+
+**Kontrollera själv:** öppna en mätare och jämför med källan, till exempel elbilarnas andel hos Our World in Data.
+
+Läs mer: [Metod 21, Trendradarn](#metod-21)
+
+---
+
 ## 4. Investerarpanelen
 **Vad:** sex knappar på varje bolagssida visar bolaget med Buffetts, Lynchs, Fishers, Grahams, Terry Smiths och Blankarens glasögon. Varje investerare har en fast checklista, så att korten går att jämföra. Det är tolkningar av deras publicerade filosofi, inga citat. En blå prick betyder att rösten väger tyngst för bolagets spår. Panelen ändrar aldrig bedömningen.
 
@@ -150,5 +164,6 @@ Läs mer: [Metod 19, Fonder: så räknar verktyget](#metod-19)
 | [18](#metod-18) | Spår och investerarpanelen |
 | [19](#metod-19) | Fonder: så räknar verktyget |
 | [20](#metod-20) | Tesens pelare och jämförelsen med liknande bolag |
+| [21](#metod-21) | Trendradarn: stora skiften i världen |
 | [Ordlista](#metod-ordlista) | Alla förklarade ord |
 | [Min strategi](#metod-strategi) | Din egen strategi (personlig) |

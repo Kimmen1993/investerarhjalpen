@@ -160,6 +160,9 @@ Se över `okand_framtid` mot signalindexets trend. **Det viktigaste i rapporten 
 ## Veckoöversikten (varje söndag, före notisen)
 Kör `python3 -I "$IH/verktyg/kalender.py" --vecka`. Finns det händelser den kommande veckan: lägg till en kort rad i söndagens notis, till exempel `Veckan: tis Lime bokslut, ons Riksbanken, fre Gapwaves emission`. Har söndagen inget annat att rapportera, men veckan har händelser: skicka bara veckoraden som notis. Står det `[förhandsvisning saknas]` vid en rapport på måndag: skriv förhandsvisningen nu (skillen `dagskoll`, avsnitt 4c), så att den finns på morgonen.
 
+## Trendspaningen (första söndagen i månaden)
+Är det den första söndagen i månaden (dag 1–7): gör månadsspaningen enligt skillen `trendspaning` efter veckoöversikten, och lägg dess rad i samma notis. Andra söndagar: kör bara `python3 -I "$IH/verktyg/trendmatare.py"` (gratis) och nämn bara en eventuell hypevarning.
+
 ## Efteråt
 - Kör `python3 -I "$IH/verktyg/bygg_sida.py"` och publicera `site/index.html` till `sida_url` i `installningar.json`.
 - Skicka **en** PushNotification under 200 tecken, med veckoraden sist, till exempel: `Djupdykning klar: Unibap grönt, ny kundsignal från Leonardo. Mildef gult, svagare orderingång. Läs på sidan.`

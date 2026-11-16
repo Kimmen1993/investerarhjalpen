@@ -100,6 +100,9 @@ Var försiktig med långa kedjor av C. Flera gissningar efter varandra blir snab
 - **Fondsignaler:** längst ner under Fonder ser du hur fonderna har ändrat sina innehav i dina bevakade bolag. Fler fonder som köper ett småbolag kan vara en tidig signal, men det är bara en pusselbit.
 - Skriv `följ fonden <namn>`, `sluta följa <fond>` eller `jämför <fond> och <fond>`.
 
+## Trender
+Under **Teman** finns **Trendradarn**: stora skiften i världen som verktyget följer i flera år, till exempel elflyg, drönare och robotar. Varje trend är en fråga, och kurvorna visar hur forskning, köp och uppmärksamhet utvecklas. Står det **Saknar hårda data** kan trenden inte bedömas än. **Hypevarning** betyder att det pratas mer än det köps. Historiebiblioteket visar hur det gick för elbilar, vätgas, vindkraft och andra trender förut. Fråga gärna Claude: *"kommer elflyg att slå igenom?"*
+
 ## Min portfölj
 
 - **Läs in från banken:**

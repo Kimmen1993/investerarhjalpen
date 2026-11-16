@@ -1,0 +1,36 @@
+{
+ "slug": "3d-skrivare",
+ "namn": "3D-skrivare hemma (2013)",
+ "fraga": "Får varje hem en 3D-skrivare?",
+ "jamfor_ar": [
+  2013
+ ],
+ "matare": [
+  {
+   "id": "forskning",
+   "typ": "kunskap",
+   "kalla": "openalex",
+   "fraga": "3D printing"
+  },
+  {
+   "id": "lasning",
+   "typ": "uppmarksamhet",
+   "kalla": "wikipedia",
+   "fraga": "3D_printing"
+  }
+ ],
+ "facit": {
+  "utfall": "forlorare",
+  "sammanfattning": "Tekniken var verklig, men hemmamarknaden uteblev. De ledande bolagens aktier föll med omkring 80–90 % från toppen 2013–2014.",
+  "signaler_tidigt": [
+   "Enorm uppmärksamhet",
+   "Liten faktisk användning i hemmen",
+   "Värderingar som räknade med att alla skulle köpa"
+  ],
+  "vem_tjanade": "Industrin fick nytta av tekniken i nischer, men aktieägarna i de hypade bolagen förlorade.",
+  "lardom": "Hype utan adoption. Tekniken kan vara bra även om investeringstesen var fel.",
+  "niva": "B",
+  "kalla": "Allmänt känt, källa läggs till vid första spaningen"
+ },
+ "status": "historisk"
+}

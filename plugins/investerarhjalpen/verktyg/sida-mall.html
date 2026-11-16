@@ -321,6 +321,8 @@ details.fold>.nt>h2:first-child{display:none}
 .panel-knappar button.on .tyngd{background:var(--bg)}
 .panel-knappar button .pp{font:600 11px/1 var(--f-body);opacity:.75}
 .panel-kort{border:1px solid var(--line);border-radius:12px;padding:16px 18px;background:var(--sunk);margin-top:8px}
+.trendkort{border:1px solid var(--line);border-radius:12px;padding:14px 16px;background:var(--surface)}
+a.trendkort:hover{border-color:var(--accent)}
 .panel-kort h3{margin:0 0 4px;font:700 17px var(--f-display);display:flex;flex-wrap:wrap;gap:8px;align-items:center}
 .panel-kort .fraga{font-size:13px;color:var(--muted);margin:0 0 10px;font-style:italic}
 .panel-kort .dom{font-size:15.5px;margin:8px 0 12px;line-height:1.5}
@@ -1303,6 +1305,84 @@ function vyDocs(titel, lede, docs, oppna){
   if (oppna && mal) setTimeout(() => mal.scrollIntoView({block: "start"}), 0);
 }
 
+// --- trendradarn (metod 21) ---
+const TSTATUS = {kandidat:["Kandidat","pav-neutral"], foljs:["Följs","pav-blandat"], starks:["Stärks","pav-starker"], genombrott:["Genombrott","pav-starker"], mainstream:["Mainstream","pav-neutral"], avfardad:["Avfärdad","pav-forsvagar"], historisk:["Historia","pav-neutral"]};
+const UTFALL = {vinnare:["Vinnare","pav-starker"], forlorare:["Förlorare eller hype","pav-forsvagar"], ratt_trend_fel_bolag:["Rätt trend, fel bolag","pav-blandat"]};
+const SKURVA = {tidigt:"Tidigt (under 2 %)", genombrott:"Genombrott (2–10 %)", mainstream:"Mainstream (10–50 %)", mattnad:"Mättnad (över 50 %)"};
+const MTYP = {adoption:"Adoption", kostnad:"Kostnad", pengar:"Beslutade pengar", kunskap:"Kunskap", uppmarksamhet:"Uppmärksamhet", demografi:"Demografi"};
+const TROLL = {flaskhals:"Flaskhals", tillverkare:"Tillverkare", leverantor:"Leverantör", kund:"Kund", agare:"Ägare"};
+const procent = v => v == null ? "–" : (v > 0 ? "+" : "") + fmt(v, 0) + " %/år";
+function trendPill(t){ const s = TSTATUS[t.status] || [t.status || "?", "pav-neutral"]; return `<span class="pill ${s[1]}">${esc(s[0])}</span>`; }
+function trendSignalRad(s){
+  if (!s) return `<span class="steps-lbl">Inte mätt än</span>`;
+  const delar = [];
+  if (s.andel != null) delar.push(`<b>${esc(SKURVA[s.s_kurva] || "")}</b>: ${fmt(s.andel, 1)} % av marknaden`);
+  if (s.hard_tillvaxt != null) delar.push(`Hårda data ${procent(s.hard_tillvaxt)}`);
+  if (s.kunskap_tillvaxt != null) delar.push(`Kunskap ${procent(s.kunskap_tillvaxt)}`);
+  if (s.uppmarksamhet_tillvaxt != null) delar.push(`Uppmärksamhet ${procent(s.uppmarksamhet_tillvaxt)}`);
+  return delar.join(" · ") + (s.hypevarning ? ` <span class="pill pav-forsvagar">Hypevarning</span>` : "") + (s.saknar_hard_data ? ` <span class="pill pav-neutral" title="Ingen mätare för adoption, kostnad eller beslutade pengar än. Forskning och läsning räcker inte för att bedöma en trend.">Saknar hårda data</span>` : "");
+}
+function trendKort(t){
+  const bolag = (t.bolag || []).length;
+  const lik = ((t.signal || {}).liknar || [])[0];
+  return `<a class="trendkort" href="#trend-${esc(t.slug)}" style="display:block;text-decoration:none;color:inherit;margin-bottom:10px">
+    <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><b style="font-size:17px">${esc(t.namn)}</b>${trendPill(t)}</div>
+    <div style="margin:6px 0">${esc(t.fraga || "")}</div>
+    <div class="steps-lbl" style="line-height:1.6">${trendSignalRad(t.signal)}</div>
+    <div class="steps-lbl" style="margin-top:4px">${bolag ? `${bolag} bolag` : "Bolag fylls i vid spaningen"}${lik ? ` · liknar mest ${esc(lik.trend)} ${esc(lik.ar)}` : ""}${t.matt ? ` · mätt ${esc(t.matt)}` : ""}</div></a>`;
+}
+function trendSektion(){
+  const v = $("#vy"); const tr = DATA.trender || [], hi = DATA.trendhistoria || [];
+  if (!tr.length && !hi.length) return;
+  const ordning = ["genombrott", "starks", "foljs", "kandidat", "mainstream", "avfardad"];
+  const lista = [...tr].sort((a, b) => ordning.indexOf(a.status) - ordning.indexOf(b.status));
+  const sek = document.createElement("section");
+  sek.innerHTML = `<h2 style="margin-top:8px">Trendradarn</h2>
+    <p class="lede">Stora skiften i hela världen som vi följer under flera år, mätta med samma data varje månad. Verktyget samlar bevis; du tar ställning. <a href="#metod-21">Så fungerar trendradarn</a></p>
+    ${lista.map(trendKort).join("") || `<div class="empty">Inga trender än.</div>`}
+    ${hi.length ? `<h3 style="margin-top:22px">Historiebiblioteket: så såg det ut förut</h3>
+      <p class="lede">Trender där vi vet hur det gick. Nya trender jämförs med dem.</p>
+      ${hi.map(h => { const f = h.facit || {}; const u = UTFALL[f.utfall] || ["?", "pav-neutral"];
+        return `<a class="trendkort" href="#trend-${esc(h.slug)}" style="display:block;text-decoration:none;color:inherit;margin-bottom:8px"><div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><b>${esc(h.namn)}</b><span class="pill ${u[1]}">${esc(u[0])}</span></div><div class="steps-lbl" style="margin-top:4px">${esc(f.lardom || "")}</div></a>`; }).join("")}` : ""}
+    <h2 style="margin-top:26px">Temaanalyser</h2>`;
+  const lede = v.querySelector(".lede"); lede.after(sek);
+}
+function trendSerie(m){
+  if (!m.v || m.v.length < 2) return "";
+  const W = 300, H = 90, L = 4, R = 4, T = 10, B = 18;
+  const mx = Math.max(...m.v), mn = Math.min(0, ...m.v);
+  const x = i => L + i * (W - L - R) / (m.v.length - 1), y = v => T + (mx - v) / ((mx - mn) || 1) * (H - T - B);
+  const pts = m.v.map((v, i) => `${x(i)},${y(v)}`).join(" ");
+  const etikett = m.relativ ? (m.kalla === "openalex" ? "andel av all forskning" : "andel av all läsning på Wikipedia") : (m.enhet || "");
+  const sista = m.relativ ? "" : ` · senast ${fmt(m.v[m.v.length - 1], m.v[m.v.length - 1] < 10 ? 1 : 0)}`;
+  return `<div class="trendkort" style="padding:10px 12px"><div class="label">${esc(MTYP[m.typ] || m.typ)}</div><div style="font-weight:600;margin:2px 0">${esc(m.namn || m.fraga)}</div>
+    <svg viewBox="0 0 ${W} ${H}" style="width:100%;height:auto" role="img" aria-label="${esc(m.fraga)}"><polyline points="${pts}" fill="none" stroke="var(--accent)" stroke-width="2"></polyline>
+    <text class="ax-txt" x="${L}" y="${H - 4}">${esc(m.ar[0])}</text><text class="ax-txt" x="${W - R}" y="${H - 4}" text-anchor="end">${esc(m.ar[m.ar.length - 1])}</text></svg>
+    <div class="steps-lbl">${esc(etikett)}${sista} · källa: ${esc(m.kalla)}</div></div>`;
+}
+function vyTrend(slug){
+  const v = $("#vy"); const t = [...(DATA.trender || []), ...(DATA.trendhistoria || [])].find(x => x.slug === slug);
+  if (!t){ v.innerHTML = `<div class="empty">Trenden finns inte.</div>`; return; }
+  const f = t.facit, lista = (rader, fn) => rader && rader.length ? `<ul>${rader.map(fn).join("")}</ul>` : `<p class="steps-lbl">Fylls i vid spaningen.</p>`;
+  const niv = n => n ? ` <span class="chip chip-${n === "?" ? "Q" : esc(n)}">${esc(n)}</span>` : "";
+  v.innerHTML = `<p><a href="#teman">← Teman och trender</a></p>
+    <h1>${esc(t.namn)} ${f ? `<span class="pill ${(UTFALL[f.utfall] || [0, "pav-neutral"])[1]}">${esc((UTFALL[f.utfall] || ["?"])[0])}</span>` : trendPill(t)}</h1>
+    <p class="lede">${esc(t.fraga || "")}</p>
+    ${t.i_en_mening ? `<p>${esc(t.i_en_mening)}</p>` : ""}
+    ${f ? `<div class="callout"><b>Hur det gick:</b> ${esc(f.sammanfattning || "")}<br><b>Vem tjänade pengarna:</b> ${esc(f.vem_tjanade || "")}<br><b>Lärdom:</b> ${esc(f.lardom || "")}${niv(f.niva)}</div>
+      <h3>Signaler som syntes tidigt</h3>${lista(f.signaler_tidigt, s => `<li>${esc(s)}</li>`)}` : ""}
+    <h3>Mätarna</h3><p class="steps-lbl">${trendSignalRad(t.signal)}</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px">${(t.visning || []).map(trendSerie).join("") || `<div class="empty">Inga mätningar än.</div>`}</div>
+    ${!f && t.signal && (t.signal.liknar || []).length ? `<p class="steps-lbl" style="margin-top:8px">Liknar mest: ${t.signal.liknar.map(l => `<a href="#trend-${esc(l.slug)}">${esc(l.trend)} ${esc(l.ar)}</a> (${esc((UTFALL[l.utfall] || ["?"])[0])})`).join(", ")}. En grov jämförelse av siffrorna, inte en förutsägelse.</p>` : ""}
+    ${!f ? `<h3>Det som måste hända (trösklar)</h3>${lista(t.troskel, x => `<li><b>${esc(x.vad)}</b>. ${esc(x.varfor || "")} <span class="steps-lbl">Läge: ${esc(x.lage || "?")}</span></li>`)}
+    <h3>Drivkrafter</h3>${lista(t.drivkrafter, d => `<li>${esc(d.text)}${niv(d.niva)} <span class="steps-lbl">${esc(d.kalla || "")} ${esc(d.datum || "")}</span></li>`)}
+    <h3>Om det här händer, vad händer sedan?</h3>${lista(t.konsekvenser, k => `<li>Om ${esc(k.om)} → ${esc(k.da)}${niv(k.niva)}</li>`)}
+    <h3>Bolagen</h3>${(t.bolag || []).length ? `<div class="tw2"><table class="matris"><tr><th style="text-align:left">Bolag</th><th>Spår</th><th>Roll</th><th>Exponering</th><th style="text-align:left">Varför</th></tr>${t.bolag.map(b => `<tr><td style="text-align:left">${b.slug ? `<a href="#bolag-${esc(b.slug)}">${esc(b.namn)}</a>` : esc(b.namn)} <span class="steps-lbl">${esc(b.land || "")}</span></td><td>${b.noterat === false ? "Onoterat" : esc((SPAR[b.spar] || [b.spar || ""])[0])}</td><td>${esc(TROLL[b.roll] || b.roll || "")}</td><td>${esc(b.exponering || "")}</td><td style="text-align:left">${esc(b.varfor || "")}${b.vag_in ? `<br><span class="steps-lbl">Väg in: ${esc(b.vag_in)}</span>` : ""}${niv(b.niva)}</td></tr>`).join("")}</table></div>` : `<p class="steps-lbl">Fylls i vid spaningen när trenden följs.</p>`}
+    <h3>Det som talar emot</h3>${lista(t.motbevis, m => `<li>${esc(typeof m === "string" ? m : m.text)}</li>`)}
+    <h3>Logg</h3>${lista(t.logg, l => `<li><span class="steps-lbl">${esc(l.datum)}</span> ${esc(l.text)}</li>`)}` : ""}`;
+  gloss(v);
+}
+
 // --- skolan ---
 const LEK = (DATA && DATA.larande) || [];
 const KLARA_NYCKEL = "ih-klara-lektioner";
@@ -1587,7 +1667,7 @@ document.addEventListener("click", e => { if (e.target.id === "valkommen-stang")
 /*__PORTFOLJ__*/
 function route(){
   const h = (location.hash || "#lage").slice(1);
-  document.querySelectorAll("nav.main a").forEach(a => a.classList.toggle("on", h===a.dataset.v || (h.startsWith("bolag-") && a.dataset.v==="bevakning") || (h.startsWith("fond-") && a.dataset.v==="fonder") || (h.startsWith("metod-") && a.dataset.v==="metod") || (h.startsWith("skolan") && a.dataset.v==="skolan")));
+  document.querySelectorAll("nav.main a").forEach(a => a.classList.toggle("on", h===a.dataset.v || (h.startsWith("bolag-") && a.dataset.v==="bevakning") || (h.startsWith("fond-") && a.dataset.v==="fonder") || (h.startsWith("metod-") && a.dataset.v==="metod") || (h.startsWith("trend-") && a.dataset.v==="teman") || (h.startsWith("skolan") && a.dataset.v==="skolan")));
   if (h.startsWith("bolag-")) vyBolag(h.slice(6));
   else if (h === "lage") vyLage();
   else if (h === "hjalp") vyHjalp();
@@ -1601,7 +1681,8 @@ function route(){
   else if (h === "fonder") vyFonder();
   else if (h.startsWith("fond-")) vyFond(h.slice(5));
   else if (h === "journal") { const v = $("#vy"); v.innerHTML = `<h1>Journal</h1><p class="lede">Förutsägelser med sannolikhet som följs upp, och dina egna beslut. Det är så man tränar sitt omdöme.</p>`; const j = md(DATA.journal || "Ingen journal än."); gloss(j); v.appendChild(j); }
-  else if (h === "teman") vyDocs("Teman", "Temaanalyser och temaskanningar: drivkrafter, fas, värdekedja och bolag att undersöka.", DATA.teman);
+  else if (h === "teman"){ vyDocs("Teman och trender", "Stora skiften i världen och temaanalyser: drivkrafter, fas, värdekedja och bolag att undersöka.", DATA.teman); trendSektion(); }
+  else if (h.startsWith("trend-")) vyTrend(h.slice(6));
   else if (h === "kastade") { const v = $("#vy"); v.innerHTML = `<h1>Kastade bolag</h1><p class="lede">Analyserade och bortvalda bolag, med skäl. Sparas för att lära av besluten.</p>`; v.appendChild(md(DATA.kastade)); }
   else if (h === "metod" || h.startsWith("metod-")) { vyDocs("Metod", "Hur verktyget fungerar och vilka regler det följer. Börja med översikten högst upp. Den förklarar varje del kort och visar hur du själv kan kontrollera att det fungerar.", DATA.metod, h.slice(6) || null); if (h !== "metod") return; }
   else vyLage();

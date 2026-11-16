@@ -1,0 +1,46 @@
+{
+ "slug": "vindkraft",
+ "namn": "Vindkraft",
+ "fraga": "Blir vindkraft en stor del av världens elproduktion?",
+ "jamfor_ar": [
+  2010,
+  2015,
+  2020
+ ],
+ "matare": [
+  {
+   "id": "andel",
+   "typ": "adoption",
+   "kalla": "owid",
+   "fraga": "share-electricity-wind",
+   "entitet": "World",
+   "enhet": "% av elen"
+  },
+  {
+   "id": "forskning",
+   "typ": "kunskap",
+   "kalla": "openalex",
+   "fraga": "wind turbine"
+  },
+  {
+   "id": "lasning",
+   "typ": "uppmarksamhet",
+   "kalla": "wikipedia",
+   "fraga": "Wind_power"
+  }
+ ],
+ "facit": {
+  "utfall": "ratt_trend_fel_bolag",
+  "sammanfattning": "Andelen vindkraft växte stadigt, men flera av de största tillverkarna gick med förlust 2022–2023 och havsbaserade projekt skrevs ner.",
+  "signaler_tidigt": [
+   "Beslutade stöd och klimatmål",
+   "Kostnaden per kWh föll",
+   "Hård priskonkurrens mellan tillverkarna"
+  ],
+  "vem_tjanade": "Ofta ägare av färdiga parker med bra avtal och vissa underleverantörer, mer sällan turbintillverkarna.",
+  "lardom": "Tillväxt utan prissättningsmakt ger inga vinster. Leta efter flaskhalsen och den som kan ta betalt.",
+  "niva": "B",
+  "kalla": "Allmänt känt, källa läggs till vid första spaningen"
+ },
+ "status": "historisk"
+}

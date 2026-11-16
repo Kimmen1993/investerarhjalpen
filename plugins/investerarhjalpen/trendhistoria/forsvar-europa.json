@@ -1,0 +1,53 @@
+{
+ "slug": "forsvar-europa",
+ "namn": "Europeisk upprustning",
+ "fraga": "Höjer Europa försvarsutgifterna kraftigt under många år?",
+ "jamfor_ar": [
+  2019,
+  2022
+ ],
+ "matare": [
+  {
+   "id": "polen",
+   "typ": "pengar",
+   "kalla": "owid",
+   "fraga": "military-spending-as-a-share-of-gdp-sipri",
+   "entitet": "Poland",
+   "enhet": "% av BNP"
+  },
+  {
+   "id": "tyskland",
+   "typ": "pengar",
+   "kalla": "owid",
+   "fraga": "military-spending-as-a-share-of-gdp-sipri",
+   "entitet": "Germany",
+   "enhet": "% av BNP"
+  },
+  {
+   "id": "dronare",
+   "typ": "kunskap",
+   "kalla": "openalex",
+   "fraga": "drone warfare"
+  },
+  {
+   "id": "lasning",
+   "typ": "uppmarksamhet",
+   "kalla": "wikipedia",
+   "fraga": "Saab_AB"
+  }
+ ],
+ "facit": {
+  "utfall": "vinnare",
+  "sammanfattning": "Efter Rysslands fullskaliga invasion 2022 beslutade många europeiska länder om kraftigt höjda försvarsbudgetar. Försvarsbolag som redan hade produkter och kapacitet steg kraftigt.",
+  "signaler_tidigt": [
+   "Krim 2014 och NATO:s 2 %-mål",
+   "Länder nära Ryssland höjde budgetarna först",
+   "Beslutade budgetar är A-nivå"
+  ],
+  "vem_tjanade": "Bolag med färdiga produkter och fabriker, som Saab och Rheinmetall. Små försvarsbolag utan leveransförmåga gick betydligt sämre.",
+  "lardom": "Beslutade pengar plus geografisk närhet var den starkaste signalen. Bolag som redan kunde leverera gynnades först.",
+  "niva": "B",
+  "kalla": "Allmänt känt, källa läggs till vid första spaningen"
+ },
+ "status": "historisk"
+}

@@ -1,0 +1,52 @@
+{
+ "slug": "fetmalakemedel",
+ "namn": "Läkemedel mot fetma (GLP-1)",
+ "fraga": "Blir läkemedel mot fetma en av världens största läkemedelsgrupper?",
+ "jamfor_ar": [
+  2017,
+  2020,
+  2022
+ ],
+ "matare": [
+  {
+   "id": "forskning",
+   "typ": "kunskap",
+   "kalla": "openalex",
+   "fraga": "GLP-1 obesity"
+  },
+  {
+   "id": "provningar",
+   "typ": "kunskap",
+   "kalla": "kliniska",
+   "fraga": "obesity"
+  },
+  {
+   "id": "fetma_usa",
+   "typ": "demografi",
+   "kalla": "owid",
+   "fraga": "share-of-adults-defined-as-obese",
+   "entitet": "United States",
+   "enhet": "% av vuxna"
+  },
+  {
+   "id": "lasning",
+   "typ": "uppmarksamhet",
+   "kalla": "wikipedia",
+   "fraga": "Semaglutide"
+  }
+ ],
+ "facit": {
+  "utfall": "vinnare",
+  "sammanfattning": "Fetman i USA steg från 12 % till över 40 % på fyrtio år. Semaglutid (Wegovy) godkändes för fetma 2021, och efterfrågan blev större än tillverkningen.",
+  "signaler_tidigt": [
+   "Långsam och säker demografisk trend",
+   "Forskning och prövningar växte flera år före godkännandet",
+   "Studieresultat med kraftig viktminskning"
+  ],
+  "vem_tjanade": "Novo Nordisk och Eli Lilly, men ledningen skiftade. Novo Nordisks aktie föll kraftigt från toppen 2024 när konkurrensen ökade.",
+  "lardom": "Även vinnaren i en verklig trend kan förlora sitt försprång. Följ konkurrenternas studier lika noga som bolagets egna.",
+  "niva": "B",
+  "kalla": "Allmänt känt, källa läggs till vid första spaningen"
+ },
+ "status": "historisk"
+}

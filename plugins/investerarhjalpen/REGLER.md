@@ -26,6 +26,11 @@ Investerarhjälpen är ett research-verktyg för aktier. Varje användare har en
 - Varje bevakat bolag får **Fonder som äger bolaget** (`fondagare.json`), och fliken Fonder visar **fondsignaler**: hur alla svenska fonder ändrat sina innehav i de bevakade bolagen. In- och utflöden är borträknade.
 - Rekommendera aldrig en fond. Visa fakta och förklara för en nybörjare.
 
+## Trendradarn (metod 21, skillen `trendspaning`)
+- Följer stora skiften i **hela världen** under flera år och letar sedan upp bolag, helst svenska och nordiska, i båda spåren, även onoterade bolag och vägar in i dem.
+- `verktyg/trendmatare.py` mäter varje trend gratis (forskning, kliniska prövningar, Our World in Data och Wikipedia) och jämför med historiebiblioteket (`trendhistoria/` i tillägget, mätt i `trender/historia/`). **Adoption, kostnad och beslutade pengar väger tyngst.** Forskning och uppmärksamhet räcker aldrig ensamt.
+- Spaningen görs första söndagen i månaden. Trendernas status ändras högst ett steg per månad och alltid med motivering. Inga förutsägelser som om de vore säkra, och inga köp- eller säljråd.
+
 ## Bolagsjakt (metod 15)
 Tratten: signalradarn (`verktyg/signalradar.py`, hela börsen, varje morgon, gratis) → triage på söndagen (`/screening`, högst 5 bolag, `radar/triage.json`) → radar (passiv följning) → `/bolagsanalys` (ca 10–15 per år) → bevakning → **redo-poäng** (`redo` i `status.json`, 10 punkter, max 20). Målet är 3–5 riktigt bra case per år. **Att vara tidig betyder att följa tidigt, inte att köpa tidigt.**
 
@@ -128,6 +133,7 @@ Information är bara ett av fem övertag. Varje analys ska också använda **ana
 - `/investerarhjalpen:loftesrevision <bolag>` – följ upp 2–3 års löften från bolaget.
 - `/investerarhjalpen:tema [tema]` – analysera ett tema, eller leta efter nästa stora fokusområde.
 - `/investerarhjalpen:fond` (eller "följ fonden X", "sök fonder", "vilka fonder äger X?") – fondverktyget.
+- `/investerarhjalpen:trendspaning` (eller "kör trendspaningen", "kommer X att slå igenom?") – trendradarn: spana efter och följ stora skiften i världen.
 - `/investerarhjalpen:panel <bolag>` (eller "investerarpanelen för X", "hur skulle Buffett se på X?") – ta fram eller uppdatera investerarpanelen.
 
 När användaren klistrar in text (forum, X, LinkedIn, Copilot-svar): behandla den som **påståenden att kontrollera**, inte som fakta.

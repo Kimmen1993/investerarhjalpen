@@ -48,6 +48,18 @@ Orden här blir automatiskt klickbara förklaringar på webbsidan. Formatet ska 
 - **Basfrekvens:** hur ofta något brukar hända i liknande fall. Till exempel: hur många små rymdbolag når lönsamhet utan nya emissioner?
 - **Katalysator:** en händelse som kan få marknaden att ändra uppfattning om bolaget, till exempel en rapport eller en stor order.
 
+## Trender
+- **Trendradarn / trendradarn:** verktygets del som följer stora skiften i hela världen under flera år och letar bolag som kan gynnas.
+- **Adoption / adoptionen:** hur stor del av marknaden som redan använder det nya, till exempel hur stor andel av nya bilar som är elbilar.
+- **S-kurva / S-kurvan:** nya saker sprids först långsamt, sedan mycket snabbt och sedan långsamt igen. Kurvan över andelen ser ut som ett utdraget S.
+- **Genombrott / genombrottet:** när 2–10 % av marknaden har tagit till sig det nya. Det är bevisat men inte färdigt.
+- **Tröskel / trösklar:** det som måste hända innan en trend kan ta fart, till exempel att batterierna blir tillräckligt lätta.
+- **Hårda data:** siffror på vad folk faktiskt köper, betalar eller beslutar: adoption, kostnad och beslutade pengar. Väger tyngre än forskning och uppmärksamhet.
+- **Hypevarning / hype:** när uppmärksamheten växer mycket snabbare än köpen. Vätgasbilar och 3D-skrivare för hemmet är kända exempel.
+- **Konsekvenskedja / konsekvenskedjor:** "om det här händer, vad händer då?" i flera led. Vinsten finns ofta i andra eller tredje ledet.
+- **Historiebiblioteket:** trender där vi vet hur det gick, som nya trender jämförs med.
+- **Onoterat bolag / onoterade bolag:** ett bolag som inte finns på börsen. Ibland går det att få del av det genom en noterad ägare eller partner.
+
 ## Fonder
 - **Fond / fonden / fonder / fonderna:** en korg med många aktier eller räntepapper som en förvaltare köper åt alla som sparar i fonden. Du äger en liten del av hela korgen.
 - **Indexfond / indexfonder:** en fond som köper alla bolag i ett index, till exempel de 30 största i Sverige, i stället för att välja själv. Den är oftast billig och gör som marknaden.

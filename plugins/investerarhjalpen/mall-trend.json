@@ -1,0 +1,93 @@
+{
+ "namn": "…",
+ "fraga": "En fråga som går att besvara med ja eller nej om några år",
+ "i_en_mening": "…",
+ "status": "kandidat",
+ "fas": 1,
+ "upptackt": "ÅÅÅÅ-MM-DD",
+ "drivkrafter": [
+  {
+   "typ": "pengar|kostnad|flaskhals|regler|geopolitik|demografi|teknik",
+   "text": "…",
+   "niva": "A|B|C|?",
+   "kalla": "…",
+   "datum": "ÅÅÅÅ-MM-DD"
+  }
+ ],
+ "troskel": [
+  {
+   "vad": "…",
+   "varfor": "…",
+   "lage": "…"
+  }
+ ],
+ "matare": [
+  {
+   "id": "forskning",
+   "typ": "kunskap",
+   "kalla": "openalex",
+   "fraga": "sökord på engelska"
+  },
+  {
+   "id": "andel",
+   "typ": "adoption",
+   "kalla": "owid",
+   "fraga": "grafens-namn",
+   "entitet": "World",
+   "enhet": "%"
+  },
+  {
+   "id": "lasning",
+   "typ": "uppmarksamhet",
+   "kalla": "wikipedia",
+   "fraga": "Artikelns_namn"
+  },
+  {
+   "id": "egen",
+   "typ": "pengar",
+   "kalla": "manuell",
+   "fraga": "vad som mäts",
+   "enhet": "…"
+  }
+ ],
+ "serier": {
+  "egen": {
+   "kalla": "manuell",
+   "kalla_text": "källa för värdena",
+   "ar": {
+    "2024": 0
+   }
+  }
+ },
+ "konsekvenser": [
+  {
+   "om": "…",
+   "da": "…",
+   "niva": "C"
+  }
+ ],
+ "motbevis": [
+  "…"
+ ],
+ "bolag": [
+  {
+   "namn": "…",
+   "land": "SE",
+   "noterat": true,
+   "spar": "vandning|karna|onoterat",
+   "roll": "flaskhals|tillverkare|leverantor|kund|agare",
+   "exponering": "hog|medel|lag",
+   "varfor": "…",
+   "vag_in": null,
+   "niva": "A|B|C|?",
+   "kalla": "…",
+   "slug": null
+  }
+ ],
+ "logg": [
+  {
+   "datum": "ÅÅÅÅ-MM-DD",
+   "text": "…"
+  }
+ ]
+}

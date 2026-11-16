@@ -1,0 +1,46 @@
+{
+ "slug": "elbilar",
+ "namn": "Elbilar",
+ "fraga": "Tar elbilar över nybilsförsäljningen?",
+ "jamfor_ar": [
+  2016,
+  2018,
+  2020
+ ],
+ "matare": [
+  {
+   "id": "andel",
+   "typ": "adoption",
+   "kalla": "owid",
+   "fraga": "electric-car-sales-share",
+   "entitet": "World",
+   "enhet": "% av nya bilar"
+  },
+  {
+   "id": "forskning",
+   "typ": "kunskap",
+   "kalla": "openalex",
+   "fraga": "electric vehicle battery"
+  },
+  {
+   "id": "lasning",
+   "typ": "uppmarksamhet",
+   "kalla": "wikipedia",
+   "fraga": "Electric_car"
+  }
+ ],
+ "facit": {
+  "utfall": "vinnare",
+  "sammanfattning": "Andelen elbilar gick från under 1 % (2015) till över 20 % (2024). Batterikostnaden föll kraftigt samtidigt.",
+  "signaler_tidigt": [
+   "Batteripriserna föll år efter år",
+   "Kina och EU beslutade om stöd och utsläppskrav",
+   "Andelen passerade 2 % 2018 och sedan gick det fort"
+  ],
+  "vem_tjanade": "Främst batteritillverkare och några få biltillverkare. Många nya elbilsbolag som noterades 2020–2021 föll kraftigt, och svenska Northvolt gick i konkurs 2024.",
+  "lardom": "Rätt trend räcker inte. Vinsten hamnade hos de som hade skala och kostnadsfördel, inte hos alla som byggde elbilar eller batterier.",
+  "niva": "B",
+  "kalla": "Allmänt känt, källa läggs till vid första spaningen"
+ },
+ "status": "historisk"
+}

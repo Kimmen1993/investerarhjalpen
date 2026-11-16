@@ -17,6 +17,37 @@ import marknad  # noqa: E402  (marknadsmodell uppifrån + tratt, vägs ihop med 
 import andringar  # noqa: E402  (rutan "Nytt sedan sist")
 
 
+
+def trenddata():
+    """Trendradarn (metod 21): trenderna och historiebiblioteket, med mätarna som serier att rita."""
+    import trendmatare
+    mapp = ROT / "trender"
+    if not mapp.exists():
+        return [], []
+    bas = mapp / "_baslinje.json"
+    trendmatare.BAS.update(json.loads(bas.read_text(encoding="utf-8")) if bas.exists() else {})
+    sista = datetime.now().year - 1
+
+    def forbered(p):
+        t = json.loads(p.read_text(encoding="utf-8"))
+        t.setdefault("slug", p.stem)
+        visning = []
+        for m in t.get("matare", []):
+            s = trendmatare.relativ(m, trendmatare.fulla_ar(t.get("serier", {}).get(m["id"], {}).get("ar", {}), sista))
+            if s:
+                ar = sorted(s)
+                auto = {"openalex": f'Forskning: {m.get("fraga")}', "kliniska": f'Kliniska prövningar: {m.get("fraga")}',
+                        "wikipedia": f'Läsning: {str(m.get("fraga", "")).replace("_", " ")}',
+                        "owid": f'{m.get("fraga", "").replace("-", " ")} ({m.get("entitet", "World")})'}.get(m.get("kalla"), m.get("fraga"))
+                visning.append({"id": m["id"], "typ": m.get("typ"), "kalla": m.get("kalla"), "fraga": m.get("fraga"), "enhet": m.get("enhet"), "namn": m.get("namn") or auto,
+                                "relativ": m.get("kalla") in ("openalex", "wikipedia"), "ar": ar, "v": [s[a] for a in ar]})
+        t["visning"] = visning
+        t.pop("serier", None)
+        return t
+    trender = [forbered(p) for p in sorted(mapp.glob("*.json")) if not p.name.startswith("_")]
+    historia = [forbered(p) for p in sorted((mapp / "historia").glob("*.json"))]
+    return trender, historia
+
 def las(p):
     return p.read_text(encoding="utf-8") if p.exists() else ""
 
@@ -65,6 +96,7 @@ def main():
     bolag.sort(key=lambda b: (ordning.get(b["status"].get("beslut"), 3), -(b["status"].get("poang") or 0)))
 
     teman = [{"titel": titel_ur_md(las(p), p.stem), "md": las(p)} for p in sorted(ROT.glob("teman/*.md"), reverse=True)]
+    trender, trendhistoria = trenddata()
     metod = [{"titel": titel_ur_md(las(p), p.stem), "md": las(p), "id": p.stem.split("-")[0]} for p in sorted(VERKTYG.glob("metod/*.md"))]
     if (ROT / "min-strategi.md").exists():  # användarens egen strategi ligger i datamappen
         metod.append({"titel": titel_ur_md(las(ROT / "min-strategi.md"), "Min strategi"), "md": las(ROT / "min-strategi.md"), "id": "strategi"})
@@ -94,7 +126,7 @@ def main():
     if fondsignaler_borsen:
         fondsignaler_borsen.pop("signaler", None)
         fondsignaler_borsen["tabell"] = [r for r in fondsignaler_borsen.get("tabell", []) if r["typ"] == "fondkop"][:60] + [r for r in fondsignaler_borsen.get("tabell", []) if r["typ"] == "fondflykt"][:20]
-    data = {"byggd": datetime.now().strftime("%Y-%m-%d %H:%M"), "bolag": bolag, "teman": teman, "radar": radar, "fonder": fonder, "fondsignaler": fondsignaler, "fondregister": fondregister, "kalender_makro": (json.loads(las(ROT / "kalender.json") or "null") or {}).get("handelser", []), "andringar": logg[:250], "nyhetskoll_kord": nyhetskoll, "fondsignaler_borsen": fondsignaler_borsen,
+    data = {"byggd": datetime.now().strftime("%Y-%m-%d %H:%M"), "bolag": bolag, "teman": teman, "trender": trender, "trendhistoria": trendhistoria, "radar": radar, "fonder": fonder, "fondsignaler": fondsignaler, "fondregister": fondregister, "kalender_makro": (json.loads(las(ROT / "kalender.json") or "null") or {}).get("handelser", []), "andringar": logg[:250], "nyhetskoll_kord": nyhetskoll, "fondsignaler_borsen": fondsignaler_borsen,
             "metod": metod, "kastade": las(ROT / "kastade.md"), "ordlista": ordlista,
             "journal": las(ROT / "journal.md"),
             "guide": las(VERKTYG / "larande" / "guide.md"),

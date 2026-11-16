@@ -1,5 +1,12 @@
 # Ändringar
 
+## 2026-11-16 (trendradarn och facit)
+- **Trendradarn** under fliken Teman: stora skiften i hela världen som verktyget följer i flera år. Varje trend är en fråga, till exempel "Blir elflyg vanligt på korta sträckor?", med mätare som hämtas gratis varje vecka: adoption, kostnad, beslutade pengar, forskning och uppmärksamhet.
+- **Historiebiblioteket:** elbilar, vätgasbilar, vindkraft, solenergi, fetmaläkemedel, den europeiska upprustningen och 3D-skrivare, med vem som tjänade pengarna och lärdomen. Nya trender jämförs med dem.
+- Första söndagen i månaden spanar Claude efter nya trender och letar bolag i båda spåren, även onoterade bolag och vägar in i dem. Fråga också direkt: "kommer X att slå igenom?"
+- **Facit** sparar varje dag vad verktyget har sagt om bolagen, och mäter hur det gick mot börsen, utan slutdatum.
+- Ny metod 21.
+
 ## 2026-11-16 (granskning av instruktionerna)
 - **Bolagsanalysen fungerar nu för alla.** Den hänvisade till Kimms egen Unibap-mapp som mall. Nu finns tomma mallar i tillägget (`mall-bolag/`), och stegen står i rätt ordning, med spår, panel, pelare, jämförelse och kalender på plats. Hinner Claude inte allt blir det en startanalys, och söndagens djupdykning tar resten.
 - Morgonkollen kör fondskriptet före radarn, så att fondsignalerna kommer med samma dag.
