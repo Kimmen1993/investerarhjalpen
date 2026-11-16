@@ -1,5 +1,10 @@
 # Ändringar
 
+## 2026-11-16 (nytt sedan sist)
+- **Ny ruta överst på Läget nu: Nytt sedan sist.** Allt som har hänt sedan ditt förra besök, samlat per bolag: nyheter, ändrade trafikljus och beslut, nya rapporter, djupdykningar och panelkort. Där finns också nya bolag på radarn och triagebeslut. Dina egna innehav visas först, men bara för dig. Du kan välja de senaste 7 dagarna i stället.
+- Rutan visar när sidan senast uppdaterades och varnar om morgonkollen inte har hunnit uppdatera sidan.
+- Hjälpen förklarar hur notiserna når mobilen.
+
 ## 2026-11-14 (så fungerar verktyget)
 - **Ny översikt under Metod: Så fungerar verktyget.** Morgonkollen och trafikljusen, radarns poäng, spåren och redo-poängen, investerarpanelen, djupdykningen, fonderna och portföljen, med regler, gränser och "Kontrollera själv" för varje del.
 - **Ny metod 19, Fonder:** exakt hur fondsidorna, fondkollen och fondsignalerna räknas.

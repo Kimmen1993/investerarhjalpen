@@ -2,7 +2,7 @@
 
 **Vad gör verktyget?** Claude följer de bolag du väljer, läser deras rapporter och pressmeddelanden och skriver vad som hänt på enkel svenska. Målet är att hitta bra bolag tidigt med fakta, inte hype. Verktyget ger **aldrig** råd om att köpa eller sälja. Besluten är alltid dina.
 
-**Varje dag:** öppna **Läget nu**. Varje bolag har ett trafikljus:
+**Varje dag:** öppna **Läget nu**. Överst finns rutan **Nytt sedan sist**: allt som har hänt sedan ditt förra besök, samlat per bolag, med dina egna innehav först, och nya bolag på radarn. Där står också när sidan senast uppdaterades. Varje bolag har ett trafikljus:
 - 🟢 **Tesen håller**: det som talar för bolaget stämmer fortfarande.
 - 🟡 **Bevaka noga**: något behöver följas, läs senaste nytt.
 - 🔴 **Tesen skadad**: något viktigt har gått fel. Läs varför.
@@ -83,6 +83,7 @@ Var försiktig med långa kedjor av C. Flera gissningar efter varandra blir snab
 - **Söndagsgenomgången kl. 17:** bolagsjakt på hela börsen och en djupdykning i några bolag (standard: högst 5 per söndag, varje bolag ungefär en gång i månaden).
 - **Styr själv:** skriv till exempel `ta 2 extra på söndag`, `djupdyk i <bolag> på söndag` eller `ändra till 3 bolag per söndag`.
 - Datorn och Claude-appen behöver vara igång vid de tiderna. Annars körs det nästa gång appen är öppen.
+- **Notiser i mobilen:** installera Claude-appen i mobilen, logga in med samma konto och tillåt notiser. Slå sedan på *Remote Control* för nya sessioner i Claude-appen på datorn (fråga Claude: `slå på Remote Control`). Notiser skickas bara när du inte sitter vid datorn.
 
 ## Fonder
 

@@ -254,6 +254,22 @@ details.fold>summary .fs{font-size:13px;color:var(--muted)}
 details.fold>.nt{border:0;padding:0;margin:0 0 16px;background:none}
 details.fold>.nt>h2:first-child{display:none}
 .sek{scroll-margin-top:56px}
+/* nytt sedan sist */
+.nytt{background:var(--surface);border:1px solid var(--accent);border-radius:12px;padding:14px 18px;margin:12px 0 18px}
+.nytt-top{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:baseline;justify-content:space-between}
+.nytt-top h2{margin:0;font:700 18px var(--f-display)}
+.nytt-val{display:flex;gap:6px;flex-wrap:wrap}
+.nytt-val button{appearance:none;border:1px solid var(--line);background:var(--bg);color:var(--fg);border-radius:999px;font:600 12.5px var(--f-body);padding:5px 10px;cursor:pointer}
+.nytt-val button.on{background:var(--accent);border-color:var(--accent);color:var(--bg)}
+.nytt-grupp{border-top:1px solid var(--line);padding:10px 0 4px;margin-top:8px}
+.nytt-grupp:first-of-type{border-top:0}
+.nytt-bolag{display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center;margin-bottom:4px}
+.nytt-bolag a{font-weight:700;font-size:15px}
+.nytt-lista{list-style:none;margin:0;padding:0;display:grid;gap:4px}
+.nytt-lista li{display:grid;grid-template-columns:auto minmax(0,1fr);gap:8px;font-size:14px;line-height:1.45;align-items:baseline}
+.nytt-lista .t{font:12px var(--f-mono);color:var(--muted);white-space:nowrap}
+.agd{font:600 11px/1 var(--f-body);padding:4px 8px;border-radius:999px;background:var(--accent-weak);color:var(--accent)}
+.nytt-varning{background:var(--warn-bg);color:var(--warn);border-radius:8px;padding:8px 12px;margin:10px 0 0;font-size:13.5px}
 /* fonder */
 .fond-row{grid-template-columns:minmax(0,2.2fr) minmax(0,1fr) minmax(0,1fr) minmax(0,1.2fr)}
 @media (max-width:760px){.fond-row{grid-template-columns:1fr 1fr}}
@@ -800,12 +816,53 @@ function redoKort(s){
     <div class="tw2"><table class="matris"><tr><th style="text-align:left">Punkt</th><th>Poäng</th><th style="text-align:left">Varför</th></tr>
     ${r.punkter.map(x => `<tr><td style="text-align:left">${esc(x.namn)}</td><td>${"●".repeat(x.poang)}${"○".repeat(2-x.poang)}</td><td style="text-align:left">${esc(x.skal)}</td></tr>`).join("")}</table></div></section>`;
 }
+// --- nytt sedan sist ---
+const SEDD = "ih-senast-sedd";
+function forraBesok(){
+  try {
+    let s = sessionStorage.getItem("ih-forra-besok");
+    if (s === null){ s = localStorage.getItem(SEDD) || ""; sessionStorage.setItem("ih-forra-besok", s); localStorage.setItem(SEDD, DATA.byggd); }
+    return s;
+  } catch(e){ return ""; }
+}
+let NYTT_LAGE = "sist";
+const NYTT_TYP = {handelse:"", trafikljus:"🚦 ", beslut:"📌 ", rapport:"📄 ", djupdykning:"🔎 ", panel:"🎩 ", spar:"↔️ ", nytt_bolag:"✨ ", bort:"🗑️ ", radar:"📡 ", triage:"🧭 ", fonder:"📊 "};
+function tidKort(t){ const d = new Date(t.replace(" ", "T")); if (isNaN(d)) return t; const idag = new Date(); const igar = new Date(Date.now() - 864e5);
+  const hm = t.slice(11, 16); if (d.toDateString() === idag.toDateString()) return "i dag " + hm; if (d.toDateString() === igar.toDateString()) return "i går " + hm;
+  return d.toLocaleDateString("sv-SE", {weekday: "short", day: "numeric", month: "short"}) + (hm && hm !== "08:00" ? " " + hm : ""); }
+function nyttHtml(){
+  const alla = DATA.andringar || []; const forra = forraBesok();
+  const grans = NYTT_LAGE === "vecka" || !forra ? new Date(Date.now() - (NYTT_LAGE === "vecka" ? 7 : 3) * 864e5).toISOString().slice(0, 10) : forra;
+  const poster = alla.filter(x => NYTT_LAGE === "vecka" || !forra ? x.tid >= grans : x.tid > forra);
+  const mina = typeof minaBolag === "function" ? minaBolag() : null;
+  const agd = slug => !!(mina && mina.agda && mina.agda.has(slug));
+  // status för senaste körningen
+  const byggd = new Date(String(DATA.byggd).replace(" ", "T")); const timmar = (Date.now() - byggd) / 36e5; const vardag = d => d.getDay() > 0 && d.getDay() < 6;
+  const gammal = timmar > 26 && vardag(new Date()) && new Date().getHours() >= 10;
+  const kord = DATA.nyhetskoll_kord ? new Date(DATA.nyhetskoll_kord) : null;
+  const status = `<p class="steps-lbl" style="margin:4px 0 0">Sidan uppdaterades ${esc(tidKort(DATA.byggd))}${kord && !isNaN(kord) ? ` · nyhetskollen hämtade senast ${esc(tidKort(kord.toLocaleString("sv-SE").slice(0, 16)))}` : ""}${forra && NYTT_LAGE === "sist" ? ` · ditt förra besök: ${esc(tidKort(forra))}` : ""}</p>`;
+  const varning = gammal ? `<div class="nytt-varning">Sidan har inte uppdaterats sedan ${esc(tidKort(DATA.byggd))}. Morgonkollen kan ha stoppats. Öppna körningen i Claude-appen för att se vad som hände, eller skriv <i>kör morgonkollen</i>.</div>` : "";
+  const val = `<div class="nytt-val" role="group" aria-label="Visa">${[["sist", forra ? "Sedan förra besöket" : "Senaste 3 dagarna"], ["vecka", "Senaste 7 dagarna"]].map(([k, n]) => `<button type="button" data-nytt="${k}" class="${NYTT_LAGE === k ? "on" : ""}">${n}</button>`).join("")}</div>`;
+  if (!poster.length) return `<section class="nytt" id="nytt"><div class="nytt-top"><h2>Nytt sedan sist</h2>${val}</div><p style="margin:8px 0 0">Inget nytt${forra && NYTT_LAGE === "sist" ? " sedan ditt förra besök" : ""}.</p>${status}${varning}</section>`;
+  const perBolag = new Map(), radar = [], ovrigt = [];
+  for (const x of poster){ if (x.slug && DATA.bolag.some(b => b.slug === x.slug)) { if (!perBolag.has(x.slug)) perBolag.set(x.slug, []); perBolag.get(x.slug).push(x); } else if (x.typ === "radar" || x.typ === "triage") radar.push(x); else ovrigt.push(x); }
+  const vikt = arr => arr.some(x => x.typ === "trafikljus" || x.typ === "beslut") ? 3 : arr.some(x => x.paverkan && x.paverkan !== "neutral") ? 2 : 1;
+  const grupper = [...perBolag.entries()].sort((a, b) => (agd(b[0]) - agd(a[0])) || (vikt(b[1]) - vikt(a[1])) || b[1][0].tid.localeCompare(a[1][0].tid));
+  const rad = x => `<li><span class="t">${esc(tidKort(x.tid))}</span><span>${NYTT_TYP[x.typ] || ""}${x.lank ? `<a href="${esc(x.lank)}" target="_blank" rel="noopener">${esc(x.text)}</a>` : esc(x.text)}${x.paverkan && PAV[x.paverkan] ? " " + pav(x.paverkan) : ""}</span></li>`;
+  const bolagHtml = grupper.map(([slug, arr]) => { const b = DATA.bolag.find(y => y.slug === slug);
+    return `<div class="nytt-grupp"><div class="nytt-bolag"><a href="#bolag-${esc(slug)}">${esc(b.status.namn)}</a>${ljus(b.status)}${agd(slug) ? `<span class="agd">Ditt innehav</span>` : ""}<span class="steps-lbl">${arr.length} ${arr.length === 1 ? "nyhet" : "nyheter"}</span></div><ul class="nytt-lista">${arr.slice(0, 6).map(rad).join("")}</ul>${arr.length > 6 ? `<p class="steps-lbl"><a href="#bolag-${esc(slug)}">och ${arr.length - 6} till →</a></p>` : ""}</div>`; }).join("");
+  const radarHtml = radar.length ? `<div class="nytt-grupp"><div class="nytt-bolag"><a href="#radar">Radarn</a><span class="steps-lbl">bolag att kanske följa</span></div><ul class="nytt-lista">${radar.slice(0, 10).map(x => `<li><span class="t">${esc(tidKort(x.tid))}</span><span>${NYTT_TYP[x.typ]}<b>${esc(x.namn)}</b>: ${esc(x.text)}${x.paverkan && PAV[x.paverkan] ? " " + pav(x.paverkan) : ""}</span></li>`).join("")}</ul>${radar.length > 10 ? `<p class="steps-lbl"><a href="#radar">och ${radar.length - 10} till på radarn →</a></p>` : ""}</div>` : "";
+  const ovrigtHtml = ovrigt.length ? `<div class="nytt-grupp"><div class="nytt-bolag"><b>Övrigt</b></div><ul class="nytt-lista">${ovrigt.map(x => `<li><span class="t">${esc(tidKort(x.tid))}</span><span>${NYTT_TYP[x.typ] || ""}${x.namn ? `<b>${esc(x.namn)}</b>: ` : ""}${esc(x.text)}</span></li>`).join("")}</ul></div>` : "";
+  const sammanfatt = [perBolag.size ? `${perBolag.size} bevakade ${perBolag.size === 1 ? "bolag" : "bolag"} med nytt` : "", radar.length ? `${radar.length} på radarn` : ""].filter(Boolean).join(" · ");
+  return `<section class="nytt" id="nytt"><div class="nytt-top"><h2>Nytt sedan sist</h2>${val}</div><p class="steps-lbl" style="margin:4px 0 0">${sammanfatt}${mina && mina.agda && mina.agda.size ? ". Dina innehav visas först." : ""}</p>${bolagHtml}${radarHtml}${ovrigtHtml}${status}${varning}</section>`;
+}
+document.addEventListener("click", e => { const k = e.target.closest("[data-nytt]"); if (k){ NYTT_LAGE = k.dataset.nytt; const el = $("#nytt"); if (el){ el.outerHTML = nyttHtml(); gloss($("#nytt")); } } });
 function vyLage(){
   const bolag = filtreraBolag(DATA.bolag.filter(b => b.status.beslut !== "Kasta"));
   const vecka = new Date(Date.now() - 7*864e5).toISOString().slice(0,10);
   const nyaVecka = bolag.reduce((a, b) => a + (b.handelser||[]).filter(h => h.datum >= vecka).length, 0);
   const v = $("#vy");
-  v.innerHTML = `${valkomstHtml()}<h1>Läget nu</h1>${urvalHtml()}<p class="lede">${bolag.length} bolag · ${nyaVecka} ${nyaVecka === 1 ? "händelse" : "händelser"} de senaste 7 dagarna · uppdaterad ${esc(DATA.byggd)}</p>${veckansHtml()}<div class="list" id="lk"></div>`;
+  v.innerHTML = `${valkomstHtml()}<h1>Läget nu</h1>${nyttHtml()}${urvalHtml()}<p class="lede">${bolag.length} bolag · ${nyaVecka} ${nyaVecka === 1 ? "händelse" : "händelser"} de senaste 7 dagarna · uppdaterad ${esc(DATA.byggd)}</p>${veckansHtml()}<div class="list" id="lk"></div>`;
   const box = $("#lk");
   if (!bolag.length){ box.innerHTML = `<div class="empty">Inga bevakade bolag än. Skriv <b>analysera &lt;bolag&gt;</b> i Claude-appen för att lägga till ditt första. <a href="#hjalp">Så fungerar verktyget →</a></div>`; return; }
   for (const b of bolag){

@@ -22,7 +22,11 @@ Två saker gäller överallt:
 
 Rött ändrar aldrig beslutet automatiskt. Du får en notis och tar ställning själv.
 
-**Kontrollera själv:** öppna bolagets pressmeddelanden (knappen på bolagssidan) och se att de senaste finns under Senaste nytt med en rimlig förklaring.
+**Nytt sedan sist** (överst på Läget nu): varje gång sidan byggs jämförs den med förra bygget. Allt nytt sparas med tidpunkt: händelser, ändrade trafikljus och beslut, nya rapporter, djupdykningar och panelkort, nya bolag på radarn, triagebeslut och nya fonddata. Rutan visar det som har kommit sedan ditt förra besök. Webbläsaren kommer ihåg det, och första gången visas de senaste 3 dagarna. Du kan också välja de senaste 7 dagarna. Dina egna innehav visas först, men bara för dig. Har sidan inte uppdaterats på över ett dygn en vardag visas en gul varning.
+
+**Notis i mobilen:** kräver Claude-appen i mobilen, inloggad på samma konto, och att Remote Control är påslaget för nya sessioner i Claude-appen på datorn. Notisen skickas bara när du inte sitter vid datorn.
+
+**Kontrollera själv:** öppna bolagets pressmeddelanden (knappen på bolagssidan) och se att de senaste finns under Senaste nytt med en rimlig förklaring. Jämför tiden "Sidan uppdaterades" i rutan Nytt sedan sist med när morgonkollen kördes.
 
 ---
 

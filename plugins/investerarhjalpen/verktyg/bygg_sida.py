@@ -14,6 +14,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from rot import VERKTYG, DATA as ROT, verktygsversion  # noqa: E402  (ROT = användarens datamapp)
 import pipeline  # noqa: E402  (räknar prognosen ur mojligheter.json)
 import marknad  # noqa: E402  (marknadsmodell uppifrån + tratt, vägs ihop med pipelinen)
+import andringar  # noqa: E402  (rutan "Nytt sedan sist")
 
 
 def las(p):
@@ -58,7 +59,8 @@ def main():
                       "docs": {k: v for k, v in docs.items() if v}, "nyheter": nyheter,
                       "handelser": sorted(handelser, key=lambda h: h["datum"], reverse=True), "nyckeltal": nyckeltal,
                       "vardering": vardering, "kurs": kurs, "rapporter": rapporter, "mojligheter": mojligheter,
-                      "marknadsmodell": marknadsmodell, "panel": panel, "fondagare": fondagare})
+                      "marknadsmodell": marknadsmodell, "panel": panel, "fondagare": fondagare,
+                      "djup_datum": [d["datum"] for d in djup]})
     ordning = {"Bevaka": 0, "Avvakta": 1, "Kasta": 2}
     bolag.sort(key=lambda b: (ordning.get(b["status"].get("beslut"), 3), -(b["status"].get("poang") or 0)))
 
@@ -84,12 +86,15 @@ def main():
         fonder.append(fd)
     fonder.sort(key=lambda f: -(f.get("formogenhet_mdr") or 0))
     fondsignaler = json.loads(las(ROT / "fonder" / "fondsignaler.json") or "null")
+    triage = (json.loads(las(ROT / "radar" / "triage.json") or "null") or {}).get("bolag", {})
+    logg = andringar.uppdatera(ROT, bolag, radar, triage, (fondsignaler or {}).get("kvartal"))
+    nyhetskoll = (json.loads(las(ROT / "nyhetskoll-senaste.json") or "null") or {}).get("kord")
     fondregister = (json.loads(las(ROT / "fonder" / "fondregister.json") or "null") or {}).get("fonder", [])
     fondsignaler_borsen = json.loads(las(ROT / "radar" / "fondsignaler-borsen.json") or "null")
     if fondsignaler_borsen:
         fondsignaler_borsen.pop("signaler", None)
         fondsignaler_borsen["tabell"] = [r for r in fondsignaler_borsen.get("tabell", []) if r["typ"] == "fondkop"][:60] + [r for r in fondsignaler_borsen.get("tabell", []) if r["typ"] == "fondflykt"][:20]
-    data = {"byggd": datetime.now().strftime("%Y-%m-%d %H:%M"), "bolag": bolag, "teman": teman, "radar": radar, "fonder": fonder, "fondsignaler": fondsignaler, "fondregister": fondregister, "fondsignaler_borsen": fondsignaler_borsen,
+    data = {"byggd": datetime.now().strftime("%Y-%m-%d %H:%M"), "bolag": bolag, "teman": teman, "radar": radar, "fonder": fonder, "fondsignaler": fondsignaler, "fondregister": fondregister, "andringar": logg[:250], "nyhetskoll_kord": nyhetskoll, "fondsignaler_borsen": fondsignaler_borsen,
             "metod": metod, "kastade": las(ROT / "kastade.md"), "ordlista": ordlista,
             "journal": las(ROT / "journal.md"),
             "guide": las(VERKTYG / "larande" / "guide.md"),
