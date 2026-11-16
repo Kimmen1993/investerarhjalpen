@@ -24,5 +24,15 @@
 - **Varje bolag anger "Vad skulle få oss att lämna?"** under "Vad skulle fälla tesen?", så att det finns en plan även för det som inte går bra.
 - **Journalen** (`journal.md`) används för att följa upp träffsäkerheten över tid: hur många av fas 1-bolagen nådde fas 2?
 
+## Spelplan för teman: kliv på tidigt, kliv av innan toppen
+*Ett förslag. Ändra så att det stämmer med hur du själv vill göra.*
+| Steg | När | Vad verktyget gör |
+|---|---|---|
+| **Kliv på** | Temat är i fas 1–2 i cykeln (metod 21) och hypotesen har fått sina första tidiga tecken | Visar bolagen i båda spåren. En liten startposition kan vara aktuell enligt faserna ovan |
+| **Öka** | Hypotesen har blivit en trend som stärks, och bolaget når fas 1 eller fas 2 i sitt spår | Säger till när trenden och bolaget byter läge |
+| **Börja kliva av** | Temat når fas 4 (eufori), eller minst 3 av 7 euforitecken har synts | Varnar i notisen. Att sälja i steg och låta resten pysa ut är en möjlig plan |
+| **Lämna** | Det som fäller hypotesen har hänt, eller temat är i fas 5 | Varnar i notisen |
+| **Litet öga** | Mogna eller krympande marknader | Sparar observationer, men skriver sällan hypoteser |
+
 ## Påminnelse
 Inget av detta är rådgivning. Hur mycket som satsas, när och i vad är {NAMN}s beslut. Verktyget sammanställer fakta, signaler och lägen enligt strategin ovan.

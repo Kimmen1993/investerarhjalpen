@@ -24,6 +24,7 @@ Målet är **3–5 riktigt bra case per år**, hittade tidigt och följda tills 
 | Ny kunnig ägare | Riktad emission till en namngiven strategisk investerare eller industriell partner | +2 |
 | Ny vd eller ny styrelseordförande | | +1 |
 | **Fondköp** (en gång per kvartal) | Aktivt förvaltade svenska fonder köper in sig: 3 nya fondägare eller 5 fler köpare än säljare ger +3, 2 nya eller 3 fler köpare +2. +1 extra om högst 5 aktiva fonder ägde bolaget innan. Nynoterade bolag +2 | +2 till +4 |
+| **Tema** | Bolaget finns i en hypotes eller trend i trendradarn (metod 21). Räknas inte i bonusen för flera typer | +2 |
 | **Fonder lämnar** | 4 fonder säljer allt, eller 5 fler säljare än köpare | −2 |
 | **Negativa signaler** | Vinstvarning, företrädesemission med stor rabatt, rekonstruktion, insiders säljer | −3 |
 

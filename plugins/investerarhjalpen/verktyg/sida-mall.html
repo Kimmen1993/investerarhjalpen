@@ -808,19 +808,31 @@ function varderingPanel(b){
     ${v.kommentar ? `<p class="hint">${esc(v.kommentar)}</p>` : ""}
   </section>`;
 }
-const TYP = {genombrott:"Genombrott", partnerskap:"Partnerskap", ramavtal_order:"Order/avtal", ny_agare:"Ny ägare", ny_ledning:"Ny ledning", insiderkop:"Insiderköp", insidersalj:"Insidersälj", negativ:"Negativ", fondkop:"Fondköp", fondflykt:"Fonder lämnar"};
+const TYP = {genombrott:"Genombrott", partnerskap:"Partnerskap", ramavtal_order:"Order/avtal", ny_agare:"Ny ägare", ny_ledning:"Ny ledning", insiderkop:"Insiderköp", insidersalj:"Insidersälj", negativ:"Negativ", fondkop:"Fondköp", fondflykt:"Fonder lämnar", tema:"Tema"};
+const nynoterat = d => d && (Date.now() - new Date(d)) < 3 * 365.25 * 864e5;
 function vyRadar(){
   const r = DATA.radar, v = $("#vy");
   v.innerHTML = `<h1>Radar</h1><p class="lede">Bolag med tidiga signaler på hela den svenska börsen: första order, partnerskap, ramavtal, nya ägare, insiderköp och fondköp. Uppdateras automatiskt varje morgon (gratis). Varje söndag gör Claude en kort triage av de mest intressanta: följ, analysera eller ta bort. Alla poäng står i <a href="#metod-15">metod 15</a>.</p>`;
   if (!r || !r.bolag || !r.bolag.length){ v.innerHTML += `<div class="empty">Radarn har inte körts än.</div>`; return; }
   v.innerHTML += `<p class="hint">Uppdaterad ${esc(r.uppdaterad)} · ${r.bolag.length} bolag med minst 3 poäng (senaste 90 dagarna, nyare väger tyngre; flera olika typer av signaler ger bonus).</p>
   <div class="tw2"><table class="matris"><tr><th style="text-align:left">Bolag</th><th>Poäng</th><th>Signaler</th><th style="text-align:left">Senaste signalerna</th><th>Triage</th></tr>
-  ${r.bolag.map(b => `<tr><td style="text-align:left"><b>${esc(b.bolag)}</b></td><td><b>${fmt(b.poang,1)}</b></td>
+  ${r.bolag.map(b => `<tr><td style="text-align:left"><b>${esc(b.bolag)}</b>${nynoterat(b.noterad) ? ` <span class="pill pav-blandat" title="Noterat ${esc(b.noterad)}">Nynoterat ${esc(String(b.noterad).slice(0,4))}</span>` : ""}${(b.teman || []).length ? `<br><span class="steps-lbl">Tema: ${b.teman.map(n => { const tr = (DATA.trender || []).find(x => x.namn === n); return tr ? `<a href="#trend-${esc(tr.slug)}">${esc(n)}</a>` : esc(n); }).join(", ")}</span>` : ""}</td><td><b>${fmt(b.poang,1)}</b></td>
     <td>${b.typer.map(t => `<span class="pav ${t==="negativ"||t==="insidersalj"||t==="fondflykt" ? "pav-forsvagar" : t==="genombrott"||t==="partnerskap"||t==="fondkop" ? "pav-starker" : "pav-neutral"}" style="margin:2px">${esc(TYP[t]||t)}</span>`).join("")}</td>
     <td style="text-align:left;font-size:12.5px">${b.signaler.slice(0,3).map(s => `<div>${esc(s.datum)} <a href="${esc(s.lank)}" target="_blank" rel="noopener">${esc(s.titel.slice(0,90))}</a></div>`).join("")}</td>
     <td>${b.triage ? `<b>${esc(b.triage.beslut)}</b><br><span class="steps-lbl">${esc(b.triage.kommentar||"")}</span>` : `<span class="steps-lbl">Ej triagerad</span>`}</td></tr>`).join("")}</table></div>
+  ${storaIRorelseHtml()}
   ${fondsignalerBorsenHtml()}`;
   gloss(v);
+}
+function storaIRorelseHtml(){
+  // Del 3: större, lönsamma bolag som en hypotes eller trend kan flytta (metod 21). Bedöms med Kärna-linsen.
+  const rader = [];
+  (DATA.trender || []).filter(t => !["avfardad"].includes(t.status)).forEach(t => (t.bolag || []).filter(b => b.spar === "karna").forEach(b => rader.push({b, t})));
+  const cykel = t => t.cykel && t.cykel.fas ? `Fas ${esc(t.cykel.fas)}` : "–";
+  return `<section class="nt" style="margin-top:22px"><h2>Stora bolag i rörelse</h2>
+    <p class="hint" style="margin-top:0">Större, lönsamma bolag där en hypotes eller trend kan bli tillräckligt stor för att flytta hela bolaget. De bedöms med Kärna-linsen, inte som vändningar.</p>
+    ${rader.length ? `<div class="tw2"><table class="matris"><tr><th style="text-align:left">Bolag</th><th style="text-align:left">Hypotes eller trend</th><th>Cykel</th><th>Exponering</th><th style="text-align:left">Varför</th></tr>${rader.map(({b, t}) => `<tr><td style="text-align:left">${b.slug ? `<a href="#bolag-${esc(b.slug)}">${esc(b.namn)}</a>` : `<b>${esc(b.namn)}</b>`} <span class="steps-lbl">${esc(b.land || "")}</span></td><td style="text-align:left"><a href="#trend-${esc(t.slug)}">${esc(t.namn)}</a></td><td>${cykel(t)}</td><td>${esc(b.exponering || "")}</td><td style="text-align:left">${esc(b.varfor || "")}</td></tr>`).join("")}</table></div>` : `<div class="empty">Fylls i när spaningen hittar större bolag med stor exponering mot en hypotes eller trend.</div>`}
+  </section>`;
 }
 function fondsignalerBorsenHtml(){
   const f = DATA.fondsignaler_borsen; if (!f || !(f.tabell||[]).length) return "";
@@ -1326,10 +1338,17 @@ function trendKort(t){
   const bolag = (t.bolag || []).length;
   const lik = ((t.signal || {}).liknar || [])[0];
   return `<a class="trendkort" href="#trend-${esc(t.slug)}" style="display:block;text-decoration:none;color:inherit;margin-bottom:10px">
-    <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><b style="font-size:17px">${esc(t.namn)}</b>${trendPill(t)}</div>
+    <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><b style="font-size:17px">${esc(t.namn)}</b>${trendPill(t)}${cykelHtml(t)}</div>
     <div style="margin:6px 0">${esc(t.fraga || "")}</div>
     <div class="steps-lbl" style="line-height:1.6">${trendSignalRad(t.signal)}</div>
     <div class="steps-lbl" style="margin-top:4px">${bolag ? `${bolag} bolag` : "Bolag fylls i vid spaningen"}${lik ? ` · liknar mest ${esc(lik.trend)} ${esc(lik.ar)}` : ""}${t.matt ? ` · mätt ${esc(t.matt)}` : ""}</div></a>`;
+}
+const CYKEL = {1:"Tyst start", 2:"Proffsen upptäcker", 3:"Allmänheten kommer", 4:"Eufori", 5:"Luften går ur"};
+const prioritet = t => { const v = t.vikt || {}; const p = ["genomslag","tvang","tillvaxtutrymme","tidighet"].map(k => v[k]); return p.every(x => typeof x === "number") ? p.reduce((a, b) => a + b, 0) : null; };
+function cykelHtml(t){
+  const c = t.cykel; if (!c || !c.fas) return "";
+  const tt = c.euforitecken || []; const sett = tt.filter(x => x.sett).length;
+  return `<span class="pill ${c.fas >= 4 ? "pav-forsvagar" : c.fas === 3 ? "pav-blandat" : "pav-starker"}" title="${esc(c.motivering || "")}">Fas ${esc(c.fas)}: ${esc(CYKEL[c.fas] || "")}${tt.length ? ` · eufori ${sett}/${tt.length}` : ""}</span>`;
 }
 const RIKTNING = {mojlighet:["Möjlighet","pav-starker"], risk:["Risk: kan spricka","pav-forsvagar"]};
 function hypotesKort(t){
@@ -1337,7 +1356,7 @@ function hypotesKort(t){
   const tt = h.tidiga_tecken || []; const sett = tt.filter(x => x.sett).length;
   const avgjord = h.utfall ? ` <span class="pill ${h.utfall === "ratt" ? "pav-starker" : h.utfall === "fel" ? "pav-forsvagar" : "pav-blandat"}">${h.utfall === "ratt" ? "Rätt" : h.utfall === "fel" ? "Fel" : "Delvis rätt"}</span>` : "";
   return `<a class="trendkort" href="#trend-${esc(t.slug)}" style="display:block;text-decoration:none;color:inherit;margin-bottom:10px">
-    <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><b style="font-size:17px">${esc(t.namn)}</b><span class="pill ${r[1]}">${esc(r[0])}</span><span class="pill pav-neutral">Gissning · ${esc(h.sannolikhet ?? "?")} %</span>${avgjord}</div>
+    <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><b style="font-size:17px">${esc(t.namn)}</b><span class="pill ${r[1]}">${esc(r[0])}</span><span class="pill pav-neutral">Gissning · ${esc(h.sannolikhet ?? "?")} %</span>${prioritet(t) != null ? `<span class="pill pav-neutral" title="Genomslag, tvång, tillväxtutrymme och tidighet, 1–5 var">Prioritet ${prioritet(t)}/20</span>` : ""}${cykelHtml(t)}${avgjord}</div>
     <div style="margin:6px 0">${esc(h.pastaende || t.fraga || "")}</div>
     ${h.varfor_fel ? `<div class="steps-lbl" style="line-height:1.5"><b>Där de flesta kan ha fel:</b> ${esc(h.varfor_fel)}</div>` : ""}
     <div class="steps-lbl" style="margin-top:4px">Tidiga tecken: ${sett} av ${tt.length} har synts${h.utlosare ? ` · utlösare: ${esc(h.utlosare)}` : ""}${h.horisont ? ` · horisont ${esc(h.horisont)}` : ""}</div></a>`;
@@ -1347,7 +1366,7 @@ function trendSektion(){
   if (!tr.length && !hi.length) return;
   const ordning = ["genombrott", "starks", "foljs", "mainstream"];
   const synliga = tr.filter(t => ordning.includes(t.status)).sort((a, b) => ordning.indexOf(a.status) - ordning.indexOf(b.status));
-  const hypoteser = tr.filter(t => t.status === "hypotes" || (t.hypotes && t.status === "avfardad")).sort((a, b) => (b.hypotes.sannolikhet || 0) - (a.hypotes.sannolikhet || 0));
+  const hypoteser = tr.filter(t => t.status === "hypotes" || (t.hypotes && t.status === "avfardad")).sort((a, b) => ((prioritet(b) || 0) - (prioritet(a) || 0)) || ((b.hypotes.sannolikhet || 0) - (a.hypotes.sannolikhet || 0)));
   const bakgrund = tr.filter(t => !ordning.includes(t.status) && !hypoteser.includes(t));
   const facit = (bank && bank.kallfacit) || [];
   const fler = (bank && bank.kandidater) || [];
@@ -1416,7 +1435,10 @@ function vyTrend(slug){
     <p class="lede">${esc(t.fraga || "")}</p>
     ${t.i_en_mening ? `<p>${esc(t.i_en_mening)}</p>` : ""}
     ${t.hypotes ? hypotesDetalj(t.hypotes) : ""}
-    ${f ? `<div class="callout"><b>Hur det gick:</b> ${esc(f.sammanfattning || "")}<br><b>Vem tjänade pengarna:</b> ${esc(f.vem_tjanade || "")}<br><b>Lärdom:</b> ${esc(f.lardom || "")}${niv(f.niva)}</div>
+    ${t.vikt ? `<h3>Vikten: hur stort kan det bli?</h3><div class="tw2"><table class="matris"><tr>${[["genomslag","Genomslag"],["tvang","Tvång"],["tillvaxtutrymme","Tillväxtutrymme"],["tidighet","Tidighet"]].map(([k, n]) => `<th>${n}</th>`).join("")}<th>Prioritet</th></tr><tr>${["genomslag","tvang","tillvaxtutrymme","tidighet"].map(k => `<td>${esc(t.vikt[k] ?? "–")} / 5</td>`).join("")}<td><b>${prioritet(t) ?? "–"} / 20</b></td></tr></table></div>${t.vikt.motivering ? `<p class="steps-lbl">${esc(t.vikt.motivering)}</p>` : ""}` : ""}
+    ${t.cykel ? `<h3>Cykeln: ${esc(CYKEL[t.cykel.fas] || "")} ${cykelHtml(t)}</h3>${t.cykel.motivering ? `<p>${esc(t.cykel.motivering)}</p>` : ""}<p class="steps-lbl">Euforimätaren: tecken på att toppen närmar sig (metod 21, avsnitt B).</p><ul>${(t.cykel.euforitecken || []).map(x => `<li>${x.sett ? "⚠️" : "⬜"} ${esc(x.tecken)}${x.sett ? ` <span class="steps-lbl">${esc(x.datum || "")} ${esc(x.kalla || "")}</span>` : ""}</li>`).join("")}</ul>` : ""}
+    ${f ? `<div class="callout"><b>Hur det gick:</b> ${esc(f.sammanfattning || "")}<br><b>Vem tjänade pengarna:</b> ${esc(f.vem_tjanade || "")}<br><b>Lärdom:</b> ${esc(f.lardom || "")}${niv(f.niva)}${f.toppen ? `<br><b>Toppen:</b> ${esc(f.toppen)}` : ""}</div>
+      ${(f.euforitecken_vid_toppen || []).length ? `<h3>Euforitecken vid toppen</h3><ul>${f.euforitecken_vid_toppen.map(s => `<li>${esc(s)}</li>`).join("")}</ul>` : ""}
       <h3>Signaler som syntes tidigt</h3>${lista(f.signaler_tidigt, s => `<li>${esc(s)}</li>`)}` : ""}
     <h3>Mätarna</h3><p class="steps-lbl">${trendSignalRad(t.signal)}</p>
     <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px">${(t.visning || []).map(trendSerie).join("") || `<div class="empty">Inga mätningar än.</div>`}</div>

@@ -62,6 +62,11 @@ Orden här blir automatiskt klickbara förklaringar på webbsidan. Formatet ska 
 - **Asymmetri:** när det man kan vinna om man har rätt är mycket större än det man förlorar om man har fel.
 - **Utlösare / utlösaren:** en händelse eller ett datum som tvingar fram en förändring, till exempel att räntan på lån räknas om.
 - **Tidiga tecken:** det som borde synas först om en hypotes stämmer.
+- **Cykel / cykeln:** de fem faserna som de flesta stora teman går igenom: tyst start, proffsen upptäcker, allmänheten kommer, eufori och luften går ur.
+- **Eufori / euforimätaren:** fasen när alla vill in och värderingarna räknar med att allt går perfekt. Euforimätaren är sju tecken på att toppen närmar sig.
+- **Spelplan / spelplanen:** en plan som skrivs innan man köper: när man kliver på, ökar och börjar kliva av.
+- **Prioritet:** summan av genomslag, tvång, tillväxtutrymme och tidighet (4–20). Visar vilka hypoteser som kan bli störst.
+- **Nynoterat / nynoterade:** ett bolag som har funnits på börsen i mindre än tre år.
 - **Historiebiblioteket:** trender där vi vet hur det gick, som nya trender jämförs med.
 - **Onoterat bolag / onoterade bolag:** ett bolag som inte finns på börsen. Ibland går det att få del av det genom en noterad ägare eller partner.
 

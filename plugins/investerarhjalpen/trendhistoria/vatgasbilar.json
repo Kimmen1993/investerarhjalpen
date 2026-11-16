@@ -32,7 +32,13 @@
   "vem_tjanade": "Få. Vätgasaktier steg kraftigt 2020–2021 och föll sedan med 80–95 %.",
   "lardom": "Forskning och uppmärksamhet utan adoption är ett varningstecken. Kräv att folk faktiskt köper, eller att kostnaden faller mot en tydlig tröskel.",
   "niva": "B",
-  "kalla": "Allmänt känt, källa läggs till vid första spaningen"
+  "kalla": "Allmänt känt, källa läggs till vid första spaningen",
+  "toppen": "Vätgasaktierna toppade kring årsskiftet 2020/2021 och föll sedan med 80–95 %.",
+  "euforitecken_vid_toppen": [
+   "Värderingar som räknade med en marknad som inte fanns än",
+   "Nya temafonder för vätgas och ren energi",
+   "Kurserna steg på samarbetsavtal och avsiktsförklaringar"
+  ]
  },
  "status": "historisk"
 }

@@ -131,5 +131,60 @@
   ],
   "utfall": null,
   "avgjord": null
+ },
+ "vikt": {
+  "genomslag": 3,
+  "tvang": 3,
+  "tillvaxtutrymme": 3,
+  "tidighet": 3,
+  "motivering": "En mening per punkt: varför just den siffran"
+ },
+ "cykel": {
+  "fas": 1,
+  "motivering": "…",
+  "euforitecken": [
+   {
+    "tecken": "Värderingarna ligger långt över sin egen historik och över liknande bolag",
+    "sett": false,
+    "datum": null,
+    "kalla": null
+   },
+   {
+    "tecken": "En våg av nynoteringar och emissioner inom temat",
+    "sett": false,
+    "datum": null,
+    "kalla": null
+   },
+   {
+    "tecken": "Nya temafonder och börshandlade fonder lanseras",
+    "sett": false,
+    "datum": null,
+    "kalla": null
+   },
+   {
+    "tecken": "Allmänheten läser och söker om temat i stor skala",
+    "sett": false,
+    "datum": null,
+    "kalla": null
+   },
+   {
+    "tecken": "Bolag byter namn eller strategi för att passa in i temat",
+    "sett": false,
+    "datum": null,
+    "kalla": null
+   },
+   {
+    "tecken": "Insiders säljer i kluster, och bolagen tar in pengar medan kursen är hög",
+    "sett": false,
+    "datum": null,
+    "kalla": null
+   },
+   {
+    "tecken": "Kurserna stiger på nyheter som egentligen inte ändrar något",
+    "sett": false,
+    "datum": null,
+    "kalla": null
+   }
+  ]
  }
 }

@@ -113,6 +113,16 @@ def main():
         ordlista.append({"ord": alias, "def": forklaring, "rubrik": alias[0]})
 
     radar = json.loads(las(ROT / "radar" / "radar.json") or "null")
+    # Noteringsdatum från facit (Yahoo), så att nynoterade bolag kan märkas på radarn
+    fr = ROT / "facit" / "resultat.json"
+    if radar and fr.exists():
+        from signalradar import normalisera
+        noterad = {}
+        for h in json.loads(fr.read_text(encoding="utf-8")).get("handelser", []):
+            if (h.get("utfall") or {}).get("noterad"):
+                noterad[normalisera(h.get("namn") or "")] = h["utfall"]["noterad"]
+        for b in radar.get("bolag", []):
+            b["noterad"] = noterad.get(normalisera(b["bolag"]))
     fonder = []
     for f in sorted(ROT.glob("fonder/*/fond.json")):
         fd = json.loads(las(f))

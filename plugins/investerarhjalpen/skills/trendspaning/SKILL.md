@@ -24,7 +24,7 @@ Kör från datamappen:
 - `python3 -I "$IH/verktyg/trendbank.py"`: banken. Den listar områden utan observationer, **tidsplaner som har passerat** och **möjliga nya trender** (ämnen som återkommer utan att höra till någon trend).
 
 ## 2. Svep brett över alla 16 områden och spara i banken
-Gå igenom **alla** områden i `DOMANER` i `trendbank.py`, inte bara de som användaren har nämnt eller som redan har trender. Cirka 1–2 sökningar per område, högst ca 30 totalt. Börja med områden som har få observationer. Sök på engelska och i hela världen.
+Gå igenom **alla** områden i `DOMANER` i `trendbank.py`, inte bara de som användaren har nämnt eller som redan har trender. Listan är ett golv, inte ett tak: passar något inte in, spara det under det närmaste området och ge det bra taggar. Cirka 1–2 sökningar per område, högst ca 30 totalt. Börja med områden som har få observationer. Sök på engelska och i hela världen.
 
 Leta efter **det som rör sig men inte står på förstasidorna**, främst:
 - **beslut och pengar:** budgetar, program, upphandlingar och storbolagens investeringsplaner (A-nivå)
@@ -44,18 +44,25 @@ Skriv observationerna som en JSON-lista i en fil i scratchpad och kör `python3 
 För varje rad "Följ upp" i utskriften: sök kort efter vad som hände och spara en uppföljning (försening med nytt datum, klar eller struken). Släpp aldrig en tidsplan bara för att den är sen.
 
 ## 2c. Pussla fram djärva hypoteser (det viktigaste steget)
-När något syns i statistiken är det ofta redan i priset. Här får du gissa och pussla, enligt avsnitt A i metod 21. Ställ frågorna för hela svepet, inte bara för befintliga trender:
-- **Vad tror alla i dag, och var kan de ha fel?**
-- **Vad är skört?** Hög belåning, priser som inte går att motivera, villkor som ändras vid ett visst datum, beroende av en enda leverantör eller ett enda land.
-- **Vad säger berättelsen, och vad säger siffrorna?** Leta efter glapp.
-- **Andra och tredje ledet:** om något i banken händer, vem behöver vad sedan?
-- **Vad tittar ingen på?** Tråkiga områden och källor som få läser.
+Användarens strategi är att **kliva på tidigt, följa med uppåt och kliva av innan toppen** (metod 21, avsnitt A–C, och spelplanen i `min-strategi.md`). När något syns i statistiken är det ofta redan i priset. Här ska du ta in mycket, lägga pussel om världen och våga gissa, i **vilken bransch som helst**. Lås dig inte vid hård data, och inte vid exempel som användaren har nämnt.
 
-**Läs 2–3 tunga källor på riktigt varje månad**, sådant som få orkar läsa: en budgetproposition med bilagor, ett upphandlingsunderlag, en centralbanks stabilitetsrapport, fotnoterna i en stor årsredovisning, tull- och handelsstatistik eller ett register över patent, frekvenser eller kliniska prövningar. Spara fynden i banken.
+Leta efter **ingredienserna** till något som kan växa kraftigt:
+- dit forskare, ingenjörer, nya bolag och riskkapital flyttar
+- en kostnad eller teknik som närmar sig en tröskel, ett nytt sätt att utvinna eller använda något
+- **stora problem som måste lösas**, särskilt i stora länder som Kina, Indien och USA, eller i hela världen
+- regler, budgetar och kriser som öppnar ett fönster
+- små bolag som får sina första riktiga kunder
+- andra och tredje ledet: om något händer, vem behöver vad sedan?
+- tråkiga områden och källor som få läser (läs 2–3 sådana på riktigt varje månad)
 
-Skriv **1–3 nya hypoteser** i månaden som egna filer `trender/<hypotes>.json` med `"status": "hypotes"` och blocket `hypotes` enligt `$IH/mall-trend.json`. Varje hypotes måste ha mekanism, var konsensus kan ha fel, pusselbitar med källor och nivåer, **tidiga tecken**, **vad som fäller den** och **en sannolikhet i procent**. Våga gissa, men visa hur du tänkt. Både möjligheter och risker (något som kan spricka) räknas. En risk-hypotes ska också säga vem som kan gynnas och vilka bevakade bolag som kan drabbas.
+**Vikta efter genomslag.** Ge varje hypotes `vikt` med genomslag, tvång, tillväxtutrymme och tidighet, 1–5 var, och en motivering. Ett krav från ett litet land väger lite. En kris i Kina eller Indien som måste lösas väger mycket. **Mogna eller krympande marknader** (tillväxtutrymme 1–2) får bara ett litet öga: spara observationerna i banken, men skriv sällan hypoteser om dem.
 
-**Varje månad, för befintliga hypoteser:** kontrollera de tidiga tecknen (`sett`, `datum`, `kalla`) och ändra sannolikheten med motivering i `sannolikhet_historik`. När hälften av tecknen har synts: byt status till `kandidat` och lägg till mätare. När något i `faller_om` har inträffat, eller tiden har gått ut: sätt `utfall` (`ratt`, `fel` eller `delvis`), `avgjord` och status `avfardad` med lärdomen i `logg`. Radera aldrig en hypotes.
+Skriv **1–3 nya hypoteser** i månaden som egna filer `trender/<hypotes>.json` med `"status": "hypotes"` och blocken `hypotes`, `vikt` och `cykel` enligt `$IH/mall-trend.json`. Varje hypotes måste ha mekanism, var de flesta kan ha fel, pusselbitar med källor och nivåer, **tidiga tecken**, **vad som fäller den** och **en sannolikhet i procent**. De flesta ska handla om **möjligheter** (det som kan gå upp). En risk (något som kan spricka) tas med när den är tydlig, och ska då också säga vilka bevakade bolag som kan drabbas. Till minst en hypotes per kvartal ska väljas från ett område som inte har haft någon hypotes på ett halvår.
+
+**Varje månad, för befintliga hypoteser och trender:**
+- Kontrollera de tidiga tecknen (`sett`, `datum`, `kalla`) och ändra sannolikheten med motivering i `sannolikhet_historik`.
+- **Cykeln:** sätt `cykel.fas` (1–5) med motivering och bocka av **euforitecken** som har synts, med datum och källa. Står ett tema i fas 4, eller har minst 3 euforitecken synts: skriv det i notisen och nämn bevakade bolag och bolag i temat, enligt spelplanen i `min-strategi.md`. Inga köp- eller säljråd, bara att tecknen enligt spelplanen har dykt upp.
+- När hälften av de tidiga tecknen har synts: byt status till `kandidat` och lägg till mätare. När något i `faller_om` har inträffat, eller tiden har gått ut: sätt `utfall` (`ratt`, `fel` eller `delvis`), `avgjord` och status `avfardad` med lärdomen i `logg`. Radera aldrig en hypotes.
 
 ## 3. Nya trender ur banken
 Föreslår banken en möjlig ny trend, eller ser du själv ett mönster över flera områden: skapa `trender/<trend>.json` utifrån `$IH/mall-trend.json` om det finns minst en drivkraft på A- eller B-nivå. Det finns ingen gräns för antalet kandidater; de ligger i bakgrunden tills bevisen räcker. Fyll i:

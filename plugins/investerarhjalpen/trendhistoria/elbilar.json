@@ -40,7 +40,13 @@
   "vem_tjanade": "Främst batteritillverkare och några få biltillverkare. Många nya elbilsbolag som noterades 2020–2021 föll kraftigt, och svenska Northvolt gick i konkurs 2024.",
   "lardom": "Rätt trend räcker inte. Vinsten hamnade hos de som hade skala och kostnadsfördel, inte hos alla som byggde elbilar eller batterier.",
   "niva": "B",
-  "kalla": "Allmänt känt, källa läggs till vid första spaningen"
+  "kalla": "Allmänt känt, källa läggs till vid första spaningen",
+  "toppen": "Elbilsaktierna toppade under 2021, medan försäljningen av elbilar fortsatte att växa i flera år efteråt.",
+  "euforitecken_vid_toppen": [
+   "En våg av nynoteringar, många via SPAC-bolag",
+   "Nya elbilsbolag värderades högre än etablerade biltillverkare innan de sålt några bilar",
+   "Allmänheten handlade elbilsaktier i stor skala"
+  ]
  },
  "status": "historisk"
 }

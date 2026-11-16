@@ -3,52 +3,85 @@
 Den bästa investeringen börjar ofta ta form 1–2 år innan man köper. Trendradarn följer stora skiften i **hela världen** under lång tid, mäter dem med samma data varje månad och letar sedan upp de bolag, helst svenska och nordiska, som kan rida på vågen. Det gäller både vändningsbolag och stora, stabila bolag.
 
 Trendradarn arbetar i två steg:
-1. **Djärva hypoteser (före bevisen).** Här får verktyget gissa och pussla, på samma sätt som de investerare som såg något flera år före alla andra. Det är här pengarna kan tjänas.
+1. **Djärva hypoteser (före bevisen).** Här tar verktyget in enorma mängder information från hela världen, lägger pusslet och gissar vad som kan bli nästa stora sak, i vilken bransch som helst. Det är här pengarna kan tjänas.
 2. **Trender (när bevisen kommer).** Hypoteserna prövas mot data som samlas i flera år. Det som håller blir en trend som följs. Det som inte håller avfärdas, med lärdomen sparad.
 
 Ingen kan förutse framtiden säkert. En hypotes är en kvalificerad gissning med bevisnivå C, och den märks alltid så. Besluten fattar användaren.
 
-Metod 06 beskriver hur ett enskilt tema analyseras. Den här metoden beskriver hur trender hittas, mäts och följs över flera år.
+Metod 06 beskriver hur ett enskilt tema analyseras. Den här metoden beskriver hur trender hittas, mäts och följs över flera år, och hur man vet när det är dags att kliva av.
 
-**Banken sköts i bakgrunden.** Verktyget samlar information varje månad, sparar den och följer upp den. På sidan visas de djärva hypoteserna överst, sedan trender med bevis. Banken finns kvar tills den behövs.
+## A. Djärva hypoteser: tidigt, innan pengarna kommer
+**Strategin:** kliva på tidigt, följa med uppåt och kliva av innan toppen. När pengarna syns strömma in är man redan sen. Därför letar verktyget efter **ingredienserna** till något som kan växa, långt innan det syns i siffrorna. Fokus är det som kan gå upp. Bubblor som håller på att spricka tas med när de syns, men verktyget är inte byggt för att satsa emot marknaden.
 
-## A. Djärva hypoteser: före bevisen
-**När något syns i statistiken är det ofta redan i priset.** Därför börjar trendradarn med hypoteser: kvalificerade gissningar om vad som kan hända, byggda av pusselbitar som de flesta inte orkar lägga.
+### Var de tidiga tecknen finns
+- **De som bygger flyttar dit först:** forskare, ingenjörer, nya bolag, patent, platsannonser och riskkapital till små bolag.
+- **En tröskel närmar sig:** kostnaden faller mot nivån där det plötsligt lönar sig, ett tekniskt genombrott, ett nytt sätt att utvinna eller använda något.
+- **Ett stort problem som måste lösas:** åldrande, brist på vatten, mat, energi eller arbetskraft, sjukdomar, klimat. Stora problem i stora länder tvingar fram lösningar.
+- **Ett fönster öppnas:** nya regler, nya budgetar, krig och kriser som ändrar prioriteringar.
+- **De första kunderna:** små bolag som får sina första riktiga order.
+- **Billigt och ointressant:** ingen pratar om det, och fonderna äger inte bolagen än.
+- **Andra och tredje ledet:** om något händer, vem behöver vad sedan? Marknaden prissätter oftast bara första ledet.
 
-**Förebilden är Michael Burry**, som flera år före finanskrisen 2008 förutsåg att den amerikanska bostadsbubblan skulle spricka. Han gissade inte i blindo:
-- **Han läste det ingen läste:** prospekten för hundratals bolånepaket, sida för sida. Där syntes att lånen var mycket sämre än marknaden trodde.
-- **Han såg en mekanism med ett datum:** lågräntelånens räntor skulle räknas om 2006–2007. Då skulle många inte klara betalningarna.
-- **Han hade asymmetri:** om han hade fel var förlusten begränsad, om han hade rätt blev vinsten mångdubbel.
-- **Han var för tidig:** det tog nästan två år innan marknaden höll med, och under tiden ifrågasatte hans investerare honom. Rätt tes med fel tidpunkt är också en risk.
+### Vikta efter genomslag, inte efter rubriker
+Allt tas in, men allt väger inte lika. Varje hypotes bedöms på fyra punkter, 1–5. Det är en bedömning med motivering, inte en mätning:
+
+| Punkt | Fråga | 1 | 5 |
+|---|---|---|---|
+| **Genomslag** | Hur många människor och hur stor del av världsekonomin berörs? | Ett litet land eller en nisch | Kina, Indien, USA, EU eller hela världen |
+| **Tvång** | Måste det lösas, eller är det bara trevligt? | Bara trevligt | En kris eller en brist som måste lösas snart |
+| **Tillväxtutrymme** | Kan marknaden bli många gånger större? | Mogen eller krympande, som oljan | Kan bli 10 gånger större eller mer |
+| **Tidighet** | Hur få har upptäckt det? | Alla pratar om det | Nästan ingen har sett det |
+
+**Prioriteten** är summan (4–20). Hypoteser med hög prioritet följs närmast och visas först. **Mogna eller krympande marknader** (tillväxtutrymme 1–2) får bara ett litet öga: observationerna sparas i banken, men de blir sällan hypoteser.
 
 ### Så byggs en hypotes
 | Del | Fråga |
 |---|---|
 | **Påstående** | Vad tror vi kommer att hända, och ungefär när? |
-| **Riktning** | Möjlighet (något växer) eller risk (något är skört och kan spricka)? |
+| **Riktning** | Möjlighet (något kan växa kraftigt) eller risk (något kan spricka) |
 | **Konsensus** | Vad tror de flesta i dag? |
-| **Var konsensus kan ha fel** | Vad ser vi som de missar, och varför missar de det? |
-| **Mekanismen** | Varför skulle det hända? Orsak och verkan i klartext |
-| **Pusselbitarna** | Bitarna som pekar dit, var och en med källa och bevisnivå. Gärna från källor som få läser |
+| **Där de kan ha fel** | Vad ser vi som de missar, och varför? |
+| **Mekanismen** | Orsak och verkan i klartext |
+| **Pusselbitarna** | Bitarna som pekar dit, var och en med källa och bevisnivå |
 | **Tidiga tecken** | Vad borde synas först om vi har rätt? De följs upp varje månad |
-| **Utlösaren** | Finns det ett datum eller en händelse som tvingar fram förändringen, som räntorna 2007? |
-| **Asymmetrin** | Vad händer om vi har rätt, och vad händer om vi har fel? |
+| **Utlösaren** | En händelse eller ett datum som kan få det att ta fart |
+| **Om vi har rätt / fel** | Hur stort kan det bli, och vad förlorar man om det uteblir? |
 | **Vad fäller den?** | Det som skulle visa att hypotesen är fel |
-| **Vår sannolikhet** | En siffra i procent. Den ändras när tidiga tecken syns eller uteblir |
-
-### Var de bästa hypoteserna finns
-- **Källor som få läser:** budgetpropositioner och deras bilagor, upphandlingsunderlag, myndigheters ansökningsregister (patent, frekvenser, tillstånd, kliniska prövningar), fotnoter i årsredovisningar, centralbankers stabilitetsrapporter, handels- och tullstatistik, platsannonser och bygglov. Varje månad läses några av dem på riktigt.
-- **Glappet mellan berättelse och verklighet:** när det som sägs och det som syns i siffrorna går isär.
-- **Det sköra:** hög belåning, priser långt över det som går att motivera, villkor som ändras vid ett visst datum, beroende av en enda leverantör eller ett enda land.
-- **Andra och tredje ledet:** om X händer, vem behöver vad sedan? Marknaden prissätter oftast första ledet.
-- **Tråkiga områden:** där ingen tittar, eftersom det inte är spännande.
+| **Vikten** | Genomslag, tvång, tillväxtutrymme och tidighet, 1–5 var |
+| **Vår sannolikhet** | En siffra i procent som ändras när tecknen syns eller uteblir |
 
 ### Regler för hypoteser
 - En hypotes är alltid **C-nivå** som helhet och märks som gissning. Pusselbitarna har sina egna nivåer.
 - Varje hypotes måste ha **tidiga tecken** och **vad som fäller den**. Annars går den inte att pröva.
-- **Sannolikheten skrivs ner från början** och ändras med motivering. Facit sparar alla hypoteser med datum och utfall, så att vi lär oss hur ofta våra gissningar slår in. Även 30 % träffar kan räcka om vinsterna är mycket större än förlusterna.
+- **Sannolikheten skrivs ner från början** och ändras med motivering. Alla hypoteser sparas med datum och utfall, så att vi lär oss hur ofta gissningarna slår in. Även 30 % träffar kan räcka när vinsterna är mycket större än förlusterna.
 - När hälften av de tidiga tecknen har synts flyttas hypotesen till **kandidat** och mäts som en trend.
-- **Tidig betyder följa tidigt, inte köpa allt tidigt.** Användarens strategi avgör om en liten startposition är aktuell. Verktyget ger inga köp- eller säljråd.
+- **Lås dig inte vid hård data.** Den används för att pröva hypoteserna, aldrig för att vänta på dem.
+- **Tidig betyder följa tidigt.** Användarens strategi och spelplan avgör om och när en position är aktuell. Verktyget ger inga köp- eller säljråd.
+
+## B. Cykeln och euforimätaren: när är det dags att kliva av?
+Nästan alla stora teman går igenom samma cykel. Varje hypotes och trend placeras i den:
+
+| Fas | Kännetecken |
+|---|---|
+| **1. Tyst start** | Bara forskare, ingenjörer och några få investerare bryr sig. Billigt |
+| **2. Proffsen upptäcker** | De första riktiga ordrarna, specialiserade fonder köper, branschmedia skriver |
+| **3. Allmänheten kommer** | Breda medier, kurserna stiger snabbt, många nya investerare |
+| **4. Eufori** | Alla pratar om det, värderingarna räknar med att allt går perfekt |
+| **5. Luften går ur** | Besvikelser, kapitalet lämnar. Bland de överlevande kan det finnas nya vändningsbolag |
+
+Bästa läget att kliva på är fas 1–2. Läget att börja kliva av är fas 4. **Euforimätaren** är en lista med tecken på fas 4. Ju fler som syns, desto närmare toppen:
+- Värderingarna ligger långt över sin egen historik och över liknande bolag
+- En våg av nynoteringar och emissioner inom temat
+- Nya temafonder och börshandlade fonder lanseras
+- Allmänheten läser och söker om temat i stor skala
+- Bolag byter namn eller strategi för att passa in i temat
+- Insiders säljer i kluster, och bolagen tar in pengar medan kursen är hög
+- Kurserna stiger på nyheter som egentligen inte ändrar något
+
+Historiebiblioteket visar hur tecknen såg ut när tidigare teman nådde sin topp.
+
+## C. Spelplanen: disciplin före köpet
+Att kliva av i tid kräver disciplin, och disciplin kräver en plan som skrivs **innan** man köper. Spelplanen står i användarens `min-strategi.md`: när man kliver på, när man ökar och vilka tecken som får en att börja sälja. Verktyget säger till när tecknen i spelplanen dyker upp. Besluten är användarens.
 
 ## 0. Informationsbanken
 All information som spaningen hittar sparas som **observationer** i `trender/bank/`, även sådant som inte hör till någon trend än. Banken raderas aldrig. Varje observation har datum, område, typ (beslut, investering, regel, tidsplan, milstolpe, försening, bakslag, siffra eller forskning), aktör, källa, bevisnivå och taggar. Skriptet `verktyg/trendbank.py` håller ordning på den.

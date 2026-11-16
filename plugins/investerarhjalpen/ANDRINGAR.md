@@ -1,6 +1,8 @@
 # Ändringar
 
 ## 2026-11-16 (trendradarn och facit)
+- **Kliv på tidigt, kliv av innan toppen:** hypoteserna letar efter de tidiga ingredienserna till det som kan växa, och viktas efter genomslag, tvång, tillväxtutrymme och tidighet. Varje tema placeras i en **cykel** med en **euforimätare**, och en **spelplan** i Min strategi bestämmer när verktyget varnar.
+- **Radarn** ger +2 till bolag som finns i en hypotes eller trend och märker nynoterade bolag. Ny ruta: **Stora bolag i rörelse**.
 - **Trendradarn** under fliken Teman: stora skiften i hela världen som verktyget följer i flera år. Varje trend är en fråga, till exempel "Blir elflyg vanligt på korta sträckor?", med mätare som hämtas gratis varje vecka: adoption, kostnad, beslutade pengar, forskning och uppmärksamhet.
 - **Historiebiblioteket:** elbilar, vätgasbilar, vindkraft, solenergi, fetmaläkemedel, den europeiska upprustningen och 3D-skrivare, med vem som tjänade pengarna och lärdomen. Nya trender jämförs med dem.
 - Första söndagen i månaden spanar Claude efter nya trender och letar bolag i båda spåren, även onoterade bolag och vägar in i dem. Fråga också direkt: "kommer X att slå igenom?"

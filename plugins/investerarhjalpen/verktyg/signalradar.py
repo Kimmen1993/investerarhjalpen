@@ -178,11 +178,27 @@ def main():
         positiva = {t for t in p["typer"] if t not in ("negativ", "insidersalj", "fondflykt")}
         if len(positiva) >= 2:
             p["poang"] += 2
+    # Bonus för bolag som finns i en hypotes eller trend (metod 21): omvärlden pekar åt samma håll.
+    teman = {}
+    for tf in sorted((ROT / "trender").glob("*.json")) if (ROT / "trender").exists() else []:
+        if tf.name.startswith("_"):
+            continue
+        tr = las_json(tf, {})
+        if tr.get("status") in ("avfardad", "historisk"):
+            continue
+        for b in tr.get("bolag", []) + (tr.get("hypotes") or {}).get("bolag", []):
+            if b.get("namn"):
+                teman.setdefault(normalisera(b["namn"]), []).append(tr.get("namn", tf.stem))
+    for k, p in per.items():
+        if k in teman:
+            p["poang"] += 2
+            p["typer"].add("tema")
+            p["teman"] = sorted(set(teman[k]))
     triage = las_json(RADAR / "triage.json", {"bolag": {}})["bolag"]
     lista = sorted(per.values(), key=lambda p: -p["poang"])
     topp = [{"nyckel": k, "bolag": p["bolag"], "poang": round(p["poang"], 1), "typer": sorted(p["typer"]),
              "antal": len(p["signaler"]), "senaste": max(s["datum"] for s in p["signaler"]),
-             "triage": triage.get(k), "signaler": sorted(p["signaler"], key=lambda s: s["datum"], reverse=True)[:6]}
+             "triage": triage.get(k), "teman": p.get("teman", []), "signaler": sorted(p["signaler"], key=lambda s: s["datum"], reverse=True)[:6]}
             for k, p in ((normalisera(p["bolag"]), p) for p in lista) if p["poang"] >= 3][:40]
     (RADAR / "radar.json").write_text(json.dumps({"uppdaterad": datetime.now().strftime("%Y-%m-%d %H:%M"),
                                                   "bolag": topp, "fel": fel}, ensure_ascii=False, indent=1), encoding="utf-8")

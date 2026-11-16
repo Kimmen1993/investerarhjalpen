@@ -30,7 +30,12 @@
   "vem_tjanade": "Industrin fick nytta av tekniken i nischer, men aktieägarna i de hypade bolagen förlorade.",
   "lardom": "Hype utan adoption. Tekniken kan vara bra även om investeringstesen var fel.",
   "niva": "B",
-  "kalla": "Allmänt känt, källa läggs till vid första spaningen"
+  "kalla": "Allmänt känt, källa läggs till vid första spaningen",
+  "toppen": "Aktierna toppade i början av 2014.",
+  "euforitecken_vid_toppen": [
+   "Medier skrev att alla hem skulle ha en 3D-skrivare",
+   "Värderingarna räknade med en hemmamarknad som aldrig kom"
+  ]
  },
  "status": "historisk"
 }

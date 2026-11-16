@@ -46,7 +46,12 @@
   "vem_tjanade": "Novo Nordisk och Eli Lilly, men ledningen skiftade. Novo Nordisks aktie föll kraftigt från toppen 2024 när konkurrensen ökade.",
   "lardom": "Även vinnaren i en verklig trend kan förlora sitt försprång. Följ konkurrenternas studier lika noga som bolagets egna.",
   "niva": "B",
-  "kalla": "Allmänt känt, källa läggs till vid första spaningen"
+  "kalla": "Allmänt känt, källa läggs till vid första spaningen",
+  "toppen": "Novo Nordisks aktie toppade sommaren 2024, när konkurrensen började synas, trots att försäljningen fortsatte växa.",
+  "euforitecken_vid_toppen": [
+   "Värderingen räknade med att försprånget skulle hålla",
+   "Konkurrenternas studieresultat började komma"
+  ]
  },
  "status": "historisk"
 }
