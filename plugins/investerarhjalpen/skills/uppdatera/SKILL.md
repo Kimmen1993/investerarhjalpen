@@ -1,6 +1,6 @@
 ---
 name: uppdatera
-description: Uppdatera bolagscase. Med bolagsnamn uppdateras det bolaget. Utan argument körs veckouppföljningen, där den gratis nyhetskollen väljer ut vilka bolag som behöver analyseras. Använd när användaren säger "uppdatera mig om X", "vad är nytt", "uppdatera bevakningslistan" eller "/uppdatera",.
+description: Uppdatera bolagscase. Med bolagsnamn uppdateras det bolaget. Utan argument körs veckouppföljningen, där den gratis nyhetskollen väljer ut vilka bolag som behöver analyseras. Använd när användaren säger "uppdatera mig om X", "vad är nytt", "uppdatera bevakningslistan" eller "/uppdatera".
 ---
 
 # Uppdatera
