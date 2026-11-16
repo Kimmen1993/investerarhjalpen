@@ -19,6 +19,12 @@ Ett bolag bedöms aldrig efter fel spårs regler. Står det *(förslag)* har ver
 
 **Fonder.** Fliken *Fonder* visar fonderna du följer: vad de kostar, vad de äger, hur mycket de svänger och vad förvaltaren har köpt och sålt. Varje bolag visar också vilka svenska fonder som äger det.
 
+**Menyn:** **Läget nu** (varje dag: vad som behöver din uppmärksamhet), **Omvärlden** (vad som händer i världen och kan bli nästa stora sak), **Radar** (nya bolag att kanske följa), **Bolag**, **Fonder** och **Min portfölj**. Under **Mer** finns kalendern, alla nyheter, Skolan, journalen, kastade bolag, metoden och hjälpen.
+
+**På Läget nu** står bolagen som behöver din uppmärksamhet först: rött eller gult ljus, en rapport inom en vecka eller en försvagande nyhet. Varje bolag är en rad. Klicka för allt om bolaget.
+
+**På bolagssidan** kommer översikten först (kort och enkelt, pelare, senaste nytt och vad aktien kan vara värd), sedan bevisen och sist fördjupningen.
+
 **Så pratar du med verktyget** (i Claude-appen, fliken Code, i din mapp):
 
 | Skriv | Det händer |
@@ -101,7 +107,7 @@ Var försiktig med långa kedjor av C. Flera gissningar efter varandra blir snab
 - Skriv `följ fonden <namn>`, `sluta följa <fond>` eller `jämför <fond> och <fond>`.
 
 ## Trender
-Verktyget följer din strategi för teman: **kliv på tidigt, följ med uppåt och kliv av innan toppen**. Varje tema visar var i **cykeln** det är, från tyst start till eufori, och **euforimätaren** varnar när toppen kan närma sig. Under **Teman** finns först **Djärva hypoteser**: gissningar om vad som kan hända innan det syns i statistiken, med de tidiga tecken som verktyget håller utkik efter. Sedan kommer **Trendradarn**: stora skiften i världen som verktyget följer i flera år, till exempel elflyg, drönare och robotar. Varje trend är en fråga, och kurvorna visar hur forskning, köp och uppmärksamhet utvecklas. Står det **Saknar hårda data** kan trenden inte bedömas än. **Hypevarning** betyder att det pratas mer än det köps. Historiebiblioteket visar hur det gick för elbilar, vätgas, vindkraft och andra trender förut. Fråga gärna Claude: *"kommer elflyg att slå igenom?"*
+Verktyget följer din strategi för teman: **kliv på tidigt, följ med uppåt och kliv av innan toppen**. Varje tema visar var i **cykeln** det är, från tyst start till eufori, och **euforimätaren** varnar när toppen kan närma sig. Under **Omvärlden** finns först **Djärva hypoteser**: gissningar om vad som kan hända innan det syns i statistiken, med de tidiga tecken som verktyget håller utkik efter. Sedan kommer **Trendradarn**: stora skiften i världen som verktyget följer i flera år, till exempel elflyg, drönare och robotar. Varje trend är en fråga, och kurvorna visar hur forskning, köp och uppmärksamhet utvecklas. Står det **Saknar hårda data** kan trenden inte bedömas än. **Hypevarning** betyder att det pratas mer än det köps. Historiebiblioteket visar hur det gick för elbilar, vätgas, vindkraft och andra trender förut. Fråga gärna Claude: *"kommer elflyg att slå igenom?"*
 
 ## Min portfölj
 

@@ -87,7 +87,7 @@ Läs mer: [Metod 20](#metod-20)
 ---
 
 ## 3c. Kalendern
-**Vad:** fliken Kalender samlar allt som händer framöver: rapporter, stämmor, emissioner, mässor och studier, och Riksbankens räntebesked. Datum som inte är klara visas per månad och fylls i vid djupdykningen. **Dagen före en rapport** skriver morgonkollen *Vad ska jag titta efter?*. Söndagens notis har en rad om **veckans viktigaste datum**, och Läget nu visar *Snart*: de närmaste 14 dagarna.
+**Vad:** Kalendern (under Mer) samlar allt som händer framöver: rapporter, stämmor, emissioner, mässor och studier, och Riksbankens räntebesked. Datum som inte är klara visas per månad och fylls i vid djupdykningen. **Dagen före en rapport** skriver morgonkollen *Vad ska jag titta efter?*. Söndagens notis har en rad om **veckans viktigaste datum**, och Läget nu visar *Snart*: de närmaste 14 dagarna.
 
 **Kontrollera själv:** jämför rapportdatumen med bolagets finansiella kalender på IR-sidan.
 
@@ -97,14 +97,14 @@ Läs mer: [Metod 20](#metod-20)
 **Vad:** stora skiften i hela världen som vi följer under flera år, till exempel elflyg, drönare, robotar och fetmaläkemedel. Varje trend är en fråga som går att besvara om några år. Mätarna hämtas gratis varje vecka: adoption, kostnad, beslutade pengar, forskning och uppmärksamhet. Forskning och läsning räknas som andel av totalen. Trenden jämförs med ett **historiebibliotek** av vinnare (elbilar, upprustningen), förlorare (vätgasbilar, 3D-skrivare) och "rätt trend, fel bolag" (vind- och solkraft).
 - **Saknar hårda data** betyder att det ännu inte finns någon mätare för adoption, kostnad eller pengar. Då går trenden inte att bedöma, hur mycket det än forskas.
 - **Hypevarning** betyder att uppmärksamheten växer mycket snabbare än köpen, medan under 2 % av marknaden har tagit till sig det nya.
-- **Djärva hypoteser (överst under Teman):** kvalificerade gissningar om vad som kan hända innan det syns i statistiken, både möjligheter och sådant som kan spricka. Varje hypotes har pusselbitar med källor, det som de flesta tror och var de kan ha fel, tidiga tecken, det som skulle fälla den och vår sannolikhet i procent. Det är gissningar på C-nivå, och de märks så. Alla sparas med datum och utfall, så att vi ser hur ofta gissningarna slår in.
+- **Djärva hypoteser (överst under Omvärlden):** kvalificerade gissningar om vad som kan hända innan det syns i statistiken, både möjligheter och sådant som kan spricka. Varje hypotes har pusselbitar med källor, det som de flesta tror och var de kan ha fel, tidiga tecken, det som skulle fälla den och vår sannolikhet i procent. Det är gissningar på C-nivå, och de märks så. Alla sparas med datum och utfall, så att vi ser hur ofta gissningarna slår in.
 - **Vikt:** varje hypotes bedöms på genomslag (hur många som berörs), tvång (måste det lösas?), tillväxtutrymme och tidighet, 1–5 var. Mogna marknader får bara ett litet öga.
 - **Cykeln och euforimätaren:** varje tema placeras i en av fem faser: tyst start, proffsen upptäcker, allmänheten kommer, eufori och luften går ur. Euforimätaren har sju tecken på att toppen närmar sig. Notisen varnar när ett tema når eufori, enligt **spelplanen** i Min strategi.
 - **Informationsbanken:** första söndagen i månaden sveper Claude över 16 fasta områden i hela världen, oberoende av vad någon har frågat om, och sparar allt som observationer. Banken raderas aldrig. Ämnen som dyker upp gång på gång blir nya kandidater.
 - **Tidsplaner och källfacit:** varje gång någon lovar att något ska hända ett visst år sparas det, och varje försening följs upp. Över tid visar källfacit hur ofta stater, storbolag och nystartade bolag håller sina tidsplaner.
 - Status ändras högst ett steg per månad.
 
-Under fliken Teman visas hypoteserna först, sedan trender som har tillräckligt med bevis. Under Radar märks bolag som finns i en hypotes eller trend (+2 poäng) och bolag som är noterade de senaste tre åren, och **Stora bolag i rörelse** visar större bolag som en hypotes eller trend kan flytta. Kandidaterna, banken och historiebiblioteket ligger hopfällda under dem.
+Under fliken Omvärlden visas hypoteserna först, sedan trender som har tillräckligt med bevis. Under Radar märks bolag som finns i en hypotes eller trend (+2 poäng) och bolag som är noterade de senaste tre åren, och **Stora bolag i rörelse** visar större bolag som en hypotes eller trend kan flytta. Kandidaterna, banken och historiebiblioteket ligger hopfällda under dem.
 
 **Kontrollera själv:** öppna en mätare och jämför med källan, till exempel elbilarnas andel hos Our World in Data.
 

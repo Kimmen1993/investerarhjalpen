@@ -122,7 +122,7 @@ Information är bara ett av fem övertag. Varje analys ska också använda **ana
 - `bolag/<namn>/tes.md` – aktuell tes med bevisnivåer, motbevis och bevakningspunkter.
 - `bolag/<namn>/kallor.md` – alla källor med URL, datum och vad de visar.
 - `bolag/<namn>/logg.md` – datumstämplad logg: vad som är nytt vid varje uppdatering och hur tesen påverkades.
-- `larande/lektioner.json` – lektionerna i fliken Skolan.
+- `larande/lektioner.json` – lektionerna i Skolan (under Mer).
 - `bolag/<namn>/rapporter.json` – direktlänkar till rapporternas PDF:er. Skapas automatiskt av `verktyg/rapportlankar.py`, som nyhetskollen kör varje morgon.
 - `bevakning.md` – bevakningslistan (bolag + nästa händelse) och kandidater från screening som ännu inte fått egen mapp.
 

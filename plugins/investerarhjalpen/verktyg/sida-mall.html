@@ -32,6 +32,26 @@ header.top{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-
 nav.main{display:flex;flex-wrap:wrap;gap:4px;flex-basis:100%}
 nav.main a{text-decoration:none;color:var(--muted);font:600 14px var(--f-body);padding:6px 10px;border-radius:6px}
 nav.main a.on{background:var(--accent-weak);color:var(--accent)}
+.mer-meny{position:relative}
+.mer-meny>summary{list-style:none;cursor:pointer;color:var(--muted);font:600 14px var(--f-body);padding:6px 10px;border-radius:6px}
+.mer-meny>summary::-webkit-details-marker{display:none}
+.mer-meny>summary::after{content:" ▾"}
+.mer-meny.on>summary{background:var(--accent-weak);color:var(--accent)}
+.mer-lista{position:absolute;z-index:30;top:100%;left:0;min-width:220px;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:6px;display:flex;flex-direction:column;box-shadow:0 8px 24px rgba(0,0,0,.25)}
+@media (max-width:520px){.mer-lista{left:auto;right:0}}
+.lage-rad{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 14px;padding:12px 14px;border-top:1px solid var(--line);align-items:start}
+.lage-rad:first-child{border-top:0}
+.lage-rad h2{font-size:16px;margin:0;display:inline}
+.lage-rad .lr-top{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.lage-rad .lr-mening{margin:4px 0 0;font-size:14px}
+.lage-rad .lr-senast{margin:4px 0 0;font-size:12.5px;color:var(--muted)}
+.lage-rad .lr-hoger{text-align:right;font-size:12.5px;color:var(--muted);white-space:nowrap}
+@media (max-width:620px){.lage-rad{grid-template-columns:1fr}.lage-rad .lr-hoger{text-align:left;white-space:normal}}
+.lage-lista{background:var(--surface);border:1px solid var(--line);border-radius:12px}
+.lage-grupp{font:600 12px var(--f-body);letter-spacing:.04em;text-transform:uppercase;color:var(--muted);margin:18px 0 6px}
+.seknav .grp{font:600 11px var(--f-body);text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin:0 2px 0 8px;align-self:center}
+.seknav .grp:first-child{margin-left:0}
+.svar-ruta{border:1px solid var(--accent);border-radius:12px;padding:12px 16px;margin:12px 0;background:var(--surface)}
 h1,h2,h3{font-family:var(--f-display);text-wrap:balance;line-height:1.2}
 h1{font-size:28px;margin:0 0 6px;font-weight:800}
 h2{font-size:20px;margin:28px 0 10px}
@@ -403,18 +423,20 @@ textarea,.pf-form input,.pf-form select,.pf-karta select{font:14px var(--f-body)
     <div class="sok-falt"><input type="search" id="sok" placeholder="Sök i allt: bolag, rapporter, begrepp…" aria-label="Sök på sidan" autocomplete="off"></div>
     <nav class="main" aria-label="Huvudmeny">
       <a href="#lage" data-v="lage">Läget nu</a>
+      <a href="#teman" data-v="teman">Omvärlden</a>
+      <a href="#radar" data-v="radar">Radar</a>
       <a href="#bevakning" data-v="bevakning">Bolag</a>
       <a href="#fonder" data-v="fonder">Fonder</a>
       <a href="#portfolj" data-v="portfolj">Min portfölj</a>
-      <a href="#nyheter" data-v="nyheter">Nyheter</a>
-      <a href="#kalender" data-v="kalender">Kalender</a>
-      <a href="#radar" data-v="radar">Radar</a>
-      <a href="#skolan" data-v="skolan">Skolan</a>
-      <a href="#journal" data-v="journal">Journal</a>
-      <a href="#teman" data-v="teman">Teman</a>
-      <a href="#metod" data-v="metod">Metod</a>
-      <a href="#kastade" data-v="kastade">Kastade</a>
-      <a href="#hjalp" data-v="hjalp">Hjälp</a>
+      <details class="mer-meny"><summary>Mer</summary><div class="mer-lista">
+        <a href="#kalender" data-v="kalender">Kalender</a>
+        <a href="#nyheter" data-v="nyheter">Alla nyheter</a>
+        <a href="#skolan" data-v="skolan">Skolan</a>
+        <a href="#journal" data-v="journal">Journal</a>
+        <a href="#kastade" data-v="kastade">Kastade bolag</a>
+        <a href="#metod" data-v="metod">Metod: så fungerar det</a>
+        <a href="#hjalp" data-v="hjalp">Hjälp</a>
+      </div></details>
     </nav>
   </header>
   <main id="vy"></main>
@@ -902,23 +924,34 @@ function vyLage(){
   const vecka = new Date(Date.now() - 7*864e5).toISOString().slice(0,10);
   const nyaVecka = bolag.reduce((a, b) => a + (b.handelser||[]).filter(h => h.datum >= vecka).length, 0);
   const v = $("#vy");
-  v.innerHTML = `${valkomstHtml()}<h1>Läget nu</h1>${nyttHtml()}${urvalHtml()}<p class="lede">${bolag.length} bolag · ${nyaVecka} ${nyaVecka === 1 ? "händelse" : "händelser"} de senaste 7 dagarna · uppdaterad ${esc(DATA.byggd)}</p>${veckansHtml()}<div class="list" id="lk"></div>`;
+  v.innerHTML = `${valkomstHtml()}<h1>Läget nu</h1>${nyttHtml()}${urvalHtml()}<p class="lede">${bolag.length} bolag · ${nyaVecka} ${nyaVecka === 1 ? "händelse" : "händelser"} de senaste 7 dagarna · uppdaterad ${esc(DATA.byggd)}</p>${veckansHtml()}<div id="lk"></div>`;
   const box = $("#lk");
   if (!bolag.length){ box.innerHTML = `<div class="empty">Inga bevakade bolag än. Skriv <b>analysera &lt;bolag&gt;</b> i Claude-appen för att lägga till ditt första. <a href="#hjalp">Så fungerar verktyget →</a></div>`; return; }
-  for (const b of bolag){
-    const s = b.status; const k = nyckel(b);
-    const vantar = (b.nyheter||[]).filter(p => p.ny && !(b.handelser||[]).some(h => h.lank === p.lank));
-    const el = document.createElement("article"); el.className = "lage-kort";
-    el.innerHTML = `
-      <div class="lk-top"><h2><a href="#bolag-${esc(b.slug)}">${esc(s.namn)}</a></h2>${ljus(s)}${sparEtikett(s, true)}${pelareMini(s)}<span class="num" style="color:var(--muted);font-size:12px">${esc(s.ticker||"")}</span></div>
-      ${kursRad(b)}
-      <p class="lk-mening">${esc(s.lage_mening || (s.enkelt && s.enkelt.i_en_mening) || s.tes || "")}</p>
-      <div><div class="label" style="margin-bottom:8px">Senaste nytt</div><ul class="handelser">${urval(b.handelser||[], vecka).slice(0, 2).map(h => handelseHtml(h)).join("") || `<li class="steps-lbl">Inget nytt än.</li>`}</ul></div>
-      ${vantar.length ? `<div class="ny-rad">${vantar.length} nya pressmeddelanden väntar på sammanfattning i nästa dagskoll.</div>` : ""}
-      ${s.redo && arVandning(s) ? (() => { const p = s.redo.punkter.reduce((a,x)=>a+x.poang,0); return `<div class="steps-lbl"><b>Redo-poäng ${p}/${s.redo.punkter.length*2}</b>: ${p >= 15 ? "fas 2, vändningsläge enligt din strategi" : p >= 10 ? "fas 1, tidigt läge enligt din strategi" : "för tidigt"}</div>`; })() : ""}
-      <div><a class="oppna" href="#bolag-${esc(b.slug)}">Öppna ${esc(s.namn)} →</a> <span class="steps-lbl" style="margin-left:8px">Nästa händelse: ${esc(s.nasta_handelse||"–")}</span></div>`;
-    box.appendChild(el);
-  }
+  // Behöver uppmärksamhet: rött eller gult ljus, en rapport inom 7 dagar eller en försvagande nyhet senaste veckan
+  const skal = b => {
+    const s = b.status, ut = [];
+    if (s.trafikljus === "rod") ut.push("Rött ljus");
+    else if (s.trafikljus === "gul") ut.push("Gult ljus");
+    const rapp = (s.kalender || []).find(k => k.typ === "rapport" && !k.ungefar && k.datum.length === 10 && dagarTill(k.datum) >= 0 && dagarTill(k.datum) <= 7);
+    if (rapp) ut.push(`Rapport ${dagarTill(rapp.datum) === 0 ? "i dag" : dagarTill(rapp.datum) === 1 ? "i morgon" : "om " + dagarTill(rapp.datum) + " dagar"}`);
+    if ((b.handelser || []).some(h => h.datum >= vecka && h.paverkan === "forsvagar")) ut.push("Försvagande nyhet");
+    return ut;
+  };
+  const rad = b => {
+    const s = b.status, h = (b.handelser || [])[0], sk = skal(b);
+    const k = b.kurs, hist = (k && k.historik) || [];
+    const kurs = k && k.kurs != null ? `${fmt(k.kurs, 2)} kr${hist.length > 1 ? ` <span class="${k.kurs >= hist[0].stang ? "over" : "under"}">${k.kurs >= hist[0].stang ? "+" : ""}${fmt((k.kurs / hist[0].stang - 1) * 100, 0)} % 3 mån</span>` : ""}` : "";
+    const redo = s.redo && arVandning(s) ? (() => { const p = s.redo.punkter.reduce((a,x)=>a+x.poang,0); return `Redo ${p}/${s.redo.punkter.length*2}${p >= 15 ? " · fas 2" : p >= 10 ? " · fas 1" : ""}`; })() : "";
+    return `<article class="lage-rad">
+      <div><div class="lr-top"><h2><a href="#bolag-${esc(b.slug)}">${esc(s.namn)}</a></h2>${ljus(s)}${sparEtikett(s, true)}${pelareMini(s)}${sk.map(x => `<span class="pill pav-blandat">${esc(x)}</span>`).join("")}</div>
+        <p class="lr-mening">${esc(s.lage_mening || (s.enkelt && s.enkelt.i_en_mening) || s.tes || "")}</p>
+        ${h ? `<p class="lr-senast">Senast ${esc(h.datum)}: ${h.lank ? `<a href="${esc(h.lank)}" target="_blank" rel="noopener">${esc(h.rubrik)}</a>` : esc(h.rubrik)}</p>` : ""}</div>
+      <div class="lr-hoger">${kurs}${redo ? `<br>${esc(redo)}` : ""}<br>Nästa: ${esc(s.nasta_handelse || "–")}</div></article>`;
+  };
+  const viktiga = bolag.filter(b => skal(b).length), ovriga = bolag.filter(b => !skal(b).length);
+  box.innerHTML = (viktiga.length ? `<div class="lage-grupp">Behöver din uppmärksamhet</div><div class="lage-lista">${viktiga.map(rad).join("")}</div>` : "")
+    + (ovriga.length ? `<div class="lage-grupp">${viktiga.length ? "Övriga bolag" : "Dina bolag"}</div><div class="lage-lista">${ovriga.map(rad).join("")}</div>` : "")
+    + `<p class="hint">Klicka på ett bolag för allt om det. Alla nyheter finns under <a href="#nyheter">Mer → Alla nyheter</a>.</p>`;
 }
 // --- kalender ---
 const KALTYP = {rapport:["📊","Rapport"], stamma:["🗳️","Stämma"], finansiering:["💰","Finansiering"], massa:["🎪","Mässa"], studie:["🧪","Studie"], makro:["🏦","Makro"], ovrigt:["📌","Övrigt"]};
@@ -1208,6 +1241,22 @@ function jamforelseHtml(b){
     ${rader.map(r => `<tr class="${r.egen ? "var" : ""}"><td style="text-align:left">${esc(r.namn)}${r.land ? ` <span class="steps-lbl">${esc(r.land)}</span>` : ""}${r.varfor && !r.egen ? `<br><span class="steps-lbl">${esc(r.varfor)}</span>` : ""}</td><td>${tal(r.borsvarde_mkr, 0, " mkr")}</td><td>${tal(r.ev_s, 1, "x")}</td><td>${tal(r.tillvaxt_pct, 0, " %")}</td><td>${tal(r.rorelsemarginal_pct, 0, " %")}</td><td style="text-align:left">${esc(r.lage||"")}${r.egen ? "" : chip(r.niva)}</td></tr>`).join("")}</table></div>
     <p class="steps-lbl">Siffrorna gäller ${esc(j.datum||"")}. EV/S är företagsvärdet delat med försäljningen de senaste 12 månaderna. Det är en pusselbit och ingen riktkurs. <a href="#metod-20">Så görs jämförelsen</a>.</p></section>`;
 }
+function svarRuta(b){
+  // Ett svar på frågan "vad kan aktien vara värd?" i stället för flera scenarieuppsättningar att jämföra själv.
+  const m = b.marknadsmodell, v = b.vardering; if (!v || !v.kurs) return "";
+  let vagt = null, ar = null, kalla = "";
+  if (m && m.resultat && m.resultat.vagt_kr_per_aktie){ vagt = m.resultat.vagt_kr_per_aktie; ar = m.vardering_ar; kalla = "sammanvägt av marknaden uppifrån, affärerna och de andra linserna (metod 14)"; }
+  else if (v.scenarier && v.ltm_oms){
+    const N = v.ar_fram || 2;
+    vagt = v.scenarier.reduce((a, s) => a + ((v.ltm_oms * Math.pow(1 + s.tillvaxt, N)) * s.multipel + s.nettokassa) / s.aktier_milj * s.sannolikhet, 0);
+    ar = new Date().getFullYear() + N; kalla = "vägt av tre scenarier (metod 11)";
+  }
+  if (vagt == null) return "";
+  const rq = v.avkastningskrav ?? 0.2, arsTill = Math.max(0, Number(ar) - new Date().getFullYear()), idag = vagt / Math.pow(1 + rq, arsTill);
+  return `<section class="svar-ruta sek" id="sek-varde" aria-label="Vad kan aktien vara värd?"><div class="label">Vad kan aktien vara värd? Räkneexempel, inte en riktkurs</div>
+    <p style="margin:6px 0 0;font-size:15px">Ca <b>${fmt(vagt, 1)} kr per aktie år ${esc(ar)}</b>, ${kalla}. Med ett avkastningskrav på ${fmt(rq * 100, 0)} % per år motsvarar det ca <b>${fmt(idag, 1)} kr i dag</b>. Kursen är ${fmt(v.kurs, 2)} kr.</p>
+    <p class="steps-lbl" style="margin:6px 0 0">Underlaget finns under Framtiden och Värdering. De räknar på olika sätt och har därför egna scenarier och sannolikheter; det här är det sammanvägda svaret.</p></section>`;
+}
 function fold(id, titel, sub, inner){
   return inner ? `<details class="fold sek" id="sek-${id}"><summary><span class="ft">${titel}</span><span class="fs">${sub}</span></summary>${inner}</details>` : "";
 }
@@ -1226,7 +1275,7 @@ function vyBolag(arg){
     ${(() => { const f = s.forhandsvisning; if (!f || !f.datum) return ""; const n = dagarTill(f.datum); return n >= -1 && n <= 7 ? `<div style="margin:10px 0">${forhandsHtml(b)}</div>` : ""; })()}
     ${sfHtml(b)}
     ${dokHtml(b)}
-    <nav class="seknav" aria-label="Hoppa till">${[["enkelt","Kort och enkelt"],["pelare","Pelare"],["panel","Panelen"],["nytt","Senaste nytt"],["siffror","Siffror"],["framtid","Framtiden"],["jamfor","Jämförelse"],["vardering","Värdering"],["redo","Redo-poäng"],["akt","Hela akten"]].map(([k,n]) => `<button type="button" data-s="${k}">${n}</button>`).join("")}</nav>
+    <nav class="seknav" aria-label="Hoppa till">${[["Översikt", [["enkelt","Kort och enkelt"],["pelare","Pelare"],["nytt","Senaste nytt"],["varde","Värdet"]]], ["Bevisen", [["siffror","Siffror"],["panel","Panelen"],["jamfor","Jämförelse"],["redo","Redo-poäng"]]], ["Fördjupning", [["framtid","Framtiden"],["vardering","Värdering"],["akt","Hela akten"]]]].map(([g, ks]) => `<span class="grp">${g}</span>` + ks.map(([k,n]) => `<button type="button" data-s="${k}">${n}</button>`).join("")).join("")}</nav>
     ${s.enkelt ? `
     <section class="enkelt sek" id="sek-enkelt" aria-label="Kort och enkelt">
       <h2>Kort och enkelt</h2>
@@ -1239,17 +1288,18 @@ function vyBolag(arg){
       <div class="lage">${arVandning(s) ? steps(s.steg||0) : lynchHtml(s)}<p>${esc(s.enkelt.lage||"")}</p></div>
     </section>` : `<p class="lede">${esc(s.tes||"")}</p>`}
     ${pelareHtml(s)}
-    ${panelHtml(b)}
     <section class="nt sek" id="sek-nytt" aria-label="Senaste nytt"><h2>Senaste nytt</h2>
       <ul class="handelser" style="margin-top:10px">${(b.handelser||[]).slice(0,4).map(h => handelseHtml(h)).join("") || `<li class="steps-lbl">Inget nytt än.</li>`}</ul>
       ${(b.handelser||[]).length > 4 ? `<p class="hint"><a href="#nyheter">Alla nyheter →</a></p>` : ""}
     </section>
+    ${svarRuta(b)}
     ${fold("siffror", "Siffror per kvartal", "Försäljning, resultat och beställningar", nyckeltalPanel(b, true))}
-    ${fold("framtid", "Framtiden", "Marknaden uppifrån och möjliga affärer, 3–5 år", (marknadPanel(b) + pipelinePanel(b)) || "")}
-    ${fold("fondagare", "Fonder som äger bolaget", b.fondagare ? `${b.fondagare.antal_fonder} svenska fonder per ${b.fondagare.kvartal}` : "", fondagarePanel(b))}
+    ${panelHtml(b)}
     ${fold("jamfor", "Jämförelse med liknande bolag", s.jamforelse && typeof s.jamforelse === "object" ? `${(s.jamforelse.bolag||[]).length} bolag · vad marknaden betalar` : "", jamforelseHtml(b))}
-    ${fold("vardering", "Värdering", "Vad priset räknar med och scenarier", varderingPanel(b))}
     ${arVandning(s) ? fold("redo", "Redo-poäng", redoP != null ? `${redoP}/${s.redo.punkter.length*2} · tio punkter med motivering` : "", redoKort(s)) : ""}
+    ${fold("fondagare", "Fonder som äger bolaget", b.fondagare ? `${b.fondagare.antal_fonder} svenska fonder per ${b.fondagare.kvartal}` : "", fondagarePanel(b))}
+    ${fold("framtid", "Framtiden", "Underlag: marknaden uppifrån och möjliga affärer, 3–5 år", (marknadPanel(b) + pipelinePanel(b)) || "")}
+    ${fold("vardering", "Värdering", "Underlag: vad priset räknar med och scenarier", varderingPanel(b))}
     <details class="mer" id="mer"><summary>Visa beslut, poäng, insyn och flaggor</summary>
     <div class="callout"><div class="label">Varför ${esc((s.beslut||"").toLowerCase())} (${esc(s.beslut_datum||"")})</div><p style="margin:6px 0 0">${esc(s.beslut_motivering||"")}</p></div>
     <div class="facts">
@@ -1430,7 +1480,7 @@ function vyTrend(slug){
   if (!t){ v.innerHTML = `<div class="empty">Trenden finns inte.</div>`; return; }
   const f = t.facit, lista = (rader, fn) => rader && rader.length ? `<ul>${rader.map(fn).join("")}</ul>` : `<p class="steps-lbl">Fylls i vid spaningen.</p>`;
   const niv = n => n ? ` <span class="chip chip-${n === "?" ? "Q" : esc(n)}">${esc(n)}</span>` : "";
-  v.innerHTML = `<p><a href="#teman">← Teman och trender</a></p>
+  v.innerHTML = `<p><a href="#teman">← Omvärlden</a></p>
     <h1>${esc(t.namn)} ${f ? `<span class="pill ${(UTFALL[f.utfall] || [0, "pav-neutral"])[1]}">${esc((UTFALL[f.utfall] || ["?"])[0])}</span>` : trendPill(t)}</h1>
     <p class="lede">${esc(t.fraga || "")}</p>
     ${t.i_en_mening ? `<p>${esc(t.i_en_mening)}</p>` : ""}
@@ -1738,6 +1788,7 @@ document.addEventListener("click", e => { if (e.target.id === "valkommen-stang")
 function route(){
   const h = (location.hash || "#lage").slice(1);
   document.querySelectorAll("nav.main a").forEach(a => a.classList.toggle("on", h===a.dataset.v || (h.startsWith("bolag-") && a.dataset.v==="bevakning") || (h.startsWith("fond-") && a.dataset.v==="fonder") || (h.startsWith("metod-") && a.dataset.v==="metod") || (h.startsWith("trend-") && a.dataset.v==="teman") || (h.startsWith("skolan") && a.dataset.v==="skolan")));
+  const mer = document.querySelector(".mer-meny"); if (mer){ mer.classList.toggle("on", !!mer.querySelector("a.on")); mer.open = false; }
   if (h.startsWith("bolag-")) vyBolag(h.slice(6));
   else if (h === "lage") vyLage();
   else if (h === "hjalp") vyHjalp();
@@ -1751,7 +1802,7 @@ function route(){
   else if (h === "fonder") vyFonder();
   else if (h.startsWith("fond-")) vyFond(h.slice(5));
   else if (h === "journal") { const v = $("#vy"); v.innerHTML = `<h1>Journal</h1><p class="lede">Förutsägelser med sannolikhet som följs upp, och dina egna beslut. Det är så man tränar sitt omdöme.</p>`; const j = md(DATA.journal || "Ingen journal än."); gloss(j); v.appendChild(j); }
-  else if (h === "teman"){ vyDocs("Teman och trender", "Stora skiften i världen och temaanalyser: drivkrafter, fas, värdekedja och bolag att undersöka.", DATA.teman); trendSektion(); }
+  else if (h === "teman"){ vyDocs("Omvärlden", "Det som händer i världen och kan bli nästa stora sak: djärva hypoteser, trender som följs och temaanalyser.", DATA.teman); trendSektion(); }
   else if (h.startsWith("trend-")) vyTrend(h.slice(6));
   else if (h === "kastade") { const v = $("#vy"); v.innerHTML = `<h1>Kastade bolag</h1><p class="lede">Analyserade och bortvalda bolag, med skäl. Sparas för att lära av besluten.</p>`; v.appendChild(md(DATA.kastade)); }
   else if (h === "metod" || h.startsWith("metod-")) { vyDocs("Metod", "Hur verktyget fungerar och vilka regler det följer. Börja med översikten högst upp. Den förklarar varje del kort och visar hur du själv kan kontrollera att det fungerar.", DATA.metod, h.slice(6) || null); if (h !== "metod") return; }
@@ -1760,5 +1811,6 @@ function route(){
 }
 $("#byggd").textContent = "Senast uppdaterad " + (DATA ? DATA.byggd : "");
 window.addEventListener("hashchange", route);
+document.addEventListener("click", e => { const m = document.querySelector(".mer-meny"); if (m && m.open && !m.contains(e.target)) m.open = false; });
 route();
 </script>
