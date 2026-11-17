@@ -99,8 +99,18 @@ def kurs(symbol):
 
 
 def uppdatera_kurs(mapp, symbol, fel):
+    k = None
+    try:  # Börsdata om användaren har slagit på det (borsdata.py), annars Yahoo
+        import borsdata
+        if borsdata.aktiv():
+            k = borsdata.kurs(yahoo=symbol)
+            if not k.get("valuta") and (mapp / "kurs.json").exists():
+                k["valuta"] = json.loads((mapp / "kurs.json").read_text(encoding="utf-8")).get("valuta")
+    except Exception as e:
+        fel.append(f"Börsdata-kurs: {e} (Yahoo används i stället)")
+        k = None
     try:
-        k = kurs(symbol)
+        k = k or kurs(symbol)
     except Exception as e:
         fel.append(f"Kurs: {e}")
         return None

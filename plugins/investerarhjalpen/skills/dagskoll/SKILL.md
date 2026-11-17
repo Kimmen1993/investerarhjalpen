@@ -52,7 +52,7 @@ Sidan räknar om prognosen automatiskt när den byggs.
 ## 3. Rapport? Gör en rapportgenomgång
 Har det kommit en kvartalsrapport, ett bokslut eller en årsredovisning:
 1. Hämta PDF:en. Länken finns i pressmeddelandet eller på bolagets rapportsida. Spara den i en ny mapp i scratchpad och läs den med `swift "$IH/verktyg/pdftext.swift"`, eller `swift "$IH/verktyg/ocr.swift"` om den är inskannad.
-2. Lägg till kvartalet i `nyckeltal.json`: omsättning, rörelseresultat, orderingång, kassa, kassaflöde från den löpande verksamheten, kassaflöde från investeringar och antal aktier i miljoner. Har bolaget rättat äldre siffror: rätta dem också.
+2. Lägg till kvartalet i `nyckeltal.json`: omsättning, rörelseresultat, orderingång, kassa, kassaflöde från den löpande verksamheten, kassaflöde från investeringar och antal aktier i miljoner. Har bolaget rättat äldre siffror: rätta dem också. Är det en **årsredovisning eller ett bokslut** för ett bolag i spåret Kärna: kör `python3 -I "$IH/verktyg/arsdata.py" <bolagsmapp>` så att kvalitetsbetyget räknas på det nya året (metod 22). Registret får in årsredovisningen några veckor efter publiceringen. Står det nya året inte med: kör igen nästa vecka.
 3. Följ upp öppna löften i `loften.md` och lägg till nya mätbara löften från vd-ordet.
 4. Uppdatera `tes.md` (siffror och "Vad skulle fälla tesen?") och `logg.md`.
 

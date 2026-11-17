@@ -15,6 +15,7 @@ from rot import VERKTYG, DATA as ROT, verktygsversion  # noqa: E402  (ROT = anv�
 import pipeline  # noqa: E402  (räknar prognosen ur mojligheter.json)
 import marknad  # noqa: E402  (marknadsmodell uppifrån + tratt, vägs ihop med pipelinen)
 import andringar  # noqa: E402  (rutan "Nytt sedan sist")
+import karna  # noqa: E402  (kärnspåret: kvalitetsbetyg och pris mot egen historik, metod 22)
 
 
 
@@ -71,6 +72,10 @@ def main():
         rapporter = json.loads(las(mapp / "rapporter.json") or '{"rapporter": []}')["rapporter"]
         panel = json.loads(las(mapp / "panel.json") or "null")
         fondagare = json.loads(las(mapp / "fondagare.json") or "null")
+        karna_res = None
+        if status.get("spar") == "karna":
+            arsd = json.loads(las(mapp / "arsdata.json") or "null")
+            karna_res = karna.rakna(arsd, kurs, json.loads(las(mapp / "karna.json") or "null")) if arsd else {"ok": False, "skal": "Årssiffrorna är inte hämtade än."}
         mojl_fil = mapp / "mojligheter.json"
         mojligheter = None
         if mojl_fil.exists():
@@ -90,7 +95,7 @@ def main():
                       "docs": {k: v for k, v in docs.items() if v}, "nyheter": nyheter,
                       "handelser": sorted(handelser, key=lambda h: h["datum"], reverse=True), "nyckeltal": nyckeltal,
                       "vardering": vardering, "kurs": kurs, "rapporter": rapporter, "mojligheter": mojligheter,
-                      "marknadsmodell": marknadsmodell, "panel": panel, "fondagare": fondagare,
+                      "marknadsmodell": marknadsmodell, "panel": panel, "fondagare": fondagare, "karna": karna_res,
                       "djup_datum": [d["datum"] for d in djup]})
     ordning = {"Bevaka": 0, "Avvakta": 1, "Kasta": 2}
     bolag.sort(key=lambda b: (ordning.get(b["status"].get("beslut"), 3), -(b["status"].get("poang") or 0)))

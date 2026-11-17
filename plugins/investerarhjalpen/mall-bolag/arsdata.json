@@ -1,0 +1,34 @@
+{
+ "bolag": "…",
+ "valuta": "SEK",
+ "enhet": "miljoner",
+ "uppdaterad": "ÅÅÅÅ-MM-DD",
+ "kalla": "Skapas av verktyg/arsdata.py. För bolag utan ESEF (t.ex. First North): skriv raderna själv med \"kalla\": \"rapport\".",
+ "ar": [
+  {
+   "ar": 0,
+   "omsattning": null,
+   "bruttoresultat": null,
+   "rorelseresultat": null,
+   "nettoresultat": null,
+   "vinst_per_aktie": null,
+   "utdelning_per_aktie": null,
+   "kf_lopande": null,
+   "capex": null,
+   "utdelning_betald": null,
+   "aterkop": null,
+   "kassa": null,
+   "eget_kapital": null,
+   "totala_tillgangar": null,
+   "omsattningstillgangar": null,
+   "kortfristiga_skulder": null,
+   "langfristiga_skulder": null,
+   "lan": null,
+   "leasingskulder": null,
+   "aktier_milj": null,
+   "kalla": "rapport",
+   "niva": "A"
+  }
+ ],
+ "rattelser": {}
+}

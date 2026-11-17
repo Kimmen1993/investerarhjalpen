@@ -21,6 +21,12 @@ Investerarhjälpen är ett research-verktyg för aktier. Varje användare har en
 ## Metoderna är användarnas manual
 `metod/00-sa-fungerar-verktyget.md` är översikten som användarna läser för att förstå och kontrollera verktyget, och `metod/19-fonder.md` beskriver fondräkningen i detalj. **När du ändrar en regel, en gräns eller en poäng i ett skript eller en skill: uppdatera samma siffra i metoden och i översikten**, så att det som står där alltid stämmer med hur verktyget faktiskt fungerar.
 
+## Kärnspåret (metod 22)
+- Bolag i spåret Kärna får rutan **Kvalitet och pris**: kvalitetsbetyg A–D, pris mot egen historik, kvalitetslinser och temahävstång. `verktyg/karna.py` räknar allt vid varje bygge, utan AI.
+- **Årssiffrorna** (`bolag/<namn>/arsdata.json`) hämtas med `python3 -I "$IH/verktyg/arsdata.py" <bolagsmapp>` (eller `--karna`). Källan väljs i ordningen Börsdata (om påslaget), ESEF (gratis, huvudlistan) och rapporter som Claude läst (`"kalla": "rapport"`, till exempel för First North). Handinmatade värden läggs under `rattelser` med källa i `kallor.md` och skrivs aldrig över.
+- Kör `arsdata.py` vid bolagsanalysen av ett kärnbolag, när en årsredovisning har kommit och vid djupdykningen. Temahävstången skrivs för hand i `karna.json`, med bevisnivå.
+- **Börsdata** (`verktyg/borsdata.py`) är förberett men avstängt. Det slås på med `"datakallor": {"borsdata": true}` i `installningar.json` och en egen nyckel i `privat/borsdata.json`, som **användaren själv** skriver in. Claude skriver aldrig in API-nycklar. Börsdatas data får inte delas med andra. Varje användare behöver ett eget konto.
+
 ## Fonder (skillen `fond`)
 - Fliken **Fonder** på sidan visar följda fonder: avgift, vad avgiften kostar på 10 år, typ (index eller aktiv), risk, aktiv risk, innehav, branscher, länder, köpt och sålt sedan förra kvartalet och överlapp. Data: Finansinspektionens kvartalsfiler (bara svenskregistrerade fonder, några månaders fördröjning). Skriptet `verktyg/fonder.py` är gratis.
 - Varje bevakat bolag får **Fonder som äger bolaget** (`fondagare.json`), och fliken Fonder visar **fondsignaler**: hur alla svenska fonder ändrat sina innehav i de bevakade bolagen. In- och utflöden är borträknade.
@@ -107,7 +113,7 @@ Information är bara ett av fem övertag. Varje analys ska också använda **ana
 - **Nyhetskollen:** `python3 -I "$IH/verktyg/nyhetskoll.py"` är gratis och använder ingen AI. Den hämtar **kursen** (Yahoo Finance, ca 15 minuters fördröjning, symbolen `yahoo` i `kallor_bevakning`) till `kurs.json` och `vardering.json`, samt MFN-pressmeddelanden och FI-insynsaffärer för varje bolag som har `kallor_bevakning` i `status.json`, sparar dem i `bolag/<namn>/nyheter.json` och skriver `nyhetskoll-senaste.json` med flaggan `behover_analys`.
 - **Morgonkoll varje vardag kl. 08.30** (schemalagd uppgift `investerarhjalpen-dagskoll`): skillen `/investerarhjalpen:dagskoll`. Den kör nyhetskollen och stannar direkt om inget har hänt. Annars sammanfattas varje nytt PM i `handelser.json`, rapporter gås igenom (nyckeltal och löften), trafikljuset uppdateras, sidan publiceras och en notis skickas. Den påminner också om rapporter samma dag.
 - **Djupdykning söndagar kl. 17** (schemalagd uppgift `investerarhjalpen-djupdykning`): skillen `/investerarhjalpen:djupdykning`. Den tar bolag som inte har djupdykts på 27 dagar eller mer, så varje bolag granskas ungefär en gång i månaden, högst 5 per söndag (bolagen är utspridda över fyra söndagar). Fast ordning i 10 steg, cirka 20–40 sökningar per bolag, och rapporten sparas i `bolag/<namn>/djupdykningar/`.
-- **Filer per bolag för sidans snabbvy:** `handelser.json` (händelser på klarspråk med påverkan), `nyckeltal.json` (kvartalssiffror; Börsdata kan senare fylla samma fil) och fälten `trafikljus` och `lage_mening` i `status.json`.
+- **Filer per bolag för sidans snabbvy:** `handelser.json` (händelser på klarspråk med påverkan), `nyckeltal.json` (kvartalssiffror; Börsdata kan senare fylla samma fil), `arsdata.json` (årssiffror för Kärnspåret, metod 22) och fälten `trafikljus` och `lage_mening` i `status.json`.
 - **Nytt sedan sist:** `verktyg/andringar.py` körs av `bygg_sida.py` och jämför varje bygge med det förra (`site/andringar.json`, 60 dagar).
 - **PDF:er:** `swift "$IH/verktyg/pdftext.swift" fil.pdf`, eller `swift "$IH/verktyg/ocr.swift" fil.pdf` om PDF:en är inskannad.
 
@@ -128,6 +134,7 @@ Information är bara ett av fem övertag. Varje analys ska också använda **ana
 - `bolag/<namn>/kallor.md` – alla källor med URL, datum och vad de visar.
 - `bolag/<namn>/logg.md` – datumstämplad logg: vad som är nytt vid varje uppdatering och hur tesen påverkades.
 - `larande/lektioner.json` – lektionerna i Skolan (under Mer).
+- `bolag/<namn>/arsdata.json` – upp till tio års siffror (Kärnspåret). Skapas av `verktyg/arsdata.py`. `bolag/<namn>/karna.json` – temahävstången, skriven för hand.
 - `bolag/<namn>/rapporter.json` – direktlänkar till rapporternas PDF:er. Skapas automatiskt av `verktyg/rapportlankar.py`, som nyhetskollen kör varje morgon.
 - `bevakning.md` – bevakningslistan (bolag + nästa händelse) och kandidater från screening som ännu inte fått egen mapp.
 

@@ -9,5 +9,7 @@ Skillen `bolagsanalys` använder de här filerna som mall när användaren sakna
 | `mojligheter.json` | metod 12 (`resultat` räknas fram av `pipeline.py`) |
 | `marknadsmodell.json` | metod 13 (`resultat` räknas fram av `marknad.py`) |
 | `nyckeltal.json` | belopp i miljoner kronor per kvartal |
+| `arsdata.json` | metod 22 (skapas av `arsdata.py`; skriv bara själv för bolag utan ESEF) |
+| `karna.json` | metod 22, temahävstången (bara spåret Kärna) |
 | `handelser.json` | skillen `dagskoll`, avsnitt 2 |
 | `tes.md`, `kallor.md`, `loften.md`, `logg.md`, `kundregister.md`, `natverk.md` | rubrikerna att använda |

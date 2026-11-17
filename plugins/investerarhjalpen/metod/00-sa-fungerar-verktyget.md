@@ -73,7 +73,19 @@ Står det *(förslag)* har verktyget gissat spåret. Du bekräftar med `ja till 
 
 **Kontrollera själv:** öppna Redo-poäng på ett bolag och se att varje punkt har en motivering som stämmer med siffrorna under Siffror per kvartal.
 
-Läs mer: [Metod 15](#metod-15) (redo-poängen) och [Metod 18, Spår och investerarpanelen](#metod-18)
+**Kvalitet och pris** (bara Kärna): ett kvalitetsbetyg A–D ur bolagets egna årssiffror. Betyget har sex delar med 0–2 poäng var: lönsamhet, stabilitet, kassaflöde, balans, tillväxt och ägarvänlighet.
+| Betyg | Poäng |
+|---|---|
+| A | 10–12 |
+| B | 7–9 |
+| C | 4–6 |
+| D | 0–3 |
+
+Rutan visar också om priset är billigare eller dyrare än bolagets egen historik (P/E, EV/EBIT och fritt kassaflöde mot mittvärdet av åren), kvalitetslinserna och temahävstången. Siffrorna hämtas gratis ur årsredovisningarna i ESEF-format. Börsdata kan kopplas på senare.
+
+**Kontrollera själv:** öppna Årssiffrorna i rutan och jämför ett år med bolagets årsredovisning.
+
+Läs mer: [Metod 15](#metod-15) (redo-poängen), [Metod 18, Spår och investerarpanelen](#metod-18) och [Metod 22, Kärnspåret](#metod-22)
 
 ---
 
@@ -180,5 +192,6 @@ Facit svarar på frågor som: lönar det sig att vänta på fas 2? Gick bolagen 
 | [19](#metod-19) | Fonder: så räknar verktyget |
 | [20](#metod-20) | Tesens pelare och jämförelsen med liknande bolag |
 | [21](#metod-21) | Trendradarn: stora skiften i världen |
+| [22](#metod-22) | Kärnspåret: kvalitetsbetyg, kvalitetslinser och pris mot egen historik |
 | [Ordlista](#metod-ordlista) | Alla förklarade ord |
 | [Min strategi](#metod-strategi) | Din egen strategi (personlig) |

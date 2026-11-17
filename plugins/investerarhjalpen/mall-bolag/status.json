@@ -73,7 +73,8 @@
  "kallor_bevakning": {
   "mfn_slug": "…",
   "fi_utgivare": "…",
-  "yahoo": "…"
+  "yahoo": "…",
+  "lei": "… (fylls i av arsdata.py)"
  },
  "ir_sida": "…",
  "isin": "…",

@@ -356,6 +356,26 @@ a.trendkort:hover{border-color:var(--accent)}
 .passar.p-lite{background:var(--bad-bg);color:var(--bad)}
 .panel-kort .fot{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;justify-content:space-between;margin-top:12px;font-size:12px;color:var(--muted)}
 .lynch-box{display:flex;flex-direction:column;gap:4px}
+/* kärnspåret: kvalitet och pris */
+.kv-top{display:flex;flex-wrap:wrap;gap:14px 22px;align-items:center;margin:10px 0 6px}
+.betyg{display:inline-grid;place-items:center;width:58px;height:58px;border-radius:12px;font:800 32px/1 var(--f-display);background:var(--sunk);color:var(--fg)}
+.betyg.b-A{background:var(--ok-bg);color:var(--ok)}.betyg.b-B{background:var(--accent-weak);color:var(--accent)}.betyg.b-C{background:var(--warn-bg);color:var(--warn)}.betyg.b-D{background:var(--bad-bg);color:var(--bad)}
+.kv-delar{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin:12px 0}
+.kv-del{border:1px solid var(--line);border-radius:10px;padding:10px 12px;min-width:0}
+.kv-del .h{display:flex;justify-content:space-between;gap:8px;font-weight:600}
+.kv-del .pr{font:600 13px var(--f-mono);letter-spacing:2px;color:var(--accent)}
+.kv-del p{margin:4px 0 0;font-size:13px;color:var(--muted)}
+.kv-hist{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin:10px 0}
+.kv-hist .m{border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+.kv-hist .m b{display:block;font:700 20px var(--f-display);margin:2px 0}
+.kv-skala{position:relative;height:6px;background:var(--sunk);border-radius:3px;margin:8px 0 4px}
+.kv-skala i{position:absolute;top:-4px;width:3px;height:14px;border-radius:2px;background:var(--fg)}
+.kv-skala s{position:absolute;top:-2px;width:2px;height:10px;background:var(--muted);opacity:.7}
+.kv-lins{margin:6px 0 10px}.kv-lins h4{margin:10px 0 4px;font-size:14px}
+.kv-lins li{font-size:13.5px;margin:3px 0;list-style:none}
+.kv-lins ul{padding-left:0;margin:0}
+.ok-j{color:var(--ok);font-weight:700}.ok-n{color:var(--bad);font-weight:700}.ok-q{color:var(--muted);font-weight:700}
+.tw2 table.kv-tab td,.tw2 table.kv-tab th{font:12.5px var(--f-mono);white-space:nowrap}
 .lynch-box .k{font:700 15px var(--f-display)}
 /* chatt */
 #chat-knapp{position:fixed;right:max(16px,env(safe-area-inset-right,0px));bottom:max(16px,env(safe-area-inset-bottom,0px));z-index:20;appearance:none;border:0;border-radius:999px;background:var(--accent);color:var(--bg);font:600 14px var(--f-body);padding:12px 18px;box-shadow:0 6px 20px rgba(0,0,0,.2);cursor:pointer}
@@ -1104,6 +1124,41 @@ function panelKort(b, id){
     <div class="fot"><span>${x.tung.includes(sp) ? `Väger tyngst för spåret ${esc(SPAR[sp][0])}.` : `Andra perspektiv: ${esc(b.status.namn)} mäts som ${esc(SPAR[sp][0])}, så det här kortet ändrar inte bedömningen.`} ${bl ? "Blankaren är en påhittad roll som letar efter det som kan gå fel." : `Tolkning av ${esc(x.hel)}s filosofi.`}</span>${CHAT.sample ? `<button type="button" class="knapp" data-fraga="${x.id}">Fråga ${esc(x.namn)} vidare</button>` : ""}</div>
   </article>`;
 }
+// --- kärnspåret (metod 22): kvalitetsbetyg, linser och pris mot egen historik ---
+const BETYG_ORD = {A:"Hög kvalitet", B:"God kvalitet", C:"Blandad kvalitet", D:"Låg kvalitet", "?":"För lite data"};
+function bock(u){ return u === true ? `<span class="ok-j" title="Uppfyllt">✓</span>` : u === false ? `<span class="ok-n" title="Inte uppfyllt">✗</span>` : `<span class="ok-q" title="Går inte att avgöra">–</span>`; }
+function karnaHtml(b){
+  const k = b.karna, s = b.status; if (s.spar !== "karna") return "";
+  if (!k || !k.ok) return `<section class="nt sek" id="sek-kvalitet" aria-label="Kvalitet och pris"><h2>Kvalitet och pris</h2><div class="empty">${esc((k && k.skal) || "Årssiffrorna saknas än.")} Skriv <b>hämta årssiffrorna för ${esc(s.namn)}</b> i Claude-appen.</div></section>`;
+  const v = k.valuta || "", sist = k.ar[k.ar.length - 1];
+  const delar = k.delar.map(d => `<div class="kv-del"><div class="h"><span>${esc(d.namn)}</span><span class="pr" aria-label="${d.poang ?? "okänt"} av 2 poäng">${d.poang == null ? "–" : "●".repeat(d.poang) + "○".repeat(2 - d.poang)}</span></div><p><i>${esc(d.fraga)}</i></p><p>${esc(d.skal)}</p></div>`).join("");
+  const hist = (k.historik||[]).map(h => {
+    const lo = Math.min(h.min, h.nu), hi = Math.max(h.max, h.nu), pos = x => ((x - lo) / ((hi - lo) || 1) * 100).toFixed(1);
+    return `<div class="m"><span class="label">${esc(h.namn)}</span><b>${fmt(h.nu, 1)}</b><span class="steps-lbl">Mitten av ${esc(h.ar)}: ${fmt(h.median, 1)} (lägst ${fmt(h.min, 1)}, högst ${fmt(h.max, 1)})</span>
+      <div class="kv-skala" aria-hidden="true"><s style="left:${pos(h.median)}%"></s><i style="left:${pos(h.nu)}%"></i></div><span class="steps-lbl"><b>${esc(h.lage)}</b></span></div>`; }).join("");
+  const linser = k.linser.map(l => `<div class="kv-lins"><h4>${esc(l.namn)}: ${esc(l.fraga)}</h4><ul>${l.punkter.map(p => `<li>${bock(p.uppfylld)} ${esc(p.namn)}: <b>${p.varde == null ? "?" : typeof p.varde === "number" ? fmt(p.varde, (p.enhet||"").includes("%") ? 1 : Math.abs(p.varde) < 10 ? 2 : 1) : esc(p.varde)}</b> ${esc(p.enhet||"")} <span class="steps-lbl">${esc(p.forklaring)}</span></li>`).join("")}</ul></div>`).join("");
+  const pi = k.piotroski;
+  const pio = pi ? `<div class="kv-lins"><h4>Piotroskis F-poäng ${esc(pi.ar)}: ${pi.poang} av ${pi.av}</h4><p class="steps-lbl" style="margin:0 0 4px">Nio enkla test av om bolaget blev starkare än året innan. 8–9 är starkt, 0–2 svagt.</p><ul>${pi.tester.map(t => `<li>${bock(t.uppfylld)} ${esc(t.namn)}</li>`).join("")}</ul></div>` : "";
+  const u = k.utdelning || {};
+  const utd = `<div class="kv-lins"><h4>Utdelning</h4><ul><li>Utdelning ${u.ar_med_utdelning} av ${u.av_ar} år${u.hojd_ar_i_rad != null ? `, höjd eller oförändrad ${u.hojd_ar_i_rad} år i rad` : ""}.</li>${u.utdelningsandel != null ? `<li>Andel av vinsten som delades ut ${esc(sist.ar)}: <b>${fmt(u.utdelningsandel, 0)} %</b></li>` : ""}${u.direktavkastning != null ? `<li>Direktavkastning nu: <b>${fmt(u.direktavkastning, 1)} %</b></li>` : ""}</ul></div>`;
+  const th = k.temahavstang;
+  const tema = th ? `<div class="callout"><div class="label">Temahävstång: ${esc(th.nisch||"")}${th.tema ? ` (${esc(th.tema)})` : ""} ${th.niva ? `<span class="chip chip-${th.niva === "?" ? "Q" : esc(th.niva)}">${esc(th.niva)}</span>` : ""}</div>
+    <p style="margin:6px 0 0">${esc(th.skal||"")}</p>${th.resultat ? `<p style="margin:6px 0 0">Räkneexempel: nischen är <b>${fmt(th.andel_nu_pct, 0)} %</b> av försäljningen och växer <b>${fmt(th.tillvaxt_nisch_pct, 0)} %</b> per år, resten <b>${fmt(th.tillvaxt_ovrigt_pct || 0, 0)} %</b>. Om ${esc(th.ar || 5)} år är nischen ${fmt(th.resultat.andel_efter_pct, 0)} % av bolaget, och hela bolaget växer ${fmt(th.resultat.total_tillvaxt_pct, 1)} % per år i stället för ${fmt(th.resultat.utan_nisch_pct, 1)} %. Lyftet är ${fmt(th.resultat.lyft_pp, 1)} procentenheter per år.</p>` : ""}</div>` : "";
+  const kol = [["omsattning","Försäljning",0],["rorelsemarginal","Rörelsemarginal %",1],["roce","Avk. på kapital %",1],["roe","Avk. eget kap. %",1],["fritt_kassaflode","Fritt kassaflöde",0],["vinst_per_aktie","Vinst/aktie",2],["utdelning_per_aktie","Utdelning/aktie",2],["pe","P/E",1]];
+  const tab = `<div class="tw2"><table class="matris kv-tab"><tr><th style="text-align:left">År</th>${kol.map(c => `<th>${c[1]}</th>`).join("")}</tr>${k.ar.slice().reverse().map(a => `<tr><td style="text-align:left">${esc(a.ar)}</td>${kol.map(c => `<td>${fmt(a[c[0]], c[2])}</td>`).join("")}</tr>`).join("")}</table></div>
+    <p class="steps-lbl">Belopp i miljoner ${esc(v)}. ${esc(k.kalla||"")}. P/E räknat på kursen vid årets slut. Avkastning på kapital = rörelseresultat delat med tillgångar minus kortfristiga skulder.</p>`;
+  const nu = k.nu || {};
+  return `<section class="nt sek" id="sek-kvalitet" aria-label="Kvalitet och pris"><h2>Kvalitet och pris</h2>
+    <p class="hint" style="margin-top:0">Huvudbedömningen för spåret Kärna. Betyget räknas fram ur bolagets egna årssiffror ${esc(k.period)}, sex delar med 0–2 poäng var. Det är fakta om bolaget, inget köpråd. Så räknas det: <a href="#metod-22">metod 22</a>.</p>
+    <div class="kv-top"><span class="betyg b-${esc(k.betyg)}" aria-label="Kvalitetsbetyg ${esc(k.betyg)}">${esc(k.betyg)}</span><div><b>${esc(BETYG_ORD[k.betyg]||"")}</b> · ${k.poang} av ${k.poang_max} poäng<br><span class="steps-lbl">Priset jämfört med bolagets egen historik: <b>${esc(k.vardering_lage || "går inte att räkna")}</b></span></div></div>
+    <div class="kv-delar">${delar}</div>
+    ${hist ? `<h3 style="margin:14px 0 2px;font-size:15px">Priset nu jämfört med bolagets egen historik</h3><p class="steps-lbl" style="margin:0">Kurs ${fmt(nu.kurs, 2)} (${esc(nu.kurs_datum||"")}) mot siffrorna för ${esc(nu.baserat_pa_ar||"")}. Strecket är läget nu, den grå markeringen är mitten av historiken. Ett lågt P/E kan också betyda att marknaden väntar sig lägre vinst framöver.</p><div class="kv-hist">${hist}</div>` : ""}
+    ${tema}
+    <details class="fold" style="margin-top:12px"><summary><span class="ft">Kvalitetslinserna</span><span class="fs">Buffett, Smith, Graham, Lynch, Piotroski och utdelning, räknat ur siffrorna</span></summary>${linser}${pio}${utd}</details>
+    <details class="fold"><summary><span class="ft">Årssiffrorna</span><span class="fs">${esc(k.period)} · miljoner ${esc(v)}</span></summary>${tab}</details>
+    ${(k.anmarkningar||[]).map(a => `<p class="steps-lbl">OBS: ${esc(a)}</p>`).join("")}
+  </section>`;
+}
 function lynchHtml(s){
   if (!s.lynch) return "";
   return `<div class="lynch-box"><span class="label">Lynchkategori</span><span class="k">${esc(LYNCH[s.lynch]||s.lynch)}</span><span class="steps-lbl">${esc(s.lynch_skal||"")}</span></div>`;
@@ -1275,7 +1330,7 @@ function vyBolag(arg){
     ${(() => { const f = s.forhandsvisning; if (!f || !f.datum) return ""; const n = dagarTill(f.datum); return n >= -1 && n <= 7 ? `<div style="margin:10px 0">${forhandsHtml(b)}</div>` : ""; })()}
     ${sfHtml(b)}
     ${dokHtml(b)}
-    <nav class="seknav" aria-label="Hoppa till">${[["Översikt", [["enkelt","Kort och enkelt"],["pelare","Pelare"],["nytt","Senaste nytt"],["varde","Värdet"]]], ["Bevisen", [["siffror","Siffror"],["panel","Panelen"],["jamfor","Jämförelse"],["redo","Redo-poäng"]]], ["Fördjupning", [["framtid","Framtiden"],["vardering","Värdering"],["akt","Hela akten"]]]].map(([g, ks]) => `<span class="grp">${g}</span>` + ks.map(([k,n]) => `<button type="button" data-s="${k}">${n}</button>`).join("")).join("")}</nav>
+    <nav class="seknav" aria-label="Hoppa till">${[["Översikt", [["enkelt","Kort och enkelt"],["pelare","Pelare"],["nytt","Senaste nytt"],["varde","Värdet"]]], ["Bevisen", [...(arVandning(s) ? [] : [["kvalitet","Kvalitet"]]),["siffror","Siffror"],["panel","Panelen"],["jamfor","Jämförelse"],...(arVandning(s) ? [["redo","Redo-poäng"]] : [])]], ["Fördjupning", [["framtid","Framtiden"],["vardering","Värdering"],["akt","Hela akten"]]]].map(([g, ks]) => `<span class="grp">${g}</span>` + ks.map(([k,n]) => `<button type="button" data-s="${k}">${n}</button>`).join("")).join("")}</nav>
     ${s.enkelt ? `
     <section class="enkelt sek" id="sek-enkelt" aria-label="Kort och enkelt">
       <h2>Kort och enkelt</h2>
@@ -1293,6 +1348,7 @@ function vyBolag(arg){
       ${(b.handelser||[]).length > 4 ? `<p class="hint"><a href="#nyheter">Alla nyheter →</a></p>` : ""}
     </section>
     ${svarRuta(b)}
+    ${karnaHtml(b)}
     ${fold("siffror", "Siffror per kvartal", "Försäljning, resultat och beställningar", nyckeltalPanel(b, true))}
     ${panelHtml(b)}
     ${fold("jamfor", "Jämförelse med liknande bolag", s.jamforelse && typeof s.jamforelse === "object" ? `${(s.jamforelse.bolag||[]).length} bolag · vad marknaden betalar` : "", jamforelseHtml(b))}
@@ -1673,7 +1729,7 @@ ${panelChecklista(p.id)}
 Panelkortet som redan finns: ${JSON.stringify(kort || "inget kort än")}`;
 })()}`;
 }
-const LASBARA = ["panel","tes","kallor","logg","loften","kundregister","djup","status","handelser","nyckeltal","vardering","rapporter","pipeline","marknad","nyheter"];
+const LASBARA = ["karna","panel","tes","kallor","logg","loften","kundregister","djup","status","handelser","nyckeltal","vardering","rapporter","pipeline","marknad","nyheter"];
 function las(bolag, dok){
   dok = String(dok||"").toLowerCase();
   if (dok === "journal") return (DATA.journal||"").slice(0, 14000);
@@ -1693,6 +1749,7 @@ function las(bolag, dok){
   if (dok === "panel") return j(b.panel || "Panelen är inte framtagen än");
   if (dok === "handelser") return j(b.handelser);
   if (dok === "nyckeltal") return j(b.nyckeltal);
+  if (dok === "karna") return j(b.karna ? {...b.karna, ar: (b.karna.ar||[]).slice(-6)} : "Kärnspåret är inte uträknat (bara bolag i spåret Kärna med årssiffror)");
   if (dok === "vardering") return j(b.vardering);
   if (dok === "rapporter") return j(b.rapporter);
   if (dok === "pipeline") return j(b.mojligheter && {...b.mojligheter, resultat: b.mojligheter.resultat});
@@ -1706,7 +1763,7 @@ const VERKTYG = [
   {name: "sok", description: "Fritextsökning i hela sidan: bolag, händelser, rapporter, pressmeddelanden, akterna (tes, källor, logg, löften, kunder, djupdykningar), lektioner, ordlista, metod, teman och journal. Returnerar upp till 12 träffar med typ, titel och utdrag.",
    inputSchema: {type:"object", properties:{fraga:{type:"string", description:"Sökord, gärna 1–3 ord"}}, required:["fraga"]},
    execute: ({fraga}) => sok(String(fraga||""), 12).map(r => ({typ:r.typ, titel:r.titel, utdrag:r.ut, lank: r.extern ? r.href : undefined}))},
-  {name: "las", description: "Läser ett helt dokument för ett bevakat bolag: panel (investerarpanelens kort), tes, kallor, logg, loften, kundregister, djup, status, handelser, nyckeltal, vardering, rapporter, pipeline, marknad, nyheter. Utan bolag: trender (alla djärva hypoteser och trender i korthet), trend:<namn> (en hypotes eller trend i detalj), fonder (alla följda fonder i korthet), fond:<namn> (en fond i detalj), journal, guide (hur verktyget fungerar, tips och trix), lektion:<id> eller metod:<namn>. Returnerar text (max ca 14 000 tecken).",
+  {name: "las", description: "Läser ett helt dokument för ett bevakat bolag: karna (kvalitetsbetyg, kvalitetslinser och pris mot egen historik för bolag i spåret Kärna), panel (investerarpanelens kort), tes, kallor, logg, loften, kundregister, djup, status, handelser, nyckeltal, vardering, rapporter, pipeline, marknad, nyheter. Utan bolag: trender (alla djärva hypoteser och trender i korthet), trend:<namn> (en hypotes eller trend i detalj), fonder (alla följda fonder i korthet), fond:<namn> (en fond i detalj), journal, guide (hur verktyget fungerar, tips och trix), lektion:<id> eller metod:<namn>. Returnerar text (max ca 14 000 tecken).",
    inputSchema: {type:"object", properties:{bolag:{type:"string", description:"Bolagets namn, ticker eller slug (tomt för journal/lektion/metod)"}, dokument:{type:"string"}}, required:["dokument"]},
    execute: ({bolag, dokument}) => las(bolag, dokument)}
 ];

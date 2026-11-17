@@ -124,7 +124,7 @@ Se över `okand_framtid` mot signalindexets trend. **Det viktigaste i rapporten 
 - Saknar bolaget `spar` eller `lynch`: föreslå dem (`"spar_bekraftad": false`) och skriv förslaget i notisen.
 - Stämmer spåret fortfarande? Har ett vändningsbolag nått stabil lönsamhet, eller har ett kärnbolag hamnat i kris: föreslå ett byte i rapporten och notisen, men byt inte förrän användaren sagt ja.
 - Uppdatera `panel.json` med dagens siffror enligt skillen `panel`. Ändras `passar` för någon investerare: skriv det under "Ändrade bevisnivåer" i rapporten.
-- För spåret Kärna ersätter panelens Buffett, Smith och Graham redo-poängen som kvalitetskontroll.
+- För spåret Kärna ersätter kvalitetsbetyget (metod 22) och panelens Buffett, Smith och Graham redo-poängen som kvalitetskontroll. Kör först `python3 -I "$IH/verktyg/arsdata.py" <bolagsmapp>` och sedan `python3 -I "$IH/verktyg/karna.py" <bolagsmapp>`. Ändras betyget, eller går priset från "som vanligt" till "billigare" eller "dyrare än vanligt": skriv det i rapporten och fundera på varför (metod 14). Kontrollera att temahävstången i `karna.json` fortfarande stämmer.
 
 **8d. Kalendern.** Kontrollera bolagets finansiella kalender på IR-sidan. Fyll i exakta datum för rapporter och stämmor i `kalender` i `status.json` (format i skillen `dagskoll`, avsnitt 4c) och ta bort de ungefärliga posterna som ersatts. Lägg till andra kända datum som är viktiga för tesen: mässor, studieresultat, teckningstider och avtal som löper ut. `python3 -I "$IH/verktyg/kalender.py" --ungefar` visar vilka datum som fortfarande bara har en månad.
 

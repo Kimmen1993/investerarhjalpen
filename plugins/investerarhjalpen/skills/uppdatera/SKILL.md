@@ -23,7 +23,7 @@ description: Uppdatera bolagscase. Med bolagsnamn uppdateras det bolaget. Utan a
 2. Läs de nya posterna i `nyheter.json`, som redan har länkar. Kompletterande sökningar:
    - kunder, partners och media enligt `kallor.md`
    - LinkedIn bara vid behov
-   - när en rapport har kommit: läs PDF:en med `swift "$IH/verktyg/pdftext.swift"` (eller `ocr.swift` om den är inskannad), lägg till kvartalet i `nyckeltal.json` och följ upp löftena i `loften.md`
+   - när en rapport har kommit: läs PDF:en med `swift "$IH/verktyg/pdftext.swift"` (eller `ocr.swift` om den är inskannad), lägg till kvartalet i `nyckeltal.json` och följ upp löftena i `loften.md`. Är det en årsredovisning för ett kärnbolag: kör `python3 -I "$IH/verktyg/arsdata.py" <bolagsmapp>` (metod 22)
 3. Gå igenom alla påståenden som är C eller ?, och listan "Vad skulle fälla tesen?".
 4. Uppdatera:
    - `tes.md` och `kallor.md`

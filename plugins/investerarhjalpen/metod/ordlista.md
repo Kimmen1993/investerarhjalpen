@@ -109,6 +109,16 @@ Orden här blir automatiskt klickbara förklaringar på webbsidan. Formatet ska 
 - **Fritt kassaflöde / FCF:** pengarna som blir kvar när bolaget har betalat för driften och sina investeringar. Det är det som kan gå till utdelning, återköp eller amortering.
 - **FCF-avkastning:** det fria kassaflödet i procent av börsvärdet. Ungefär hur mycket pengar bolaget genererar per hundralapp du betalar för aktien.
 - **Kassaflödeskonvertering:** hur stor del av vinsten som blir riktiga pengar på kontot. Nära 100 % är ett gott tecken.
+- **ROE / avkastning på eget kapital:** vinsten i procent av ägarnas pengar i bolaget (det egna kapitalet). Över ca 15 % år efter år är bra.
+- **EV/EBIT:** vad hela bolaget kostar, inklusive skulderna, delat med rörelseresultatet. Ungefär som P/E, men skulder och kassa räknas med.
+- **Kvalitetsbetyg:** Kärnspårets betyg A–D. Sex delar (lönsamhet, stabilitet, kassaflöde, balans, tillväxt och ägarvänlighet) med 0–2 poäng var. Det beskriver bolaget, inte om aktien är billig.
+- **Median / mittvärde:** det mittersta värdet när alla år läggs i ordning. Påverkas mindre än snittet av ett enda konstigt år.
+- **Piotroskis F-poäng / F-poäng / Piotroski:** nio enkla test av om ett bolag blev starkare än året innan. 8–9 är starkt, 0–2 svagt.
+- **Direktavkastning:** utdelningen per aktie i procent av aktiekursen.
+- **Utdelningsandel:** hur stor del av vinsten som delas ut till ägarna.
+- **Temahävstång:** en liten, snabbväxande del av ett större bolag som kan lyfta tillväxten för hela bolaget.
+- **ESEF:** formatet som börsbolag på huvudlistan lämnar sin årsredovisning i, så att datorer kan läsa siffrorna. Verktyget hämtar dem gratis.
+- **LEI / LEI-kod:** ett bolags internationella identitetsnummer, ungefär som ett personnummer för bolag.
 - **Blankare / blankning / Blankaren:** någon som tjänar pengar när en aktie faller, genom att låna aktier, sälja dem och köpa tillbaka billigare senare. I panelen är Blankaren en påhittad roll som letar risker.
 - **Scuttlebutt:** Philip Fishers ord för att fråga runt hos kunder, leverantörer och konkurrenter för att förstå ett bolag bättre än siffrorna visar.
 - **Nettoskuld / nettoskulden:** skulderna minus kassan. Negativ nettoskuld betyder att bolaget har mer pengar än skulder.

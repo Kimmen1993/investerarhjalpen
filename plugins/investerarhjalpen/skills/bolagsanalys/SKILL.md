@@ -52,7 +52,7 @@ Gör stegen i den här ordningen:
 3. Kontrollera de röda flaggorna (metod 04).
 4. **Spår och Lynchkategori (metod 18):** föreslå `spar` (`vandning` eller `karna`), `lynch` och `lynch_skal`, med `"spar_bekraftad": false`.
    - **Vändning:** poängsätt turnaround-checklistan (metod 02), bestäm steg 1–5 med belägg, milstolpar kvar och bedömd tid (justerad med löftesrevisionens precision, metod 07), och sätt redo-poängen (metod 15).
-   - **Kärna:** hoppa över turnaround-steget och redo-poängen. Lägg i stället vikt vid kvalitet (avkastning på kapitalet, marginaler, kassaflöde) och värdering mot bolagets egen historik.
+   - **Kärna:** hoppa över turnaround-steget och redo-poängen. Kör i stället `python3 -I "$IH/verktyg/arsdata.py" <bolagsmapp>` för upp till tio års siffror (metod 22). Finns bolaget inte i ESEF-registret (till exempel First North): läs flerårsöversikten i den senaste årsredovisningen och skriv raderna i `arsdata.json` med `"kalla": "rapport"`. Kvalitetsbetyget, linserna och priset mot egen historik räknas sedan fram automatiskt. Läs resultatet med `python3 -I "$IH/verktyg/karna.py" <bolagsmapp>` och använd det i tesen. Finns en liten nisch som kan lyfta bolaget: skriv temahävstången i `karna.json`.
 
 Skapa `tes.md`, `kallor.md`, `logg.md` och `loften.md` (mallar i `$IH/mall-bolag/`). `tes.md` ska ha avsnitten "Löftesrevision", "Omvärld/tema" och "Vad skulle fälla tesen?". Lägg till bolaget i `bevakning.md`.
 

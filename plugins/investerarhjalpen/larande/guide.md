@@ -85,6 +85,7 @@ Var försiktig med långa kedjor av C. Flera gissningar efter varandra blir snab
 - **Siffror per kvartal:** staplar med den streckade trendlinjen. Titta på trenden, inte på enskilda kvartal.
 - **Framtiden och värdering:** räkneexempel i flera scenarier. Det är inga riktkurser.
 - **Redo-poäng** (bara spåret Vändning): tio punkter som visar läget enligt din strategi (fas 1 = tidigt läge, fas 2 = vändningen bekräftad). Kärnbolag visar i stället Peter Lynchs kategori.
+- **Kvalitet och pris** (bara spåret Kärna): kvalitetsbetyget A–D, om priset är billigare eller dyrare än bolagets egen historik, kvalitetslinserna (Buffett, Smith, Graham, Lynch, Piotroski och utdelning) och upp till tio års siffror. Skriv `hämta årssiffrorna för <bolag>` om rutan är tom.
 - **Hela akten:** allt underlag, med källor och bevisnivåer.
 
 ## Automatiken
