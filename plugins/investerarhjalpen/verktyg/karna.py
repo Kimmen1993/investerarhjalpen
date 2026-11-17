@@ -61,6 +61,8 @@ def per_ar(rader):
         if fcf is None and r.get("kf_lopande") is not None and capex is not None:
             fcf = r["kf_lopande"] - abs(capex)
         syss = None if r.get("totala_tillgangar") is None or r.get("kortfristiga_skulder") is None else r["totala_tillgangar"] - r["kortfristiga_skulder"]
+        if syss is None and r.get("eget_kapital") is not None and r.get("lan") is not None:
+            syss = r["eget_kapital"] + r["lan"] + (r.get("leasingskulder") or 0)  # reserv: eget kapital + räntebärande skulder
         ek_snitt = r.get("eget_kapital")
         if forra and forra.get("eget_kapital") is not None and ek_snitt is not None:
             ek_snitt = (ek_snitt + forra["eget_kapital"]) / 2
@@ -137,8 +139,40 @@ def piotroski(a, b):
             "tester": [{"namn": n, "uppfylld": v} for n, v in tester]}
 
 
-def rakna(arsdata, kurs=None, manuell=None):
+def substans(rader, arsdata, kurs, manuell=None):
+    """Tillgångsbolag (investmentbolag): substansvärdet per aktie mot kursen, i stället för kvalitetsbetyget."""
+    s = [r for r in sorted(rader, key=lambda r: r["ar"]) if r.get("substansvarde_per_aktie")]
+    serie = []
+    for r in s:
+        k = r.get("kurs_arsslut")
+        serie.append({"ar": r["ar"], "substans_per_aktie": r["substansvarde_per_aktie"], "kurs": k,
+                      "premie_pct": round((k / r["substansvarde_per_aktie"] - 1) * 100, 1) if k else None,
+                      "substansvarde": r.get("substansvarde"), "aktier_milj": r.get("aktier_milj"), "nettoresultat": r.get("nettoresultat")})
+    sist = serie[-1]
+    pris = (kurs or {}).get("kurs")
+    nav, nav_datum, nav_kalla = sist["substans_per_aktie"], f"{sist['ar']}-12-31", "årsredovisningen"
+    senaste = (manuell or {}).get("substans_senaste")  # senaste kvartalets substansvärde, skrivs vid varje rapport
+    if senaste and senaste.get("per_aktie") and str(senaste.get("datum", "")) > nav_datum:
+        nav, nav_datum, nav_kalla = senaste["per_aktie"], senaste["datum"], senaste.get("kalla") or "senaste rapporten"
+    nu = {"kurs": pris, "kurs_datum": (kurs or {}).get("tid"), "substans_per_aktie": nav, "substans_datum": nav_datum, "substans_kalla": nav_kalla,
+          "baserat_pa_ar": sist["ar"], "premie_pct": round((pris / nav - 1) * 100, 1) if pris else None}
+    hist = [x["premie_pct"] for x in serie if x["premie_pct"] is not None]
+    med = _median(hist)
+    lage = None
+    if nu["premie_pct"] is not None and len(hist) >= 3:
+        d = nu["premie_pct"] - med
+        lage = "större rabatt (eller mindre premie) än vanligt" if d < -10 else "mindre rabatt (eller större premie) än vanligt" if d > 10 else "ungefär som vanligt"
+    n = sist["ar"] - serie[0]["ar"]
+    return {"ok": True, "typ": "substans", "betyg": "–", "valuta": arsdata.get("valuta"), "kalla": arsdata.get("kalla"),
+            "period": f"{serie[0]['ar']}–{sist['ar']}", "serie": serie, "nu": nu, "premie_median": med, "vardering_lage": lage,
+            "substans_cagr": _cagr(serie[0]["substans_per_aktie"], sist["substans_per_aktie"], n),
+            "anmarkningar": arsdata.get("anmarkningar") or []}
+
+
+def rakna(arsdata, kurs=None, manuell=None, lynch=None):
     rader = [r for r in (arsdata or {}).get("ar", []) if r.get("ar")]
+    if lynch == "tillgang" and any(r.get("substansvarde_per_aktie") for r in rader):
+        return substans(rader, arsdata, kurs, manuell)
     if len(rader) < 3:
         return {"ok": False, "skal": "Färre än tre år med siffror. Kör arsdata.py, eller läs in årsredovisningarna (metod 22)."}
     rader = sorted(rader, key=lambda r: r["ar"])[-10:]
@@ -203,8 +237,9 @@ def rakna(arsdata, kurs=None, manuell=None):
     # Pris nu
     pris = (kurs or {}).get("kurs")
     pris_valuta = (kurs or {}).get("valuta")
-    if pris_valuta and arsdata.get("valuta") and pris_valuta != arsdata["valuta"]:
-        pris = None
+    om = arsdata.get("kurs_omraknad") or {}
+    if pris and pris_valuta and arsdata.get("valuta") and pris_valuta != arsdata["valuta"]:
+        pris = round(pris / om["vaxelkurs_nu"], 4) if om.get("fran") == pris_valuta and om.get("vaxelkurs_nu") else None
     nu = {}
     if pris:
         eps = sist["vinst_per_aktie"]
@@ -305,7 +340,7 @@ def main():
     for a in sys.argv[1:]:
         m = Path(a) if Path(a).is_dir() else ROT / "bolag" / a
         las = lambda n: json.loads((m / n).read_text(encoding="utf-8")) if (m / n).exists() else None
-        r = rakna(las("arsdata.json"), las("kurs.json"), las("karna.json"))
+        r = rakna(las("arsdata.json"), las("kurs.json"), las("karna.json"), (las("status.json") or {}).get("lynch"))
         print(json.dumps({k: r.get(k) for k in ("betyg", "poang", "poang_max", "period", "vardering_lage", "nyckeltal", "nu")}, ensure_ascii=False, indent=1))
         for d in r.get("delar", []):
             print(f"  {d['namn']}: {d['poang']} – {d['skal']}")

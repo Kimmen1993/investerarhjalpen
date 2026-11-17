@@ -119,6 +119,8 @@ Orden här blir automatiskt klickbara förklaringar på webbsidan. Formatet ska 
 - **Temahävstång:** en liten, snabbväxande del av ett större bolag som kan lyfta tillväxten för hela bolaget.
 - **ESEF:** formatet som börsbolag på huvudlistan lämnar sin årsredovisning i, så att datorer kan läsa siffrorna. Verktyget hämtar dem gratis.
 - **LEI / LEI-kod:** ett bolags internationella identitetsnummer, ungefär som ett personnummer för bolag.
+- **Substansvärde / substansvärdet / substansvärde per aktie:** vad ett investmentbolags innehav minus skulderna är värda, ofta räknat per aktie.
+- **Premie / rabatt / substansrabatt:** hur mycket över (premie) eller under (rabatt) substansvärdet aktien kostar på börsen.
 - **Blankare / blankning / Blankaren:** någon som tjänar pengar när en aktie faller, genom att låna aktier, sälja dem och köpa tillbaka billigare senare. I panelen är Blankaren en påhittad roll som letar risker.
 - **Scuttlebutt:** Philip Fishers ord för att fråga runt hos kunder, leverantörer och konkurrenter för att förstå ett bolag bättre än siffrorna visar.
 - **Nettoskuld / nettoskulden:** skulderna minus kassan. Negativ nettoskuld betyder att bolaget har mer pengar än skulder.

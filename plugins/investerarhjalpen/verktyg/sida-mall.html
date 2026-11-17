@@ -1130,6 +1130,7 @@ function bock(u){ return u === true ? `<span class="ok-j" title="Uppfyllt">✓</
 function karnaHtml(b){
   const k = b.karna, s = b.status; if (s.spar !== "karna") return "";
   if (!k || !k.ok) return `<section class="nt sek" id="sek-kvalitet" aria-label="Kvalitet och pris"><h2>Kvalitet och pris</h2><div class="empty">${esc((k && k.skal) || "Årssiffrorna saknas än.")} Skriv <b>hämta årssiffrorna för ${esc(s.namn)}</b> i Claude-appen.</div></section>`;
+  if (k.typ === "substans") return substansHtml(b, k);
   const v = k.valuta || "", sist = k.ar[k.ar.length - 1];
   const delar = k.delar.map(d => `<div class="kv-del"><div class="h"><span>${esc(d.namn)}</span><span class="pr" aria-label="${d.poang ?? "okänt"} av 2 poäng">${d.poang == null ? "–" : "●".repeat(d.poang) + "○".repeat(2 - d.poang)}</span></div><p><i>${esc(d.fraga)}</i></p><p>${esc(d.skal)}</p></div>`).join("");
   const hist = (k.historik||[]).map(h => {
@@ -1156,6 +1157,24 @@ function karnaHtml(b){
     ${tema}
     <details class="fold" style="margin-top:12px"><summary><span class="ft">Kvalitetslinserna</span><span class="fs">Buffett, Smith, Graham, Lynch, Piotroski och utdelning, räknat ur siffrorna</span></summary>${linser}${pio}${utd}</details>
     <details class="fold"><summary><span class="ft">Årssiffrorna</span><span class="fs">${esc(k.period)} · miljoner ${esc(v)}</span></summary>${tab}</details>
+    ${(k.anmarkningar||[]).map(a => `<p class="steps-lbl">OBS: ${esc(a)}</p>`).join("")}
+  </section>`;
+}
+function substansHtml(b, k){
+  const s = b.status, nu = k.nu || {}, v = k.valuta || "";
+  const pr = x => x == null ? "–" : `${x > 0 ? "+" : ""}${fmt(x, 0)} %`;
+  const rad = k.serie.slice().reverse().map(a => `<tr><td style="text-align:left">${esc(a.ar)}</td><td>${fmt(a.substans_per_aktie, 2)}</td><td>${fmt(a.kurs, 2)}</td><td>${pr(a.premie_pct)}</td><td>${fmt(a.substansvarde, 0)}</td><td>${fmt(a.nettoresultat, 0)}</td></tr>`).join("");
+  return `<section class="nt sek" id="sek-kvalitet" aria-label="Substansvärde och pris"><h2>Substansvärde och pris</h2>
+    <p class="hint" style="margin-top:0">${esc(s.namn)} är ett investmentbolag. Vinsten är mest värdeförändringar på innehaven, så det får inget kvalitetsbetyg. I stället jämförs kursen med <b>substansvärdet</b>: vad innehaven är värda per aktie. Över substansvärdet betalar man en premie, under det får man en rabatt. Så räknas det: <a href="#metod-22">metod 22</a>.</p>
+    <div class="kv-hist">
+      <div class="m"><span class="label">Substansvärde per aktie</span><b>${fmt(nu.substans_per_aktie, 2)} kr</b><span class="steps-lbl">${esc(nu.substans_datum||"")}, ${esc(nu.substans_kalla||"")}</span></div>
+      <div class="m"><span class="label">Kursen</span><b>${fmt(nu.kurs, 2)} kr</b><span class="steps-lbl">${esc(nu.kurs_datum||"")}</span></div>
+      <div class="m"><span class="label">${nu.premie_pct != null && nu.premie_pct < 0 ? "Rabatt" : "Premie"} nu</span><b>${pr(nu.premie_pct)}</b><span class="steps-lbl">Mitten av ${esc(k.period)}: ${pr(k.premie_median)}${k.vardering_lage ? `, alltså <b>${esc(k.vardering_lage)}</b>` : ""}</span></div>
+      <div class="m"><span class="label">Substansvärdets utveckling</span><b>${k.substans_cagr == null ? "–" : pr(k.substans_cagr)}</b><span class="steps-lbl">per aktie och år, ${esc(k.period)}</span></div>
+    </div>
+    <details class="fold"><summary><span class="ft">År för år</span><span class="fs">${esc(k.period)} · substansvärde och resultat i miljoner ${esc(v)}</span></summary>
+      <div class="tw2"><table class="matris kv-tab"><tr><th style="text-align:left">År</th><th>Substans/aktie</th><th>Kurs vid årets slut</th><th>Premie/rabatt</th><th>Substansvärde</th><th>Resultat</th></tr>${rad}</table></div>
+      <p class="steps-lbl">${esc(k.kalla||"")}. Kurser från Yahoo Finance.</p></details>
     ${(k.anmarkningar||[]).map(a => `<p class="steps-lbl">OBS: ${esc(a)}</p>`).join("")}
   </section>`;
 }

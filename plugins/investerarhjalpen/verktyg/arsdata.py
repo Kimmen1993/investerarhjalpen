@@ -30,8 +30,8 @@ UA = {"User-Agent": "Mozilla/5.0 (investerarhjalpen arsdata)"}
 FALT = ["omsattning", "bruttoresultat", "rorelseresultat", "resultat_fore_skatt", "nettoresultat", "vinst_per_aktie",
         "utdelning_per_aktie", "avskrivningar", "kf_lopande", "kf_invest", "kf_finans", "capex", "utdelning_betald", "aterkop",
         "kassa", "eget_kapital", "totala_tillgangar", "omsattningstillgangar", "kortfristiga_skulder", "langfristiga_skulder",
-        "lan", "leasingskulder", "nettoskuld", "aktier_milj"]
-PER_AKTIE = ("vinst_per_aktie", "utdelning_per_aktie")
+        "lan", "leasingskulder", "nettoskuld", "aktier_milj", "substansvarde", "substansvarde_per_aktie"]
+PER_AKTIE = ("vinst_per_aktie", "utdelning_per_aktie", "substansvarde_per_aktie")
 
 
 def yahoo_historik(symbol):
@@ -112,7 +112,8 @@ def uppdatera(mapp, logg=print):
             if not data["ar"]:
                 anm.append("Bolaget finns i ESEF-registret men inga årsredovisningar kunde läsas.")
         else:
-            anm.append("Bolaget finns inte i ESEF-registret (gäller till exempel First North). Årssiffrorna får läsas ur årsredovisningarna och sparas med \"kalla\": \"rapport\".")
+            if not rapport_rader:
+                anm.append("Bolaget finns inte i ESEF-registret (gäller till exempel First North). Årssiffrorna får läsas ur årsredovisningarna och sparas med \"kalla\": \"rapport\".")
             data = {"valuta": gammal.get("valuta"), "ar": []}
 
     rader = {r["ar"]: r for r in data["ar"] if r.get("ar")}
@@ -127,9 +128,17 @@ def uppdatera(mapp, logg=print):
             arsslut, splittar, kursvaluta = yahoo_historik(kb["yahoo"])
         except Exception as e:
             anm.append(f"Årsslutskurser från Yahoo saknas ({e}).")
+    omraknad = None
     if kursvaluta and valuta and kursvaluta != valuta:
-        anm.append(f"Kursen är i {kursvaluta} men rapporterna i {valuta}. Värderingen mot historiken räknas inte.")
-        arsslut = {}
+        # Kursen räknas om till rapportvalutan med växelkursen vid varje årsslut (Yahoo, t.ex. EURSEK=X)
+        try:
+            fx_ar, _, _ = yahoo_historik(f"{valuta}{kursvaluta}=X")
+            fx_nu = fx_ar[max(fx_ar)]
+            arsslut = {ar: round(k / fx_ar[ar], 4) for ar, k in arsslut.items() if fx_ar.get(ar)}
+            omraknad = {"fran": kursvaluta, "till": valuta, "vaxelkurs_nu": fx_nu, "par": f"{valuta}{kursvaluta}=X"}
+        except Exception as e:
+            anm.append(f"Kursen är i {kursvaluta} men rapporterna i {valuta}, och växelkursen gick inte att hämta ({e}). Värderingen mot historiken räknas inte.")
+            arsslut = {}
 
     ut = []
     for ar in sorted(rader):
@@ -146,8 +155,9 @@ def uppdatera(mapp, logg=print):
         ut.append(r)
 
     res = {"bolag": status.get("namn"), "valuta": valuta, "enhet": "miljoner", "uppdaterad": date.today().isoformat(),
-           "kalla": {"borsdata": "Börsdata (eget medlemskap)", "esef": "Bolagets årsredovisningar i ESEF-format via filings.xbrl.org (gratis, officiellt)"}.get(kalla, "Årsredovisningar lästa av Claude"),
-           "kurser": "Årsslutskurser från Yahoo Finance, justerade för aktiesplittar" if arsslut else None,
+           "kalla": {"borsdata": "Börsdata (eget medlemskap)", "esef": "Bolagets årsredovisningar i ESEF-format via filings.xbrl.org (gratis, officiellt)"}.get(kalla, gammal.get("kalla_rapport") or "Årsredovisningar lästa av Claude"),
+           "kalla_rapport": gammal.get("kalla_rapport"), "kurs_omraknad": omraknad,
+           "kurser": ("Årsslutskurser från Yahoo Finance, justerade för aktiesplittar" + (f", omräknade från {omraknad['fran']} till {omraknad['till']}" if omraknad else "")) if arsslut else None,
            "splittar": splittar, "anmarkningar": anm, "ar": ut, "rattelser": rattelser,
            "rattelser_hjalp": "Handinmatade värden per år, t.ex. {\"2024\": {\"lan\": 145.0}}. Skrivs aldrig över. Skriv källan i kallor.md."}
     fil.write_text(json.dumps(res, ensure_ascii=False, indent=1), encoding="utf-8")

@@ -4,6 +4,8 @@
 - **Ny ruta Kvalitet och pris** för bolag i spåret Kärna. Den visar ett **kvalitetsbetyg A–D** med sex delar (lönsamhet, stabilitet, kassaflöde, balans, tillväxt och ägarvänlighet) och om **priset är billigare eller dyrare än bolagets egen historik** (P/E, EV/EBIT och fritt kassaflöde mot mittvärdet av åren). Den visar också **kvalitetslinserna** (Buffett, Smith, Graham, Lynch, Piotroski och utdelning) som bockas av ur siffrorna, och **temahävstången** för en liten nisch som kan lyfta hela bolaget.
 - **Gratis årssiffror:** upp till tio år hämtas ur bolagens officiella årsredovisningar i ESEF-format (det öppna registret filings.xbrl.org). Kurserna räknas om för aktiesplittar. Bolag på First North läses ur årsredovisningen.
 - **Börsdata är förberett:** kopplingen finns och är avstängd. Den slås på med en egen nyckel och fyller då samma filer. Se metod 22.
+- **Investmentbolag** (som Flat Capital) får i stället rutan **Substansvärde och pris**: premie eller rabatt mot substansvärdet, nu och historiskt.
+- Kursen räknas om till rapportvalutan när de skiljer sig (till exempel NYAB, som redovisar i euro).
 - Ny metod 22 och nya ord i ordlistan. Skriv `hämta årssiffrorna för <bolag>` för att fylla rutan.
 
 ## 2026-11-16 (enklare sida)

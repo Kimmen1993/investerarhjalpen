@@ -25,7 +25,7 @@ Skriptet `verktyg/arsdata.py` hämtar upp till tio år och sparar dem i `bolag/<
 - Bolag på **First North och Spotlight** lämnar inte ESEF. För dem läser Claude flerårsöversikten i den senaste årsredovisningen och lägger till raderna med `"kalla": "rapport"`.
 - **Rättelser:** saknas ett värde i källan (ofta låneskulder, som bolagen redovisar med egna begrepp), skrivs det in för hand under `"rattelser"` i `arsdata.json`, till exempel `{"2024": {"lan": 145.0}}`. Källan skrivs i `kallor.md`. Rättelser skrivs aldrig över av skripten.
 - **Kurser:** årsslutskurserna hämtas gratis från Yahoo och justeras för aktiesplittar. Siffror ur äldre årsredovisningar räknas om till dagens antal aktier.
-- **Valuta:** allt räknas i bolagets rapportvaluta, till exempel danska kronor för Novo Nordisk. Om kursen anges i en annan valuta än rapporterna jämförs inte priset mot historiken.
+- **Valuta:** allt räknas i bolagets rapportvaluta, till exempel danska kronor för Novo Nordisk. Om kursen anges i en annan valuta än rapporterna räknas den om med växelkursen vid varje årsslut (gratis från Yahoo, till exempel EURSEK). Det gäller till exempel NYAB, som redovisar i euro men handlas i kronor.
 
 **Kör:** `python3 -I "$IH/verktyg/arsdata.py" <bolagsmapp>`, eller `--karna` för alla kärnbolag. Gör det vid bolagsanalysen, när en årsredovisning har kommit (februari–april) och vid djupdykningen. Bolagets LEI-kod (identitetsnumret i registret) hittas automatiskt och sparas i `kallor_bevakning.lei`. Om sökningen inte hittar rätt bolag visar `python3 -I "$IH/verktyg/esef.py" <namn>` koderna, så att rätt kod kan skrivas in för hand.
 
@@ -44,7 +44,7 @@ Kopplingen är förberedd i `verktyg/borsdata.py` och avstängd som standard. N�
 |---|---|
 | Rörelsemarginal | Rörelseresultat ÷ försäljning |
 | Bruttomarginal | Bruttoresultat ÷ försäljning. Saknas för bolag som inte redovisar bruttoresultat |
-| Avkastning på sysselsatt kapital (ROCE) | Rörelseresultat ÷ (tillgångar − kortfristiga skulder) |
+| Avkastning på sysselsatt kapital (ROCE) | Rörelseresultat ÷ (tillgångar − kortfristiga skulder). Saknas de kortfristiga skulderna används eget kapital + räntebärande skulder |
 | Avkastning på eget kapital (ROE) | Vinst ÷ eget kapital (snitt av årets början och slut) |
 | Fritt kassaflöde | Kassaflöde från den löpande verksamheten − investeringar i anläggningar och immateriella tillgångar |
 | Kassaflödeskonvertering | Fritt kassaflöde ÷ vinst |
@@ -110,6 +110,20 @@ Samma filosofier som i investerarpanelen, men som siffror som bockas av:
 | **Peter Lynch** | PEG-tal under 2, där under 1 är billigt (bygger på den historiska vinsttillväxten) · försäljningen växer · nettokassa eller nettoskuld under 1 × rörelseresultatet |
 | **Piotroskis F-poäng** | Nio test av om bolaget blev starkare än året innan: vinst, kassaflöde, högre avkastning, kassaflöde större än vinst, lägre skuld, bättre betalningsförmåga, inga nya aktier, högre marginal och mer försäljning per krona i tillgångar. 8–9 är starkt, 0–2 svagt. Test som saknar data räknas inte |
 | **Utdelning** | År med utdelning · år i rad som utdelningen har höjts eller hållits oförändrad · andel av vinsten som delas ut · direktavkastning |
+
+## Investmentbolag: substansvärdet i stället för betyget
+
+Investmentbolag och andra tillgångsbolag (Lynchkategori `tillgang`) tjänar pengar på att innehaven stiger i värde. Vinsten svänger med börsen och säger lite om kvaliteten. De får därför inget kvalitetsbetyg. Rutan heter i stället **Substansvärde och pris** och visar:
+- **Substansvärdet per aktie:** vad innehaven minus skulderna är värda per aktie.
+- **Premie eller rabatt:** kursen jämfört med substansvärdet, nu och vid varje årsslut.
+- **Läget mot historiken:** mer än 10 procentenheter från mittvärdet räknas som större eller mindre rabatt än vanligt.
+- **Substansvärdets utveckling** per aktie och år.
+
+Substansvärdet per år skrivs i `arsdata.json` (`substansvarde` och `substansvarde_per_aktie`). Investmentbolag redovisar det varje kvartal. Det senaste skrivs därför i `karna.json` vid varje rapport, så att premien räknas mot dagens värde och inte mot årsskiftets:
+
+```json
+{"substans_senaste": {"datum": "2026-09-30", "per_aktie": 8.17, "kalla": "Delårsrapport Q3 2026"}}
+```
 
 ## Temahävstången
 

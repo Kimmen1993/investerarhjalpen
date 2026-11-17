@@ -75,7 +75,7 @@ def main():
         karna_res = None
         if status.get("spar") == "karna":
             arsd = json.loads(las(mapp / "arsdata.json") or "null")
-            karna_res = karna.rakna(arsd, kurs, json.loads(las(mapp / "karna.json") or "null")) if arsd else {"ok": False, "skal": "Årssiffrorna är inte hämtade än."}
+            karna_res = karna.rakna(arsd, kurs, json.loads(las(mapp / "karna.json") or "null"), status.get("lynch")) if arsd else {"ok": False, "skal": "Årssiffrorna är inte hämtade än."}
         mojl_fil = mapp / "mojligheter.json"
         mojligheter = None
         if mojl_fil.exists():
